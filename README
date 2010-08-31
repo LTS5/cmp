@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Connectome Mapping Pipeline using NiPype
 EPFL, CHUV, 2010
 
@@ -78,3 +79,6 @@ Steps to do before executing the pipeline
 Documentation
 -------------
 * NiPype http://nipy.sourceforge.net/nipype/index.html
+=======
+Connection matrix part
+
