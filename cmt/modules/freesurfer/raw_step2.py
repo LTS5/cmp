@@ -10,7 +10,7 @@ def copy_orig_to_fs():
     
     log.info("STEP 2a: copying '2__NIFTI/T1.nii' dataset to '3__FREESURFER/mri/orig/001.mgz'...")
 
-    if not os.exists(op.join(gconf.get_nifti4subject(sid), 'T1.nii')):
+    if not op.exists(op.join(gconf.get_nifti4subject(sid), 'T1.nii')):
         log.error("File T1.nii does not exists in subject directory")
         
     
@@ -22,7 +22,7 @@ def copy_orig_to_fs():
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
                         
-    if not os.exists(op.join(gconf.get_fs4subject(sid), 'mri', 'orig', '001.mgz')):
+    if not op.exists(op.join(gconf.get_fs4subject(sid), 'mri', 'orig', '001.mgz')):
         log.error("File 001.mgz has to been generated.")
 
     log.info("[ DONE ]")
@@ -45,9 +45,9 @@ def recon_all():
 def before_wm_corr():
     log.info("STEP 2c: copy stuff for correcting the 'wm mask' to %s" % gconf.wm_exchange_folder);
 
-    if not os.exists(op.join(gconf.get_fs4subject(sid), 'mri', 'T1.mgz')):
+    if not op.exists(op.join(gconf.get_fs4subject(sid), 'mri', 'T1.mgz')):
         log.error('/mir/T1.mgz does not exists in subject folder')
-    if not os.exists(op.join(gconf.get_fs4subject(sid), 'mri', 'wm.mgz')):
+    if not op.exists(op.join(gconf.get_fs4subject(sid), 'mri', 'wm.mgz')):
         log.error('/mir/wm.mgz does not exists in subject folder')
 
     try:
@@ -72,10 +72,10 @@ def before_wm_corr():
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
         
-    if not os.exists(op.join(wm_exchange_folder, sid, 'T1.nii')):
+    if not op.exists(op.join(wm_exchange_folder, sid, 'T1.nii')):
         log.error("Unable to convert the file '/mri/T1.mgz' for subject!")
 
-    if not os.exists(op.join(wm_exchange_folder, sid, 'wm.nii')):
+    if not op.exists(op.join(wm_exchange_folder, sid, 'wm.nii')):
         log.error("Unable to convert the file '/mri/wm.mgz' for subject!")
 
     log.info("[ DONE ]")
@@ -86,7 +86,7 @@ def after_wm_corr():
     
     wm_exchange_folder = op.join(gconf.wm_exchange_folder, sid)
     
-    if not os.exists(op.join(wm_exchange_folder, 'wm_corrected.nii')):
+    if not op.exists(op.join(wm_exchange_folder, 'wm_corrected.nii')):
         log.error('Need to provide a corrected white matter mask wm_corrected.nii in %s' % (wm_exchange_folder))
 
     # XXX rm -f "${DATA_path}/${MY_SUBJECT}/${MY_TP}/3__FREESURFER/mri/wm.mgz"
@@ -99,7 +99,7 @@ def after_wm_corr():
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
     
-    if not os.exists(op.join(wm_exchange_folder, sid, 'wm.nii')):
+    if not op.exists(op.join(wm_exchange_folder, sid, 'wm.nii')):
         log.error("Unable to convert wm_corrected.nii to the file '/mri/wm.mgz' for subject!")
 
     log.info("[ DONE ]")

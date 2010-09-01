@@ -4,7 +4,11 @@
 # EPFL, CHUV, 2010
 
 import os.path
-from cmt.modules import *
+from cmt import *
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+# add a logger server http://www.huyng.com/archives/python-logging-from-multiple-processes/418/
 
 #########################################
 # Data and project specific configuration
@@ -19,7 +23,7 @@ myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt-pipeline/branches/stephan/d
 myp.reg_mode = 'L'
 myp.sharpness_odf = [0]
 myp.do_wm_manual_correction = False
-myp.wm_exchange_folder = None
+# myp.wm_exchange_folder = None
 
 myp.nr_of_gradient_directions = 515
 myp.nr_of_sampling_directions = 181
@@ -27,7 +31,7 @@ myp.nr_of_sampling_directions = 181
 myp.subject_list = { ('control001', 'tp1') :
                      {'workingdir' : os.path.join(myp.project_dir, 'control001', 'tp1'),
                       'age' : 55,
-                      'sex' : X,
+                      'sex' :'X',
                       'description' : 'This subject is totally health!'},
                    }
 
@@ -46,7 +50,7 @@ myp.fsl_home = os.path.join(os.environ['FSL_HOME'])
 
 myp.dtk_home = os.environ['DTDIR']
 # "/home/stephan/Software/dtk"
-dtk_matrices = op.join(self.dtk_dir, 'matrices')
+dtk_matrices = os.path.join(myp.dtk_home, 'matrices')
 
 myp.matlab_home = "/home/stephan/Software/MATLAB/bin"
 myp.matlab_prompt = "matlab -nosplash -nodesktop -r "
@@ -60,7 +64,9 @@ myp.matlab_prompt = "matlab -nosplash -nodesktop -r "
 # Run the pipeline steps
 ########################
 
+
 #freesurfer.run()
-diffusion.run()
-tractograph.run()
-cffconverter.run()
+diffusion.run(myp, ('control001', 'tp1') )
+#tractography.run(myp, ('control001', 'tp1') )
+#cffconverter.run(myp, ('control001', 'tp1') )
+

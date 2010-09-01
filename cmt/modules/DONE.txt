@@ -1,2 +1,0 @@
-
-step3_registration_T1-b0_linear.sh

@@ -51,7 +51,7 @@ def fiber_tracking():
                                      stdout=subprocess.PIPE,
                                      stderr=subprocess.PIPE)
         
-    if not os.exists(op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk')):
+    if not op.exists(op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk')):
         log.error('No streamline.trk created')    
     
     # XXX: rm "${DATA_path}/${MY_SUBJECT}/${MY_TP}/4__CMT/fs_output/registred/HR__registered-TO-b0/fsmask_1mm__8bit.nii"

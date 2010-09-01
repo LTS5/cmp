@@ -33,7 +33,7 @@ class PipelineConfiguration(traits.HasTraits):
     # XXX: is it a list? or an integer that creates a sequence?
     
     # do you want to do manual whit matter mask correction?
-    do_wm_manual_correction = traits.Boolean(desc="do you want to do manual whit matter mask correction?")
+    do_wm_manual_correction = traits.Bool(desc="do you want to do manual whit matter mask correction?")
     
     # folder where to STORE/RETRIEVE files for 'wm mask' manual correction
     wm_exchange_folder = traits.Directory(exits=False, desc="folder where to store and retrieve files for 'wm mask' manual correction")
@@ -83,20 +83,20 @@ class PipelineConfiguration(traits.HasTraits):
         
     def get_fs4subject(self, subject):
         """ Returns the subject root folder path for freesurfer files """
-        return op.join(self.subject_list[subject], '3__FREESURFER')
+        return op.join(self.get_subj_dir(subject), '3__FREESURFER')
         
     def get_nifti4subject(self, subject):
         """ Returns the subject root folder path for nifti files """
-        return op.join(self.subject_list[subject], '2__NIFTI')
+        return op.join(self.get_subj_dir(subject), '2__NIFTI')
 
     def get_cmt_rawdiff4subject(self, subject):
-        return op.join(self.subject_list[subject], '4__CMT', 'raw_diffusion')
+        return op.join(self.get_subj_dir(subject), '4__CMT', 'raw_diffusion')
         
     def get_cmt_fsout4subject(self, subject):
-        return op.join(self.subject_list[subject], '4__CMT', 'fs_output')
+        return op.join(self.get_subj_dir(subject), '4__CMT', 'fs_output')
     
     def get_cmt_fibers4subject(self, subject):
-        return op.join(self.subject_list[subject], '4__CMT', 'fibers')
+        return op.join(self.get_subj_dir(subject), '4__CMT', 'fibers')
         
     def get_cmt_fsmask4subject(self, subject):
         return op.join(self.get_cmt_fsout4subject(subject), 'registred', 'HR__registered-TO-b0')
@@ -114,7 +114,7 @@ class PipelineConfiguration(traits.HasTraits):
         """
         
         # XXX: check fist if it is available at all
-        return op.joing(self.dsi_path, "DSI_matrix_%sx%s.dat" % (self.nr_of_gradient_directions, self.nr_of_sampling_directions))
+        return op.join(self.dtk_matrices, "DSI_matrix_%sx%s.dat" % (self.nr_of_gradient_directions, self.nr_of_sampling_directions))
     
     def get_cmt_binary_path(self):
         """ Returns the path to the binary files for the current platform
@@ -124,9 +124,9 @@ class PipelineConfiguration(traits.HasTraits):
     
             import platform as pf
             if '32' in pf.architecture()[0]:
-                return op.join(join( dirname(__file__), "linux2", "bit32"))
+                return op.join(op.dirname(__file__), "linux2", "bit32")
             elif '64' in pf.architecture()[0]:
-                return op.join(join( dirname(__file__), "linux2", "bit64"))
+                return op.join(op.dirname(__file__), "linux2", "bit64")
             else:
                 raise('No binary files compiled for your platform!')
     
