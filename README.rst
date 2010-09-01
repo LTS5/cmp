@@ -1,7 +1,11 @@
+==========================
 Connectome Mapping Toolkit
 ==========================
-EPFL, CHUV, 2010
 
+Connectome Mapping Toolkit implements a full diffusion MRI processing pipeline,
+from raw DSI/T1/T2 data to multi-resolution connection matrices. 
+
+------------------
 Diffusion MRI Team
 ------------------
 * Alessandro Daducci (daducci)
@@ -13,4 +17,15 @@ Diffusion MRI Team
 * Patric (...)
 * Elda (...)
 * Xavier (...)
-* Daniel Ginsburg (...)
+
+-------
+License
+-------
+
+See LICENSE
+
+---------
+Copyright
+---------
+
+See COPYRIGHT
