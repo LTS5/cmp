@@ -133,6 +133,9 @@ def run(conf, subject_tuple):
     gconf = conf
     sid = subject_tuple
 
+    copy_orig_to_fs()
+    recon_all()
+    
     if gconf.do_manual_wm_correction:
         before_wm_corr()
         after_wm_corr()
