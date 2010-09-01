@@ -2,8 +2,6 @@
 ###################################################  TRACTOGRAPHY   ########################################################
 ###############################################################################################################################################
 
-# Write nodes to wrap alessandros code
-
 
 # You'll need to create a wrapper inheriting from CommandLineInterface define 
 #the input specification and output specificiation as well as implement at least

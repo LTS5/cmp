@@ -4,6 +4,7 @@ to check if the pipeline supports the options """
 
 import enthought.traits.api as traits
 import os.path as op
+import sys
 
 from enthought.traits.api import HasTraits, Instance, Any, Int, Array, NO_COMPARE, Either, Bool, Str
 
@@ -14,19 +15,16 @@ class PipelineConfiguration(traits.HasTraits):
     data_dir = traits.Directory(exists=True, desc="data path where the projects are stored")
     
     # project name
-#    project = "testproject"
     project = traits.Str(desc="the name of the project")
     
     # subject list
 #    subject_list = ['testsubject_tp1']
     subject_list = traits.ListStr(desc="a list of subject names corresponding to their folders")
-    
-    # for each subject, a tuple of timepoints to process
-#    my_tp = [('tp1')]
-    
+        
     # for each subject, this is the time-point where to move
     # "tracto masks" from (LEAVE EMPTY if using the same time-point)
 #    from_tp = []()
+    # XX?
     
     # choose between 'L' (linear) and 'N' (non-linear)
 #    reg_mode = "L"
@@ -84,7 +82,7 @@ class PipelineConfiguration(traits.HasTraits):
     #export MATLABCMD=$pathtomatlabdir/bin/$platform/MATLAB
     
     nr_of_gradient_directions = traits.Int # 515
-    nr_of_X = traits.Int # 181
+    nr_of_sampling_directions = traits.Int # 181
     
     def __init__(self, **kwargs):
         # NOTE: In python 2.6, object.__init__ no longer accepts input
@@ -101,15 +99,48 @@ class PipelineConfiguration(traits.HasTraits):
         """ Returns the subject root folder path for nifti files """
         
         return op.join(self.subject_list[subject], '2__NIFTI')
+
+    def get_cmt_rawdiff4subject(self, subject):
+        
+        return op.join(self.subject_list[subject], '4__CMT', 'raw_diffusion')
+        
+    def get_cmt_fsout4subject(self, subject):
+        
+        return op.join(self.subject_list[subject], '4__CMT', 'fs_output')
+    
+    def get_cmt_fibers4subject(self, subject):
+        
+        return op.join(self.subject_list[subject], '4__CMT', 'fibers')
+        
+    def get_cmt_fsmask4subject(self, subject):
+        
+        return op.join(self.get_cmt_fsout4subject(subject), 'registred', 'HR__registered-TO-b0')
+
         
     def get_dsi_matrix(self):
         """ Returns the correct DSI matrix given the parameters
         
         1. dsi dir
         2. number of gradient directions
-        3. what?
+        3. number of sampling directions
         """
         
         # XXX: check fist if it is available at all
-        return op.joing(self.dsi_path, "DSI_matrix_%sx%s.dat" % (self.nr_of_gradient_directions, self.nr_of_X))
+        return op.joing(self.dsi_path, "DSI_matrix_%sx%s.dat" % (self.nr_of_gradient_directions, self.nr_of_sampling_directions))
+    
+    def get_cmt_binary_path(self):
+        """ Returns the path to the binary files for the current platform
+        and architecture """
+        
+        if sys.platform == 'linux2':
+    
+            import platform as pf
+            if '32' in pf.architecture()[0]:
+                return op.join(join( dirname(__file__), "linux2", "bit32"))
+            elif '64' in pf.architecture()[0]:
+                return op.join(join( dirname(__file__), "linux2", "bit64"))
+            else:
+                raise('No binary files compiled for your platform!')
+    
+    
     
