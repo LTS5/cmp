@@ -12,6 +12,8 @@ def run(conf, subject_tuple):
         Process the given subject
         
     """
+    globals()['gconf'] = conf
+    globals()['sid'] = subject_tuple
     
     print "Happy converting!"
     

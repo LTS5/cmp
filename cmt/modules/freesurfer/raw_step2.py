@@ -3,9 +3,6 @@ import logging as log
 from glob import glob
 import subprocess
 
-global gconf
-global sid
-
 def copy_orig_to_fs():
     
     log.info("STEP 2a: copying '2__NIFTI/T1.nii' dataset to '3__FREESURFER/mri/orig/001.mgz'...")
@@ -130,8 +127,8 @@ def run(conf, subject_tuple):
         
     """
     # setting the global configuration variable
-    gconf = conf
-    sid = subject_tuple
+    globals()['gconf'] = conf
+    globals()['sid'] = subject_tuple
 
     copy_orig_to_fs()
     recon_all()

@@ -1,10 +1,8 @@
 import os, os.path as op
-import logging as log
+import logging
+log = logging.getLogger()
 from glob import glob
 import subprocess
-
-global gconf
-global sid
 
 def convert_wm_mask():
     log("convert WM MASK to 8 bit/pixel")
@@ -79,8 +77,8 @@ def run(conf, subject_tuple):
         
     """
     # setting the global configuration variable
-    gconf = conf
-    sid = subject_tuple
+    globals()['gconf'] = conf
+    globals()['sid'] = subject_tuple
     
     convert_wm_mask()
     fiber_tracking()
