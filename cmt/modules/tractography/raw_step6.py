@@ -3,9 +3,6 @@ import logging as log
 from glob import glob
 import subprocess
 
-# input
-# subject_dir
-# sharpness : list
 cmt_home = os.path.join(os.environ['CMT_HOME'])
 cmt_bin = op.join(cmt_home, 'c++', 'bin')
 raw_diffusion = op.join(subject_dir, '4__CMT', 'raw_diffusion')
@@ -47,7 +44,7 @@ else:
                                  "--angle 45",
                                  "--odf2 %s" % op.join(raw_diffusion, 'odf_0', 'dsi_'),
                                  "--angle2 60",
-                                 "--wm %s" % op.join(fs_mask_dir, 'fsmask_1mm__8bit.nii')
+                                 "--wm %s" % op.join(fs_mask_dir, 'fsmask_1mm__8bit.nii'),
                                  "--rSeed 4",
                                  "--out %s" % op.join(fibers_path, 'streamline')],
                                  cwd = fibers_path,

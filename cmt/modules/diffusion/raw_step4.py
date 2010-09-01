@@ -42,7 +42,10 @@ def compute_odfs():
     
     for sharp in gconf.sharpness:
         
-        odf_out_path = os.mkdirs(op.join(subject_dir, '4__CMT', 'raw_diffusion', 'odf_%s' % str(shapr)))
+        try:
+            odf_out_path = os.makedirs(op.join(subject_dir, '4__CMT', 'raw_diffusion', 'odf_%s' % str(shapr)))
+        except os.error:
+            log.info("%s was already existing" % str(odf_out_path))
     
         # calculate ODF map
         

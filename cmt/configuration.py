@@ -37,6 +37,7 @@ class PipelineConfiguration(traits.HasTraits):
     sharpness_odf = traits.ListInt(desc="number of sharpness parameters")
     # XXX: is it a list? or an integer that creates a sequence?
     
+    do_wm_manual_correction = traits.Boolean()
     # folder where to STORE/RETRIEVE files for 'wm mask' manual correction
 #    wm_exchange_folder = os.path.abspath("/home/dsi/Desktop/wm_correction")
     wm_exchange_folder = traits.Directory(exits=False, desc="folder where to store and retrieve files for 'wm mask' manual correction")
@@ -90,6 +91,16 @@ class PipelineConfiguration(traits.HasTraits):
         # arguments.  HasTraits does not define an __init__ and
         # therefore these args were being ignored.
         super(PipelineConfiguration, self).__init__(**kwargs)
+        
+    def get_fs4subject(self, subject):
+        """ Returns the subject root folder path for freesurfer files """
+        
+        return op.join(self.subject_list[subject], '3__FREESURFER')
+        
+    def get_nifti4subject(self, subject):
+        """ Returns the subject root folder path for nifti files """
+        
+        return op.join(self.subject_list[subject], '2__NIFTI')
         
     def get_dsi_matrix(self):
         """ Returns the correct DSI matrix given the parameters
