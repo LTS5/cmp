@@ -8,8 +8,8 @@ import pickle
 import trackvis
 import struct
 
-global gconf
-global subject_dir
+#global gconf
+#global subject_dir
 
 #7) Create connection matrices (MATLAB way)
 log.info("STEP7: Create connection matrices")
@@ -99,13 +99,13 @@ def DTB__load_endpoints_from_trk(fibersFile):
 # date     : 2010-08-20
 # author   : Christophe Chenes
 #
-# inputs   : fibers.trk, inPath
+# inputs   : inPath
 # outputs  : TEMP_matrix_shape.dat
 #
 # infos    : length
 # nInfos   : 1
 ################################################################################
-def DTB__cmat_shape(inPath, fibFilename):
+def DTB__cmat_shape(inPath):
 
 	print '\n###################################################################\r'
 	print '# DTB__cmat_shape.py                                              #\r'
@@ -125,6 +125,7 @@ def DTB__cmat_shape(inPath, fibFilename):
 #	fibFilename = inPath+sys.argv[2]
 
 	# Check if the corresponding file exist
+	fibFilename = inPath+'fibers/Control_004__streamlines.trk'
 	if not os.path.isfile(fibFilename):
 		print 'ERROR - The file: '+fibFilename+' doesn\'t exist.'
 		sys.exit()
@@ -132,7 +133,7 @@ def DTB__cmat_shape(inPath, fibFilename):
 	# Get the fibers endpoints
 	print '#-----------------------------------------------------------------#\r'
 	print '# Loading fibers endpoints...                                     #\r'
-	endpoints, epLen = EP_Loader.DTB__load_endpoints_from_trk(fibFilename)
+	endpoints, epLen = DTB__load_endpoints_from_trk(fibFilename)
 	print '#-----------------------------------------------------------------#\n'
 
 	# Get the shape's informations
@@ -167,9 +168,49 @@ def DTB__cmat_shape(inPath, fibFilename):
 	print '###################################################################\n'
 ################################################################################
 
+################################################################################
+# file     : DTB__cmat_scalar.py
+# function : Get some scalar informations from the fibers
+# date     : 2010-09-05
+# author   : Christophe Chenes
+#
+# inputs   : inPath
+# outputs  : TEMP_matrix_scalar1.dat, ..., TEMP_matrix_scalarN.nii
+################################################################################
+def DTB__cmat_scalar(inPath):
+	print '\n###################################################################\r'
+	print '# DTB__cmat_scalar.py                                             #\r'
+	print '###################################################################'
+
+	# Check if the corresponding file exist
+	fibFilename = inPath+'fibers/Control_004__streamlines.trk'
+	if not os.path.isfile(fibFilename):
+		print 'ERROR - The file: '+fibFilename+' doesn\'t exist.'
+		sys.exit()
+
+	# For each file in the scalar dir
+	scalarDir = inPath+'scalar/'
+	scalarFiles = numpy.array(os.listdir(scalarDir))
+	nbScalar = scalarFiles.size
+	print '\tScalar informations:'
+	for i in range(0,nbScalar):
+		if (scalarFiles[i] != '.' and scalarFiles[i] != '..' and scalarFiles[i] != '.svn') :
+			crtName = re.search('[a-z,0-9,A-Z]*.nii',scalarFiles[i]).group(0)
+			crtName = re.sub('.nii','',crtName)
+			print '\t\t#'+str(i+1)+' = '+crtName
+
+			# Open the fibers
+			fib, hdr = trackvis.serial_open(fibFilename)
+			for j in range(0, hdr['n_count']):
+				pass
+				
+		
+	print '###################################################################\n'
+################################################################################
+
 # END CHRISTOPHE WORK
 
-def run(conf, subject_tuple):
+def run(subDir):#conf, subject_tuple):
     """ Run the connection matrix step
     
     Parameters
@@ -180,9 +221,10 @@ def run(conf, subject_tuple):
         
     """
     # setting the global configuration variable
-    gconf = conf
-    subject_dir = gconf[subject_tuple]['workingdir']
-    
-    DTB__cmat_shape() # ADD paramters and check what's in "conf"
+    #gconf = conf
+    #subject_dir = gconf[subject_tuple]['workingdir']
+#    DTB__cmat_shape(subDir)
+    DTB__cmat_scalar(subDir)
 
+run(sys.argv[1])
 log.info("[ DONE ]")
