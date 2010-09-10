@@ -8,6 +8,7 @@ import pickle
 import trackvis
 import struct
 import math
+import nibabel
 
 #global gconf
 #global subject_dir
@@ -18,9 +19,6 @@ log.info("STEP7: Create connection matrices")
 # $MY_MATLAB "DTB__create_connection_matrix( '${DATA_path}/${MY_SUBJECT}/${MY_TP}/4__CMT' ); exit"
 
 # XXX -> create a nipype matlab node
-
-# CHRISTOPHE WORK #
-# NOT DONE #
 
 ################################################################################
 # name     : DTB__load_endpoints_from_trk
@@ -38,7 +36,7 @@ def DTB__load_endpoints_from_trk(fibersFile):
 	pc = -1
 	for n in range(0, hdr['n_count']):
 		pcN = int(round( float(100*n)/hdr['n_count'] ))
-		if pcN > pc :#and pcN%10 == 0:	
+		if pcN > pc and pcN%10 == 0:	
 			pc = pcN
 			print '\t\t%4.0f%%' % (pc)
 		M = struct.unpack('<i', fib.read(4))[0]
@@ -100,16 +98,16 @@ def DTB__load_endpoints_from_trk(fibersFile):
 # date     : 2010-08-20
 # author   : Christophe Chenes
 #
-# inputs   : inPath
+# inputs   : inPath, subName
 # outputs  : TEMP_matrix_shape.dat
 #
 # infos    : length
 # nInfos   : 1
 ################################################################################
-def DTB__cmat_shape(inPath):
-
+def DTB__cmat_shape(inPath, subName):
+   
 	print '\n###################################################################\r'
-	print '# DTB__cmat_shape.py                                              #\r'
+	print '# DTB__cmat_shape                                                 #\r'
 	print '###################################################################\n'
 
 	# Useful shape informations
@@ -126,7 +124,7 @@ def DTB__cmat_shape(inPath):
 #	fibFilename = inPath+sys.argv[2]
 
 	# Check if the corresponding file exist
-	fibFilename = inPath+'fibers/Control_004__streamlines.trk'
+	fibFilename = inPath+'fibers/'+subName+'__streamlines.trk'
 	if not os.path.isfile(fibFilename):
 		print 'ERROR - The file: '+fibFilename+' doesn\'t exist.'
 		sys.exit()
@@ -170,24 +168,25 @@ def DTB__cmat_shape(inPath):
 ################################################################################
 
 ################################################################################
-# file     : DTB__cmat_scalar.py
+# name     : DTB__cmat_scalar.py
 # function : Get some scalar informations from the fibers
 # date     : 2010-09-05
 # author   : Christophe Chenes
 #
-# inputs   : inPath
+# inputs   : inPath, subName
 # outputs  : TEMP_matrix_scalar1.dat, ..., TEMP_matrix_scalarN.nii
 ################################################################################
-def DTB__cmat_scalar(inPath):
+def DTB__cmat_scalar(inPath, subName):
 	print '\n###################################################################\r'
-	print '# DTB__cmat_scalar.py                                             #\r'
+	print '# DTB__cmat_scalar                                                #\r'
 	print '###################################################################'
 
 	# Number of informations: mean max min std
 	nInfo = 4
 
 	# Check if the corresponding file exist
-	fibFilename = inPath+'fibers/Control_004__streamlines.trk'
+	fibFilename = inPath+'fibers/'+subName+'__streamlines.trk'
+   #fibFilename = inPath+'fibers/'+subName+'__streamlines.trk'
 	if not os.path.isfile(fibFilename):
 		print 'ERROR - The file: '+fibFilename+' doesn\'t exist.'
 		sys.exit()
@@ -202,6 +201,9 @@ def DTB__cmat_scalar(inPath):
 			crtName = re.search('[a-z,0-9,A-Z]*.nii',scalarFiles[i]).group(0)
 			crtName = re.sub('.nii','',crtName)
 			print '\t\t#'+str(i+1)+' = '+crtName
+			
+			# Open the file
+			scalar = nibabel.load(scalarDir+scalarFiles[i])
 
 			# Open the fibers
 			fib, hdr = trackvis.serial_open(fibFilename)
@@ -222,7 +224,7 @@ def DTB__cmat_scalar(inPath):
 				
 				# For each point compute the mean and max/min
 				for j in range (0, data.shape[0]):
-					#val = getValFromScalarMap(data[j])
+					#val = getValFromScalarMap(data[j], scalar)
 					val = 0
 					fMean += val
 					if val < fMin:
@@ -247,32 +249,85 @@ def DTB__cmat_scalar(inPath):
 				fMatrix[i, 3] = fStd
 				
 			# Save the matrix in a file
-			filename = 'TEMP_scalar_matrix_'+crtName+'.npy'
+			filename = 'TEMP_matrix_scalar_'+crtName+'.npy'
 			filepath = inPath+'fibers/temp_matrices/'
-			numpy.save(filepath+filename)
-					
-				
-		
+			numpy.save(filepath+filename, fMatrix)								
 	print '###################################################################\n'
 ################################################################################
 
-# END CHRISTOPHE WORK
+################################################################################
+# name     : DTB__cmat.py
+# function : Create the connection matrix 
+# date     : 2010-09-10
+# author   : Christophe Chenes
+#
+# inputs   : inPath, subName
+# outputs  : cmat_res1.dat, ..., cmat_resN.dat
+################################################################################
+def DTB__cmat(inPath, subName):
+   print '\n###################################################################\r'
+   print '# DTB__cmat                                                       #\r'
+   print '# Compute the connection matrix                                   #\r'
+   print '###################################################################'	
+   
+   # Open the fibers
+   fibFilename = inPath+'fibers/'+subName+'__streamlines.trk'
+   fib, hdr = trackvis.serial_open(fibFilename)
+   
+   # Read endpoints
+   print '#-----------------------------------------------------------------#\r'
+   print '# Loading fibers endpoints...                                     #\r'
+   endpoints, epLen = DTB__load_endpoints_from_trk(fibFilename)
+   print '#-----------------------------------------------------------------#\n'
+	
+   # For each resolution
+   resolution = numpy.array([33, 60, 125, 250, 500])
+   for r in resolution:
+      print '\t r = '+str(r)+'\r'
+      # Open the corresponding ROI
+      roi = nibabel.load(inPath+'fs_output/registred/HR__registred_T0_b0/scale'+str(r)+'/ROI_HR_th.nii')
+      roiData = roi.get_data()
+      
+      # Create the matrix
+      #matrix = numpy.ndarray((r,r), 'object')
+      n = roiData.max()
+      print '\tn = '+str(n)+'\r'
+      matrix = numpy.zeros((n,n))
+      
+      # For each fiber
+      for i in range(0, hdr['n_count']):
+         
+         # TEMP Add in the corresponding cell the number of fibersFile
+         roiF = roiData[endpoints[i, 0]['v1']][endpoints[i, 0]['v2']][endpoints[i, 0]['v3']]
+         roiL = roiData[endpoints[i, 1]['v1']][endpoints[i, 1]['v2']][endpoints[i, 1]['v3']]
+         matrix[roiF-1, roiL-1] += 1
+      
+      # Save the matrix
+      filename = subName+'__cmat_'+str(r)+'.dat'
+      filepath = inPath+'/fibers/matrices/'
+#      f = open(filepath+filename, 'w')
+#      f.close()
+      numpy.save(filepath+filename,matrix)
+							
+   print '###################################################################\n'
+################################################################################
 
-def run(subDir):#conf, subject_tuple):
-    """ Run the connection matrix step
+def run(subDir, subName):#conf, subject_tuple):
+   """ Run the connection matrix step
     
-    Parameters
-    ----------
-    conf : PipelineConfiguration object
-    subject_tuple : tuple, (subject_id, timepoint)
-        Process the given subject
-        
-    """
-    # setting the global configuration variable
-    #gconf = conf
-    #subject_dir = gconf[subject_tuple]['workingdir']
-#    DTB__cmat_shape(subDir)
-    DTB__cmat_scalar(subDir)
+   Parameters
+   ----------
+   conf : PipelineConfiguration object
+   subject_tuple : tuple, (subject_id, timepoint)
+      Process the given subject
+       
+   """
+   # setting the global configuration variable
+   #gconf = conf
+   #subject_dir = gconf[subject_tuple]['workingdir']
+#   DTB__cmat_shape(subDir, subName)
+#   DTB__cmat_scalar(subDir, subName)
+   DTB__cmat(subDir, subName)
 
-run(sys.argv[1])
+run(sys.argv[1], sys.argv[2])
 log.info("[ DONE ]")
