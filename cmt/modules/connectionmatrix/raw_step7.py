@@ -224,7 +224,7 @@ def DTB__cmat_scalar(inPath, subName):
 				
 				# For each point compute the mean and max/min
 				for j in range (0, data.shape[0]):
-					#val = getValFromScalarMap(data[j], scalar)
+					#val = getValFromScalarMap(data[j], scalar) # TRANSLATION FROM MM TO VOXEL
 					val = 0
 					fMean += val
 					if val < fMin:
@@ -281,7 +281,7 @@ def DTB__cmat(inPath, subName):
    print '#-----------------------------------------------------------------#\n'
 	
    # For each resolution
-   resolution = numpy.array([33, 60, 125, 250, 500])
+   resolution = numpy.array([33, 60, 125, 250, 500]) # CHANGE TO ACCEPT ANY FILE
    for r in resolution:
       print '\t r = '+str(r)+'\r'
       # Open the corresponding ROI
