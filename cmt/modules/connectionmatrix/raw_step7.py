@@ -7,6 +7,7 @@ import numpy
 import pickle
 import trackvis
 import struct
+import math
 
 #global gconf
 #global subject_dir
@@ -182,6 +183,9 @@ def DTB__cmat_scalar(inPath):
 	print '# DTB__cmat_scalar.py                                             #\r'
 	print '###################################################################'
 
+	# Number of informations: mean max min std
+	nInfo = 4
+
 	# Check if the corresponding file exist
 	fibFilename = inPath+'fibers/Control_004__streamlines.trk'
 	if not os.path.isfile(fibFilename):
@@ -201,8 +205,52 @@ def DTB__cmat_scalar(inPath):
 
 			# Open the fibers
 			fib, hdr = trackvis.serial_open(fibFilename)
+			
+			# Create the matrix
+			fMatrix = numpy.zeros((hdr['n_count'],nInfo))
+			
+			# For each fiber
 			for j in range(0, hdr['n_count']):
-				pass
+			
+				# Get the data
+				data = numpy.array(trackvis.serial_read(fib,hdr)[0])
+				
+				# Init measures
+				fMean = 0
+				fMin = sys.maxint
+				fMax = -fMin
+				
+				# For each point compute the mean and max/min
+				for j in range (0, data.shape[0]):
+					#val = getValFromScalarMap(data[j])
+					val = 0
+					fMean += val
+					if val < fMin:
+						fMin = val
+					elif val > fMax:
+						fMax = val
+				fMean = fMean / data.shape[0]
+				
+				# For each point compute the standard deviation
+				fStdSum = 0
+				for j in range (0, data.shape[0]):
+					#val = getValFromScalarMap(data[j])
+					val = 0
+					val = (val-fMean)**2
+					fStdSum += val
+				fStd = math.sqrt(fStdSum / data.shape[0])
+				
+				# Store these informations		
+				fMatrix[i, 0] = fMean		 	
+				fMatrix[i, 1] = fMin				
+				fMatrix[i, 2] = fMax			
+				fMatrix[i, 3] = fStd
+				
+			# Save the matrix in a file
+			filename = 'TEMP_scalar_matrix_'+crtName+'.npy'
+			filepath = inPath+'fibers/temp_matrices/'
+			numpy.save(filepath+filename)
+					
 				
 		
 	print '###################################################################\n'
