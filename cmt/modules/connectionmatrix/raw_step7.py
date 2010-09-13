@@ -45,6 +45,22 @@ def mm2index(mm3, hdrStreamline):
 ################################################################################
 
 ################################################################################
+# name     : getValFromScalarMap
+# function : get the value from the scalar map 
+# date     : 2010-09-13
+# author   : Christophe Chenes
+#
+# input    : mm3, scalar, hdr
+# outputs  : val
+################################################################################
+def getValFromScalarMap(mm3, scalar, hdr):
+   # TODO check the hdr from scalar and fibers
+   index = mm2index(mm3, hdr)
+   val = scalar.get_data()[index[0], index[1], index[2]]
+   return val     
+################################################################################
+
+################################################################################
 # name     : DTB__load_endpoints_from_trk
 # function : Get the endpoints from each fibers
 # date     : 2010-08-20
@@ -230,8 +246,7 @@ def DTB__cmat_scalar(inPath, subName):
 				
 				# For each point compute the mean and max/min
             for j in range (0, data.shape[0]):
-               #val = getValFromScalarMap(data[j], scalar, hdr) # TRANSLATION FROM MM TO VOXEL
-               val = 0
+               val = getValFromScalarMap(data[j], scalar, hdr) # TRANSLATION FROM MM TO VOXEL
                fMean += val
                if val < fMin:
                   fMin = val
@@ -279,15 +294,19 @@ def DTB__cmat(inPath, subName):
    # Open the fibers
    fibFilename = inPath+'fibers/streamline.trk'
    fib, hdr = trackvis.serial_open(fibFilename)
-   
-   # Read endpoints
+   	
+	# Get the fibers endpoints
    print '#-----------------------------------------------------------------#\r'
    print '# Loading fibers endpoints...                                     #\r'
-   endpoints, epLen = DTB__load_endpoints_from_trk(fibFilename)
+   if os.path.isfile(inPath+'/fibers/TEMP_endpoints.npy') and os.path.isfile(inPath+'/fibers/TEMP_epLen.npy'):
+      endpoints = numpy.load(inPath+'/fibers/TEMP_endpoints.npy')
+      epLen = numpy.load(inPath+'/fibers/TEMP_epLen.npy')
+   else:
+      endpoints, epLen = DTB__load_endpoints_from_trk(inPath, subName)
    print '#-----------------------------------------------------------------#\n'
 	
    # For each resolution
-   resolution = numpy.array([33, 60, 125, 250, 500]) # CHANGE TO ACCEPT ANY FILE
+   resolution = numpy.array([33])#, 60, 125, 250, 500]) # CHANGE TO ACCEPT ANY FILE
    for r in resolution:
       print '\t r = '+str(r)+'\r'
       # Open the corresponding ROI
@@ -330,9 +349,9 @@ def run(subDir, subName):#conf, subject_tuple):
    #gconf = conf
    #subject_dir = gconf[subject_tuple]['workingdir']
 #   DTB__load_endpoints_from_trk(subDir, subName)
-   DTB__cmat_shape(subDir, subName)
+#   DTB__cmat_shape(subDir, subName)
 #   DTB__cmat_scalar(subDir, subName)
-#   DTB__cmat(subDir, subName)
+   DTB__cmat(subDir, subName)
 
 run(sys.argv[1], sys.argv[2])
 log.info("[ DONE ]")
