@@ -1,5 +1,6 @@
 import os, os.path as op
-import logging as log
+import logging
+log = logging.getLogger()
 from glob import glob
 import subprocess
 

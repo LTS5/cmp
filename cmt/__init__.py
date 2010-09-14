@@ -1,5 +1,5 @@
 # 1. REGISTRATION
-#import modules.registration.raw_step1 as registration
+import modules.registration.raw_step1 as registration
 
 # 2. FREESURFER
 import modules.freesurfer.raw_step2 as freesurfer

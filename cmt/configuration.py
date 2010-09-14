@@ -38,6 +38,12 @@ class PipelineConfiguration(traits.HasTraits):
     nr_of_gradient_directions = traits.Int # 515
     nr_of_sampling_directions = traits.Int # 181
     
+    # dicom format for the raw data
+    raw_glob = traits.Str(desc='file glob for raw data files')
+    
+    #
+    inspect_registration = traits.Bool(desc='start fslview to inspect the the registration results')
+    
     # use `workingdir` as the disk location to use when running the processes and keeping their outputs.
     # workingdir = traits.Directory(exists=True, desc="disk location to use when running the processes")
     # XXX: not sure yet if we needs this
@@ -75,6 +81,10 @@ class PipelineConfiguration(traits.HasTraits):
         # arguments.  HasTraits does not define an __init__ and
         # therefore these args were being ignored.
         super(PipelineConfiguration, self).__init__(**kwargs)
+        
+    def get_raw4subject(self, subject):
+        """ Return raw data path for subject """
+        return op.join(self.get_subj_dir(subject), '1__RAWDATA')
         
     def get_fs4subject(self, subject):
         """ Returns the subject root folder path for freesurfer files """

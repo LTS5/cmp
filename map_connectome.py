@@ -31,6 +31,11 @@ myp.wm_handling = 3
 myp.nr_of_gradient_directions = 515
 myp.nr_of_sampling_directions = 181
 
+# file types for raw data
+myp.raw_glob = "*.IMA"
+# inspect the results of the registration by starting a fslview instance
+myp.inspect_registration = False
+
 myp.subject_list = { ('control001', 'tp1') :
                      {'workingdir' : os.path.join(myp.project_dir, 'control001', 'tp1'),
                       'age' : 55,
@@ -41,6 +46,7 @@ myp.subject_list = { ('control001', 'tp1') :
 #########################
 # setting the environment
 #########################
+
 myp.cmt_home = os.path.join(os.environ['CMT_HOME'])
 # "/home/stephan/Dev/PyWorkspace/cmt-pipeline/branches/stephan"
 myp.cmt_binary = myp.get_cmt_binary_path()
@@ -58,7 +64,7 @@ myp.dtk_matrices = os.path.join(myp.dtk_home, 'matrices')
 myp.matlab_home = "/home/stephan/Software/MATLAB/bin"
 myp.matlab_prompt = "matlab -nosplash -nodesktop -r "
 
-# XXX: NEED TO SOURC
+# XXX: NEED TO SOURCE ?
 # source "${FSL_HOME}/etc/fslconf/fsl.sh"
 # source "${FREESURFER_HOME}/SetUpFreeSurfer.sh"
 # export MATLABPATH="${CMT_HOME}:${CMT_HOME}/matlab_related:${CMT_HOME}/matlab_related/nifti:${CMT_HOME}/matlab_related/tractography:${CMT_HOME}/registration"
@@ -67,10 +73,9 @@ myp.matlab_prompt = "matlab -nosplash -nodesktop -r "
 # Run the pipeline steps
 ########################
 
-
-freesurfer.run(myp, ('control001', 'tp1') )
+registration.run(myp, ('control001', 'tp1') )
+#freesurfer.run(myp, ('control001', 'tp1') )
 #diffusion.run(myp, ('control001', 'tp1') )
 #tractography.run(myp, ('control001', 'tp1') )
-
 #cffconverter.run(myp, ('control001', 'tp1') )
 
