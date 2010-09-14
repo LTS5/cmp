@@ -12,7 +12,7 @@ def resample_dsi():
     log.info("STEP 4a: Resample the DSI dataset to 2x2x2 mm^3")
 
     input_dsi_file = op.join(gconf.get_nifti4subject(sid), 'DSI.nii')
-    ouput_dsi_file = op.join(gconf.get_rawdiff4subject(sid), 'DSI_resampled_2x2x2.nii')
+    ouput_dsi_file = op.join(gconf.get_cmt_rawdiff4subject(sid), 'DSI_resampled_2x2x2.nii')
     
     # os.mkdirs(op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2'))
     ## what is this folder for?
@@ -22,7 +22,8 @@ def resample_dsi():
     else:
         log.debug("Found file %s" % input_dsi_file)
     
-    proc = subprocess.call(['mri_convert',"--voxsize", "2.0 2.0 2.0", input_dsi_file, ouput_dsi_file],
+    proc = subprocess.call(['mri_convert','-vs 2 2 2', input_dsi_file, ouput_dsi_file],
+                           
                                     cwd = gconf.get_cmt_rawdiff4subject(sid))
     print "Return code", proc
     
@@ -71,7 +72,7 @@ def compute_odfs():
 
     log.info("STEP 4b: Compute the ODFs field(s)")
     
-    ouput_dsi_file = op.join(gconf.get_rawdiff4subject(sid), 'DSI_resampled_2x2x2.nii')
+    ouput_dsi_file = op.join(gconf.get_cmt_rawdiff4subject(sid), 'DSI_resampled_2x2x2.nii')
     
     if not op.exists(ouput_dsi_file):
         log.error("No input file available: %s" % ouput_dsi_file)
@@ -93,7 +94,7 @@ def compute_odfs():
                                  str(gconf.nr_of_gradient_directions),\
                                  str(gconf.nr_of_sampling_directions), \
                                  op.join(odf_out_path, "dsi_"), \
-                                 "-b0 1", "-mat %s" % gconf.get_dsi_matrix(), \
+                                 "-b0", "1", "-mat %s" % gconf.get_dsi_matrix(), \
                                  "-dsi", "-p 4", "-sn 0", "-ot nii", "-s %s" % str(sharp)],
                                  cwd = gconf.get_cmt_rawdiff4subject(sid))
         
