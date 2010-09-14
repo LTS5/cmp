@@ -33,11 +33,7 @@ class PipelineConfiguration(traits.HasTraits):
     # XXX: is it a list? or an integer that creates a sequence?
     
     # do you want to do manual whit matter mask correction?
-    do_wm_manual_correction = traits.Bool(desc="do you want to do manual whit matter mask correction?")
-    
-    # folder where to STORE/RETRIEVE files for 'wm mask' manual correction
-    wm_exchange_folder = traits.Directory(exits=False, desc="folder where to store and retrieve files for 'wm mask' manual correction")
-    # XXX: shouldn't this be a folder relative to the subject/timepoint folder?
+    wm_handling = traits.Int(desc="in what state should the freesurfer step be processed")
     
     nr_of_gradient_directions = traits.Int # 515
     nr_of_sampling_directions = traits.Int # 181
@@ -74,7 +70,6 @@ class PipelineConfiguration(traits.HasTraits):
     matlab_prompt = traits.Str("matlab -nodesktop -nosplash -r")  
 
 
-    
     def __init__(self, **kwargs):
         # NOTE: In python 2.6, object.__init__ no longer accepts input
         # arguments.  HasTraits does not define an __init__ and
@@ -114,7 +109,11 @@ class PipelineConfiguration(traits.HasTraits):
         """
         
         # XXX: check fist if it is available at all
-        return op.join(self.dtk_matrices, "DSI_matrix_%sx%s.dat" % (self.nr_of_gradient_directions, self.nr_of_sampling_directions))
+        fpath = op.join(self.dtk_matrices, "DSI_matrix_%sx%s.dat" % (self.nr_of_gradient_directions, self.nr_of_sampling_directions))
+        if not op.exists(fpath):
+            print "DSI matrix does not exists: %s" % fpath
+            
+        return fpath
     
     def get_cmt_binary_path(self):
         """ Returns the path to the binary files for the current platform

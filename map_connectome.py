@@ -22,8 +22,11 @@ myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt-pipeline/branches/stephan/d
 
 myp.reg_mode = 'L'
 myp.sharpness_odf = [0]
-myp.do_wm_manual_correction = False
-# myp.wm_exchange_folder = None
+
+myp.wm_handling = 3
+# 1: run through the freesurfer step without stopping
+# 2: prepare whitematter mask for correction (store it in subject dir/NIFTI
+# 3: rerun freesurfer part with corrected white matter mask
 
 myp.nr_of_gradient_directions = 515
 myp.nr_of_sampling_directions = 181
@@ -50,7 +53,7 @@ myp.fsl_home = os.path.join(os.environ['FSL_HOME'])
 
 myp.dtk_home = os.environ['DTDIR']
 # "/home/stephan/Software/dtk"
-dtk_matrices = os.path.join(myp.dtk_home, 'matrices')
+myp.dtk_matrices = os.path.join(myp.dtk_home, 'matrices')
 
 myp.matlab_home = "/home/stephan/Software/MATLAB/bin"
 myp.matlab_prompt = "matlab -nosplash -nodesktop -r "
@@ -65,8 +68,9 @@ myp.matlab_prompt = "matlab -nosplash -nodesktop -r "
 ########################
 
 
-#freesurfer.run()
-diffusion.run(myp, ('control001', 'tp1') )
+freesurfer.run(myp, ('control001', 'tp1') )
+#diffusion.run(myp, ('control001', 'tp1') )
 #tractography.run(myp, ('control001', 'tp1') )
+
 #cffconverter.run(myp, ('control001', 'tp1') )
 
