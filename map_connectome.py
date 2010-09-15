@@ -18,6 +18,8 @@ from cmt.configuration import PipelineConfiguration
 myp = PipelineConfiguration()
 
 myp.project_name = 'Testproject'
+myp.project_metadata = {}
+
 myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt-pipeline/branches/stephan/data/test_project'
 
 myp.reg_mode = 'L'
@@ -40,7 +42,7 @@ myp.subject_list = { ('control001', 'tp1') :
                      {'workingdir' : os.path.join(myp.project_dir, 'control001', 'tp1'),
                       'age' : 55,
                       'sex' :'X',
-                      'description' : 'This subject is totally health!'},
+                      'description' : 'This subject is totally healthy!'},
                    }
 
 #########################
@@ -73,9 +75,9 @@ myp.matlab_prompt = "matlab -nosplash -nodesktop -r "
 # Run the pipeline steps
 ########################
 
-registration.run(myp, ('control001', 'tp1') )
+dicomconverter.run(myp,('control001', 'tp1') )
+#registration.run(myp, ('control001', 'tp1') )
 #freesurfer.run(myp, ('control001', 'tp1') )
 #diffusion.run(myp, ('control001', 'tp1') )
 #tractography.run(myp, ('control001', 'tp1') )
 #cffconverter.run(myp, ('control001', 'tp1') )
-

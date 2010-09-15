@@ -1,3 +1,6 @@
+# 0. DICOM CONVERTER
+import modules.converter.raw_step0 as dicomconverter
+
 # 1. REGISTRATION
 import modules.registration.raw_step1 as registration
 
@@ -19,5 +22,5 @@ import modules.tractography.raw_step6 as tractography
 # 7. CONNECTION MATRIX
 #import modules.connectionmatrix.raw_step7 as connectionmatrix
 
-# 8. CONVERTER
+# 8. CFF CONVERTER
 import modules.converter.raw_step8 as cffconverter

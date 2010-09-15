@@ -16,6 +16,9 @@ class PipelineConfiguration(traits.HasTraits):
     # project name
     project_name = traits.Str(desc="the name of the project")
         
+    # project metadata (for connectome file)
+    project_metadata = traits.Dict(desc="project metadata to be stored in the connectome file")
+        
     # subject list
     subject_list = traits.Dict(desc="a list of subject names corresponding to their folders")
         
@@ -75,7 +78,6 @@ class PipelineConfiguration(traits.HasTraits):
     matlab_home = traits.Directory(exists=True, desc="")
     matlab_prompt = traits.Str("matlab -nodesktop -nosplash -r")  
 
-
     def __init__(self, **kwargs):
         # NOTE: In python 2.6, object.__init__ no longer accepts input
         # arguments.  HasTraits does not define an __init__ and
@@ -109,7 +111,6 @@ class PipelineConfiguration(traits.HasTraits):
     def get_subj_dir(self, subject):
         return self.subject_list[subject]['workingdir']
     
-        
     def get_dsi_matrix(self):
         """ Returns the correct DSI matrix given the parameters
         
@@ -139,5 +140,12 @@ class PipelineConfiguration(traits.HasTraits):
             else:
                 raise('No binary files compiled for your platform!')
     
+    def consistency_check(self):
+        """ Provides a checking facility for configuration objects """
+        
+        # check if software paths exists
+        
+        # valid sharpness field
     
+        pass
     

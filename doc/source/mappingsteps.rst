@@ -1,5 +1,6 @@
 Connectome Mapping Steps
 ------------------------
+0. DICOM CONVERTER
 1. REGISTRATION
 2. FREESURFER
 3. MASK: ROI_HR_th.nii / fsmask_1mm.nii CREATION (MASKCREATION)
@@ -7,5 +8,4 @@ Connectome Mapping Steps
 5. REGISTRATION: Apply registration ROI/WM --> b0
 6. TRACTOGRAPHY
 7. CONNECTION MATRIX
-8. CONVERTER
-
+8. CONNECTOME FILE CONVERTER
