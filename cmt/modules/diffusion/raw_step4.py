@@ -55,7 +55,7 @@ def compute_odfs():
     if not op.exists(ouput_dsi_file):
         log.error("No input file available: %s" % ouput_dsi_file)
     
-    for sharp in gconf.sharpness_odf:
+    for sharp in gconf.mode_parameters['sharpness_odf']:
         
         odf_out_path = op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_%s' % str(sharp))
         try:
@@ -68,8 +68,8 @@ def compute_odfs():
         # XXX: rm -f "odf_${sharpness}/dsi_"*
 
         odf_cmd = ['odf_recon %s %s %s %s -b0 1 -mat %s -dsi -p 4 -sn 0 -ot nii -s %s' % (ouput_dsi_file, 
-                                 str(gconf.nr_of_gradient_directions),
-                                 str(gconf.nr_of_sampling_directions), 
+                                 str(gconf.mode_parameters['nr_of_gradient_directions']),
+                                 str(gconf.mode_parameters['nr_of_sampling_directions']), 
                                  op.join(odf_out_path, "dsi_"),
                                  gconf.get_dsi_matrix(),
                                  str(sharp) ) ]

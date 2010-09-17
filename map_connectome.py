@@ -18,20 +18,43 @@ from cmt.configuration import PipelineConfiguration
 myp = PipelineConfiguration()
 
 myp.project_name = 'Testproject'
-myp.project_metadata = {}
-
 myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt-pipeline/branches/stephan/data/test_project'
+myp.project_metadata = {# required metadata
+                        'generator' : 'cmt 1.1',
+                        'initial-creator' : 'Stephan Gerhard',
+                        'institution' : 'EPFL / CHUV',
+                        'creation-date' : '2010-09-17',
+                        'modification-date' : '2010-09-17',
+                        'species' : 'Homo sapiens',
+                        'targetspace' : 'MNI305',
+                        'legal-notice' : '',
+                        'reference' : '',
+                        'url' : '',
+                        'description' : 'This is the first connectome file created with cmt',
+                        # optional metadata
+                        'metadata' : {'nr_of_subjects' : 2,
+                                      'project_dir' : myp.project_dir}
+                        }
 
-myp.reg_mode = 'L'
+myp.registration_mode = 'L'
+
+myp.processing_mode = 'DSI'
+myp.mode_parameters = {'sharpness_odf' : [0],
+                       'nr_of_gradient_directions' : 515,
+                       'nr_of_sampling_directions' : 181}
+
+
 myp.sharpness_odf = [0]
+myp.nr_of_gradient_directions = 515
+myp.nr_of_sampling_directions = 181
+
 
 myp.wm_handling = 3
 # 1: run through the freesurfer step without stopping
 # 2: prepare whitematter mask for correction (store it in subject dir/NIFTI
 # 3: rerun freesurfer part with corrected white matter mask
 
-myp.nr_of_gradient_directions = 515
-myp.nr_of_sampling_directions = 181
+
 
 # file types for raw data
 myp.raw_glob = "*.IMA"
@@ -71,6 +94,9 @@ myp.matlab_prompt = "matlab -nosplash -nodesktop -r "
 # source "${FREESURFER_HOME}/SetUpFreeSurfer.sh"
 # export MATLABPATH="${CMT_HOME}:${CMT_HOME}/matlab_related:${CMT_HOME}/matlab_related/nifti:${CMT_HOME}/matlab_related/tractography:${CMT_HOME}/registration"
 
+# consistency check the configuration
+myp.consistency_check()
+
 ########################
 # Run the pipeline steps
 ########################
@@ -80,4 +106,6 @@ dicomconverter.run(myp,('control001', 'tp1') )
 #freesurfer.run(myp, ('control001', 'tp1') )
 #diffusion.run(myp, ('control001', 'tp1') )
 #tractography.run(myp, ('control001', 'tp1') )
+
+# out-of-main-loop:
 #cffconverter.run(myp, ('control001', 'tp1') )

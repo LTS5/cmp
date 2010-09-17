@@ -43,7 +43,7 @@ def fiber_tracking():
     if not op.exists(gconf.get_cmt_fibers4subject(sid)):
         fibers_path = os.makedirs(gconf.get_cmt_fibers4subject(sid))
     
-    if len(gconf.sharpness_odf) == 1:
+    if len(gconf.mode_parameters['sharpness_odf']) == 1:
         # normal streamline
         
         dtb_cmd = ['DTB_streamline', \
@@ -65,7 +65,7 @@ def fiber_tracking():
         
     else:
         # streamline with 2 ODFs
-        for ele in gconf.sharpness_odf:
+        for ele in gconf.mode_parameters['sharpness_odf']:
             log.info("Compute streamline for element %s" % ele)
             
             dtb_cmd = ['DTB_streamline', \

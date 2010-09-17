@@ -6,83 +6,90 @@ import enthought.traits.api as traits
 import os.path as op
 import sys
 
-from enthought.traits.api import HasTraits, Instance, Any, Int, Array, NO_COMPARE, Either, Bool, Str
-
 class PipelineConfiguration(traits.HasTraits):
-    
-    # data path where the projects are
-    project_dir = traits.Directory(exists=True, desc="data path to where the projects are stored")
-    
+       
     # project name
     project_name = traits.Str(desc="the name of the project")
         
     # project metadata (for connectome file)
     project_metadata = traits.Dict(desc="project metadata to be stored in the connectome file")
-        
+
+    # data path where the project is
+    project_dir = traits.Directory(exists=True, desc="data path to where the project is stored")
+    
     # subject list
-    subject_list = traits.Dict(desc="a list of subject names corresponding to their folders")
-        
-    # for each subject, this is the time-point where to move
-    # "tracto masks" from (LEAVE EMPTY if using the same time-point)
-    # from_tp = []()
-    # XXX, sg: what is this for? can this go into subject metadata?
+    subject_list = traits.Dict(desc="a dictionary representing information about single subjects")
     
     # choose between 'L' (linear) and 'N' (non-linear)
-    reg_mode = traits.Either("L", "N", desc="registration mode: linear or non-linear")
+    registration_mode = traits.Either("L", "N", desc="registration mode: linear or non-linear")
     
-    # sharpness for the 2? ODF (NB: set to 0 if using only 1 ODF)
-#    sharpness_20df = "0"
-    sharpness_odf = traits.ListInt(desc="number of sharpness parameters")
-    # XXX: is it a list? or an integer that creates a sequence?
+    # going to support qBall, HARDI
+    processing_mode = traits.Enum( ['DSI', 'DTI'], desc="diffusion MRI processing mode available")   
     
     # do you want to do manual whit matter mask correction?
     wm_handling = traits.Int(desc="in what state should the freesurfer step be processed")
     
-    nr_of_gradient_directions = traits.Int # 515
-    nr_of_sampling_directions = traits.Int # 181
-    
     # dicom format for the raw data
     raw_glob = traits.Str(desc='file glob for raw data files')
     
-    #
+    # start up fslview
     inspect_registration = traits.Bool(desc='start fslview to inspect the the registration results')
-    
-    # use `workingdir` as the disk location to use when running the processes and keeping their outputs.
-    # workingdir = traits.Directory(exists=True, desc="disk location to use when running the processes")
-    # XXX: not sure yet if we needs this
-    
+
+    # matlab invocation prompt
+    matlab_prompt = traits.Str("matlab -nodesktop -nosplash -r")  
+        
     ################################
     # External package Configuration
     ################################
-    
-    cmt_home = traits.Directory(exists=True, desc="contains data files shipped with the pipeline")
-    
-    cmt_bin = traits.Directory(exists=True, desc="contains binary files shipped with the pipeline")
-    cmt_matlab = traits.Directory(exists=True, desc="contains matlab related files shipped with the pipeline")
+
     
     # XXX: think about
     # /colortable_and_gcs
     # /matlab_related
     # /registration
     # /resampled_lpi_atlas
-    
-    freesurfer_home = traits.Directory(exists=True, desc="")
-    # XXX: do we need this?
-    # freesurfer_subjects = traits.Directory(exists=True, desc="")
 
-    fsl_home = traits.Directory(exists=True, desc="")
-
-    dtk_home = traits.Directory(exists=True, desc="")
-    dtk_matrices = traits.Directory(exists=True, desc="")
-
-    matlab_home = traits.Directory(exists=True, desc="")
-    matlab_prompt = traits.Str("matlab -nodesktop -nosplash -r")  
+    cmt_home = traits.Directory(exists=True, desc="contains data files shipped with the pipeline")
+    cmt_bin = traits.Directory(exists=True, desc="contains binary files shipped with the pipeline")
+    cmt_matlab = traits.Directory(exists=True, desc="contains matlab related files shipped with the pipeline")
+    freesurfer_home = traits.Directory(exists=True, desc="path to Freesurfer 5.0+")
+    fsl_home = traits.Directory(exists=True, desc="path to FSL")
+    dtk_home = traits.Directory(exists=True, desc="path to diffusion toolkit")
+    dtk_matrices = traits.Directory(exists=True, desc="path to diffusion toolkit matrices")
+    matlab_home = traits.Directory(exists=True, desc="path to matlab")
 
     def __init__(self, **kwargs):
         # NOTE: In python 2.6, object.__init__ no longer accepts input
         # arguments.  HasTraits does not define an __init__ and
         # therefore these args were being ignored.
         super(PipelineConfiguration, self).__init__(**kwargs)
+
+    def consistency_check(self):
+        """ Provides a checking facility for configuration objects """
+        
+        # check if software paths exists
+        pas = [self.cmt_home, self.cmt_bin, self.cmt_matlab, self.freesurfer_home, \
+               self.fsl_home, self.dtk_home, self.dtk_matrices, self.matlab_home]
+        for p in pas:
+            if not op.exists(p):
+                msg = 'Required software path does not exists: %s' % p
+                Exception(msg)
+                
+        if self.processing_mode == 'DSI':
+            ke = self.mode_parameters.keys()
+            if not 'sharpness_odf' in ke:
+                Exception('Parameter "sharpness_odf" not set as key in mode_parameters. Required for DSI.')
+            else:
+                if len(self.mode_parameters['sharpness_odf']) > 2:
+                    Exception('Too many values for sharpness_odf parameter. Maximally two.')
+                
+            if not 'nr_of_gradient_directions' in ke:
+                Exception('Parameter "nr_of_gradient_directions" not set as key in mode_parameters. Required for DSI.')
+                
+            if not 'nr_of_sampling_directions' in ke:
+                Exception('Parameter "nr_of_sampling_directions" not set as key in mode_parameters. Required for DSI.')
+                
+            
         
     def get_raw4subject(self, subject):
         """ Return raw data path for subject """
@@ -140,12 +147,5 @@ class PipelineConfiguration(traits.HasTraits):
             else:
                 raise('No binary files compiled for your platform!')
     
-    def consistency_check(self):
-        """ Provides a checking facility for configuration objects """
-        
-        # check if software paths exists
-        
-        # valid sharpness field
-    
-        pass
+
     
