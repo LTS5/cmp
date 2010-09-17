@@ -16,10 +16,6 @@ import nibabel
 #7) Create connection matrices (MATLAB way)
 log.info("STEP7: Create connection matrices")
 
-# $MY_MATLAB "DTB__create_connection_matrix( '${DATA_path}/${MY_SUBJECT}/${MY_TP}/4__CMT' ); exit"
-
-# XXX -> create a nipype matlab node
-
 ################################################################################
 # name     : mm2index
 # function : Translate mm to index
@@ -66,12 +62,12 @@ def getValFromScalarMap(mm3, scalar, hdr):
 # date     : 2010-08-20
 # author   : Christophe Chenes
 #
-# input    : fibers.trk file
+# input    : fib, hdr, inPath, subName
 # outputs  : endpoints.npy, length.npy
 ################################################################################
-def DTB__load_endpoints_from_trk(inPath, subName):
-	fibFilename = inPath+'fibers/streamline.trk'
-	fib, hdr = trackvis.serial_open(fibFilename)
+def DTB__load_endpoints_from_trk(fib, hdr, inPath, subName):#inPath, subName):
+#	fibFilename = inPath+'fibers/streamline.trk'
+#	fib, hdr = nibabel.trackvis.read(fibFilename) #trackvis.serial_open(fibFilename)
 	endpoints = numpy.ndarray((hdr['n_count'],2),'object')
 	epLen = numpy.zeros((hdr['n_count'],1))
 	pc = -1
@@ -80,38 +76,43 @@ def DTB__load_endpoints_from_trk(inPath, subName):
 		if pcN > pc and pcN%10 == 0:	
 			pc = pcN
 			print '\t\t%4.0f%%' % (pc)
-		M = struct.unpack('<i', fib.read(4))[0]
-		data = numpy.zeros((3,M))
-		for m in range(0, M):
-			data[0,m] = struct.unpack('<f', fib.read(4))[0]
-			data[1,m] = struct.unpack('<f', fib.read(4))[0]
-			data[2,m] = struct.unpack('<f', fib.read(4))[0]
-			
-			# scalars treatment
-			if hdr['n_scalars'] != 0:
-				print '\tscalars...'
-				for i in range(0,hdr['n_scalars']):
-					tmp = fib.read(4)
-			
-		# keep only first and last
-		data = data[:,[0,M-1]]
+#		M = struct.unpack('<i', fib.read(4))[0]
+#		data = numpy.zeros((3,M))
+#		for m in range(0, M):
+#			data[0,m] = struct.unpack('<f', fib.read(4))[0]
+#			data[1,m] = struct.unpack('<f', fib.read(4))[0]
+#			data[2,m] = struct.unpack('<f', fib.read(4))[0]
+#			
+#			# scalars treatment
+#			if hdr['n_scalars'] != 0:
+#				print '\tscalars...'
+#				for i in range(0,hdr['n_scalars']):
+#					tmp = fib.read(4)
+#			
+#		# keep only first and last
+#		data = data[:,[0,M-1]]
+
+      # Get the first and last point for the current fiber
+		dataFiber = numpy.array(fib[n][0])
+		dataFirst = dataFiber[0]
+		dataLast = dataFiber[dataFiber.shape[0]-1]		      
 		
 		# Translate from mm to index
 		v = numpy.zeros((3,2))
-		v[:,0] = mm2index(data[:,0], hdr)
-		v[:,1] = mm2index(data[:,1], hdr)
+		v[:,0] = mm2index(dataFirst, hdr)
+		v[:,1] = mm2index(dataLast, hdr)
 			
 		first = {'v1':v[0,0], 'v2':v[1,0], 'v3':v[2,0]}
 		last = {'v1':v[0,1], 'v2':v[1,1], 'v3':v[2,1]}
 		endpoints[n, 0] = first
 		endpoints[n, 1] = last
-		epLen[n] = M-1
+		epLen[n] = dataFiber.shape[0]-1
 		
 		# properties treatment
-		if hdr['n_properties'] != 0:
-			print '\tproperies...'
-			for i in range(0,hdr['n_properties']):
-				tmp = fib.read(4)
+#		if hdr['n_properties'] != 0:
+#			print '\tproperies...'
+#			for i in range(0,hdr['n_properties']):
+#				tmp = fib.read(4)
 		
 	# Save the matrices
 	outPath = inPath+'fibers/'
@@ -142,26 +143,25 @@ def DTB__cmat_shape(inPath, subName):
    infos    = ['length'] 
    stepSize = 0.5
 	
-	# Check if the corresponding file exist
+	# Read the fibers
+   print '#-----------------------------------------------------------------#\r'
+   print '# Read the fibers...                                              #\r'
    fibFilename = inPath+'fibers/streamline.trk'
-   if not os.path.isfile(fibFilename):
-      print 'ERROR - The file: '+fibFilename+' doesn\'t exist.'
-      sys.exit()
-
-   # Get the fibers endpoints
+   fib, hdr = nibabel.trackvis.read(fibFilename) #trackvis.serial_open(fibFilename)
+   print '#-----------------------------------------------------------------#\n'
+   	
+	# Get the fibers endpoints
    print '#-----------------------------------------------------------------#\r'
    print '# Loading fibers endpoints...                                     #\r'
-   if os.path.isfile(inPath+'/fibers/TEMP_endpoints.npy') and os.path.isfile(inPath+'/fibers/TEMP_epLen.npy'):
-      endpoints = numpy.load(inPath+'/fibers/TEMP_endpoints.npy')
-      epLen = numpy.load(inPath+'/fibers/TEMP_epLen.npy')
-   else:
-      endpoints, epLen = DTB__load_endpoints_from_trk(inPath, subName)
+   if not os.path.isfile(inPath+'/fibers/TEMP_endpoints.npy') or not os.path.isfile(inPath+'/fibers/TEMP_epLen.npy'):
+      DTB__load_endpoints_from_trk(fib, hdr, inPath, subName)
+   endpoints = numpy.load(inPath+'/fibers/TEMP_endpoints.npy')
+   epLen = numpy.load(inPath+'/fibers/TEMP_epLen.npy')
    print '#-----------------------------------------------------------------#\n'
-
+	
    # Get the shape's informations
    print '#-----------------------------------------------------------------#\r'
    print '# Shape informations...                                           #\r'
-   fib, hdr = trackvis.serial_open(fibFilename)
    vxDim = hdr['voxel_size'][0]
 
    # Output shape
@@ -174,7 +174,7 @@ def DTB__cmat_shape(inPath, subName):
       length_mat[f,0] = (epLen[f]-1)*stepSize*vxDim;
 	
    # Save the matrix
-   filename = 'TEMP_matrix_shape.dat'
+   filename = 'TEMP_shape.dat'
    filepath = inPath+'/fibers/temp_matrices'
    out_matrix = {'length': length_mat}
    try:
@@ -207,11 +207,15 @@ def DTB__cmat_scalar(inPath, subName):
    # Number of informations: mean max min std
    nInfo = 4
 
-   # Check if the corresponding file exist
+   # Read fibers
+   print '#-----------------------------------------------------------------#\r'
+   print '# Read the fibers...                                              #\r'
    fibFilename = inPath+'fibers/streamline.trk'
    if not os.path.isfile(fibFilename):
       print 'ERROR - The file: '+fibFilename+' doesn\'t exist.'
       sys.exit()
+   fib, hdr = nibabel.trackvis.read(fibFilename)
+   print '#-----------------------------------------------------------------#\n'
 
    # For each file in the scalar dir
    scalarDir = inPath+'scalar/'
@@ -228,7 +232,7 @@ def DTB__cmat_scalar(inPath, subName):
          scalar = nibabel.load(scalarDir+scalarFiles[i])
 
          # Open the fibers
-         fib, hdr = trackvis.serial_open(fibFilename)
+         #fib, hdr = trackvis.serial_open(fibFilename)
 			
 			# Create the matrix
          fMatrix = numpy.zeros((hdr['n_count'],nInfo))
@@ -237,7 +241,7 @@ def DTB__cmat_scalar(inPath, subName):
          for j in range(0, hdr['n_count']):
 			
 				# Get the data
-            data = numpy.array(trackvis.serial_read(fib,hdr)[0])
+            data = numpy.array(fib[j][0])#numpy.array(trackvis.serial_read(fib,hdr)[0])
 				
 				# Init measures
             fMean = 0
@@ -270,7 +274,7 @@ def DTB__cmat_scalar(inPath, subName):
             fMatrix[i, 3] = fStd
 				
 			# Save the matrix in a file
-         filename = 'TEMP_matrix_scalar_'+crtName+'.npy'
+         filename = 'TEMP_'+crtName+'.npy'
          filepath = inPath+'fibers/temp_matrices/'
          numpy.save(filepath+filename, fMatrix)								
    print '###################################################################\n'
@@ -291,24 +295,27 @@ def DTB__cmat(inPath, subName):
    print '# Compute the connection matrix                                   #\r'
    print '###################################################################'	
    
-   # Open the fibers
+   # Read the fibers
+   print '#-----------------------------------------------------------------#\r'
+   print '# Read the fibers...                                              #\r'
    fibFilename = inPath+'fibers/streamline.trk'
-   fib, hdr = trackvis.serial_open(fibFilename)
+   fib, hdr = nibabel.trackvis.read(fibFilename) #trackvis.serial_open(fibFilename)
+   print '#-----------------------------------------------------------------#\n'
    	
 	# Get the fibers endpoints
    print '#-----------------------------------------------------------------#\r'
    print '# Loading fibers endpoints...                                     #\r'
-   if os.path.isfile(inPath+'/fibers/TEMP_endpoints.npy') and os.path.isfile(inPath+'/fibers/TEMP_epLen.npy'):
-      endpoints = numpy.load(inPath+'/fibers/TEMP_endpoints.npy')
-      epLen = numpy.load(inPath+'/fibers/TEMP_epLen.npy')
-   else:
-      endpoints, epLen = DTB__load_endpoints_from_trk(inPath, subName)
+   if not os.path.isfile(inPath+'/fibers/TEMP_endpoints.npy') or not os.path.isfile(inPath+'/fibers/TEMP_epLen.npy'):
+      DTB__load_endpoints_from_trk(fib, hdr, inPath, subName)
+   endpoints = numpy.load(inPath+'/fibers/TEMP_endpoints.npy')
+   epLen = numpy.load(inPath+'/fibers/TEMP_epLen.npy')
    print '#-----------------------------------------------------------------#\n'
 	
    # For each resolution
    resolution = numpy.array([33])#, 60, 125, 250, 500]) # CHANGE TO ACCEPT ANY FILE
    for r in resolution:
       print '\t r = '+str(r)+'\r'
+      
       # Open the corresponding ROI
       roi = nibabel.load(inPath+'fs_output/registred/HR__registred_T0_b0/scale'+str(r)+'/ROI_HR_th.nii')
       roiData = roi.get_data()
@@ -319,6 +326,13 @@ def DTB__cmat(inPath, subName):
       print '\tn = '+str(n)+'\r'
       matrix = numpy.zeros((n,n))
       
+      # Open the shape matrix
+#      f = open(inPath+'fibers/TEMP_shape.npy', 'r')
+#      shape = pickle.load(f)
+#      f.close()
+#      shapeInfo = numpy.array(shape.keys())
+#      nShapeInfo = shapeInfo.size
+            
       # For each fiber
       for i in range(0, hdr['n_count']):
          
@@ -326,9 +340,10 @@ def DTB__cmat(inPath, subName):
          roiF = roiData[endpoints[i, 0]['v1']][endpoints[i, 0]['v2']][endpoints[i, 0]['v3']]
          roiL = roiData[endpoints[i, 1]['v1']][endpoints[i, 1]['v2']][endpoints[i, 1]['v3']]
          matrix[roiF-1, roiL-1] += 1
+            
       
       # Save the matrix
-      filename = subName+'__cmat_'+str(r)+'.dat'
+      filename = subName+'__cmat_'+str(r)+'.npy'
       filepath = inPath+'/fibers/matrices/'
       numpy.save(filepath+filename,matrix)
 							
@@ -346,6 +361,7 @@ def run(subDir, subName):#conf, subject_tuple):
        
    """
    # setting the global configuration variable
+   print 'set global \n'
    #gconf = conf
    #subject_dir = gconf[subject_tuple]['workingdir']
 #   DTB__load_endpoints_from_trk(subDir, subName)
