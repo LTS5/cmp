@@ -5,9 +5,9 @@ Connectome Mapping Toolkit
 Connectome Mapping Toolkit implements a full diffusion MRI processing pipeline,
 from raw DSI/T1/T2 data to multi-resolution connection matrices. 
 
-------------------
-Diffusion MRI Team
-------------------
+Diffusion MRI Team LTS5
+~~~~~~~~~~~~~~~~~~~~~~~
+
 * Alessandro Daducci (daducci)
 * Stephan Gerhard (unidesigner)
 * Christophe Chênes (Cwis)
@@ -15,10 +15,9 @@ Diffusion MRI Team
 * Alia Lemkaddem (allem)
 * Elda Fischi
 
-Collaborators
-~~~~~~~~~~~~~
+Collaborators Children's Hospital Boston
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Children's Hospital Boston
 * Ellen Grant
 * Daniel Ginsburg (danginsburg)
 * Rudolph Pienaar (rudolphpienaar)
