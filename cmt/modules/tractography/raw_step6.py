@@ -34,7 +34,7 @@ def convert_wm_mask():
     log.info("[ DONE ]")
     
 
-def fiber_tracking():
+def fiber_tracking_dsi():
     
     log.info("STEP 6a: run STREAMLINE tractography")
     
@@ -94,6 +94,9 @@ def fiber_tracking():
     log.info("[ DONE ]")
 
 
+def fiber_tracking_dti():
+    pass
+
 def spline_filtering():
     log.info("STEP 6b: spline filtering the fibers")
 
@@ -128,7 +131,12 @@ def run(conf, subject_tuple):
     globals()['gconf'] = conf
     globals()['sid'] = subject_tuple
     
-#    convert_wm_mask()
-#    fiber_tracking()
+    convert_wm_mask()
+    
+    if gconf.processing_mode == 'DSI':
+        fiber_tracking_dsi()
+    elif gconf.processing_mode == 'DTI':
+        fiber_tracking_dti()
+        
     spline_filtering()
     
