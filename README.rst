@@ -11,12 +11,24 @@ Diffusion MRI Team
 * Alessandro Daducci (daducci)
 * Stephan Gerhard (unidesigner)
 * Christophe Chênes (Cwis)
+* Patric Hagmann
+* Alia Lemkaddem (allem)
+* Elda Fischi
 
-* Alia (...)
-* Leila (...)
-* Patric (...)
-* Elda (...)
-* Xavier (...)
+Collaborators
+~~~~~~~~~~~~~
+
+Children's Hospital Boston
+* Ellen Grant
+* Daniel Ginsburg (danginsburg)
+* Rudolph Pienaar (rudolphpienaar)
+
+
+Former
+~~~~~~
+* Leila Cammoun
+* Xavier Gigandet
+
 
 -------
 License
