@@ -14,22 +14,6 @@ def dicom2nifti():
 
     raw_dir = op.join(gconf.get_raw4subject(sid))
     
-    if not op.exists(raw_dir):
-        log.error("Raw data path does not exist: %s" % rawdir)
-        log.error("Please create folder structure according to documentation")
-        raise Exception("Raw data not available")
-    else:
-        dsi_dir = op.join(raw_dir, 'DSI')
-        if not op.exists(dsi_dir):
-            raise Exception("No DSI path in raw data folder")
-        t1_dir = op.join(raw_dir, 'T1')
-        if not op.exists(t1_dir):
-            raise Exception("No T1 path in raw data folder")
-        if gconf.reg_mode == 'N':
-            t2_dir = op.join(t2_dir)
-            if not op.exists(t2_dir):
-                raise Exception("No T2 path in raw data folder")
-            
     nifti_dir = op.join(gconf.get_nifti4subject(sid))
     if not op.exists(nifti_dir):
         try:

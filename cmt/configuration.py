@@ -32,6 +32,9 @@ class PipelineConfiguration(traits.HasTraits):
     # dicom format for the raw data
     raw_glob = traits.Str(desc='file glob for raw data files')
     
+    # custom parcellation
+    parcellation = traits.Dict(desc="provide the dictionary with your parcellation.")
+    
     # start up fslview
     inspect_registration = traits.Bool(desc='start fslview to inspect the the registration results')
 
@@ -42,7 +45,6 @@ class PipelineConfiguration(traits.HasTraits):
     # External package Configuration
     ################################
 
-    
     # XXX: think about
     # /colortable_and_gcs
     # /matlab_related
@@ -88,12 +90,42 @@ class PipelineConfiguration(traits.HasTraits):
                 
             if not 'nr_of_sampling_directions' in ke:
                 Exception('Parameter "nr_of_sampling_directions" not set as key in mode_parameters. Required for DSI.')
-                
+
+        for subj in self.subject_list:
             
+            if not self.subject_list[subj].has_key('workingdir'):
+                msg = 'No working directory defined for subject %s' % str(subj)
+                Exception(msg)
+            else:
+                wdir = self.get_subj_dir(subj)
+                if not op.exists(wdir):
+                    msg = 'Working directory %s does not exists for subject %s' % (wdir, str(subj))
+                    Exception(msg)
+                else:
+                    wdiff = op.join(self.get_raw_diffusion4subject(subj))
+                    if not op.exists(wdiff):
+                        msg = 'Diffusion MRI subdirectory %s does not exists for subject %s' % (wdiff, str(subj))
+                        Exception(msg)
+                    wt1 = op.join(self.get_rawt14subject(subj))
+                    if not op.exists(wt1):
+                        msg = 'Stuctural MRI subdirectory %s does not exists for subject %s' % (wt1, str(subj))
+                        Exception(msg)
+        
         
     def get_raw4subject(self, subject):
         """ Return raw data path for subject """
         return op.join(self.get_subj_dir(subject), '1__RAWDATA')
+    
+    def get_rawt14subject(self, subject):
+        """ Get raw structural MRI for subject """
+        return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'T1')
+        
+    def get_raw_diffusion4subject(self, subject):
+        """ Get the raw diffusion path for subject """
+        if self.processing_mode == 'DSI':
+            return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'DSI')
+        elif self.processing_mode == 'DTI':
+            return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'DTI')
         
     def get_fs4subject(self, subject):
         """ Returns the subject root folder path for freesurfer files """
@@ -119,7 +151,8 @@ class PipelineConfiguration(traits.HasTraits):
         return self.subject_list[subject]['workingdir']
     
     def get_dsi_matrix(self):
-        """ Returns the correct DSI matrix given the parameters
+        """ XXX: Returns the correct DSI matrix given the parameters
+        Should: Return gradient_matrix, optionally forth columns for bvals!
         
         1. dsi dir
         2. number of gradient directions
@@ -133,6 +166,33 @@ class PipelineConfiguration(traits.HasTraits):
             
         return fpath
     
+    def get_parcellation(self):
+        """ Returns the default multi-resolution parcellation dictionary shipped
+        with the pipeline if parcellation attribute is not existing on the configuration object.
+        
+        Otherwise, it returns the custom set parcellation dictionary that
+        contains all information necessary for custom parcellation.
+        
+        """
+        
+        if not has_attr(self, 'parcellation'):
+            
+            default_parcell = {'scale33' : {'number_of_regions' : 0,
+                                            'node_information_graphml' : None, # contains name, url, color, etc. used for connection matrix
+                                            'surface_parcellation' : None, # scalar node values on fsaverage? or atlas?,
+                                            'volume_parcellation' : None, # scalar node values in fsaverage volume?
+                                            },
+                               'scale60' : {},
+                               'scale125' : {},
+                               'scale250' : {},
+                               'scale500' : {}
+                               }
+            
+            return default_parcell
+            
+        else:
+            return self.parcellation
+    
     def get_cmt_binary_path(self):
         """ Returns the path to the binary files for the current platform
         and architecture """
@@ -141,11 +201,11 @@ class PipelineConfiguration(traits.HasTraits):
     
             import platform as pf
             if '32' in pf.architecture()[0]:
-                return op.join(op.dirname(__file__), "linux2", "bit32")
+                return op.join(op.dirname(__file__), "..", "binary", "linux2", "bit32")
             elif '64' in pf.architecture()[0]:
-                return op.join(op.dirname(__file__), "linux2", "bit64")
-            else:
-                raise('No binary files compiled for your platform!')
+                return op.join(op.dirname(__file__), "..", "binary", "linux2", "bit64")
+        else:
+            raise('No binary files compiled for your platform!')
     
 
     

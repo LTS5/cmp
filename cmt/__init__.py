@@ -14,7 +14,7 @@ import modules.freesurfer.raw_step2 as freesurfer
 import modules.diffusion.raw_step4 as diffusion
 
 # 5. REGISTRATION: Apply registration ROI/WM --> b0
-#import modules.registration.raw_step5 as freesurfer_registration
+import modules.registration.raw_step5 as data_registration
 
 # 6. TRACTOGRAPHY
 import modules.tractography.raw_step6 as tractography

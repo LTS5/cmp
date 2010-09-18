@@ -18,7 +18,7 @@ from cmt.configuration import PipelineConfiguration
 myp = PipelineConfiguration()
 
 myp.project_name = 'Testproject'
-myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt-pipeline/branches/stephan/data/test_project'
+myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt/data/test_project'
 myp.project_metadata = {# required metadata
                         'generator' : 'cmt 1.1',
                         'initial-creator' : 'Stephan Gerhard',
@@ -43,17 +43,10 @@ myp.mode_parameters = {'sharpness_odf' : [0],
                        'nr_of_gradient_directions' : 515,
                        'nr_of_sampling_directions' : 181}
 
-
-myp.sharpness_odf = [0]
-myp.nr_of_gradient_directions = 515
-myp.nr_of_sampling_directions = 181
-
-
 myp.wm_handling = 3
 # 1: run through the freesurfer step without stopping
 # 2: prepare whitematter mask for correction (store it in subject dir/NIFTI
 # 3: rerun freesurfer part with corrected white matter mask
-
 
 
 # file types for raw data
@@ -101,10 +94,14 @@ myp.consistency_check()
 # Run the pipeline steps
 ########################
 
-dicomconverter.run(myp,('control001', 'tp1') )
+dicomconverter.run(myp, ('control001', 'tp1') )
 #registration.run(myp, ('control001', 'tp1') )
 #freesurfer.run(myp, ('control001', 'tp1') )
 #diffusion.run(myp, ('control001', 'tp1') )
+
+# test:
+data_registration.run(myp, ('control001', 'tp1') )
+
 #tractography.run(myp, ('control001', 'tp1') )
 
 # out-of-main-loop:
