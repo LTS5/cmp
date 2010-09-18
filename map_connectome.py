@@ -100,7 +100,7 @@ dicomconverter.run(myp, ('control001', 'tp1') )
 #diffusion.run(myp, ('control001', 'tp1') )
 
 # test:
-data_registration.run(myp, ('control001', 'tp1') )
+apply_registration.run(myp, ('control001', 'tp1') )
 
 #tractography.run(myp, ('control001', 'tp1') )
 
