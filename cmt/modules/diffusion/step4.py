@@ -46,6 +46,12 @@ def resample_dsi():
     
 #        os.unlink(op.join(gconf.get_cmt_rawdiff4subject(sid), 'tmp.nii.gz'))
 
+def compute_dts():
+    
+    log.info("Compute diffusion tensor field")
+    
+    
+
 def compute_odfs():    
 
     log.info("STEP 4b: Compute the ODFs field(s)")
@@ -67,12 +73,18 @@ def compute_odfs():
         
         # XXX: rm -f "odf_${sharpness}/dsi_"*
 
-        odf_cmd = ['odf_recon %s %s %s %s -b0 1 -mat %s -dsi -p 4 -sn 0 -ot nii -s %s' % (ouput_dsi_file, 
+        if not gconf.mode_parameters.has_key('odf_recon_parameters'):
+            param = '-b0 1 -dsi -p 4 -sn 0 -ot nii'
+        else:
+            param = gconf.mode_parameters['odf_recon_parameters']
+
+        odf_cmd = ['odf_recon %s %s %s %s -mat %s -s %s %s' % (ouput_dsi_file, 
                                  str(gconf.mode_parameters['nr_of_gradient_directions']),
                                  str(gconf.mode_parameters['nr_of_sampling_directions']), 
                                  op.join(odf_out_path, "dsi_"),
                                  gconf.get_dsi_matrix(),
-                                 str(sharp) ) ]
+                                 str(sharp),
+                                 param ) ]
         
         log.info("Starting odf_recon ...")
         proc = subprocess.Popen(odf_cmd,

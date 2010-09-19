@@ -60,14 +60,37 @@ class PipelineConfiguration(traits.HasTraits):
     dtk_matrices = traits.Directory(exists=True, desc="path to diffusion toolkit matrices")
     matlab_home = traits.Directory(exists=True, desc="path to matlab")
 
-    def __init__(self, **kwargs):
+    def __init__(self, project_name, **kwargs):
         # NOTE: In python 2.6, object.__init__ no longer accepts input
         # arguments.  HasTraits does not define an __init__ and
         # therefore these args were being ignored.
         super(PipelineConfiguration, self).__init__(**kwargs)
 
+        # the default parcellation provided
+        default_parcell = {'scale33' : {'number_of_regions' : 0,
+                                        'node_information_graphml' : None, # contains name, url, color, etc. used for connection matrix
+                                        'surface_parcellation' : None, # scalar node values on fsaverage? or atlas?,
+                                        'volume_parcellation' : None, # scalar node values in fsaverage volume?
+                                        },
+                           'scale60' : {},
+                           'scale125' : {},
+                           'scale250' : {},
+                           'scale500' : {}
+                           }
+        
+        self.parcellation = default_parcell
+        
+        # setting the project name
+        self.project_name = project_name
+        
+
     def consistency_check(self):
         """ Provides a checking facility for configuration objects """
+        
+        # project name not empty
+        if self.project_name == '' or self.project_name == None:
+            msg = 'You have to set a project name!'
+            raise Exception(msg)
         
         # check if software paths exists
         pas = [self.cmt_home, self.cmt_bin, self.cmt_matlab, self.freesurfer_home, \
@@ -75,41 +98,41 @@ class PipelineConfiguration(traits.HasTraits):
         for p in pas:
             if not op.exists(p):
                 msg = 'Required software path does not exists: %s' % p
-                Exception(msg)
+                raise Exception(msg)
                 
         if self.processing_mode == 'DSI':
             ke = self.mode_parameters.keys()
             if not 'sharpness_odf' in ke:
-                Exception('Parameter "sharpness_odf" not set as key in mode_parameters. Required for DSI.')
+                raise Exception('Parameter "sharpness_odf" not set as key in mode_parameters. Required for DSI.')
             else:
                 if len(self.mode_parameters['sharpness_odf']) > 2:
-                    Exception('Too many values for sharpness_odf parameter. Maximally two.')
+                    raise Exception('Too many values for sharpness_odf parameter. Maximally two.')
                 
             if not 'nr_of_gradient_directions' in ke:
-                Exception('Parameter "nr_of_gradient_directions" not set as key in mode_parameters. Required for DSI.')
+                raise Exception('Parameter "nr_of_gradient_directions" not set as key in mode_parameters. Required for DSI.')
                 
             if not 'nr_of_sampling_directions' in ke:
-                Exception('Parameter "nr_of_sampling_directions" not set as key in mode_parameters. Required for DSI.')
+                raise Exception('Parameter "nr_of_sampling_directions" not set as key in mode_parameters. Required for DSI.')
 
         for subj in self.subject_list:
             
             if not self.subject_list[subj].has_key('workingdir'):
                 msg = 'No working directory defined for subject %s' % str(subj)
-                Exception(msg)
+                raise Exception(msg)
             else:
                 wdir = self.get_subj_dir(subj)
                 if not op.exists(wdir):
                     msg = 'Working directory %s does not exists for subject %s' % (wdir, str(subj))
-                    Exception(msg)
+                    raise Exception(msg)
                 else:
                     wdiff = op.join(self.get_raw_diffusion4subject(subj))
                     if not op.exists(wdiff):
                         msg = 'Diffusion MRI subdirectory %s does not exists for subject %s' % (wdiff, str(subj))
-                        Exception(msg)
+                        raise Exception(msg)
                     wt1 = op.join(self.get_rawt14subject(subj))
                     if not op.exists(wt1):
                         msg = 'Stuctural MRI subdirectory %s does not exists for subject %s' % (wt1, str(subj))
-                        Exception(msg)
+                        raise Exception(msg)
         
         
     def get_raw4subject(self, subject):
@@ -166,32 +189,6 @@ class PipelineConfiguration(traits.HasTraits):
             
         return fpath
     
-    def get_parcellation(self):
-        """ Returns the default multi-resolution parcellation dictionary shipped
-        with the pipeline if parcellation attribute is not existing on the configuration object.
-        
-        Otherwise, it returns the custom set parcellation dictionary that
-        contains all information necessary for custom parcellation.
-        
-        """
-        
-        if not has_attr(self, 'parcellation'):
-            
-            default_parcell = {'scale33' : {'number_of_regions' : 0,
-                                            'node_information_graphml' : None, # contains name, url, color, etc. used for connection matrix
-                                            'surface_parcellation' : None, # scalar node values on fsaverage? or atlas?,
-                                            'volume_parcellation' : None, # scalar node values in fsaverage volume?
-                                            },
-                               'scale60' : {},
-                               'scale125' : {},
-                               'scale250' : {},
-                               'scale500' : {}
-                               }
-            
-            return default_parcell
-            
-        else:
-            return self.parcellation
     
     def get_cmt_binary_path(self):
         """ Returns the path to the binary files for the current platform

@@ -15,9 +15,9 @@ logging.basicConfig(level=logging.DEBUG)
 #########################################
 
 from cmt.configuration import PipelineConfiguration
-myp = PipelineConfiguration()
 
-myp.project_name = 'Testproject'
+myp = PipelineConfiguration('Testproject')
+
 myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt/data/test_project'
 myp.project_metadata = {# required metadata
                         'generator' : 'cmt 1.1',
@@ -41,7 +41,10 @@ myp.registration_mode = 'L'
 myp.processing_mode = 'DSI'
 myp.mode_parameters = {'sharpness_odf' : [0],
                        'nr_of_gradient_directions' : 515,
-                       'nr_of_sampling_directions' : 181}
+                       'nr_of_sampling_directions' : 181,
+                       'odf_recon_parameters' : '-b0 1 -dsi -p 4 -sn 0 -ot nii'}
+
+
 
 myp.wm_handling = 3
 # 1: run through the freesurfer step without stopping
