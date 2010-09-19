@@ -42,7 +42,8 @@ myp.processing_mode = 'DSI'
 myp.mode_parameters = {'sharpness_odf' : [0],
                        'nr_of_gradient_directions' : 515,
                        'nr_of_sampling_directions' : 181,
-                       'odf_recon_parameters' : '-b0 1 -dsi -p 4 -sn 0 -ot nii'}
+                       'lin_reg_para' : '-usesqform -nosearch -dof 6 -cost mutualinfo',
+                       'odf_recon_para' : '-b0 1 -dsi -p 4 -sn 0 -ot nii'}
 
 
 
@@ -70,7 +71,7 @@ myp.subject_list = { ('control001', 'tp1') :
 
 myp.cmt_home = os.path.join(os.environ['CMT_HOME'])
 # "/home/stephan/Dev/PyWorkspace/cmt-pipeline/branches/stephan"
-myp.cmt_binary = myp.get_cmt_binary_path()
+myp.cmt_bin = myp.get_cmt_binary_path()
 
 myp.freesurfer_home = os.path.join(os.environ['FREESURFER_HOME'])
 # "/home/stephan/Software/freesurfer" -> /bin
@@ -97,13 +98,15 @@ myp.consistency_check()
 # Run the pipeline steps
 ########################
 
-dicomconverter.run(myp, ('control001', 'tp1') )
+#dicomconverter.run(myp, ('control001', 'tp1') )
+
 #registration.run(myp, ('control001', 'tp1') )
+
 #freesurfer.run(myp, ('control001', 'tp1') )
 #diffusion.run(myp, ('control001', 'tp1') )
 
 # test:
-apply_registration.run(myp, ('control001', 'tp1') )
+#apply_registration.run(myp, ('control001', 'tp1') )
 
 #tractography.run(myp, ('control001', 'tp1') )
 

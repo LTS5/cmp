@@ -13,8 +13,9 @@ import shutil
 
 def apply_registration():
     
-    log.info("STEP 5: Apply the REGISTRATION TRANSFORM to the output of FreeSurfer (WM+GM)")
-    log.inf("(i.e. fsmask_1mm.*, scale33/ROI_HR_th.* etc)")
+    log.info("Apply the REGISTRATION TRANSFORM to the output of FreeSurfer (WM+GM)")
+    log.info("====================================================================")
+    log.info("(i.e. fsmask_1mm.*, scale33/ROI_HR_th.* etc)")
 
     tracto_masks_path = op.join(gconf.get_cmt_fsout4subject(sid), 'HR')
     tracto_masks_path_out = op.join(gconf.get_cmt_fsout4subject(sid), 'HR__registered-TO-b0')
@@ -115,7 +116,7 @@ def apply_registration():
         
         for infile in warp_files:
             log.info("Warp file: %s" % infile)
-            flirt_cmt = 'flirt -applyxfm -init %s -in %s -ref %s -out %s -interp nearestneighbour' % (
+            flirt_cmd = 'flirt -applyxfm -init %s -in %s -ref %s -out %s -interp nearestneighbour' % (
                         out_mat,
                         op.join(tract_masks_path, infile),
                         op.join(gconf.get_nifti4subject(sid), 'DSI_b0_resampled.nii'),
@@ -123,7 +124,7 @@ def apply_registration():
                         )
             
             log.info("Starting flirt ...")
-            proc = subprocess.Popen(flirt_cmt,
+            proc = subprocess.Popen(flirt_cmd,
                                     shell = True,
                                     stdout = subprocess.PIPE,
                                     stderr = subprocess.PIPE,

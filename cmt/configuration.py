@@ -53,7 +53,8 @@ class PipelineConfiguration(traits.HasTraits):
 
     cmt_home = traits.Directory(exists=True, desc="contains data files shipped with the pipeline")
     cmt_bin = traits.Directory(exists=True, desc="contains binary files shipped with the pipeline")
-    cmt_matlab = traits.Directory(exists=True, desc="contains matlab related files shipped with the pipeline")
+#    cmt_matlab = traits.Directory(exists=True, desc="contains matlab related files shipped with the pipeline")
+    
     freesurfer_home = traits.Directory(exists=True, desc="path to Freesurfer 5.0+")
     fsl_home = traits.Directory(exists=True, desc="path to FSL")
     dtk_home = traits.Directory(exists=True, desc="path to diffusion toolkit")
@@ -93,11 +94,16 @@ class PipelineConfiguration(traits.HasTraits):
             raise Exception(msg)
         
         # check if software paths exists
-        pas = [self.cmt_home, self.cmt_bin, self.cmt_matlab, self.freesurfer_home, \
-               self.fsl_home, self.dtk_home, self.dtk_matrices, self.matlab_home]
-        for p in pas:
+        pas = {'configuration.cmt_home' : self.cmt_home,
+               'configuration.cmt_bin' : self.cmt_bin,
+               'configuration.freesurfer_home' : self.freesurfer_home,
+               'configuration.fsl_home' : self.fsl_home,
+               'configuration.dtk_home' : self.dtk_home,
+               'configuration.dtk_matrices' : self.dtk_matrices,
+               'configuration.matlab_home' : self.matlab_home}
+        for k,p in pas.items():
             if not op.exists(p):
-                msg = 'Required software path does not exists: %s' % p
+                msg = 'Required software path for %s does not exists: %s' % (k, p)
                 raise Exception(msg)
                 
         if self.processing_mode == 'DSI':
@@ -198,9 +204,9 @@ class PipelineConfiguration(traits.HasTraits):
     
             import platform as pf
             if '32' in pf.architecture()[0]:
-                return op.join(op.dirname(__file__), "..", "binary", "linux2", "bit32")
+                return op.join(op.dirname(__file__), "binary", "linux2", "bit32")
             elif '64' in pf.architecture()[0]:
-                return op.join(op.dirname(__file__), "..", "binary", "linux2", "bit64")
+                return op.join(op.dirname(__file__), "binary", "linux2", "bit64")
         else:
             raise('No binary files compiled for your platform!')
     

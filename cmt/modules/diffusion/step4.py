@@ -73,10 +73,10 @@ def compute_odfs():
         
         # XXX: rm -f "odf_${sharpness}/dsi_"*
 
-        if not gconf.mode_parameters.has_key('odf_recon_parameters'):
+        if not gconf.mode_parameters.has_key('odf_recon_para'):
             param = '-b0 1 -dsi -p 4 -sn 0 -ot nii'
         else:
-            param = gconf.mode_parameters['odf_recon_parameters']
+            param = gconf.mode_parameters['odf_recon_para']
 
         odf_cmd = ['odf_recon %s %s %s %s -mat %s -s %s %s' % (ouput_dsi_file, 
                                  str(gconf.mode_parameters['nr_of_gradient_directions']),
