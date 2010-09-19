@@ -189,7 +189,9 @@ class PipelineConfiguration(traits.HasTraits):
         """
         
         # XXX: check fist if it is available at all
-        fpath = op.join(self.dtk_matrices, "DSI_matrix_%sx%s.dat" % (self.nr_of_gradient_directions, self.nr_of_sampling_directions))
+        grad = self.mode_parameters['nr_of_gradient_directions']
+        samp = self.mode_parameters['nr_of_sampling_directions']
+        fpath = op.join(self.dtk_matrices, "DSI_matrix_%sx%s.dat" % (grad, samp))
         if not op.exists(fpath):
             print "DSI matrix does not exists: %s" % fpath
             

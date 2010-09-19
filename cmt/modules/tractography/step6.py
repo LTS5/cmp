@@ -1,4 +1,5 @@
 import os, os.path as op
+from time import time
 import logging
 log = logging.getLogger()
 from glob import glob
@@ -6,7 +7,8 @@ import subprocess
 
 def convert_wm_mask():
     
-    log.info("convert WM MASK to 8 bit/pixel")
+    log.info("Convert WM MASK to 8 bit/pixel")
+    log.info("==============================")
     
     log.info("Starting fslmaths ...")
     proc = subprocess.Popen(['fslmaths %s %s -odt char' % ('fsmask_1mm.nii', 
@@ -19,24 +21,25 @@ def convert_wm_mask():
     out, err = proc.communicate()
     log.info(out)
     
-    log.info("Starting mri_convert ...")
-    proc = subprocess.Popen(['mri_convert %s %s' % (
-                             'fsmask_1mm__8bit.nii.gz',
-                             'fsmask_1mm__8bit.nii' )],
-                            cwd = gconf.get_cmt_fsmask4subject(sid),
-                            shell = True,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
-    
-    out, err = proc.communicate()
-    log.info(out)
+#    log.info("Starting mri_convert ...")
+#    proc = subprocess.Popen(['mri_convert %s %s' % (
+#                             'fsmask_1mm__8bit.nii',
+#                             'fsmask_1mm__8bit.nii' )],
+#                            cwd = gconf.get_cmt_fsmask4subject(sid),
+#                            shell = True,
+#                            stdout=subprocess.PIPE,
+#                            stderr=subprocess.PIPE)
+#    
+#    out, err = proc.communicate()
+#    log.info(out)
     
     log.info("[ DONE ]")
     
 
 def fiber_tracking_dsi():
     
-    log.info("STEP 6a: run STREAMLINE tractography")
+    log.info("Run STREAMLINE tractography")
+    log.info("===========================")
     
     # XXX: rm "fibers/streamline.trk" &> /dev/null
     
@@ -53,15 +56,17 @@ def fiber_tracking_dsi():
                                  "--rSeed 4",
                                  "--out %s" % op.join(gconf.get_cmt_fibers4subject(sid), 'streamline')]
         
-        log.info("Starting DTB_streamline ...")
-        proc = subprocess.Popen(' '.join(dtb_cmd),
-                                 cwd = gconf.get_cmt_fibers4subject(sid),
-                                 shell = True,
-                                 stdout=subprocess.PIPE,
-                                 stderr=subprocess.PIPE)
         
-        out, err = proc.communicate()
-        log.info(out)
+        log.info("Starting DTB_streamline ...")
+        proc = subprocess.call(' '.join(dtb_cmd),
+                                 cwd = gconf.get_cmt_fibers4subject(sid),
+                                 shell = True)
+                                
+#                                 stdout=subprocess.PIPE,
+#                                 stderr=subprocess.PIPE)
+        
+#        out, err = proc.communicate()
+#        log.info(out)
         
     else:
         # streamline with 2 ODFs
@@ -98,22 +103,27 @@ def fiber_tracking_dti():
     pass
 
 def spline_filtering():
-    log.info("STEP 6b: spline filtering the fibers")
+    log.info("Spline filtering the fibers")
+    log.info("===========================")
 
     sp_cmd = ['spline_filter',op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk'),\
-               '1', op.join(gconf.get_cmt_fibers4subject(sid), 'tmp.trk') ]
+               '1', op.join(gconf.get_cmt_fibers4subject(sid), 'streamline_spline.trk') ]
 
+    print sp_cmd
     log.info("Starting spline_filter ...")
-    proc = subprocess.Popen(' '.join(sp_cmd),
+    
+    proc = subprocess.call(' '.join(sp_cmd),
                                 cwd = gconf.get_cmt_fibers4subject(sid),
-                                shell = True,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
+                                shell = True)
     
-    out, err = proc.communicate()
-    log.info(out)
+#                                stdout=subprocess.PIPE,
+#                                stderr=subprocess.PIPE)
+#    
+#    out, err = proc.communicate()
+#    log.info(out)
     
-    os.rename(op.join(gconf.get_cmt_fibers4subject(sid), "tmp.trk"), op.join(gconf.get_cmt_fibers4subject(sid), "streamline.trk"))
+#    os.rename(op.join(gconf.get_cmt_fibers4subject(sid), "tmp.trk"), op.join(gconf.get_cmt_fibers4subject(sid), "streamline.trk"))
+
     log.info("[ DONE ]")
 
 
@@ -130,6 +140,7 @@ def run(conf, subject_tuple):
     # setting the global configuration variable
     globals()['gconf'] = conf
     globals()['sid'] = subject_tuple
+    start = time()
     
     convert_wm_mask()
     
@@ -137,6 +148,7 @@ def run(conf, subject_tuple):
         fiber_tracking_dsi()
     elif gconf.processing_mode == 'DTI':
         fiber_tracking_dti()
-        
+
     spline_filtering()
     
+    log.info("Module took %s seconds to process." % (time()-start))

@@ -8,7 +8,8 @@ import subprocess
 
 def resample_dsi():
 
-    log.info("STEP 4a: Resample the DSI dataset to 2x2x2 mm^3")
+    log.info("Resample the DSI dataset to 2x2x2 mm^3")
+    log.info("======================================")
 
     input_dsi_file = op.join(gconf.get_nifti4subject(sid), 'DSI.nii')
     ouput_dsi_file = op.join(gconf.get_cmt_rawdiff4subject(sid), 'DSI_resampled_2x2x2.nii.gz')
@@ -54,7 +55,8 @@ def compute_dts():
 
 def compute_odfs():    
 
-    log.info("STEP 4b: Compute the ODFs field(s)")
+    log.info("Compute the ODFs field(s)")
+    log.info("=========================")
     
     ouput_dsi_file = op.join(gconf.get_cmt_rawdiff4subject(sid), 'DSI_resampled_2x2x2.nii.gz')
     
@@ -89,12 +91,12 @@ def compute_odfs():
         log.info("Starting odf_recon ...")
         proc = subprocess.Popen(odf_cmd,
                                 shell = True,
-                                stdout = subprocess.PIPE,
-                                stderr = subprocess.PIPE,
                                 cwd = gconf.get_cmt_rawdiff4subject(sid))
+#                                stdout = subprocess.PIPE,
+#                                stderr = subprocess.PIPE,
         
-        out, err = proc.communicate()
-        log.info(out)
+#        out, err = proc.communicate()
+#        log.info(out)
         
         if not op.exists(op.join(odf_out_path, "dsi_odf.nii")):
             log.error("Unable to reconstruct ODF!")
@@ -133,6 +135,9 @@ def run(conf, subject_tuple):
     globals()['gconf'] = conf
     globals()['sid'] = subject_tuple
 
-    resample_dsi()
-    compute_odfs()
+    if gconf.processing_mode == 'DSI':
+#        resample_dsi()
+        compute_odfs()
+    elif gconf.processing_mode == 'DTI':
+        compute_dts()
     

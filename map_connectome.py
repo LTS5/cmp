@@ -86,6 +86,8 @@ myp.dtk_matrices = os.path.join(myp.dtk_home, 'matrices')
 myp.matlab_home = "/home/stephan/Software/MATLAB/bin"
 myp.matlab_prompt = "matlab -nosplash -nodesktop -r "
 
+os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
+
 # XXX: NEED TO SOURCE ?
 # source "${FSL_HOME}/etc/fslconf/fsl.sh"
 # source "${FREESURFER_HOME}/SetUpFreeSurfer.sh"
@@ -99,16 +101,12 @@ myp.consistency_check()
 ########################
 
 #dicomconverter.run(myp, ('control001', 'tp1') )
-
 #registration.run(myp, ('control001', 'tp1') )
-
 #freesurfer.run(myp, ('control001', 'tp1') )
 #diffusion.run(myp, ('control001', 'tp1') )
-
-# test:
 #apply_registration.run(myp, ('control001', 'tp1') )
 
-#tractography.run(myp, ('control001', 'tp1') )
+tractography.run(myp, ('control001', 'tp1') )
 
 # out-of-main-loop:
 #cffconverter.run(myp, ('control001', 'tp1') )
