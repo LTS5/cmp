@@ -105,8 +105,8 @@ myp.consistency_check()
 #freesurfer.run(myp, ('control001', 'tp1') )
 #diffusion.run(myp, ('control001', 'tp1') )
 #apply_registration.run(myp, ('control001', 'tp1') )
-
-tractography.run(myp, ('control001', 'tp1') )
+#tractography.run(myp, ('control001', 'tp1') )
+connectionmatrix.run(myp, ('control001', 'tp1') )
 
 # out-of-main-loop:
 #cffconverter.run(myp, ('control001', 'tp1') )

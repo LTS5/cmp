@@ -164,6 +164,9 @@ class PipelineConfiguration(traits.HasTraits):
         """ Returns the subject root folder path for nifti files """
         return op.join(self.get_subj_dir(subject), '2__NIFTI')
 
+    def get_cmt4subject(self, subject):
+        return op.join(self.get_subj_dir(subject), '4__CMT')
+
     def get_cmt_rawdiff4subject(self, subject):
         return op.join(self.get_subj_dir(subject), '4__CMT', 'raw_diffusion')
         

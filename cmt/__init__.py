@@ -20,7 +20,7 @@ import modules.registration.step5 as apply_registration
 import modules.tractography.step6 as tractography
 
 # 7. CONNECTION MATRIX
-#import modules.connectionmatrix.step7 as connectionmatrix
+import modules.connectionmatrix.step7 as connectionmatrix
 
 # 8. CFF CONVERTER
 import modules.converter.step8 as cffconverter
