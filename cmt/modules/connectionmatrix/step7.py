@@ -11,8 +11,9 @@ import os
 import re
 import sys
 import numpy
+import numpy as np
 import pickle
-import trackvis
+
 import struct
 import math
 import nibabel
@@ -69,20 +70,22 @@ def getValFromScalarMap(mm3, scalar, hdr):
 ################################################################################
 def DTB__load_endpoints_from_trk(fib, hdr):
     
-    endpoints = numpy.zeros( (hdr['n_count'], 2, 3) )
-    epLen = numpy.zeros((hdr['n_count']))
-    
+    endpoints = numpy.zeros( (1, 2, 3) )
+    epLen = []
+
     for i, fis in enumerate(fib):
-        print "Working on fiber ", i
         fi = fis[0]
-        endpoints[i,0,:] = mm2index(fi[0], hdr)
-        endpoints[i,1,:] = mm2index(fi[0], hdr)
-        epLen[i] = len(fi)
+        w = np.zeros( (1,2,3) )
+        w[0,0,:] = mm2index(fi[0], hdr)
+        w[0,1,:] = mm2index(fi[-1], hdr)
+        endpoints = numpy.vstack( (endpoints, w) )
+        epLen.append(len(fi))
+        print "On fiber ", i
         		
 	# Save the matrices
 	outPath = gconf.get_cmt_fibers4subject(sid)
-	numpy.save(op.join(outPath, 'TEMP_endpoints.npy'), endpoints)
-	numpy.save(op.join(outPath, 'TEMP_epLen.npy'), epLen)
+	numpy.save(op.join(outPath, 'TEMP_endpoints.npy'), endpoints[1:,:,:])
+	numpy.save(op.join(outPath, 'TEMP_epLen.npy'), numpy.array(epLen))
     
 ################################################################################
 
@@ -268,7 +271,7 @@ def DTB__cmat(inPath, subName):
     print '#-----------------------------------------------------------------#\r'
     print '# Read the fibers...                                              #\r'
     fibFilename = op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk')
-    fib, hdr = nibabel.trackvis.read(fibFilename, True)
+    fib, hdr = nibabel.trackvis.read(fibFilename, False)
     print '#-----------------------------------------------------------------#\n'
     	
     # Get the fibers endpoints

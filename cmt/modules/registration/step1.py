@@ -48,14 +48,16 @@ def lin_regT12b0():
             param)
     
     log.info("Starting flirt ...")
-    proc = subprocess.Popen(flirt_cmd,
-                            shell = True,
-                            stdout = subprocess.PIPE,
-                            stderr = subprocess.PIPE,
-                            cwd = gconf.get_nifti4subject(sid))
+    proc = subprocess.call(flirt_cmd,
+                            shell = True)
     
-    out, err = proc.communicate()
-    log.info(out)
+#                            stdout = subprocess.PIPE,
+#                            stderr = subprocess.PIPE,
+#                            cwd = gconf.get_nifti4subject(sid))
+#    
+    # flirt output not redirected to log!
+#    out, err = proc.communicate()
+#    log.info(out)
     
     if not op.exists(op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.mat')):
         msg = "An error occurred. Linear transformation file %s not generated." % op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.mat')
@@ -67,7 +69,7 @@ def lin_regT12b0():
         log.info("FLIRT has finished. Check the result with FSLVIEW.")        
         fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti4subject(sid), 'DSI_b0_resampled.nii'),
                                                            op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.nii') )
-        
+        print fsl_view_cmd
         subprocess.Popen(fsl_view_cmd)
 
         

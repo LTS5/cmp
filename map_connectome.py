@@ -56,7 +56,7 @@ myp.wm_handling = 3
 # file types for raw data
 myp.raw_glob = "*.IMA"
 # inspect the results of the registration by starting a fslview instance
-myp.inspect_registration = False
+myp.inspect_registration = True
 
 myp.subject_list = { ('control001', 'tp1') :
                      {'workingdir' : os.path.join(myp.project_dir, 'control001', 'tp1'),
@@ -100,13 +100,13 @@ myp.consistency_check()
 # Run the pipeline steps
 ########################
 
-#dicomconverter.run(myp, ('control001', 'tp1') )
-#registration.run(myp, ('control001', 'tp1') )
+dicomconverter.run(myp, ('control001', 'tp1') )
+registration.run(myp, ('control001', 'tp1') )
 #freesurfer.run(myp, ('control001', 'tp1') )
 #diffusion.run(myp, ('control001', 'tp1') )
 #apply_registration.run(myp, ('control001', 'tp1') )
 #tractography.run(myp, ('control001', 'tp1') )
-connectionmatrix.run(myp, ('control001', 'tp1') )
+#connectionmatrix.run(myp, ('control001', 'tp1') )
 
 # out-of-main-loop:
 #cffconverter.run(myp, ('control001', 'tp1') )

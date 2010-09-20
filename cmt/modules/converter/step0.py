@@ -9,6 +9,40 @@ import shutil
 import nibabel.nicom.dicomreaders as dr
 import nibabel as ni
 
+def diff2nifti_diff_unpack():
+
+    raw_dir = op.join(gconf.get_raw4subject(sid))
+    
+    nifti_dir = op.join(gconf.get_nifti4subject(sid))
+    if not op.exists(nifti_dir):
+        try:
+            os.makedirs(nifti_dir)
+        except os.error:
+            log.info("%s was already existing" % str(nifti_dir))
+    
+    
+    if gconf.processing_mode == 'DSI':
+        dsi_dir = op.join(raw_dir, 'DSI')
+        log.info("Convert DSI ...") 
+        # check if .nii / .nii.gz is already available
+        if op.exists(op.join(dsi_dir, 'DSI.nii')):
+            shutil.copy(op.join(dsi_dir, 'DSI.nii'), op.join(nifti_dir, 'DSI.nii'))
+        else:
+            # read data
+            from glob import glob
+            first = sorted(glob(op.join(dsi_dir, gconf.raw_glob)))[0]
+            diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DSI.nii'))
+            
+            subprocess.call(diff_cmd, shell=True)
+    
+        log.info("Resampling 'DSI' to 1x1x1 mm^3...")
+    
+        mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (
+                               op.join(nifti_dir, 'DSI.nii'),
+                               op.join(nifti_dir, 'DSI_b0_resampled.nii'))
+        
+        subprocess.call(mri_cmd, shell=True)
+
 def diff2nifti():
     
     raw_dir = op.join(gconf.get_raw4subject(sid))
@@ -44,7 +78,6 @@ def diff2nifti():
 #MRIalloc(212, 212, 126): could not allocate 89888 bytes for 30142th slice
 #Cannot allocate memory
 # ALSO NOT WITH diff_unpack
-            
         
         log.info("Starting mri_convert ...")
         proc = subprocess.Popen(mri_cmd,
@@ -112,6 +145,22 @@ def t12nifti():
     
         log.info("Dataset 'T1.nii' succesfully created!")
         
+def t12nifti_diff_unpack():
+
+    raw_dir = op.join(gconf.get_raw4subject(sid))
+    nifti_dir = op.join(gconf.get_nifti4subject(sid))
+    
+    log.info("Converting 'T1'...")
+    t1_dir = op.join(raw_dir, 'T1')
+    if op.exists(op.join(t1_dir, 'T1.nii')):
+        shutil.copy(op.join(t1_dir, 'T1.nii'), op.join(nifti_dir, 'T1.nii'))
+    else:
+        from glob import glob
+        first = sorted(glob(op.join(t1_dir, gconf.raw_glob)))[0]
+        diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T1.nii'))
+        
+        subprocess.call(diff_cmd, shell=True)
+        
 def t22nifti():
     
     raw_dir = op.join(gconf.get_raw4subject(sid))
@@ -156,9 +205,12 @@ def run(conf, subject_tuple):
     log.info("DICOM -> NIFTI conversion")
     log.info("=========================")
     
-    diff2nifti()
-    t12nifti()
-    if gconf.registration_mode == 'N':
-        t22nifti()
+    diff2nifti_diff_unpack()
+    #t12nifti_diff_unpack()
     
+#    diff2nifti()
+#    t12nifti()
+#    if gconf.registration_mode == 'N':
+#        t22nifti()
+#    
     
