@@ -1,9 +1,7 @@
 import os, os.path as op
 import sys
 from time import time
-import logging
-log = logging.getLogger()
-
+from ...logme import *
 from glob import glob
 import subprocess
 import shutil
@@ -88,16 +86,7 @@ def apply_registration():
                              op.join(gconf.get_nifti4subject(sid), 'T2-TO-b0_warp.nii'),
                              op.join(tracto_masks_path_out, infile)
                              )
-            
-            log.info("Starting applywarp ...")
-            proc = subprocess.Popen(applywarp_cmt,
-                                    shell = True,
-                                    stdout = subprocess.PIPE,
-                                    stderr = subprocess.PIPE,
-                                    cwd = tracto_masks_path_out)
-            
-            out, err = proc.communicate()
-            log.info(out)
+            runCmd (apply_cmt, log )
             
             if not op.exists(op.join(tracto_masks_path_out, infile)):
                 msg = "An error occurred. File %s not generated." % op.join(tracto_masks_path_out, infile)
@@ -125,15 +114,7 @@ def apply_registration():
                         op.join(tracto_masks_path_out, infile)
                         )
             
-            log.info("Starting flirt ...")
-            proc = subprocess.Popen(flirt_cmd,
-                                    shell = True,
-                                    stdout = subprocess.PIPE,
-                                    stderr = subprocess.PIPE,
-                                    cwd = tracto_masks_path_out)
-            
-            out, err = proc.communicate()
-            log.info(out)
+            runCmd( flirt_cmd, log )
             
             if not op.exists(op.join(tracto_masks_path_out, infile)):
                 msg = "An error occurred. File %s not generated." % op.join(tracto_masks_path_out, infile)
@@ -167,6 +148,8 @@ def run(conf, subject_tuple):
     # setting the global configuration variable
     globals()['gconf'] = conf
     globals()['sid'] = subject_tuple
+    globals()['log'] = gconf.get_logger4subject(sid) 
+    
     start = time()
     
     apply_registration()

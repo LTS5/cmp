@@ -145,6 +145,17 @@ class PipelineConfiguration(traits.HasTraits):
         """ Return raw data path for subject """
         return op.join(self.get_subj_dir(subject), '1__RAWDATA')
     
+    def get_log4subject(self, subject):
+        """ Get subject log dir """
+        return op.join(self.get_subj_dir(subject), '0__LOG')
+    
+    def get_logger4subject(self, subject):
+        """ Get the logger instance created """
+        if not self.subject_list[subject].has_key('logger'):
+            raise Exception('No logger instance available for subject %s' % subject)
+        else: 
+            return self.subject_list[subject]['logger']
+    
     def get_rawt14subject(self, subject):
         """ Get raw structural MRI for subject """
         return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'T1')

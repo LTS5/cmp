@@ -1,7 +1,6 @@
 import os, os.path as op
 from time import time
-import logging
-log = logging.getLogger()
+from ...logme import *
 from glob import glob
 import subprocess
 
@@ -10,28 +9,11 @@ def convert_wm_mask():
     log.info("Convert WM MASK to 8 bit/pixel")
     log.info("==============================")
     
-    log.info("Starting fslmaths ...")
-    proc = subprocess.Popen(['fslmaths %s %s -odt char' % ('fsmask_1mm.nii', 
-                                        'fsmask_1mm__8bit.nii' )],
-                                cwd = gconf.get_cmt_fsmask4subject(sid),
-                                shell = True,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
+    infile = op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm.nii')
+    outfile = op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm__8bit.nii')
     
-    out, err = proc.communicate()
-    log.info(out)
-    
-#    log.info("Starting mri_convert ...")
-#    proc = subprocess.Popen(['mri_convert %s %s' % (
-#                             'fsmask_1mm__8bit.nii',
-#                             'fsmask_1mm__8bit.nii' )],
-#                            cwd = gconf.get_cmt_fsmask4subject(sid),
-#                            shell = True,
-#                            stdout=subprocess.PIPE,
-#                            stderr=subprocess.PIPE)
-#    
-#    out, err = proc.communicate()
-#    log.info(out)
+    fsl_cmd = 'fslmaths %s %s -odt char' % (infile, outfile) 
+    runCmd( fsl_cmd, log )
     
     log.info("[ DONE ]")
     
@@ -46,6 +28,7 @@ def fiber_tracking_dsi():
     if not op.exists(gconf.get_cmt_fibers4subject(sid)):
         fibers_path = os.makedirs(gconf.get_cmt_fibers4subject(sid))
     
+    # XXX: be clear about it
     if len(gconf.mode_parameters['sharpness_odf']) == 1:
         # normal streamline
         
@@ -55,18 +38,9 @@ def fiber_tracking_dsi():
                                  "--wm %s" % op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm__8bit.nii'),
                                  "--rSeed 4",
                                  "--out %s" % op.join(gconf.get_cmt_fibers4subject(sid), 'streamline')]
+        dtb_cmd = ' '.join(dtb_cmd)
         
-        
-        log.info("Starting DTB_streamline ...")
-        proc = subprocess.call(' '.join(dtb_cmd),
-                                 cwd = gconf.get_cmt_fibers4subject(sid),
-                                 shell = True)
-                                
-#                                 stdout=subprocess.PIPE,
-#                                 stderr=subprocess.PIPE)
-        
-#        out, err = proc.communicate()
-#        log.info(out)
+        runCmd( dtb_cmd, log )
         
     else:
         # streamline with 2 ODFs
@@ -81,17 +55,9 @@ def fiber_tracking_dsi():
                                      "--wm %s" % op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm__8bit.nii'),
                                      "--rSeed 4",
                                      "--out %s" % op.join(gconf.get_cmt_fibers4subject(sid), 'streamline')]
-            
-            
-            log.info("Starting DTB_streamline ...")
-            proc = subprocess.Popen(' '.join(dtb_cmd),
-                                     cwd = gconf.get_cmt_fibers4subject(sid),
-                                     shell = True,
-                                     stdout=subprocess.PIPE,
-                                     stderr=subprocess.PIPE)
-            out, err = proc.communicate()
-            log.info(out)
-        
+            dtb_cmd = ' '.join(dtb_cmd)
+            runCmd( dtb_cmd, log )
+                    
     if not op.exists(op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk')):
         log.error('No streamline.trk created')    
     
@@ -106,24 +72,15 @@ def spline_filtering():
     log.info("Spline filtering the fibers")
     log.info("===========================")
 
-    sp_cmd = ['spline_filter',op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk'),\
-               '1', op.join(gconf.get_cmt_fibers4subject(sid), 'streamline_spline.trk') ]
-
-    print sp_cmd
-    log.info("Starting spline_filter ...")
+    sp_cmd = 'spline_filter %s 1 %s' % (op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk'),
+               op.join(gconf.get_cmt_fibers4subject(sid), 'streamline_spline.trk') )
     
-    proc = subprocess.call(' '.join(sp_cmd),
-                                cwd = gconf.get_cmt_fibers4subject(sid),
-                                shell = True)
-    
-#                                stdout=subprocess.PIPE,
-#                                stderr=subprocess.PIPE)
-#    
-#    out, err = proc.communicate()
-#    log.info(out)
+    runCmd( sp_cmd, log )
     
 #    os.rename(op.join(gconf.get_cmt_fibers4subject(sid), "tmp.trk"), op.join(gconf.get_cmt_fibers4subject(sid), "streamline.trk"))
 
+    # XXX: add trackvis for inspection
+    
     log.info("[ DONE ]")
 
 
@@ -140,6 +97,7 @@ def run(conf, subject_tuple):
     # setting the global configuration variable
     globals()['gconf'] = conf
     globals()['sid'] = subject_tuple
+    globals()['log'] = gconf.get_logger4subject(sid) 
     start = time()
     
     convert_wm_mask()

@@ -1,15 +1,15 @@
 import os, os.path as op
-import logging
-log = logging.getLogger()
 from glob import glob
+from time import time
 import subprocess
 import sys
+from ...logme import *
 
 def nlin_regT12b0():
     log.info("T1 -> b0: Non-linear registration")
     log.info("=================================")
        
-        # take result display
+        # XXX: take result display
         
 #            # LINEAR register T1 --> b0
 #            "${CMT_HOME}/registration"/REGISTRATION_pipeline.sh 3a "${MY_SUBJECT}" "${MY_TP}" 1.1
@@ -22,8 +22,6 @@ def nlin_regT12b0():
 #    
 #            # NONLINEAR register T1 --> b0
 #            "${CMT_HOME}/registration"/REGISTRATION_pipeline.sh 3a "${MY_SUBJECT}" "${MY_TP}" 3
-    
-  
     
 
 def lin_regT12b0():
@@ -47,17 +45,7 @@ def lin_regT12b0():
             op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.mat'),
             param)
     
-    log.info("Starting flirt ...")
-    proc = subprocess.call(flirt_cmd,
-                            shell = True)
-    
-#                            stdout = subprocess.PIPE,
-#                            stderr = subprocess.PIPE,
-#                            cwd = gconf.get_nifti4subject(sid))
-#    
-    # flirt output not redirected to log!
-#    out, err = proc.communicate()
-#    log.info(out)
+    runCmd(flirt_cmd, log)
     
     if not op.exists(op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.mat')):
         msg = "An error occurred. Linear transformation file %s not generated." % op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.mat')
@@ -69,10 +57,8 @@ def lin_regT12b0():
         log.info("FLIRT has finished. Check the result with FSLVIEW.")        
         fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti4subject(sid), 'DSI_b0_resampled.nii'),
                                                            op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.nii') )
-        print fsl_view_cmd
-        subprocess.Popen(fsl_view_cmd)
-
-        
+        runCmd( fsl_view_cmd, log )
+    
     log.info("[ DONE ]")
 
 
@@ -89,6 +75,8 @@ def run(conf, subject_tuple):
     # setting the global configuration variable
     globals()['gconf'] = conf
     globals()['sid'] = subject_tuple
+    globals()['log'] = gconf.get_logger4subject(sid) 
+    start = time()
     
     if gconf.registration_mode == 'N':
         nlin_regT12b0()

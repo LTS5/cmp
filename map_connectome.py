@@ -5,8 +5,12 @@
 
 import os.path
 from cmt import *
-import logging
-logging.basicConfig(level=logging.DEBUG)
+#import logging
+#logging.basicConfig(level=logging.DEBUG)
+
+from cmt.logme import *
+
+
 
 # add a logger server http://www.huyng.com/archives/python-logging-from-multiple-processes/418/
 
@@ -100,12 +104,18 @@ myp.consistency_check()
 # Run the pipeline steps
 ########################
 
-dicomconverter.run(myp, ('control001', 'tp1') )
-registration.run(myp, ('control001', 'tp1') )
+sid =  ('control001', 'tp1') 
+
+# setup logger for subject
+myp.subject_list[sid]['logger'] = getLog(os.path.join(myp.get_log4subject(sid), 'pipeline.log')) 
+
+# dicomconverter.run(myp, sid )
+#registration.run(myp, ('control001', 'tp1') )
 #freesurfer.run(myp, ('control001', 'tp1') )
+
 #diffusion.run(myp, ('control001', 'tp1') )
 #apply_registration.run(myp, ('control001', 'tp1') )
-#tractography.run(myp, ('control001', 'tp1') )
+tractography.run(myp, ('control001', 'tp1') )
 #connectionmatrix.run(myp, ('control001', 'tp1') )
 
 # out-of-main-loop:

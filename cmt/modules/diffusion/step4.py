@@ -1,8 +1,7 @@
 import os, os.path as op
 import sys
-import logging
-log = logging.getLogger()
-
+from time import time
+from ...logme import *
 from glob import glob
 import subprocess
 
@@ -14,43 +13,37 @@ def resample_dsi():
     input_dsi_file = op.join(gconf.get_nifti4subject(sid), 'DSI.nii')
     ouput_dsi_file = op.join(gconf.get_cmt_rawdiff4subject(sid), 'DSI_resampled_2x2x2.nii.gz')
     
-    # os.mkdirs(op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2'))
-    ## what is this folder for?
+    res_dsi_dir = op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2') 
     
     if not op.exists(input_dsi_file):
         log.error("File does not exists: %s" % input_dsi_file)
     else:
         log.debug("Found file: %s" % input_dsi_file)
-    
-    log.debug("Output DSI file: %s" % ouput_dsi_file)
-    
-    log.info("Starting mri_convert ...")
-    proc = subprocess.Popen(['mri_convert -vs 2 2 2 %s %s' % (input_dsi_file, ouput_dsi_file)],
-                           shell = True,
-                           stdout = subprocess.PIPE,
-                           stderr = subprocess.PIPE,
-                           cwd = gconf.get_cmt_rawdiff4subject(sid))
-    out, err = proc.communicate()
-    log.info(out)
-    
-    
-    #### XXX: converting to short!
-    
-#        proc = subprocess.call(['fslmaths',"tmp.nii.gz", file, "-dt", "short"],
-#                                    cwd = gconf.get_cmt_rawdiff4subject(sid))
-#                                    shell = True,
-#                                    stdout=subprocess.PIPE,
-#                                    stderr=subprocess.PIPE)
-    
-#        out, err = proc.communicate()
-#        print out
-    
-#        os.unlink(op.join(gconf.get_cmt_rawdiff4subject(sid), 'tmp.nii.gz'))
 
+    if not op.exists(res_dsi_dir):
+        try:
+            os.makedirs(res_dsi_dir)
+        finally:
+            log.info("Created directory %s" % res_dsi_dir)
+            
+    split_cmd = 'fslsplit %s %s -t' % (input_dsi_file, op.join(res_dsi_dir, 'MR'))
+
+#    runCmd( split_cmd, log )
+    
+    files = glob( op.join(res_dsi_dir, 'MR*.nii'))
+    for file in sorted(files):
+        
+        tmp_file = op.join(res_dsi_dir, 'tmp.nii')
+        mri_cmd = 'mri_convert -vs 2 2 2 %s %s ' % (file, tmp_file)
+        runCmd( mri_cmd, log )
+        fsl_cmd = 'fslmaths %s %s -odt short' % (tmp_file, file)
+        runCmd( fsl_cmd, log )        
+
+    log.info(" [DONE] ")
+    
 def compute_dts():
     
     log.info("Compute diffusion tensor field")
-    
     
 
 def compute_odfs():    
@@ -58,10 +51,12 @@ def compute_odfs():
     log.info("Compute the ODFs field(s)")
     log.info("=========================")
     
-    ouput_dsi_file = op.join(gconf.get_cmt_rawdiff4subject(sid), 'DSI_resampled_2x2x2.nii.gz')
+    first_input_file = op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2', 'MR0000.nii')
     
-    if not op.exists(ouput_dsi_file):
-        log.error("No input file available: %s" % ouput_dsi_file)
+    if not op.exists(first_input_file):
+        msg = "No input file available: %s" % first_input_file
+        log.error(msg)
+        raise Exception(msg)
     
     for sharp in gconf.mode_parameters['sharpness_odf']:
         
@@ -80,40 +75,23 @@ def compute_odfs():
         else:
             param = gconf.mode_parameters['odf_recon_para']
 
-        odf_cmd = ['odf_recon %s %s %s %s -mat %s -s %s %s' % (ouput_dsi_file, 
+        odf_cmd = 'odf_recon %s %s %s %s -mat %s -s %s %s' % (first_input_file, 
                                  str(gconf.mode_parameters['nr_of_gradient_directions']),
                                  str(gconf.mode_parameters['nr_of_sampling_directions']), 
                                  op.join(odf_out_path, "dsi_"),
                                  gconf.get_dsi_matrix(),
                                  str(sharp),
-                                 param ) ]
-        
-        log.info("Starting odf_recon ...")
-        proc = subprocess.Popen(odf_cmd,
-                                shell = True,
-                                cwd = gconf.get_cmt_rawdiff4subject(sid))
-#                                stdout = subprocess.PIPE,
-#                                stderr = subprocess.PIPE,
-        
-#        out, err = proc.communicate()
-#        log.info(out)
+                                 param )
+        runCmd (odf_cmd, log )
         
         if not op.exists(op.join(odf_out_path, "dsi_odf.nii")):
             log.error("Unable to reconstruct ODF!")
             
         # calculate GFA map
         # XXX: rm -f "odf_${sharpness}/dsi_gfa.nii"
-        
-        log.info("Starting DTB_gfa ...")
-        proc = subprocess.Popen(['DTB_gfa %s' % "--dsi 'dsi_'"],
-                                 cwd = odf_out_path,
-                                 shell = True,
-                                 stdout=subprocess.PIPE,
-                                 stderr=subprocess.PIPE
-                                 )
-        
-        out, err = proc.communicate()
-        log.info(out)
+
+        dta_cmd = 'DTB_gfa --dsi "%s"' % op.join(odf_out_path, 'dsi_')
+        runCmd( dta_cmd, log )
 
         if not op.exists(op.join(odf_out_path, "dsi_gfa.nii")):
             log.error("Unable to calculate GFA map!")
@@ -134,10 +112,13 @@ def run(conf, subject_tuple):
     # setting the global configuration variable
     globals()['gconf'] = conf
     globals()['sid'] = subject_tuple
-
+    globals()['log'] = gconf.get_logger4subject(sid) 
+    start = time()
+        
     if gconf.processing_mode == 'DSI':
-#        resample_dsi()
+        resample_dsi()
         compute_odfs()
     elif gconf.processing_mode == 'DTI':
         compute_dts()
     
+    log.info("Module took %s seconds to process." % (time()-start))

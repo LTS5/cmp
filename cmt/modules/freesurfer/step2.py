@@ -1,12 +1,13 @@
 import os, os.path as op
-import logging
-log = logging.getLogger()
 from glob import glob
 import subprocess
+from time import time
+
+from ...logme import *
 
 def copy_orig_to_fs():
     
-    log.info("STEP 2a: copying '2__NIFTI/T1.nii' dataset to '3__FREESURFER/mri/orig/001.mgz'...")
+    log.info("Copying '2__NIFTI/T1.nii' dataset to '3__FREESURFER/mri/orig/001.mgz'...")
 
     if not op.exists(op.join(gconf.get_nifti4subject(sid), 'T1.nii')):
         log.error("File T1.nii does not exists in subject directory")
@@ -17,20 +18,12 @@ def copy_orig_to_fs():
     except os.error:
         log.info("%s was already existing" % str(fs_4subj_mri))
 
-        
     # XXX rm -f "${DATA_path}/${MY_SUBJECT}/${MY_TP}/3__FREESURFER/mri/orig/001.mgz"
-    log.info("Starting mri_convert ...")
-    proc = subprocess.Popen(['mri_convert %s %s' % ( 
+    mri_cmd = 'mri_convert %s %s' % ( 
                              op.join(gconf.get_nifti4subject(sid), 'T1.nii'),
-                             op.join(gconf.get_fs4subject(sid), 'mri', 'orig', '001.mgz') )],
-                            cwd = gconf.get_subj_dir(sid),
-                            shell = True,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
-    
-    out, err = proc.communicate()
-    log.info(out)
-        
+                             op.join(gconf.get_fs4subject(sid), 'mri', 'orig', '001.mgz') )
+    runCmd(mri_cmd, log)
+            
     if not op.exists(op.join(gconf.get_fs4subject(sid), 'mri', 'orig', '001.mgz')):
         log.error("File 001.mgz has to been generated.")
 
@@ -38,28 +31,23 @@ def copy_orig_to_fs():
 
 
 def recon_all():
-    log.info("STEP 2b: running the whole FREESURFER pipeline")
+    log.info("Running the whole FREESURFER pipeline")
+    log.info("=====================================")
 
     from os import environ
     env = environ
     env['SUBJECTS_DIR'] = gconf.get_subj_dir(sid)
     
     log.info("Starting recon-all ...")
-    proc = subprocess.Popen(['recon-all -s %s -all -no-isrunning' % '3__FREESURFER'],
-                            cwd = gconf.get_fs4subject(sid),
-                            shell = True,
-                            stdout=subprocess.PIPE, # XXX &> "${LOGDIR}/freesurfer.log"
-                            stderr=subprocess.PIPE,
-                            env = env)
-    
-    out, err = proc.communicate()
-    log.info(out)
-    
+    fs_cmd = 'recon-all -s %s -all -no-isrunning' % '3__FREESURFER'
+    runCmd( fs_cmd, log )
+
     log.info("[ DONE ]")
     
 
 def before_wm_corr():
-    log.info("STEP 2c: copy stuff for correcting the 'wm mask' ");
+    log.info("Copy stuff for correcting the 'wm mask' ");
+    log.info("========================================")
 
     if not op.exists(op.join(gconf.get_fs4subject(sid), 'mri', 'T1.mgz')):
         log.error('/mir/T1.mgz does not exists in subject folder')
@@ -76,29 +64,15 @@ def before_wm_corr():
     # XXX rm -f "${WM_EXCHANGE_FOLDER}/${MY_SUBJECT}/${MY_TP}/T1.nii"
     # XXX rm -f "${WM_EXCHANGE_FOLDER}/${MY_SUBJECT}/${MY_TP}/wm.nii"
 
-    log.info("Starting mri_convert ...")
-    proc = subprocess.Popen(['mri_convert %s %s' % ( 
+    mri_cmd = 'mri_convert %s %s' % ( 
                              op.join(gconf.get_fs4subject(sid), 'mri', 'T1.mgz'),
-                             op.join(wm_exchange_folder, 'T1.nii') )],
-                            cwd = gconf.get_subj_dir(sid),
-                            shell = True,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
+                             op.join(wm_exchange_folder, 'T1.nii') )
+    runCmd( mri_cmd, log )
     
-    out, err = proc.communicate()
-    log.info(out)
-    
-    log.info("Starting mri_convert ...")
-    proc = subprocess.Popen(['mri_convert %s %s' % ( 
+    mri_cmd = 'mri_convert %s %s' % ( 
                              op.join(gconf.get_fs4subject(sid), 'mri', 'wm.mgz'),
-                             op.join(wm_exchange_folder, 'wm.nii') )],
-                            cwd = gconf.get_subj_dir(sid),
-                            shell = True,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
-        
-    out, err = proc.communicate()
-    log.info(out)
+                             op.join(wm_exchange_folder, 'wm.nii') )
+    runCmd( mri_cmd, log )
     
     log.info("You can now correct the white matter mask stored in %s " % op.join(wm_exchange_folder, 'wm.nii'))
     log.info("After correction, store it in the same folder with the name wm_corrected.nii")    
@@ -113,7 +87,7 @@ def before_wm_corr():
 
 def after_wm_corr():
 
-    log.info("STEP 2d: copying back the corrected 'wm mask' " );
+    log.info("Copying back the corrected 'wm mask' " );
     
     wm_exchange_folder = op.join(gconf.get_nifti4subject(sid), 'wm_correction')
     
@@ -122,17 +96,10 @@ def after_wm_corr():
 
     # XXX rm -f "${DATA_path}/${MY_SUBJECT}/${MY_TP}/3__FREESURFER/mri/wm.mgz"
     
-    log.info("Starting mri_convert ...")
-    proc = subprocess.Popen(['mri_convert -odt uchar %s %s' % (
+    mri_cmd = 'mri_convert -odt uchar %s %s' % (
                              op.join(wm_exchange_folder, 'wm_corrected.nii'),
-                             op.join(gconf.get_fs4subject(sid), 'mri', 'wm.mgz') ) ],
-                            cwd = gconf.get_subj_dir(sid),
-                            shell = True,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
-    
-    out, err = proc.communicate()
-    log.info(out)
+                             op.join(gconf.get_fs4subject(sid), 'mri', 'wm.mgz') ) 
+    runCmd( mri_cmd, log )
     
     if not op.exists(op.join(gconf.get_fs4subject(sid), 'mri', 'wm.mgz')):
         log.error("Unable to convert wm_corrected.nii to the file '/mri/wm.mgz' for this subject!")
@@ -140,21 +107,15 @@ def after_wm_corr():
     log.info("[ DONE ]")
 
 def run_fs_on_corrected_wm():
-    log.info("STEP 2d: running FREESURFER on the corrected 'wm.mgz' file")
+    log.info("Running FREESURFER on the corrected 'wm.mgz' file")
+    log.info("=================================================")
         
     from os import environ
     env = environ
     env['SUBJECTS_DIR'] = gconf.get_subj_dir(sid)
     
-    log.info("Starting recon-all ... (last part)")
-    proc = subprocess.Popen(['recon-all -s %s -autorecon2-wm -autorecon3 -no-isrunning' % '3__FREESURFER'],
-                            cwd = gconf.get_fs4subject(sid),
-                            shell = True,
-                            stdout=subprocess.PIPE, # XXX &> "${LOGDIR}/freesurfer.log"
-                            stderr=subprocess.PIPE)
-
-    out, err = proc.communicate()
-    log.info(out)
+    fs_cmd = 'recon-all -s %s -autorecon2-wm -autorecon3 -no-isrunning' % '3__FREESURFER'
+    runCmd( fs_cmd, log )
     
     log.info("[ DONE ]")
 
@@ -172,7 +133,9 @@ def run(conf, subject_tuple):
     # setting the global configuration variable
     globals()['gconf'] = conf
     globals()['sid'] = subject_tuple
-
+    globals()['log'] = gconf.get_logger4subject(sid) 
+    start = time()
+    
     if gconf.wm_handling == 1:
         copy_orig_to_fs()
         recon_all()
