@@ -4,71 +4,119 @@
 # EPFL, CHUV, 2010
 
 import os.path
+from cmt import *
+#import logging
+#logging.basicConfig(level=logging.DEBUG)
+
+from cmt.logme import *
+
+
+
+# add a logger server http://www.huyng.com/archives/python-logging-from-multiple-processes/418/
 
 #########################################
 # Data and project specific configuration
 #########################################
 
 from cmt.configuration import PipelineConfiguration
-myp = PipelineConfiguration()
 
-# path to CMT_HOME using environment variable, or set directly
+myp = PipelineConfiguration('Testproject')
+
+myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt/data/test_project'
+myp.project_metadata = {# required metadata
+                        'generator' : 'cmt 1.1',
+                        'initial-creator' : 'Stephan Gerhard',
+                        'institution' : 'EPFL / CHUV',
+                        'creation-date' : '2010-09-17',
+                        'modification-date' : '2010-09-17',
+                        'species' : 'Homo sapiens',
+                        'targetspace' : 'MNI305',
+                        'legal-notice' : '',
+                        'reference' : '',
+                        'url' : '',
+                        'description' : 'This is the first connectome file created with cmt',
+                        # optional metadata
+                        'metadata' : {'nr_of_subjects' : 2,
+                                      'project_dir' : myp.project_dir}
+                        }
+
+myp.registration_mode = 'L'
+
+myp.processing_mode = 'DSI'
+myp.mode_parameters = {'sharpness_odf' : [0],
+                       'nr_of_gradient_directions' : 515,
+                       'nr_of_sampling_directions' : 181,
+                       'lin_reg_para' : '-usesqform -nosearch -dof 6 -cost mutualinfo',
+                       'odf_recon_para' : '-b0 1 -dsi -p 4 -sn 0 -ot nii'}
+
+
+
+myp.wm_handling = 3
+# 1: run through the freesurfer step without stopping
+# 2: prepare whitematter mask for correction (store it in subject dir/NIFTI
+# 3: rerun freesurfer part with corrected white matter mask
+
+
+# file types for raw data
+myp.raw_glob = "*.IMA"
+# inspect the results of the registration by starting a fslview instance
+myp.inspect_registration = True
+
+myp.subject_list = { ('control001', 'tp1') :
+                     {'workingdir' : os.path.join(myp.project_dir, 'control001', 'tp1'),
+                      'age' : 55,
+                      'sex' :'X',
+                      'description' : 'This subject is totally healthy!'},
+                   }
+
+#########################
+# setting the environment
+#########################
+
 myp.cmt_home = os.path.join(os.environ['CMT_HOME'])
-myp.dtdir = os.environ['DSI_PATH']
+# "/home/stephan/Dev/PyWorkspace/cmt-pipeline/branches/stephan"
+myp.cmt_bin = myp.get_cmt_binary_path()
 
-# My Subjects
+myp.freesurfer_home = os.path.join(os.environ['FREESURFER_HOME'])
+# "/home/stephan/Software/freesurfer" -> /bin
 
-subject_list = { ('subject1', 'tp1') : {'workingdir' : '/XXX/THE/PATH'},
-                 ('subject2', 'tp1') : {'workingdir' : '/XXX/THE/PATH'},
-                }
+myp.fsl_home = os.path.join(os.environ['FSL_HOME'])
+# "/usr/share/fsl" -> /bin
 
+myp.dtk_home = os.environ['DTDIR']
+# "/home/stephan/Software/dtk"
+myp.dtk_matrices = os.path.join(myp.dtk_home, 'matrices')
 
-#########################
-# Import the pipeline nodes
-#########################
+myp.matlab_home = "/home/stephan/Software/MATLAB/bin"
+myp.matlab_prompt = "matlab -nosplash -nodesktop -r "
 
-# import the raw_step%i from cmt.modules.*
+os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
 
-## 1. REGISTRATION
-## 2. FREESURFER
-## 3. MASK: ROI_HR_th.nii / fsmask_1mm.nii CREATION (MASKCREATION)
-## 4. DIFFUSION TOOLKIT
-## 5. REGISTRATION: Apply registration ROI/WM --> b0
-## 6. TRACTOGRAPHY
-## 7. CONNECTION MATRIX
-## 8. CONVERTER
+# XXX: NEED TO SOURCE ?
+# source "${FSL_HOME}/etc/fslconf/fsl.sh"
+# source "${FREESURFER_HOME}/SetUpFreeSurfer.sh"
+# export MATLABPATH="${CMT_HOME}:${CMT_HOME}/matlab_related:${CMT_HOME}/matlab_related/nifti:${CMT_HOME}/matlab_related/tractography:${CMT_HOME}/registration"
 
-#############################
-# 4. Setup the pipeline nodes
-#############################
+# consistency check the configuration
+myp.consistency_check()
 
-# Tell fsl to generate all output in uncompressed nifti format
-print fsl.FSLInfo.version()
-fsl.FSLInfo.outputtype('NIFTI')
+########################
+# Run the pipeline steps
+########################
 
-# setup the way matlab should be called
-mlab.MatlabCommandLine.matlab_cmd = "matlab -nodesktop -nosplash -r"
+sid =  ('control001', 'tp1') 
 
-# force FREESURFER to work in a different folder
-fs.FSInfo.subjectsdir(os.path.abspath('fsdata'))
+# setup logger for subject
+myp.subject_list[sid]['logger'] = getLog(os.path.join(myp.get_log4subject(sid), 'pipeline.log')) 
 
-############################
-# Connect the pipeline nodes
-############################
+# dicomconverter.run(myp, sid )
+#registration.run(myp, ('control001', 'tp1') )
+#freesurfer.run(myp, ('control001', 'tp1') )
 
-mc_pipeline = pe.Pipeline()
-mc_pipeline.config['workdir'] = os.path.abspath(workingdir)
+#diffusion.run(myp, ('control001', 'tp1') )
+#apply_registration.run(myp, ('control001', 'tp1') )
+tractography.run(myp, ('control001', 'tp1') )
+#connectionmatrix.run(myp, ('control001', 'tp1') )
 
-# XXX: means what exactly ? 
-mc_pipeline.config['use_parameterized_dirs'] = True
-
-# mc_pipeline.connect(...)
-
-######################
-# Execute the pipeline
-######################
-
-if __name__ == '__main__':
-    pass
-    # mc_pipeline.run()
-    # mc_pipeline.export_graph()
+# out-of-main-loop:
+#cffconverter.run(myp, ('control001', 'tp1') )
