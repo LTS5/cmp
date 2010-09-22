@@ -83,7 +83,7 @@ def create_annot_label():
     shutil.copy(op.join(fs_label_dir, 'regenerated_lh_35', 'lh.corpuscallosum.label'), op.join(fs_label_dir, 'lh.corpuscallosum.label'))
 
     # XXX: error: you must specify a registration method, where to save to?, why?
-    mri_cmd = """mri_label2vol --label "rh.corpuscallosum.label" --label "lh.corpuscallosum.label" --label "rh.unknown.label" --label "lh.unknown.label" --temp "%s/mri/orig.mgz" --o  "cc_unknown.nii" """ % fs_dir    
+    mri_cmd = """mri_label2vol --label "rh.corpuscallosum.label" --label "lh.corpuscallosum.label" --label "rh.unknown.label" --label "lh.unknown.label" --temp "%s/mri/orig.mgz" --o  "cc_unknown.nii" --identity """ % fs_dir    
     runCmd( mri_cmd, log )
 
     runCmd( 'mris_volmask "3__FREESURFER"', log)
