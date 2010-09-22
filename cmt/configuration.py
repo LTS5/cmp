@@ -51,15 +51,17 @@ class PipelineConfiguration(traits.HasTraits):
     # /registration
     # /resampled_lpi_atlas
 
-    cmt_home = traits.Directory(exists=True, desc="contains data files shipped with the pipeline")
-    cmt_bin = traits.Directory(exists=True, desc="contains binary files shipped with the pipeline")
+#    cmt_home = traits.Directory(exists=True, desc="contains data files shipped with the pipeline")
+#    cmt_bin = traits.Directory(exists=True, desc="contains binary files shipped with the pipeline")
 #    cmt_matlab = traits.Directory(exists=True, desc="contains matlab related files shipped with the pipeline")
+    # -> use getter!
     
     freesurfer_home = traits.Directory(exists=True, desc="path to Freesurfer 5.0+")
     fsl_home = traits.Directory(exists=True, desc="path to FSL")
     dtk_home = traits.Directory(exists=True, desc="path to diffusion toolkit")
     dtk_matrices = traits.Directory(exists=True, desc="path to diffusion toolkit matrices")
     matlab_home = traits.Directory(exists=True, desc="path to matlab")
+    matlab_bin = traits.Directory(exists=True, desc="path to matlab binary")
 
     def __init__(self, project_name, **kwargs):
         # NOTE: In python 2.6, object.__init__ no longer accepts input
@@ -72,11 +74,12 @@ class PipelineConfiguration(traits.HasTraits):
                                         'node_information_graphml' : None, # contains name, url, color, etc. used for connection matrix
                                         'surface_parcellation' : None, # scalar node values on fsaverage? or atlas?,
                                         'volume_parcellation' : None, # scalar node values in fsaverage volume?
+                                        'fs_label_subdir_name' : 'regenerated_%s_35' # the subdirectory name from where to copy parcellations, with hemispheric wildcard
                                         },
-                           'scale60' : {},
-                           'scale125' : {},
-                           'scale250' : {},
-                           'scale500' : {}
+                           'scale60' : {'fs_label_subdir_name' : 'regenerated_%s_60'},
+                           'scale125' : {'fs_label_subdir_name' : 'regenerated_%s_125'},
+                           'scale250' : {'fs_label_subdir_name' : 'regenerated_%s_250'},
+                           'scale500' : {'fs_label_subdir_name' : 'regenerated_%s_500'}
                            }
         
         self.parcellation = default_parcell
@@ -94,9 +97,7 @@ class PipelineConfiguration(traits.HasTraits):
             raise Exception(msg)
         
         # check if software paths exists
-        pas = {'configuration.cmt_home' : self.cmt_home,
-               'configuration.cmt_bin' : self.cmt_bin,
-               'configuration.freesurfer_home' : self.freesurfer_home,
+        pas = {'configuration.freesurfer_home' : self.freesurfer_home,
                'configuration.fsl_home' : self.fsl_home,
                'configuration.dtk_home' : self.dtk_home,
                'configuration.dtk_matrices' : self.dtk_matrices,
@@ -140,6 +141,10 @@ class PipelineConfiguration(traits.HasTraits):
                         msg = 'Stuctural MRI subdirectory %s does not exists for subject %s' % (wt1, str(subj))
                         raise Exception(msg)
         
+        
+    def get_cmt_home(self):
+        """ Return the cmt home path """
+        return op.dirname(__file__)
         
     def get_raw4subject(self, subject):
         """ Return raw data path for subject """
@@ -211,7 +216,15 @@ class PipelineConfiguration(traits.HasTraits):
             
         return fpath
     
-    
+    def get_lausanne_atlas(self, name = None):
+        """ Return the absolute path to the lausanne parcellation atlas
+        for the resolution name """
+        
+        cmt_path = op.dirname(__file__)
+        
+        if name == 'myatlas_33_rh.gcs':
+            return op.join(cmt_path, 'data', 'colortable_and_gcs', 'my_atlas_gcs', 'myatlas_33_rh.gcs')
+        
     def get_cmt_binary_path(self):
         """ Returns the path to the binary files for the current platform
         and architecture """

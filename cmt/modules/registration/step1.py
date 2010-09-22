@@ -83,3 +83,4 @@ def run(conf, subject_tuple):
     else:
         lin_regT12b0()
     
+    log.info("Module took %s seconds to process." % (time()-start))

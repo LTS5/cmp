@@ -8,7 +8,7 @@ import modules.registration.step1 as registration
 import modules.freesurfer.step2 as freesurfer
 
 # 3. MASK: ROI_HR_th.nii / fsmask_1mm.nii CREATION (MASKCREATION)
-#import modules.mask.step3 as maskcreation
+import modules.mask.step3 as maskcreation
 
 # 4. DIFFUSION TOOLKIT
 import modules.diffusion.step4 as diffusion
