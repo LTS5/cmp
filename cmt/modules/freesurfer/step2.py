@@ -136,11 +136,16 @@ def run(conf, subject_tuple):
     globals()['log'] = gconf.get_logger4subject(sid) 
     start = time()
     
+    log.info("Running the FREESURFER module")
+    log.info("=============================")
+    
     if gconf.wm_handling == 1:
         copy_orig_to_fs()
         recon_all()
     elif gconf.wm_handling == 2:
         before_wm_corr()
+        msg = 'You can now correct the white matter for subject %s' % sid
+        raise Exception(msg)
     elif gconf.wm_handling == 3:
         after_wm_corr()
         run_fs_on_corrected_wm()

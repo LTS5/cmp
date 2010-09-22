@@ -2,6 +2,7 @@ import os, os.path as op
 from glob import glob
 import subprocess
 import sys
+from time import time
 import shutil
 from glob import glob
 from ...logme import *
@@ -31,7 +32,14 @@ def diff2nifti_diff_unpack():
             first = sorted(glob(op.join(dsi_dir, gconf.raw_glob)))[0]
             diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DSI.nii'))            
             runCmd(diff_cmd, log)
-
+            
+            # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
+            data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, gconf.raw_glob)
+            del data
+            import numpy as np
+            np.savetxt(op.join(nifti_dir, 'dsi_affine.txt'), affine)
+            np.savetxt(op.join(nifti_dir, 'dsi_bvals.txt'), bval)
+            np.savetxt(op.join(nifti_dir, 'dsi_bvects.txt'), bvect)
     
         log.info("Resampling 'DSI' to 1x1x1 mm^3...")
         mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (

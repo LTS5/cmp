@@ -20,7 +20,7 @@ def apply_registration():
     tracto_masks_path_out = op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR__registered-TO-b0')
     
     if not op.exists(tracto_masks_path):
-        msg = "Path does not exists but it should: %s" % tracto_masks_path
+        msg = "Path does not exists but it should after the mask creation module: %s" % tracto_masks_path
         log.error(msg)
         raise Exception(msg)
     

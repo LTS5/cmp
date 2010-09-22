@@ -54,9 +54,9 @@ fprintf(' [OK]\n');
 	Rois=zeros(256,256,256);
 	delete( '*.nii' );
 	for i=1:33
-        [CMT_HOME '/one_label_script.sh ' hemi '.' list{i} ' ' strcat(SUBJECTS_DIR,'/3__FREESURFER')]
+%        [CMT_HOME '/one_label_script.sh ' hemi '.' list{i} ' ' strcat(SUBJECTS_DIR,'/3__FREESURFER')]
 		%eval(strcat(['!env LD_LIBRARY_PATH= sh ',CMT_HOME,'/one_label_script.sh ',hemi,'.',list{i}]));
-		system( [CMT_HOME '/one_label_script.sh ' hemi '.' list{i} ' ' strcat(SUBJECTS_DIR,'/3__FREESURFER') ] );
+		%system( [CMT_HOME '/one_label_script.sh ' hemi '.' list{i} ' ' strcat(SUBJECTS_DIR,'/3__FREESURFER') ] );
 		
         
 		file_numbers = size( dir(strcat(hemi,'.',list{i},'*.nii')) ,1);
@@ -85,8 +85,10 @@ fprintf(' [OK]\n');
 
 		end
 		if cpt2==j
-		else
-			error('[ERROR] cpt <> j   --> %f <> %f',cpt2,j);
+		
+			disp('[ERROR] cpt <> j   --> %f <> %f');
+            disp(cpt2);
+            disp(j);
 			return
 		end
 

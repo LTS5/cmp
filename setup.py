@@ -44,7 +44,6 @@ if len(set(('develop', 'bdist_egg', 'bdist_rpm', 'bdist', 'bdist_dumb',
 if not 'extra_setuptools_args' in globals():
     extra_setuptools_args = dict()
     
-    
 
 def main(**extra_args):
     from distutils.core import setup
@@ -55,11 +54,10 @@ def main(**extra_args):
           author='EPFL LTS5 Diffusion Group',
           author_email='info@connectomics.org',
           url='http://www.connectomics.org/',
-          packages         = packages,
-          package_data      = package_data,
+          packages = packages,
+          package_data = package_data,
           **extra_args
          )
-
 
 if __name__ == "__main__":
     main(**extra_setuptools_args)

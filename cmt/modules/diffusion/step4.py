@@ -28,7 +28,7 @@ def resample_dsi():
             
     split_cmd = 'fslsplit %s %s -t' % (input_dsi_file, op.join(res_dsi_dir, 'MR'))
 
-#    runCmd( split_cmd, log )
+    runCmd( split_cmd, log )
     
     files = glob( op.join(res_dsi_dir, 'MR*.nii'))
     for file in sorted(files):

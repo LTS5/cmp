@@ -1,6 +1,6 @@
 # from http://devlishgenius.blogspot.com/2008/10/logging-in-real-time-in-python.html
 
-import sys, os
+import sys, os, os.path as op
 import logging, subprocess
 
 def getLog(fpath):
@@ -11,10 +11,14 @@ def getLog(fpath):
     consolehandler.setLevel( logging.DEBUG )
     consolehandler.setFormatter( logFormatter )
     
+    if not op.exists(fpath):
+        try:
+            os.makedirs(op.dirname(fpath))
+        except:
+            pass
+    
     logFile = fpath
-    try:
-      os.unlink( logFile )
-    except: pass
+    
     filehandler = logging.FileHandler( logFile )
     filehandler.setLevel( logging.DEBUG )
     filehandler.setFormatter( logFormatter )

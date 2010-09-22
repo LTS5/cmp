@@ -171,6 +171,20 @@ def reorganize():
 def create_roi():
     log.info("Create the ROIs:")
 
+    fs_dir = gconf.get_fs4subject(sid)
+    
+    for hemi in ['lh', 'rh']:
+        labelpath = op.join(fs_dir, 'label', 'regenerated_%s_35' % hemi)
+        labels = glob(op.join(labelpath, '*.label'))
+        for label in labels:
+            log.info("Processing label %s" % label)
+            log.info("----------------")
+            labelin = op.join(labelpath, label)
+            labelni = op.join(labelpath, label + '.nii')
+            mri_cmd = 'mri_label2vol --label "%s" --temp "%s/mri/orig.mgz" --o %s --identity' % (labelin, fs_dir, labelni)
+            
+            runCmd( mri_cmd, log )    
+    
     matlab_cmd = gconf.matlab_prompt + """ "roi_creation( '%s','%s' ); exit" """ % (sid[0], sid[1])
     runCmd( matlab_cmd, log )
     
@@ -178,17 +192,26 @@ def create_roi():
     
 def create_final_mask():
     log.info("Create final ROI mask, cortex and deep gray structures")
-    # $MY_MATLAB "roi_merge( '${MY_SUBJECT}','${MY_TP}' ); exit"
+    
+    matlab_cmd = gconf.matlab_prompt + """ "roi_merge( '%s','%s' ); exit" """ % (sid[0], sid[1])
+    runCmd( matlab_cmd, log )
+    
     log.info("[ DONE ]")  
 
 def finalize_wm():
     log.info("Finalize WM mask")
-    #$MY_MATLAB "mask_creation( '${MY_SUBJECT}','${MY_TP}' ); exit"
+    
+    matlab_cmd = gconf.matlab_prompt + """ "mask_creation( '%s','%s' ); exit" """ % (sid[0], sid[1])
+    runCmd( matlab_cmd, log )
+
     log.info("[ DONE ]")  
 
 def finalize_roi():
     log.info("Finalize ROI mask")
-    # $MY_MATLAB "script_roi_finalize; exit"
+    
+    matlab_cmd = gconf.matlab_prompt + """ "script_roi_finalize( '%s','%s' ); exit" """ % (sid[0], sid[1])
+    runCmd( matlab_cmd, log )
+    
     log.info("[ DONE ]")  
 
 
@@ -219,12 +242,12 @@ def run(conf, subject_tuple):
     cp = gconf.get_cmt_home()
     env['MATLABPATH'] = "%s:%s/matlab_related:%s/matlab_related/nifti:%s/matlab_related/tractography:%s/registration" % (cp, cp, cp, cp, cp)
     
-#    create_annot_label()
-    create_roi()
-    #reorganize()
-#    create_final_mask()
-#    finalize_wm()
-#    finalize_roi()
+    create_annot_label()
+    #create_roi()
+    reorganize()
+    create_final_mask()
+    finalize_wm()
+    finalize_roi()
     
     log.info("Module took %s seconds to process." % (time()-start))
     
