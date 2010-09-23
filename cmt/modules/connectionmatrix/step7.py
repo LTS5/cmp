@@ -3,20 +3,10 @@ from time import time
 import logging
 log = logging.getLogger()
 from glob import glob
-<<<<<<< HEAD:cmt/modules/connectionmatrix/raw_step7.py
-=======
-import subprocess
-
-import logging as log
->>>>>>> 125a308f8e3b21c9f77bf29a321d89a32576bc4e:cmt/modules/connectionmatrix/step7.py
 import subprocess
 
 import re
 import sys
-<<<<<<< HEAD:cmt/modules/connectionmatrix/raw_step7.py
-=======
-import numpy
->>>>>>> 125a308f8e3b21c9f77bf29a321d89a32576bc4e:cmt/modules/connectionmatrix/step7.py
 import numpy as np
 import pickle
 
@@ -35,29 +25,17 @@ import nibabel
 # outputs  : index
 ################################################################################
 def mm2index(mm3, hdrStreamline):
-<<<<<<< HEAD:cmt/modules/connectionmatrix/raw_step7.py
     index = np.zeros(3)
-=======
-    index = numpy.zeros(3)
->>>>>>> 125a308f8e3b21c9f77bf29a321d89a32576bc4e:cmt/modules/connectionmatrix/step7.py
     index[0] = int(round( mm3[0] / hdrStreamline['voxel_size'][0] - 0.5 ))
     index[1] = int(round( mm3[1] / hdrStreamline['voxel_size'][1] - 0.5 ))
     index[2] = int(round( mm3[2] / hdrStreamline['voxel_size'][2] - 0.5 ))
     index[index<0] = 0
     if index[0]>hdrStreamline['dim'][0]:
-<<<<<<< HEAD:cmt/modules/connectionmatrix/raw_step7.py
         index[0] = hdrStreamline['dim'][0]
     if index[1]>hdrStreamline['dim'][1]:
         index[1] = hdrStreamline['dim'][1]
     if index[2]>hdrStreamline['dim'][2]:
         index[2] = hdrStreamline['dim'][2]
-=======
-       index[0] = hdrStreamline['dim'][0]
-    if index[1]>hdrStreamline['dim'][1]:
-       index[1] = hdrStreamline['dim'][1]
-    if index[2]>hdrStreamline['dim'][2]:
-       index[2] = hdrStreamline['dim'][2]
->>>>>>> 125a308f8e3b21c9f77bf29a321d89a32576bc4e:cmt/modules/connectionmatrix/step7.py
     return index
 ################################################################################
 
@@ -75,28 +53,19 @@ def getValFromScalarMap(mm3, scalar, hdr):
     # TODO check the hdr from scalar and fibers
     index = mm2index(mm3, hdr)
     val = scalar.get_data()[index[0], index[1], index[2]]
-<<<<<<< HEAD:cmt/modules/connectionmatrix/raw_step7.py
     return val     
-=======
-    return val
->>>>>>> 125a308f8e3b21c9f77bf29a321d89a32576bc4e:cmt/modules/connectionmatrix/step7.py
 ################################################################################
 
 
 ################################################################################
 # name     : DTB__load_endpoints_from_trk
 # function : Get the endpoints from each fibers
-<<<<<<< HEAD:cmt/modules/connectionmatrix/raw_step7.py
 # date     : 2010-08-20
-=======
-# date     : 2010-09-19
->>>>>>> 125a308f8e3b21c9f77bf29a321d89a32576bc4e:cmt/modules/connectionmatrix/step7.py
 # author   : Christophe Chenes, Stephan Gerhard
 #
 # input    : fib, hdr
 # outputs  : endpoints.npy, length.npy
 ################################################################################
-<<<<<<< HEAD:cmt/modules/connectionmatrix/raw_step7.py
 def DTB__load_endpoints_from_trk(fib, hdr, inPath):
     print '\n###################################################################\r'
     print '# DTB__load_endpoints_from_trk                                    #\r'
@@ -134,27 +103,6 @@ def DTB__load_endpoints_from_trk(fib, hdr, inPath):
 	
     print 'END'+str(time()-start)
     print '\n###################################################################\r'
-=======
-def DTB__load_endpoints_from_trk(fib, hdr):
-    
-    endpoints = numpy.zeros( (1, 2, 3) )
-    epLen = []
-
-    for i, fis in enumerate(fib):
-        fi = fis[0]
-        w = np.zeros( (1,2,3) )
-        w[0,0,:] = mm2index(fi[0], hdr)
-        w[0,1,:] = mm2index(fi[-1], hdr)
-        endpoints = numpy.vstack( (endpoints, w) )
-        epLen.append(len(fi))
-        print "On fiber ", i
-        		
-	# Save the matrices
-	outPath = gconf.get_cmt_fibers4subject(sid)
-	numpy.save(op.join(outPath, 'TEMP_endpoints.npy'), endpoints[1:,:,:])
-	numpy.save(op.join(outPath, 'TEMP_epLen.npy'), numpy.array(epLen))
-    
->>>>>>> 125a308f8e3b21c9f77bf29a321d89a32576bc4e:cmt/modules/connectionmatrix/step7.py
 ################################################################################
 
 ################################################################################
@@ -181,7 +129,6 @@ def DTB__cmat_shape(inPath, subName):
     stepSize = 0.5
 	
 	# Read the fibers
-<<<<<<< HEAD:cmt/modules/connectionmatrix/raw_step7.py
     print '#-----------------------------------------------------------------#\r'
     print '# Read the fibers...                                              #\r'
     fibFilename = inPath+'fibers/streamline.trk'
@@ -194,22 +141,6 @@ def DTB__cmat_shape(inPath, subName):
     endpoints = np.load(inPath+'/fibers/TEMP_endpoints.npy')
     epLen     = np.load(inPath+'/fibers/TEMP_epLen.npy')
     print '#-----------------------------------------------------------------#\n'
-=======
-   print '#-----------------------------------------------------------------#\r'
-   print '# Read the fibers...                                              #\r'
-   fibFilename = inPath+'fibers/streamline.trk'
-   fib, hdr = nibabel.trackvis.read(fibFilename, True) # second argument to true makes it as generator
-   print '#-----------------------------------------------------------------#\n'
-   	
-	# Get the fibers endpoints
-   print '#-----------------------------------------------------------------#\r'
-   print '# Loading fibers endpoints...                                     #\r'
-   if not os.path.isfile(inPath+'/fibers/TEMP_endpoints.npy') or not os.path.isfile(inPath+'/fibers/TEMP_epLen.npy'):
-      DTB__load_endpoints_from_trk(fib, hdr)
-   endpoints = numpy.load(inPath+'/fibers/TEMP_endpoints.npy')
-   epLen = numpy.load(inPath+'/fibers/TEMP_epLen.npy')
-   print '#-----------------------------------------------------------------#\n'
->>>>>>> 125a308f8e3b21c9f77bf29a321d89a32576bc4e:cmt/modules/connectionmatrix/step7.py
 	
     # Get the shape's informations
     print '#-----------------------------------------------------------------#\r'
@@ -345,19 +276,13 @@ def DTB__cmat_scalar(inPath, subName):
 # outputs  : cmat_res1.dat, ..., cmat_resN.dat
 ################################################################################
 def DTB__cmat(inPath, subName):
-<<<<<<< HEAD:cmt/modules/connectionmatrix/raw_step7.py
 #    log.info("Create connection matrices")
 #    log.info("==========================")
-=======
-    log.info("Create connection matrices")
-    log.info("==========================")
->>>>>>> 125a308f8e3b21c9f77bf29a321d89a32576bc4e:cmt/modules/connectionmatrix/step7.py
     
     print '\n###################################################################\r'
     print '# DTB__cmat                                                       #\r'
     print '# Compute the connection matrix                                   #\r'
     print '###################################################################'	
-<<<<<<< HEAD:cmt/modules/connectionmatrix/raw_step7.py
    
     # Read the fibers
     print '#-----------------------------------------------------------------#\r'
@@ -416,75 +341,13 @@ def DTB__cmat(inPath, subName):
 #        filepath = inPath+'fibers/matrices/'+filename #op.join(gconf.get_cmt_fibers4subject(sid), 'matrices', filename)
 #        np.save(filepath, matrix)
 							
-=======
-    
-    # Read the fibers
-    print '#-----------------------------------------------------------------#\r'
-    print '# Read the fibers...                                              #\r'
-    fibFilename = op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk')
-    fib, hdr = nibabel.trackvis.read(fibFilename, False)
-    print '#-----------------------------------------------------------------#\n'
-    	
-    # Get the fibers endpoints
-    print '#-----------------------------------------------------------------#\r'
-    print '# Loading fibers endpoints...                                     #\r'
-    en_fname = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_endpoints.npy')
-    ep_fname = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_epLen.npy')
-    if not os.path.isfile(en_fname) or not os.path.isfile(ep_fname):
-       DTB__load_endpoints_from_trk(fib, hdr)
-       
-    endpoints = numpy.load(en_fname)
-    epLen = numpy.load(ep_fname)
-    print '#-----------------------------------------------------------------#\n'
-    
-    # For each resolution
-    resolution = gconf.parcellation.keys()
-    for r in resolution:
-        print '\t r = '+str(r)+'\r'
-        
-        # Open the corresponding ROI
-        roi_fname = op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR__registered-TO-b0', str(r), 'ROI_HR_th.nii')
-        roi = nibabel.load(roi_fname)
-        roiData = roi.get_data()
-        
-        # Create the matrix
-        #matrix = numpy.ndarray((r,r), 'object')
-        n = roiData.max()
-        print '\tn = '+str(n)+'\r'
-        matrix = numpy.zeros((n,n))
-        
-        # Open the shape matrix
-        #      f = open(inPath+'fibers/TEMP_shape.npy', 'r')
-        #      shape = pickle.load(f)
-        #      f.close()
-        #      shapeInfo = numpy.array(shape.keys())
-        #      nShapeInfo = shapeInfo.size
-              
-        # For each fiber
-        for i in range(0, hdr['n_count']):
-            
-            # TEMP Add in the corresponding cell the number of fibersFile
-            roiF = roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]]
-            roiL = roiData[endpoints[i, 1, 0], endpoints[i, 1, 1], endpoints[i, 1, 2]]
-            matrix[roiF-1, roiL-1] += 1
-              
-        # Save the matrix
-        filename = '__cmat_'+str(r)+'.npy'
-        filepath = op.join(gconf.get_cmt_fibers4subject(sid), 'matrices', filename)
-        numpy.save(filepath, matrix)
-    						
->>>>>>> 125a308f8e3b21c9f77bf29a321d89a32576bc4e:cmt/modules/connectionmatrix/step7.py
     print '###################################################################\n'
 ################################################################################
 
 
-<<<<<<< HEAD:cmt/modules/connectionmatrix/raw_step7.py
 ################################################################################
 # TESTING
 def run():#conf, subject_tuple):
-=======
-def run(conf, subject_tuple):
->>>>>>> 125a308f8e3b21c9f77bf29a321d89a32576bc4e:cmt/modules/connectionmatrix/step7.py
     """ Run the connection matrix step
     
     Parameters
@@ -495,7 +358,6 @@ def run(conf, subject_tuple):
        
     """
     # setting the global configuration variable
-<<<<<<< HEAD:cmt/modules/connectionmatrix/raw_step7.py
 #    globals()['gconf'] = conf
 #    globals()['sid'] = subject_tuple
     start = time()
@@ -510,17 +372,3 @@ def run(conf, subject_tuple):
     print 'TIME = '+str(time()-start)#log.info("Connection matrix module took %s seconds to process." % (time()-start))
 ################################################################################
 ################################################################################
-
-run()
-=======
-    globals()['gconf'] = conf
-    globals()['sid'] = subject_tuple
-    start = time()
-    
-    subDir = gconf.get_cmt4subject(sid)
-    subName = sid
-    
-    DTB__cmat(subDir, subName)
-    
-    log.info("Module took %s seconds to process." % (time()-start))
->>>>>>> 125a308f8e3b21c9f77bf29a321d89a32576bc4e:cmt/modules/connectionmatrix/step7.py
