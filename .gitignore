@@ -1,3 +1,4 @@
 *.pyc
-data/
+testdata/
 /CMT.egg-info
+/build

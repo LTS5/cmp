@@ -6,6 +6,7 @@ from time import time
 import shutil
 from glob import glob
 from ...logme import *
+from cmt.modules.util import reorient
 
 import nibabel.nicom.dicomreaders as dr
 import nibabel as ni
@@ -49,29 +50,6 @@ def diff2nifti_diff_unpack():
         runCmd(mri_cmd, log)
 
 
-def t12nifti():
-    
-    raw_dir = op.join(gconf.get_raw4subject(sid))
-    nifti_dir = op.join(gconf.get_nifti4subject(sid))
-    
-    log.info("Converting 'T1'...")
-    t1_dir = op.join(raw_dir, 'T1')
-    # check if .nii / .nii.gz is already available
-    if op.exists(op.join(t1_dir, 'T1.nii')):
-        shutil.copy(op.join(t1_dir, 'T1.nii'), op.join(nifti_dir, 'T1.nii'))
-    else:
-        
-        # read data
-        dd = dr.read_mosaic_dir(t1_dir, gconf.raw_glob)
-
-        ## change orientation of "T1" to fit "b0"
-        #"${CMT_HOME}/registration"/nifti_reorient_like.sh "T1.nii" "DSI.nii"
-
-        # save data and affine as nifti
-        ni.save(ni.Nifti1Image(dd[0], dd[1]), op.join(nifti_dir, 'T1.nii'))
-    
-        log.info("Dataset 'T1.nii' succesfully created!")
-        
 def t12nifti_diff_unpack():
 
     raw_dir = op.join(gconf.get_raw4subject(sid))
@@ -80,11 +58,15 @@ def t12nifti_diff_unpack():
     log.info("Converting 'T1'...")
     t1_dir = op.join(raw_dir, 'T1')
     if op.exists(op.join(t1_dir, 'T1.nii')):
+        log.info("T1.nii already exists. No unpacking.")
         shutil.copy(op.join(t1_dir, 'T1.nii'), op.join(nifti_dir, 'T1.nii'))
     else:
         first = sorted(glob(op.join(t1_dir, gconf.raw_glob)))[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T1.nii'))
         runCmd(diff_cmd, log)
+        log.info("Dataset 'T1.nii' succesfully created!")
+        
+    reorient(op.join(nifti_dir, 'T1.nii'), op.join(nifti_dir, 'DSI.nii'), log)
 
         
 def t22nifti_diff_unpack():
@@ -96,14 +78,16 @@ def t22nifti_diff_unpack():
     t2_dir = op.join(raw_dir, 'T1')
     # check if .nii / .nii.gz is already available
     if op.exists(op.join(t2_dir, 'T2.nii')):
+        log.info("T2.nii already exists. No unpacking.")
         shutil.copy(op.join(t2_dir, 'T2.nii'), op.join(nifti_dir, 'T2.nii'))
     else:
-        from glob import glob
         first = sorted(glob(op.join(t1_dir, gconf.raw_glob)))[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T2.nii'))
-        runCmd (diff_cmd, log)
-        
+        runCmd (diff_cmd, log)        
         log.info("Dataset 'T2.nii' successfully created!")
+
+    reorient(op.join(nifti_dir, 'T2.nii'), op.join(nifti_dir, 'DSI.nii'), log)
+        
 
     log.info("[ DONE ]")
     
@@ -126,7 +110,7 @@ def run(conf, subject_tuple):
     log.info("DICOM -> NIFTI conversion")
     log.info("=========================")
     
-    diff2nifti_diff_unpack()
+#    diff2nifti_diff_unpack()
     t12nifti_diff_unpack()
     if gconf.registration_mode == 'N':
         t22nifti_diff_unpack()
@@ -140,6 +124,30 @@ def run(conf, subject_tuple):
 #    
 #################################################################################
 
+def t12nifti():
+    
+    raw_dir = op.join(gconf.get_raw4subject(sid))
+    nifti_dir = op.join(gconf.get_nifti4subject(sid))
+    
+    log.info("Converting 'T1'...")
+    t1_dir = op.join(raw_dir, 'T1')
+    # check if .nii / .nii.gz is already available
+    if op.exists(op.join(t1_dir, 'T1.nii')):
+        shutil.copy(op.join(t1_dir, 'T1.nii'), op.join(nifti_dir, 'T1.nii'))
+    else:
+        
+        # read data
+        dd = dr.read_mosaic_dir(t1_dir, gconf.raw_glob)
+
+        reorient(op.join(nifti_dir, 'T1.nii'), op.join(nifti_dir, 'DSI.nii'), log)
+        ## change orientation of "T1" to fit "b0"
+        #"${CMT_HOME}/registration"/nifti_reorient_like.sh "T1.nii" "DSI.nii"
+
+        # save data and affine as nifti
+        ni.save(ni.Nifti1Image(dd[0], dd[1]), op.join(nifti_dir, 'T1.nii'))
+    
+        log.info("Dataset 'T1.nii' succesfully created!")
+        
         
 def t22nifti():
     
