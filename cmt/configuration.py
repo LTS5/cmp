@@ -44,19 +44,8 @@ class PipelineConfiguration(traits.HasTraits):
     ################################
     # External package Configuration
     ################################
-
-    # XXX: think about
-    # /colortable_and_gcs
-    # /matlab_related
-    # /registration
-    # /resampled_lpi_atlas
-
-#    cmt_home = traits.Directory(exists=True, desc="contains data files shipped with the pipeline")
-#    cmt_bin = traits.Directory(exists=True, desc="contains binary files shipped with the pipeline")
-#    cmt_matlab = traits.Directory(exists=True, desc="contains matlab related files shipped with the pipeline")
-    # -> use getter!
     
-    freesurfer_home = traits.Directory(exists=True, desc="path to Freesurfer 5.0+")
+    freesurfer_home = traits.Directory(exists=True, desc="path to Freesurfer")
     fsl_home = traits.Directory(exists=True, desc="path to FSL")
     dtk_home = traits.Directory(exists=True, desc="path to diffusion toolkit")
     dtk_matrices = traits.Directory(exists=True, desc="path to diffusion toolkit matrices")

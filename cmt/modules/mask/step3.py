@@ -8,7 +8,6 @@ from ...logme import *
 
 from cmt.modules.util import mymove
 
-    
 def create_annot_label():
 
     log.info("Create the cortical labels necessary for our ROIs")
