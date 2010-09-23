@@ -76,7 +76,7 @@ def DTB__load_endpoints_from_trk(fib, hdr):
     for i, fis in enumerate(fib):
         fi = fis[0]
         w = np.zeros( (1,2,3) )
-        w[0,0,:] = mm2index(fi[0], hdr)
+        w[i,0,:] = mm2index(fi[0], hdr)
         w[0,1,:] = mm2index(fi[-1], hdr)
         endpoints = numpy.vstack( (endpoints, w) )
         epLen.append(len(fi))
