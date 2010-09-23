@@ -9,7 +9,6 @@ import re
 import sys
 import numpy as np
 import pickle
-import trackvis
 
 import struct
 import math
@@ -67,31 +66,44 @@ def getValFromScalarMap(mm3, scalar, hdr):
 # input    : fib, hdr
 # outputs  : endpoints.npy, length.npy
 ################################################################################
-def DTB__load_endpoints_from_trk(fib, hdr):
+def DTB__load_endpoints_from_trk(fib, hdr, inPath):
     print '\n###################################################################\r'
     print '# DTB__load_endpoints_from_trk                                    #\r'
     print '###################################################################\n'
     
-    # Init the output matrices
-    endpoints = np.zeros( (1, 2, 3) )
-    epLen = []
+    # Init
+    start     = time()
+    endpoints = np.zeros( (hdr['n_count'], 2, 3) )
+    epLen     = []
+    pc        = -1
 
-    # Fill the matrices with the first and last point of each fiber
-    for i, fis in enumerate(fib):
-        fi = fis[0]
-        w = np.zeros( (1,2,3) )
-        w[0,0,:] = mm2index(fi[0], hdr)
-        w[0,1,:] = mm2index(fi[-1], hdr)
-        endpoints = np.vstack( (endpoints, w) )
-        epLen.append(len(fi))
-        print "\tOn fiber ", i
-        		
-	# Save the matrices
-	outPath = gconf.get_cmt_fibers4subject(sid)
-	np.save(op.join(outPath, 'TEMP_endpoints.npy'), endpoints[1:,:,:])
-	np.save(op.join(outPath, 'TEMP_epLen.npy'), np.array(epLen))
+    # Computation for each fiber
+    for n in range(0, hdr['n_count']):
+    
+        # Percent counter
+        pcN = int(round( float(100*n)/hdr['n_count'] ))
+        if pcN > pc and pcN%10 == 0:	
+            pc = pcN
+            print '\t\t%4.0f%%' % (pc)
+
+        # Get the first and last point for the current fiber
+        dataFiber = np.array(fib[n][0])
+        dataFirst = dataFiber[0]
+        dataLast  = dataFiber[dataFiber.shape[0]-1]		      
+		
+        # Translate from mm to index
+        endpoints[n,0,:] = mm2index(dataFirst, hdr)	
+        endpoints[n,1,:] = mm2index(dataLast, hdr)		    
+        epLen.append(dataFiber.shape[0]-1)
+		
+    # Save the matrices
+    outPath = inPath+'fibers/'
+    np.save(outPath+'TEMP_endpoints.npy', endpoints)
+    np.save(outPath+'TEMP_epLen.npy', epLen)
+	
+    print 'END'+str(time()-start)
+    print '\n###################################################################\r'
 ################################################################################
-
 
 ################################################################################
 # name     : DTB__cmat_shape
@@ -186,15 +198,16 @@ def DTB__cmat_scalar(inPath, subName):
     print '#-----------------------------------------------------------------#\n'
 
     # For each file in the scalar dir
-    scalarDir = inPath+'scalar/'
+    print '#-----------------------------------------------------------------#\r'
+    print '# Scalar informations:                                            #\r'
+    scalarDir   = inPath+'scalar/'
     scalarFiles = np.array(os.listdir(scalarDir))
-    nbScalar = scalarFiles.size
-    print '\tScalar informations:'
+    nbScalar    = scalarFiles.size
     for i in range(0,nbScalar):
         if (scalarFiles[i] != '.' and scalarFiles[i] != '..' and scalarFiles[i] != '.svn') :
             crtName = re.search('[a-z,0-9,A-Z]*.nii',scalarFiles[i]).group(0)
             crtName = re.sub('.nii','',crtName)
-            print '\t\t#'+str(i+1)+' = '+crtName
+            print '\t#'+str(i+1)+' = '+crtName
 			
             # Open the file
             scalar = nibabel.load(scalarDir+scalarFiles[i])
@@ -248,7 +261,8 @@ def DTB__cmat_scalar(inPath, subName):
                os.mkdir(filepath)
             except OSError:
                pass
-            np.save(filepath+filename, fMatrix)								
+            np.save(filepath+filename, fMatrix)		
+    print '#-----------------------------------------------------------------#\n'						
     print '###################################################################\n'
 ################################################################################
 
@@ -262,8 +276,8 @@ def DTB__cmat_scalar(inPath, subName):
 # outputs  : cmat_res1.dat, ..., cmat_resN.dat
 ################################################################################
 def DTB__cmat(inPath, subName):
-    log.info("Create connection matrices")
-    log.info("==========================")
+#    log.info("Create connection matrices")
+#    log.info("==========================")
     
     print '\n###################################################################\r'
     print '# DTB__cmat                                                       #\r'
@@ -274,35 +288,40 @@ def DTB__cmat(inPath, subName):
     print '#-----------------------------------------------------------------#\r'
     print '# Read the fibers...                                              #\r'
     fibFilename = inPath+'fibers/streamline.trk'
-    fib, hdr = nibabel.trackvis.read(fibFilename, False)
+    fib, hdr = nibabel.trackvis.read(fibFilename) #, False)
     print '#-----------------------------------------------------------------#\n'
    	
+    # Check if endpoints are already computed
+    if not os.path.isfile(inPath+'/fibers/TEMP_endpoints.npy') or not os.path.isfile(inPath+'/fibers/TEMP_epLen.npy'):
+        DTB__load_endpoints_from_trk(fib, hdr, inPath)
+      
 	# Get the fibers endpoints
     print '#-----------------------------------------------------------------#\r'
     print '# Loading fibers endpoints...                                     #\r'
-    en_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_endpoints.npy')
-    ep_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_epLen.npy')
+    en_fname  = inPath+'fibers/TEMP_endpoints.npy' #op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_endpoints.npy')
+    ep_fname  = inPath+'fibers/TEMP_epLen.npy' #op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_epLen.npy')
     endpoints = np.load(en_fname)
     epLen     = np.load(ep_fname)
     print '#-----------------------------------------------------------------#\n'
 	
     # For each resolution
-    resolution = gconf.parcellation.keys()
-    for r in resolution:
-        print '\t r = '+str(r)+'\r'
-      
-        # Open the corresponding ROI
-        roi_fname = op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR__registered-TO-b0', str(r), 'ROI_HR_th.nii')
-        roi       = nibabel.load(roi_fname)
-        roiData   = roi.get_data()
-      
-        # Create the matrix
-        #matrix = np.ndarray((r,r), 'object')
-        n = roiData.max()
-        print '\tn = '+str(n)+'\r'
-        matrix = np.zeros((n,n))
-      
-        # Open the shape matrix
+    # TODO We have to give each ROI filepath and it'll compute for it
+#    resolution = [33] #gconf.parcellation.keys()
+#    for r in resolution:
+#        print '\t r = '+str(r)+'\r'
+#      
+#        # Open the corresponding ROI
+#        roi_fname = inPath+'fs_output/registred/HR__registred/scale'+str(r)+'/ROI_HR_th.nii' #op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR__registered-TO-b0', str(r), 'ROI_HR_th.nii')
+#        roi       = nibabel.load(roi_fname)
+#        roiData   = roi.get_data()
+#      
+#        # Create the matrix
+#        #matrix = np.ndarray((r,r), 'object')
+#        n = roiData.max()
+#        print '\tn = '+str(n)+'\r'
+#        matrix = np.zeros((n,n))
+#      
+#        # Open the shape matrix
 #        f = open(inPath+'fibers/TEMP_shape.npy', 'r')
 #        shape = pickle.load(f)
 #        f.close()
@@ -310,24 +329,25 @@ def DTB__cmat(inPath, subName):
 #        nShapeInfo = shapeInfo.size
             
         # For each fiber
-        for i in range(0, hdr['n_count']):
-         
-            # TEMP Add in the corresponding cell the number of fibersFile
-            roiF = roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]]
-            roiL = roiData[endpoints[i, 1, 0], endpoints[i, 1, 1], endpoints[i, 1, 2]]
-            matrix[roiF-1, roiL-1] += 1
+#        for i in range(0, hdr['n_count']):
+#         
+#            # TEMP Add in the corresponding cell the number of fibersFile
+#            roiF = roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]]
+#            roiL = roiData[endpoints[i, 1, 0], endpoints[i, 1, 1], endpoints[i, 1, 2]]
+#            matrix[roiF-1, roiL-1] += 1
             
-        # Save the matrix
-        filename = '__cmat_'+str(r)+'.npy'
-        filepath = op.join(gconf.get_cmt_fibers4subject(sid), 'matrices', filename)
-        np.save(filepath, matrix)
+#        # Save the matrix
+#        filename = subName[0]+'_'+subName[1]+'__cmat_'+str(r)+'.npy'
+#        filepath = inPath+'fibers/matrices/'+filename #op.join(gconf.get_cmt_fibers4subject(sid), 'matrices', filename)
+#        np.save(filepath, matrix)
 							
     print '###################################################################\n'
 ################################################################################
 
 
 ################################################################################
-def run(conf, subject_tuple):
+# TESTING
+def run():#conf, subject_tuple):
     """ Run the connection matrix step
     
     Parameters
@@ -338,15 +358,19 @@ def run(conf, subject_tuple):
        
     """
     # setting the global configuration variable
-    globals()['gconf'] = conf
-    globals()['sid'] = subject_tuple
+#    globals()['gconf'] = conf
+#    globals()['sid'] = subject_tuple
     start = time()
     
-    subDir = gconf.get_cmt4subject(sid)
-    subName = sid
+    # FOR TESTING
+    subDir = '/home/cwis/Subjects/'#subDir = gconf.get_cmt4subject(sid)
+    subName = ['Control_004', 'tp01'] #sid
+    in01 = subDir+subName[0]+'/'+subName[1]+'/'
+    DTB__cmat_scalar(in01, subName)
+#    DTB__cmat(in01, subName)
     
-    DTB__cmat(subDir, subName)
-    
-    log.info("Connection matrix module took %s seconds to process." % (time()-start))
+    print 'TIME = '+str(time()-start)#log.info("Connection matrix module took %s seconds to process." % (time()-start))
 ################################################################################
 ################################################################################
+
+run()

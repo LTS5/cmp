@@ -22,21 +22,21 @@ from cmt.configuration import PipelineConfiguration
 
 myp = PipelineConfiguration('Testproject')
 
-myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt/data/test_project'
+myp.project_dir = '/home/cwis/Subjects/'
 myp.project_metadata = {# required metadata
                         'generator' : 'cmt 1.1',
-                        'initial-creator' : 'Stephan Gerhard',
-                        'institution' : 'EPFL / CHUV',
-                        'creation-date' : '2010-09-17',
-                        'modification-date' : '2010-09-17',
+                        'initial-creator' : 'Christophe Chenes',
+                        'institution' : 'EPFL',
+                        'creation-date' : '2010-09-21',
+                        'modification-date' : '2010-09-21',
                         'species' : 'Homo sapiens',
                         'targetspace' : 'MNI305',
                         'legal-notice' : '',
                         'reference' : '',
                         'url' : '',
-                        'description' : 'This is the first connectome file created with cmt',
+                        'description' : 'My tester',
                         # optional metadata
-                        'metadata' : {'nr_of_subjects' : 2,
+                        'metadata' : {'nr_of_subjects' : 1,
                                       'project_dir' : myp.project_dir}
                         }
 
@@ -62,9 +62,9 @@ myp.raw_glob = "*.IMA"
 # inspect the results of the registration by starting a fslview instance
 myp.inspect_registration = True
 
-myp.subject_list = { ('control001', 'tp1') :
-                     {'workingdir' : os.path.join(myp.project_dir, 'control001', 'tp1'),
-                      'age' : 55,
+myp.subject_list = { ('Control004', 'tp1') :
+                     {'workingdir' : os.path.join(myp.project_dir, 'Control_004', 'tp1'),
+                      'age' : 22,
                       'sex' :'X',
                       'description' : 'This subject is totally healthy!'},
                    }
@@ -75,22 +75,22 @@ myp.subject_list = { ('control001', 'tp1') :
 
 myp.cmt_home = os.path.join(os.environ['CMT_HOME'])
 # "/home/stephan/Dev/PyWorkspace/cmt-pipeline/branches/stephan"
-myp.cmt_bin = myp.get_cmt_binary_path()
+#myp.cmt_bin = myp.get_cmt_binary_path()
 
-myp.freesurfer_home = os.path.join(os.environ['FREESURFER_HOME'])
+#myp.freesurfer_home = os.path.join(os.environ['FREESURFER_HOME'])
 # "/home/stephan/Software/freesurfer" -> /bin
 
-myp.fsl_home = os.path.join(os.environ['FSL_HOME'])
+#myp.fsl_home = os.path.join(os.environ['FSL_HOME'])
 # "/usr/share/fsl" -> /bin
 
-myp.dtk_home = os.environ['DTDIR']
+#myp.dtk_home = os.environ['DTDIR']
 # "/home/stephan/Software/dtk"
-myp.dtk_matrices = os.path.join(myp.dtk_home, 'matrices')
+#myp.dtk_matrices = os.path.join(myp.dtk_home, 'matrices')
 
-myp.matlab_home = "/home/stephan/Software/MATLAB/bin"
-myp.matlab_prompt = "matlab -nosplash -nodesktop -r "
+#myp.matlab_home = "/home/stephan/Software/MATLAB/bin"
+#myp.matlab_prompt = "matlab -nosplash -nodesktop -r "
 
-os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
+#os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
 
 # XXX: NEED TO SOURCE ?
 # source "${FSL_HOME}/etc/fslconf/fsl.sh"
@@ -98,13 +98,13 @@ os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
 # export MATLABPATH="${CMT_HOME}:${CMT_HOME}/matlab_related:${CMT_HOME}/matlab_related/nifti:${CMT_HOME}/matlab_related/tractography:${CMT_HOME}/registration"
 
 # consistency check the configuration
-myp.consistency_check()
+#myp.consistency_check()
 
 ########################
 # Run the pipeline steps
 ########################
 
-sid =  ('control001', 'tp1') 
+sid =  ('Control_004', 'tp1') 
 
 # setup logger for subject
 myp.subject_list[sid]['logger'] = getLog(os.path.join(myp.get_log4subject(sid), 'pipeline.log')) 
@@ -115,8 +115,8 @@ myp.subject_list[sid]['logger'] = getLog(os.path.join(myp.get_log4subject(sid), 
 
 #diffusion.run(myp, ('control001', 'tp1') )
 #apply_registration.run(myp, ('control001', 'tp1') )
-tractography.run(myp, ('control001', 'tp1') )
-#connectionmatrix.run(myp, ('control001', 'tp1') )
+#tractography.run(myp, ('control001', 'tp1') )
+connectionmatrix.run(myp, ('Control_004', 'tp1') )
 
 # out-of-main-loop:
 #cffconverter.run(myp, ('control001', 'tp1') )
