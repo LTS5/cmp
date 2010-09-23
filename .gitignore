@@ -1,0 +1,4 @@
+*.pyc
+/testdata
+/CMT.egg-info
+/build

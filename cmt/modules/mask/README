@@ -1,0 +1,5 @@
+
+Goals:
+* Lausanne2008 multi-resolution parcellation as standard
+* Optional custom parcellations. See cmt.configuration.parcellation / get_parcellation()
+* Compatibility for Freesurfer version (e.g. insula new in 5.0?)

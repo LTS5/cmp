@@ -1,0 +1,15 @@
+Required
+--------
+* Freesurfer
+* FSL
+* Matlab
+* Diffusion Toolkit
+
+* Python, 2.7
+* Nibabel
+* Traits / Traits GUI (?)
+
+Optional
+--------
+* NiPype
+* Twisted / Loggingserver
