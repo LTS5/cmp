@@ -222,8 +222,13 @@ class PipelineConfiguration(traits.HasTraits):
         
         cmt_path = op.dirname(__file__)
         
-        if name == 'myatlas_33_rh.gcs':
-            return op.join(cmt_path, 'data', 'colortable_and_gcs', 'my_atlas_gcs', 'myatlas_33_rh.gcs')
+        provided_atlases = ['myatlas_33_rh.gcs','myatlasP1_16_rh.gcs','myatlasP17_28_rh.gcs','myatlasP29_35_rh.gcs',
+                            'myatlas_60_rh.gcs','myatlas_125_rh.gcs','myatlas_250_rh.gcs','myatlas_33_lh.gcs','myatlasP1_16_lh.gcs',
+                            'myatlasP17_28_lh.gcs','myatlasP29_35_lh.gcs','myatlas_60_lh.gcs','myatlas_125_lh.gcs','myatlas_250_lh.gcs']
+        
+        if name in provided_atlases:
+            return op.join(cmt_path, 'data', 'colortable_and_gcs', 'my_atlas_gcs', name)
+    
         
     def get_cmt_binary_path(self):
         """ Returns the path to the binary files for the current platform

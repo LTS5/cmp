@@ -15,7 +15,7 @@ Diffusion MRI Team LTS5
 * Alessandro Daducci (daducci)
 * Stephan Gerhard (unidesigner)
 * Christophe Chênes (Cwis)
-* Patric Hagmann
+* Patric Hagmann (pahagman)
 * Alia Lemkaddem (allem)
 * Elda Fischi
 

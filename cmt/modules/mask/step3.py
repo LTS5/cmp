@@ -64,7 +64,7 @@ def create_annot_label():
     ]
 
     for out in comp:      
-        mris_cmd = """mris_ca_label "3__FREESURFER" %s "%s/surf/rh.sphere.reg" "%s" "%s/label/%s" """ % (out[0], fs_dir, gconf.get_lausanne_atlas(out[1]), fs_dir, out[3])    
+        mris_cmd = """mris_ca_label "3__FREESURFER" %s "%s/surf/%s.sphere.reg" "%s" "%s/label/%s" """ % (out[0], out[0], fs_dir, gconf.get_lausanne_atlas(out[1]), fs_dir, out[3])    
         runCmd( mris_cmd, log )
         log.info('-----------')
         if not out[4] == '':
