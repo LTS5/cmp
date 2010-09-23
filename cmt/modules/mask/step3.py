@@ -6,22 +6,8 @@ import subprocess
 import sys
 from ...logme import *
 
-def mymove(src, dst, log):
-    """ Custom move function with target checking and logging """
-    
-    if not op.exists(src):
-        log.error("Source does not exist: %s" % src)
-        return
-    
-    if op.exists(dst):
-        ndst = dst + '_OLD'
-        log.debug("Target file already exists. Rename it to %s" % ndst)
-        if op.exists(dst):
-            if op.isfile(dst):
-                shutil.move(dst,ndst)
-    
-    log.info("Move file %s to %s" % (src, dst))
-    shutil.copy(src, dst)
+from cmt.modules.util import mymove
+
     
 def create_annot_label():
 
@@ -117,6 +103,8 @@ def reorganize():
         
         fpa = op.join(fs_dir, d)
         
+        # resample created roi volumes with reslice_like original volume
+        # XXX: what is reslice_like for? can't go directly to output filename?
         mri_cmd = 'mri_convert -rl "%s/mri/orig/001.mgz" -rt nearest "%s.nii" -nc "%s_tmp.nii"' % (fs_dir, fpa, fpa)
         
         runCmd( mri_cmd,log )
@@ -125,7 +113,6 @@ def reorganize():
         dst = '%s.nii' % fpa
         mymove(src, dst, log )        
         
-    
     # create subfolders in '4__CMT' folder
     
     #rm -fR "fs_output/registred/HR"
@@ -181,6 +168,8 @@ def create_roi():
             log.info("----------------")
             labelin = op.join(labelpath, label)
             labelni = op.join(labelpath, label + '.nii')
+            # explained: http://brainybehavior.com/neuroimaging/2010/05/converting-cortical-labels-from-freesurfer-to-volumetric-masks/
+            # XXX: dont we need more parameters?
             mri_cmd = 'mri_label2vol --label "%s" --temp "%s/mri/orig.mgz" --o %s --identity' % (labelin, fs_dir, labelni)
             
             runCmd( mri_cmd, log )    
