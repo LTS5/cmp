@@ -123,7 +123,7 @@ def apply_registration():
             
             log.info("[ DONE ]")
             
-    # XXX: what about this?
+    # XXX: what about this? roisizecalc
     #if [ ${D} != 'fsmask_1mm' ]; then
     #    cp "${TO}/4__CMT/fs_output/registred/HR__registered-TO-b0/${D}.nii" "${TO}/4__CMT/fs_output/registred/HR__registered-TO-b0/${D}__forRoiSizeCalc.nii"
     #fi

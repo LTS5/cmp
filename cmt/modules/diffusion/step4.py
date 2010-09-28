@@ -58,6 +58,7 @@ def compute_odfs():
         log.error(msg)
         raise Exception(msg)
     
+    # XXX: what about this parameter?
     for sharp in gconf.mode_parameters['sharpness_odf']:
         
         odf_out_path = op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_%s' % str(sharp))
