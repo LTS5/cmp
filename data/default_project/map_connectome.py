@@ -35,11 +35,11 @@ myp.project_metadata = {# required metadata
 
 myp.registration_mode = 'L'
 myp.processing_mode = 'DSI'
-myp.mode_parameters = {'sharpness_odf' : [0],
-                       'nr_of_gradient_directions' : 515,
+myp.mode_parameters = {'nr_of_gradient_directions' : 515,
                        'nr_of_sampling_directions' : 181,
-                       'lin_reg_para' : '-usesqform -nosearch -dof 6 -cost mutualinfo',
-                       'odf_recon_para' : '-b0 1 -dsi -p 4 -sn 0 -ot nii',
+                       'lin_reg_param' : '-usesqform -nosearch -dof 6 -cost mutualinfo',
+                       'odf_recon_param' : '-b0 1 -dsi -p 4 -sn 0 -ot nii',
+                       'streamline_param' : '--angle 60 --rSeed 4',
                        # if nonlinear registration is used at all
                        # f  ->  smaller values give larger brain outline estimates
                        # g  ->  positive values give larger brain outline at bottom, smaller at top

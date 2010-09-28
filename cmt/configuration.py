@@ -98,12 +98,7 @@ class PipelineConfiguration(traits.HasTraits):
                 
         if self.processing_mode == 'DSI':
             ke = self.mode_parameters.keys()
-            if not 'sharpness_odf' in ke:
-                raise Exception('Parameter "sharpness_odf" not set as key in mode_parameters. Required for DSI.')
-            else:
-                if len(self.mode_parameters['sharpness_odf']) > 2:
-                    raise Exception('Too many values for sharpness_odf parameter. Maximally two.')
-                
+
             if not 'nr_of_gradient_directions' in ke:
                 raise Exception('Parameter "nr_of_gradient_directions" not set as key in mode_parameters. Required for DSI.')
                 
@@ -187,21 +182,37 @@ class PipelineConfiguration(traits.HasTraits):
     def get_subj_dir(self, subject):
         return self.subject_list[subject]['workingdir']
     
-    def get_dsi_matrix(self):
-        """ XXX: Returns the correct DSI matrix given the parameters
-        Should: Return gradient_matrix, optionally forth columns for bvals!
+    def get_dtk_dsi_matrix(self):
+        """ Returns the DSI matrix from Diffusion Toolkit
         
-        1. dsi dir
-        2. number of gradient directions
-        3. number of sampling directions
+        The mode_parameters have to be set in the configuration object with keys:
+        1. number of gradient directions : 'nr_of_gradient_directions'
+        2. number of sampling directions : 'nr_of_sampling_directions'
+        
+        Example
+        -------
+        
+        confobj.mode_parameters['nr_of_gradient_directions'] = 515
+        confobj.mode_parameters['nr_of_sampling_directions'] = 181
+        
+        Returns matrix including absolute path to DSI_matrix_515x181.dat
+        
         """
         
         # XXX: check fist if it is available at all
+        if not self.mode_parameters.has_key('nr_of_gradient_directions'):
+            msg = 'nr_of_gradient_directions not set in mode_parameters'
+            raise Exception(msg)
+        if not self.mode_parameters.has_key('nr_of_sampling_directions'):
+            msg = 'nr_of_sampling_directions not set in mode_parameters'
+            raise Exception(msg)
+         
         grad = self.mode_parameters['nr_of_gradient_directions']
         samp = self.mode_parameters['nr_of_sampling_directions']
         fpath = op.join(self.dtk_matrices, "DSI_matrix_%sx%s.dat" % (grad, samp))
         if not op.exists(fpath):
-            print "DSI matrix does not exists: %s" % fpath
+            msg = "DSI matrix does not exists: %s" % fpath
+            raise Exception(msg)
             
         return fpath
     

@@ -123,13 +123,6 @@ def apply_registration():
             
             log.info("[ DONE ]")
             
-    # XXX: what about this? roisizecalc
-    #if [ ${D} != 'fsmask_1mm' ]; then
-    #    cp "${TO}/4__CMT/fs_output/registred/HR__registered-TO-b0/${D}.nii" "${TO}/4__CMT/fs_output/registred/HR__registered-TO-b0/${D}__forRoiSizeCalc.nii"
-    #fi
-
-    # rm -f "${TO}/4__CMT/fs_output/registred/HR__registered-TO-b0/tmp_premat.mat"
-
     log.info("Chain of registrations applied. [ DONE ]")
     log.info("[ Saved in %s ]" % tracto_masks_path_out)
 

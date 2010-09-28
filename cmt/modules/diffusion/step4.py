@@ -27,12 +27,10 @@ def resample_dsi():
             log.info("Created directory %s" % res_dsi_dir)
             
     split_cmd = 'fslsplit %s %s -t' % (input_dsi_file, op.join(res_dsi_dir, 'MR'))
-
     runCmd( split_cmd, log )
     
     files = glob( op.join(res_dsi_dir, 'MR*.nii'))
-    for file in sorted(files):
-        
+    for file in sorted(files):        
         tmp_file = op.join(res_dsi_dir, 'tmp.nii')
         mri_cmd = 'mri_convert -vs 2 2 2 %s %s ' % (file, tmp_file)
         runCmd( mri_cmd, log )
@@ -57,45 +55,45 @@ def compute_odfs():
         msg = "No input file available: %s" % first_input_file
         log.error(msg)
         raise Exception(msg)
-    
-    # XXX: what about this parameter?
-    for sharp in gconf.mode_parameters['sharpness_odf']:
-        
-        odf_out_path = op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_%s' % str(sharp))
-        try:
-            os.makedirs(odf_out_path)
-        except os.error:
-            log.info("%s was already existing" % str(odf_out_path))
-    
-        # calculate ODF map
-        
-        # XXX: rm -f "odf_${sharpness}/dsi_"*
-
-        if not gconf.mode_parameters.has_key('odf_recon_para'):
-            param = '-b0 1 -dsi -p 4 -sn 0 -ot nii'
-        else:
-            param = gconf.mode_parameters['odf_recon_para']
-
-        odf_cmd = 'odf_recon %s %s %s %s -mat %s -s %s %s' % (first_input_file, 
-                                 str(gconf.mode_parameters['nr_of_gradient_directions']),
-                                 str(gconf.mode_parameters['nr_of_sampling_directions']), 
-                                 op.join(odf_out_path, "dsi_"),
-                                 gconf.get_dsi_matrix(),
-                                 str(sharp),
-                                 param )
-        runCmd (odf_cmd, log )
-        
-        if not op.exists(op.join(odf_out_path, "dsi_odf.nii")):
-            log.error("Unable to reconstruct ODF!")
             
-        # calculate GFA map
-        # XXX: rm -f "odf_${sharpness}/dsi_gfa.nii"
+    # only compute default sharpness 0
+    sharp = 0
+    
+    odf_out_path = op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_%s' % str(sharp))
+    try:
+        os.makedirs(odf_out_path)
+    except os.error:
+        log.info("%s was already existing" % str(odf_out_path))
 
-        dta_cmd = 'DTB_gfa --dsi "%s"' % op.join(odf_out_path, 'dsi_')
-        runCmd( dta_cmd, log )
+    # calculate ODF map
+    
+    # XXX: rm -f "odf_${sharpness}/dsi_"*
+    if gconf.mode_parameters.has_key('odf_recon_param'):
+        param = gconf.mode_parameters['odf_recon_param']
+    else:
+        param = '-b0 1 -dsi -p 4 -sn 0 -ot nii'
 
-        if not op.exists(op.join(odf_out_path, "dsi_gfa.nii")):
-            log.error("Unable to calculate GFA map!")
+    odf_cmd = 'odf_recon %s %s %s %s -mat %s -s %s %s' % (first_input_file, 
+                             str(gconf.mode_parameters['nr_of_gradient_directions']),
+                             str(gconf.mode_parameters['nr_of_sampling_directions']), 
+                             op.join(odf_out_path, "dsi_"),
+                             gconf.get_dtk_dsi_matrix(),
+                             str(sharp),
+                             param )
+    runCmd (odf_cmd, log )
+    
+    if not op.exists(op.join(odf_out_path, "dsi_odf.nii")):
+        log.error("Unable to reconstruct ODF!")
+        
+    # calculate GFA map
+    # XXX: rm -f "odf_${sharpness}/dsi_gfa.nii"
+
+    # XXX: this will be replaced by Python code, to compute different scalar fields
+    dta_cmd = 'DTB_gfa --dsi "%s"' % op.join(odf_out_path, 'dsi_')
+    runCmd( dta_cmd, log )
+
+    if not op.exists(op.join(odf_out_path, "dsi_gfa.nii")):
+        log.error("Unable to calculate GFA map!")
     
     log.info("[ DONE ]")
 

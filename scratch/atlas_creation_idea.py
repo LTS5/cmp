@@ -15,6 +15,7 @@ from pymetis import part_graph
 
 # data init
 scalp=np.array([[1,1,0], [1,0,0.5],[0,1,-0.5]])
+
 # project
 def sp(vec):
     return np.array([vec[0]/ (1 - vec[2]), vec[1] / (1-vec[2])])

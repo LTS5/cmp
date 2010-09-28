@@ -27,37 +27,22 @@ def fiber_tracking_dsi():
     
     if not op.exists(gconf.get_cmt_fibers4subject(sid)):
         fibers_path = os.makedirs(gconf.get_cmt_fibers4subject(sid))
-    
-    # XXX: be clear about it
-    if len(gconf.mode_parameters['sharpness_odf']) == 1:
-        # normal streamline
-        
-        dtb_cmd = ['DTB_streamline', \
-                                 "--odf %s" % op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0', 'dsi_'),
-                                 "--angle 60",
-                                 "--wm %s" % op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm__8bit.nii'),
-                                 "--rSeed 4",
-                                 "--out %s" % op.join(gconf.get_cmt_fibers4subject(sid), 'streamline')]
-        dtb_cmd = ' '.join(dtb_cmd)
-        
-        runCmd( dtb_cmd, log )
-        
-    else:
-        # streamline with 2 ODFs
-        for ele in gconf.mode_parameters['sharpness_odf']:
-            log.info("Compute streamline for element %s" % ele)
             
-            dtb_cmd = ['DTB_streamline', \
-                                     "--odf %s" % op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_%s' % str(ele), 'dsi_'),
-                                     "--angle 45",
-                                     "--odf2 %s" % op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0', 'dsi_'),
-                                     "--angle2 60",
-                                     "--wm %s" % op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm__8bit.nii'),
-                                     "--rSeed 4",
-                                     "--out %s" % op.join(gconf.get_cmt_fibers4subject(sid), 'streamline')]
-            dtb_cmd = ' '.join(dtb_cmd)
-            runCmd( dtb_cmd, log )
-                    
+    # streamline tractography
+
+    if gconf.mode_parameters.has_key('streamline_param'):
+        param = gconf.mode_parameters('streamline_param')
+    else:
+        param = '--angle 60 --rSeed 4'
+
+
+    dtb_cmd = 'DTB_streamline --odf %s --wm --out %s' % (op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0', 'dsi_'),
+                            op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm__8bit.nii'),
+                            op.join(gconf.get_cmt_fibers4subject(sid), 'streamline'), param )
+    dtb_cmd = ' '.join(dtb_cmd)
+    
+    runCmd( dtb_cmd, log )
+        
     if not op.exists(op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk')):
         log.error('No streamline.trk created')    
     
