@@ -60,7 +60,7 @@ class PipelineConfiguration(traits.HasTraits):
 
         # the default parcellation provided
         default_parcell = {'scale33' : {'number_of_regions' : 0,
-                                        'node_information_graphml' : None, # contains name, url, color, etc. used for connection matrix
+                                        'node_information_graphml' : None, # contains name, url, color, freesurfer_label, etc. used for connection matrix
                                         'surface_parcellation' : None, # scalar node values on fsaverage? or atlas?,
                                         'volume_parcellation' : None, # scalar node values in fsaverage volume?
                                         'fs_label_subdir_name' : 'regenerated_%s_35' # the subdirectory name from where to copy parcellations, with hemispheric wildcard
@@ -146,9 +146,13 @@ class PipelineConfiguration(traits.HasTraits):
             return self.subject_list[subject]['logger']
     
     def get_rawt14subject(self, subject):
-        """ Get raw structural MRI for subject """
+        """ Get raw structural MRI T1 path for subject """
         return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'T1')
-        
+
+    def get_rawt24subject(self, subject):
+        """ Get raw structural MRI T2 path for subject """
+        return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'T2')
+
     def get_raw_diffusion4subject(self, subject):
         """ Get the raw diffusion path for subject """
         if self.processing_mode == 'DSI':
@@ -175,12 +179,24 @@ class PipelineConfiguration(traits.HasTraits):
     
     def get_cmt_fibers4subject(self, subject):
         return op.join(self.get_subj_dir(subject), '4__CMT', 'fibers')
+
+    def get_cmt_scalars4subject(self, subject):
+        return op.join(self.get_subj_dir(subject), '4__CMT', 'scalars')
         
     def get_cmt_fsmask4subject(self, subject):
         return op.join(self.get_cmt_fsout4subject(subject), 'registred', 'HR__registered-TO-b0')
 
     def get_subj_dir(self, subject):
         return self.subject_list[subject]['workingdir']
+
+    def get_gradient_matrix(self, subject):
+        """ Returns the absolute path to the gradient matrix
+        (the b-vectors) extracted from the raw diffusion DICOM files """
+        
+        if self.processing_mode == 'DSI':
+            return op.join(self.get_nifti4subject(subject), 'dsi_bvects.txt')
+        elif  self.processing_mode == 'DTI':
+            return op.join(self.get_nifti4subject(subject), 'dti_bvects.txt')
     
     def get_dtk_dsi_matrix(self):
         """ Returns the DSI matrix from Diffusion Toolkit
@@ -243,6 +259,4 @@ class PipelineConfiguration(traits.HasTraits):
                 return op.join(op.dirname(__file__), "binary", "linux2", "bit64")
         else:
             raise('No binary files compiled for your platform!')
-    
-
     

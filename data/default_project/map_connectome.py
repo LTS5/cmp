@@ -47,6 +47,11 @@ myp.mode_parameters = {'nr_of_gradient_directions' : 515,
                        'nlin_reg_bet_b0_param' : '-f 0.2 -g 0.2',
                        'nlin_reg_fnirt_param' : ''}
 
+# dti processing mode
+# dti_recon $CMT_SUBJECTS_DIR/$MY_SUBJECT/raw_diffusion/iso/*_000.hdr $CMT_SUBJECTS_DIR/$MY_SUBJECT/raw_diffusion/iso/$MY_SUBJECT -gm  $DTI_PATH/dti_30_gradient.txt -b 1000 -b0 1 -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
+# param : -b 1000 -b0 1 -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
+# gradient map : -gm  $DTI_PATH/dti_30_gradient.txt
+
 # 1: run through the freesurfer step without stopping
 # 2: prepare whitematter mask for correction (store it in subject dir/NIFTI
 # 3: rerun freesurfer part with corrected white matter mask
