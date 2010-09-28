@@ -60,8 +60,7 @@ def create_annot_label():
         runCmd( mri_an_cmd, log )
         log.info('-----------')
 
-    # extract cc and unknown to add to tractography mask
-    
+    # extract cc and unknown to add to tractography mask, we do not want this as a region of interest
     shutil.copy(op.join(fs_label_dir, 'regenerated_rh_35', 'rh.unknown.label'), op.join(fs_label_dir, 'rh.unknown.label'))
     shutil.copy(op.join(fs_label_dir, 'regenerated_lh_35', 'lh.unknown.label'), op.join(fs_label_dir, 'lh.unknown.label'))
     shutil.copy(op.join(fs_label_dir, 'regenerated_rh_35', 'rh.corpuscallosum.label'), op.join(fs_label_dir, 'rh.corpuscallosum.label'))
@@ -102,8 +101,8 @@ def reorganize():
         
         fpa = op.join(fs_dir, d)
         
-        # resample created roi volumes with reslice_like original volume
-        # XXX: what is reslice_like for? can't go directly to output filename?
+        # reslice to original volume because the roi creation with freesurfer
+        # changed to 256x256x256 resolution
         mri_cmd = 'mri_convert -rl "%s/mri/orig/001.mgz" -rt nearest "%s.nii" -nc "%s_tmp.nii"' % (fs_dir, fpa, fpa)
         
         runCmd( mri_cmd,log )

@@ -222,7 +222,6 @@ def lin_regT12b0():
     log.info("T1 -> b0: Linear registration")
     log.info("=============================")
 
-
     # Linear register "T1" onto "b0_resampled"
     log.info("Started FLIRT to find 'T1 --> b0' linear transformation")
 
