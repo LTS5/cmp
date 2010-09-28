@@ -64,11 +64,11 @@ class PipelineConfiguration(traits.HasTraits):
                                         'surface_parcellation' : None, # scalar node values on fsaverage? or atlas?,
                                         'volume_parcellation' : None, # scalar node values in fsaverage volume?
                                         'fs_label_subdir_name' : 'regenerated_%s_35' # the subdirectory name from where to copy parcellations, with hemispheric wildcard
-                                        },
-                           'scale60' : {'fs_label_subdir_name' : 'regenerated_%s_60'},
-                           'scale125' : {'fs_label_subdir_name' : 'regenerated_%s_125'},
-                           'scale250' : {'fs_label_subdir_name' : 'regenerated_%s_250'},
-                           'scale500' : {'fs_label_subdir_name' : 'regenerated_%s_500'}
+                                        }#,
+#                           'scale60' : {'fs_label_subdir_name' : 'regenerated_%s_60'},
+#                           'scale125' : {'fs_label_subdir_name' : 'regenerated_%s_125'},
+#                           'scale250' : {'fs_label_subdir_name' : 'regenerated_%s_250'},
+#                           'scale500' : {'fs_label_subdir_name' : 'regenerated_%s_500'}
                            }
         
         self.parcellation = default_parcell
