@@ -14,17 +14,12 @@ import networkx as nx
 from pymetis import part_graph
 
 # data init
-scalp=np.array([[1,1,0], [1,0,0.5],[0,1,-0.5]])
-
-# project
-def sp(vec):
-    return np.array([vec[0]/ (1 - vec[2]), vec[1] / (1-vec[2])])
-pmap = np.ones( (scalp.shape[1], 2) )
-for i in range(scalp.shape[1]):
-	pmap[i,:] = sp(scalp[i,:])
+verts = np.array( [ [0,1,1], [2,3,2], [2,1,2], [2,5,4], [5,4,3] ] )
+faces = np.array( [ [0,1,2], [2,1,4], [3,4,2] ] ).tolist()
+# select one region, and extract it as subgraph
+labels = np.array( [ 0,2,2,1,1] )
 
 # create a graph from the mesh
-faces = np.array( [ [0,1,2], [2,1,4], [3,4,2] ] ).tolist()
 h=nx.Graph()
 for f in faces:
 	# add three edges for each triangle
