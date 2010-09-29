@@ -197,7 +197,25 @@ class PipelineConfiguration(traits.HasTraits):
             return op.join(self.get_nifti4subject(subject), 'dsi_bvects.txt')
         elif  self.processing_mode == 'DTI':
             return op.join(self.get_nifti4subject(subject), 'dti_bvects.txt')
-    
+
+    def get_cmt_scalarfields(self, subject):
+        """ Returns a list with tuples with the scalar field name and the
+        absolute path to its nifti file """
+        
+        ret = []
+        
+        if self.processing_mode == 'DSI':
+            # add gfa per default
+            ret.append( ('gfa', op.join(self.get_cmt_scalars4subject(subject), 'dsi_gfa.nii')))
+            # XXX: add adc per default
+            
+        elif  self.processing_mode == 'DTI':
+            # nothing to add yet for DTI
+            pass
+        
+        return ret
+        
+        
     def get_dtk_dsi_matrix(self):
         """ Returns the DSI matrix from Diffusion Toolkit
         
@@ -231,6 +249,8 @@ class PipelineConfiguration(traits.HasTraits):
             raise Exception(msg)
             
         return fpath
+    
+
     
     def get_lausanne_atlas(self, name = None):
         """ Return the absolute path to the lausanne parcellation atlas
