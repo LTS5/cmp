@@ -1,7 +1,7 @@
 import os, os.path as op
 from time import time
-import logging
-log = logging.getLogger()
+#import logging
+#log = logging.getLogger()
 from glob import glob
 import subprocess
 
@@ -220,11 +220,10 @@ def DTB__cmat_shape(fib, hdr):
     log.info("---------------------")
     
     # Save the matrix
-    # TODO add in configuration.py a function get_cmt_matrices4subject()
     log.info("---------------------")
     log.info("Save the shape matrix")
-    filepath = gconf.get_cmt_fibers4subject(sid)
-    np.save(op.join(filepath, 'matrices/cmat_shape.npy'), out_mat)
+    filepath = gconf.get_cmt_matrices4subject(sid)
+    np.save(filepath, out_mat)
     log.info("---------------------")
     
     log.info("done")
@@ -269,10 +268,9 @@ def DTB__cmat_scalar(fib, hdr):
 
     # For each file in the scalar dir
     # TODO Change the method to get scalarfiles
-    # TODO Add in configuration.py a function get_cmt_scalars4subject()
     print '#-----------------------------------------------------------------#\r'
     print '# Scalar informations:                                            #\r'
-    scalarDir   = op.join(gconf.get_cmt4subject(sid), 'scalars/')
+    scalarDir   = gconf.get_cmt_scalars4subject(sid)
     scalarFiles = np.array(os.listdir(scalarDir))
     nbScalar    = scalarFiles.size
     print nbScalar
@@ -352,13 +350,13 @@ def DTB__cmat(fib, hdr):
     en_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_endpoints.npy')
     ep_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_epLen.npy')
     if    not os.path.isfile(en_fname) or not os.path.isfile(ep_fname):
-        print 'computing endpoints'
+        log.info('computing endpoints')
         endpoints, epLen = DTB__load_endpoints_from_trk(fib, hdr)
-        print 'saving endpoints'
+        log.info('saving endpoints')
         np.save(en_fname, endpoints)
         np.save(ep_fname, epLen)
     else:
-        print 'loading endpoints'
+        log.info('loading endpoints')
         endpoints = np.load(en_fname)
         epLen     = np.load(ep_fname)
     log.info("-------------")
@@ -401,7 +399,7 @@ def DTB__cmat(fib, hdr):
             
         # Save the matrix
         filename = 'cmat_'+r+'.npy'
-        filepath = op.join(gconf.get_cmt_fibers4subject(sid), 'matrices', filename)
+        filepath = op.join(gconf.get_cmt_matrices4subject(sid), filename)
         np.save(filepath, matrix)
     log.info("--------------------")
 
@@ -423,13 +421,14 @@ def run(conf, subject_tuple):
        
     """
     
-    log.info("########################")
-    log.info("Connection matrix module")
-    
     # setting the global configuration variable
     globals()['gconf'] = conf
     globals()['sid']   = subject_tuple
     start              = time()
+    globals()['log']   = conf.get_logger4subject(subject_tuple)
+    
+    log.info("########################")
+    log.info("Connection matrix module")
     
     # Read the fibers one and for all
     log.info("===============")

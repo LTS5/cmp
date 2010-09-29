@@ -180,7 +180,13 @@ class PipelineConfiguration(traits.HasTraits):
     
     def get_cmt_fibers4subject(self, subject):
         return op.join(self.get_subj_dir(subject), '4__CMT', 'fibers')
-        
+    
+    # ADD christophe
+    def get_cmt_matrices4subject(self, subject):
+        return op.join(self.get_subj_dir(subject), '4__CMT', 'fibers', 'matrices')    
+    def get_cmt_scalars4subject(self, subject):
+        return op.join(self.get_subj_dir(subject), '4__CMT', 'scalars')   
+    
     def get_cmt_fsmask4subject(self, subject):
         return op.join(self.get_cmt_fsout4subject(subject), 'registred', 'HR__registered-TO-b0')
 
