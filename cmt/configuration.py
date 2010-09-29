@@ -250,7 +250,6 @@ class PipelineConfiguration(traits.HasTraits):
             
         return fpath
     
-
     
     def get_lausanne_atlas(self, name = None):
         """ Return the absolute path to the lausanne parcellation atlas

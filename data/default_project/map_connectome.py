@@ -102,6 +102,7 @@ myp.subject_list[sid]['logger'] = \
     getLog(os.path.join(myp.get_log4subject(sid), \
                         'pipeline-%s-%s-%s.log' % (str(dt.datetime.now()), sid[0], sid[1] ) )) 
 
+# preprocessing.run(myp, sid )
 dicomconverter.run(myp, sid )
 #registration.run(myp, sid )
 #freesurfer.run(myp, sid )

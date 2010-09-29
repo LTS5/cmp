@@ -4,7 +4,6 @@ import subprocess
 import sys
 from time import time
 import shutil
-from glob import glob
 from ...logme import *
 from cmt.modules.util import reorient
 

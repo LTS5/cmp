@@ -1,3 +1,6 @@
+# PREPROCESSING
+import modules.preprocessing.organize as preprocessing
+
 # 0. DICOM CONVERTER
 import modules.converter.step0 as dicomconverter
 
