@@ -24,10 +24,8 @@ def fiber_tracking_dsi():
     log.info("===========================")
     
     # XXX: rm "fibers/streamline.trk" &> /dev/null
-    
-    if not op.exists(gconf.get_cmt_fibers4subject(sid)):
-        fibers_path = os.makedirs(gconf.get_cmt_fibers4subject(sid))
-            
+    fibers_path = gconf.get_cmt_fibers4subject(sid)
+                
     # streamline tractography
 
     if gconf.mode_parameters.has_key('streamline_param'):
@@ -38,12 +36,12 @@ def fiber_tracking_dsi():
 
     dtb_cmd = 'DTB_streamline --odf %s --wm --out %s' % (op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0', 'dsi_'),
                             op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm__8bit.nii'),
-                            op.join(gconf.get_cmt_fibers4subject(sid), 'streamline'), param )
+                            op.join(fibers_path, 'streamline'), param )
     dtb_cmd = ' '.join(dtb_cmd)
     
     runCmd( dtb_cmd, log )
         
-    if not op.exists(op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk')):
+    if not op.exists(op.join(fibers_path, 'streamline.trk')):
         log.error('No streamline.trk created')    
     
     # XXX: rm "${DATA_path}/${MY_SUBJECT}/${MY_TP}/4__CMT/fs_output/registred/HR__registered-TO-b0/fsmask_1mm__8bit.nii"

@@ -12,19 +12,12 @@ def resample_dsi():
 
     input_dsi_file = op.join(gconf.get_nifti4subject(sid), 'DSI.nii')
     ouput_dsi_file = op.join(gconf.get_cmt_rawdiff4subject(sid), 'DSI_resampled_2x2x2.nii.gz')
-    
     res_dsi_dir = op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2') 
     
     if not op.exists(input_dsi_file):
         log.error("File does not exists: %s" % input_dsi_file)
     else:
         log.debug("Found file: %s" % input_dsi_file)
-
-    if not op.exists(res_dsi_dir):
-        try:
-            os.makedirs(res_dsi_dir)
-        finally:
-            log.info("Created directory %s" % res_dsi_dir)
             
     split_cmd = 'fslsplit %s %s -t' % (input_dsi_file, op.join(res_dsi_dir, 'MR'))
     runCmd( split_cmd, log )
@@ -42,29 +35,21 @@ def resample_dsi():
 def compute_dts():
     
     log.info("Compute diffusion tensor field")
-    
+    log.info("==============================")
 
 def compute_odfs():    
 
-    log.info("Compute the ODFs field(s)")
+    log.info("Compute the ODFs field")
     log.info("=========================")
     
     first_input_file = op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2', 'MR0000.nii')
+    odf_out_path = op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0')
     
     if not op.exists(first_input_file):
         msg = "No input file available: %s" % first_input_file
         log.error(msg)
         raise Exception(msg)
-            
-    # only compute default sharpness 0
-    sharp = 0
     
-    odf_out_path = op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_%s' % str(sharp))
-    try:
-        os.makedirs(odf_out_path)
-    except os.error:
-        log.info("%s was already existing" % str(odf_out_path))
-
     # calculate ODF map
     
     # XXX: rm -f "odf_${sharpness}/dsi_"*
@@ -73,12 +58,11 @@ def compute_odfs():
     else:
         param = '-b0 1 -dsi -p 4 -sn 0 -ot nii'
 
-    odf_cmd = 'odf_recon %s %s %s %s -mat %s -s %s %s' % (first_input_file, 
+    odf_cmd = 'odf_recon %s %s %s %s -mat %s -s 0 %s' % (first_input_file, 
                              str(gconf.mode_parameters['nr_of_gradient_directions']),
                              str(gconf.mode_parameters['nr_of_sampling_directions']), 
                              op.join(odf_out_path, "dsi_"),
                              gconf.get_dtk_dsi_matrix(),
-                             str(sharp),
                              param )
     runCmd (odf_cmd, log )
     

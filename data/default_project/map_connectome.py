@@ -15,7 +15,7 @@ import datetime as dt
 from cmt.configuration import PipelineConfiguration
 
 myp = PipelineConfiguration('Testproject One')
-myp.project_dir = os.path.join(os.path.dirname(__file__) )
+myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt/data/default_project'
 myp.project_metadata = {# required metadata
                         'generator' : 'cmt 1.1',
                         'initial-creator' : 'Stephan Gerhard',
@@ -63,8 +63,8 @@ myp.raw_glob = "*.ima"
 # inspect the results of the registration by starting a fslview/trackvis instance
 myp.inspect_registration = True
 
-myp.subject_list = { ('testsubject1', 'tp1') :
-                     {'workingdir' : os.path.join(myp.project_dir, 'testsubject1', 'tp1'),
+myp.subject_list = { ('testsubject2', 'tp1') :
+                     {'workingdir' : os.path.join(myp.project_dir, 'testsubject2', 'tp1'),
                       'age' : 55,
                       'sex' :'X',
                       'description' : 'This subject is totally healthy!'},
@@ -95,15 +95,15 @@ myp.consistency_check()
 ##########################
 
 # setup only one subject, will loop over all subjects later
-sid =  ('testsubject1', 'tp1') 
+sid =  ('testsubject2', 'tp1') 
 
-# setup logger for the subject
+# setup logger for the subject, put this in preprocessing
 myp.subject_list[sid]['logger'] = \
     getLog(os.path.join(myp.get_log4subject(sid), \
                         'pipeline-%s-%s-%s.log' % (str(dt.datetime.now()), sid[0], sid[1] ) )) 
 
-# preprocessing.run(myp, sid )
-dicomconverter.run(myp, sid )
+preprocessing.run(myp, sid )
+#dicomconverter.run(myp, sid )
 #registration.run(myp, sid )
 #freesurfer.run(myp, sid )
 #maskcreation.run(myp, sid )

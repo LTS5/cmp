@@ -27,26 +27,6 @@ def apply_registration():
     # create folders
     
     #rm -fR "${TO}/4__CMT/fs_output/registred/HR__registered-TO-b0" > /dev/null
-
-    if not op.exists(tracto_masks_path_out):
-        try:
-            os.makedirs(tracto_masks_path_out)
-        except os.error:
-            log.info("%s was already existing" % str(tracto_masks_path_out))
-        finally:
-            log.info("%s created." % tracto_masks_path_out)
-
-    for park, parv in gconf.parcellation.items():
-        
-        par_path = op.join(tracto_masks_path_out, park)
-
-        if not op.exists(par_path):
-            try:
-                os.makedirs(par_path)
-            except os.error:
-                log.info("%s was already existing" % str(par_path))
-            finally:
-                log.info("Path created: %s" % par_path)
             
             
     if gconf.registration_mode == 'N':

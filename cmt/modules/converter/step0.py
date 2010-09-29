@@ -10,71 +10,67 @@ from cmt.modules.util import reorient
 import nibabel.nicom.dicomreaders as dr
 import nibabel as ni
 
-def diff2nifti_diff_unpack():
+def diff2nifti_dsi_unpack():
 
-    raw_dir = op.join(gconf.get_raw4subject(sid))
-    
+    raw_dir = op.join(gconf.get_raw4subject(sid))    
     nifti_dir = op.join(gconf.get_nifti4subject(sid))
-    if not op.exists(nifti_dir):
-        try:
-            os.makedirs(nifti_dir)
-        except os.error:
-            log.info("%s was already existing" % str(nifti_dir))
-    
-    if gconf.processing_mode == 'DSI':
-        dsi_dir = op.join(raw_dir, 'DSI')
-        log.info("Convert DSI ...") 
-        # check if .nii / .nii.gz is already available
-        if op.exists(op.join(dsi_dir, 'DSI.nii')):
-            shutil.copy(op.join(dsi_dir, 'DSI.nii'), op.join(nifti_dir, 'DSI.nii'))
-        else:
-            # read data
-            first = sorted(glob(op.join(dsi_dir, gconf.raw_glob)))[0]
-            diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DSI.nii'))            
-            runCmd(diff_cmd, log)
-            
-            # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
-            data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, gconf.raw_glob)
-            del data
-            import numpy as np
-            np.savetxt(op.join(nifti_dir, 'dsi_affine.txt'), affine)
-            np.savetxt(op.join(nifti_dir, 'dsi_bvals.txt'), bval)
-            np.savetxt(op.join(nifti_dir, 'dsi_bvects.txt'), bvect)
-    
-        log.info("Resampling 'DSI' to 1x1x1 mm^3...")
-        mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (
-                               op.join(nifti_dir, 'DSI.nii'),
-                               op.join(nifti_dir, 'DSI_b0_resampled.nii'))
-        
-        runCmd(mri_cmd, log)
 
-    elif gconf.processing_mode == 'DTI':
-        dti_dir = op.join(raw_dir, 'DTI')
-        log.info("Convert DTI ...") 
-        # check if .nii / .nii.gz is already available
-        if op.exists(op.join(dti_dir, 'DTI.nii')):
-            shutil.copy(op.join(dti_dir, 'DTI.nii'), op.join(nifti_dir, 'DTI.nii'))
-        else:
-            # read data
-            first = sorted(glob(op.join(dti_dir, gconf.raw_glob)))[0]
-            diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii'))            
-            runCmd(diff_cmd, log)
-            
-            # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
-            data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, gconf.raw_glob)
-            del data
-            import numpy as np
-            np.savetxt(op.join(nifti_dir, 'dti_affine.txt'), affine)
-            np.savetxt(op.join(nifti_dir, 'dti_bvals.txt'), bval)
-            np.savetxt(op.join(nifti_dir, 'dti_bvects.txt'), bvect)
-    
-        log.info("Resampling 'DTI' to 1x1x1 mm^3...")
-        mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (
-                               op.join(nifti_dir, 'DTI.nii'),
-                               op.join(nifti_dir, 'DTI_b0_resampled.nii'))
+    dsi_dir = op.join(raw_dir, 'DSI')
+    log.info("Convert DSI ...") 
+    # check if .nii / .nii.gz is already available
+    if op.exists(op.join(dsi_dir, 'DSI.nii')):
+        shutil.copy(op.join(dsi_dir, 'DSI.nii'), op.join(nifti_dir, 'DSI.nii'))
+    else:
+        # read data
+        first = sorted(glob(op.join(dsi_dir, gconf.raw_glob)))[0]
+        diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DSI.nii'))            
+        runCmd(diff_cmd, log)
         
-        runCmd(mri_cmd, log)
+        # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
+        data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, gconf.raw_glob)
+        del data
+        import numpy as np
+        np.savetxt(op.join(nifti_dir, 'dsi_affine.txt'), affine)
+        np.savetxt(op.join(nifti_dir, 'dsi_bvals.txt'), bval)
+        np.savetxt(op.join(nifti_dir, 'dsi_bvects.txt'), bvect)
 
+    log.info("Resampling 'DSI' to 1x1x1 mm^3...")
+    mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (
+                           op.join(nifti_dir, 'DSI.nii'),
+                           op.join(nifti_dir, 'DSI_b0_resampled.nii'))
+    
+    runCmd(mri_cmd, log)
+
+def diff2nifti_dti_unpack():
+
+    raw_dir = op.join(gconf.get_raw4subject(sid))    
+    nifti_dir = op.join(gconf.get_nifti4subject(sid))
+
+    dti_dir = op.join(raw_dir, 'DTI')
+    log.info("Convert DTI ...") 
+    # check if .nii / .nii.gz is already available
+    if op.exists(op.join(dti_dir, 'DTI.nii')):
+        shutil.copy(op.join(dti_dir, 'DTI.nii'), op.join(nifti_dir, 'DTI.nii'))
+    else:
+        # read data
+        first = sorted(glob(op.join(dti_dir, gconf.raw_glob)))[0]
+        diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii'))            
+        runCmd(diff_cmd, log)
+        
+        # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
+        data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, gconf.raw_glob)
+        del data
+        import numpy as np
+        np.savetxt(op.join(nifti_dir, 'dti_affine.txt'), affine)
+        np.savetxt(op.join(nifti_dir, 'dti_bvals.txt'), bval)
+        np.savetxt(op.join(nifti_dir, 'dti_bvects.txt'), bvect)
+
+    log.info("Resampling 'DTI' to 1x1x1 mm^3...")
+    mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (
+                           op.join(nifti_dir, 'DTI.nii'),
+                           op.join(nifti_dir, 'DTI_b0_resampled.nii'))
+    
+    runCmd(mri_cmd, log)
 
 def t12nifti_diff_unpack():
 
@@ -93,7 +89,6 @@ def t12nifti_diff_unpack():
         log.info("Dataset 'T1.nii' succesfully created!")
         
     reorient(op.join(nifti_dir, 'T1.nii'), op.join(nifti_dir, 'DSI.nii'), log)
-
         
 def t22nifti_diff_unpack():
     
@@ -113,7 +108,6 @@ def t22nifti_diff_unpack():
         log.info("Dataset 'T2.nii' successfully created!")
 
     reorient(op.join(nifti_dir, 'T2.nii'), op.join(nifti_dir, 'DSI.nii'), log)
-        
 
     log.info("[ DONE ]")
     
@@ -136,7 +130,10 @@ def run(conf, subject_tuple):
     log.info("DICOM -> NIFTI conversion")
     log.info("=========================")
     
-#    diff2nifti_diff_unpack()
+    if gconf.processing_mode == 'DSI':
+        diff2nifti_dsi_unpack()
+    elif gconf.processing_mode == 'DTI':
+        diff2nifti_dti_unpack()
     t12nifti_diff_unpack()
     if gconf.registration_mode == 'N':
         t22nifti_diff_unpack()

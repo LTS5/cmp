@@ -25,6 +25,7 @@ def create_annot_label():
             spath = gconf.parcellation[p]['fs_label_subdir_name'] % hemi
             paths.append(spath)
     
+    # XXX: this makedirs should go in the preprocessing module
     for p in paths:
         try:
             os.makedirs(op.join(fs_label_dir, p))
@@ -115,20 +116,8 @@ def reorganize():
     
     #rm -fR "fs_output/registred/HR"
     reg_path = op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR')
-    try:
-        os.makedirs(reg_path)
-    except:
-        pass
 
      # XXX: this piece of code only works for the default lausanne pipeline 
-     
-    for p in gconf.parcellation.keys():
-        log.info("Create path %s" % p )
-        try:
-            os.makedirs(op.join(reg_path, p))
-        except:
-            pass
-        
         
     # copy datasets from '3__FREESURFER' folder
     src = op.join(fs_dir, 'mri', 'aseg.nii')
