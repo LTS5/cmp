@@ -276,4 +276,6 @@ def run(conf, subject_tuple):
         lin_regT12b0()
     
     log.info("Module took %s seconds to process." % (time()-start))
-    
+
+    msg = "Registration module finished!\nIt took %s seconds." % int(time()-start)
+    send_email_notification(msg, gconf.emailnotify, log)  

@@ -141,3 +141,5 @@ def run(conf, subject_tuple):
         after_wm_corr()
         run_fs_on_corrected_wm()
         
+    msg = "Freesurfer module finished!\nIt took %s seconds." % int(time()-start)
+    send_email_notification(msg, gconf.emailnotify, log)  

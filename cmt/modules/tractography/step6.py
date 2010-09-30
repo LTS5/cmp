@@ -93,3 +93,6 @@ def run(conf, subject_tuple):
     spline_filtering()
     
     log.info("Module took %s seconds to process." % (time()-start))
+    
+    msg = "Tractography module finished!\nIt took %s seconds." % int(time()-start)
+    send_email_notification(msg, gconf.emailnotify, log)  

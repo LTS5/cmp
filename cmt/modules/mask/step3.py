@@ -226,4 +226,6 @@ def run(conf, subject_tuple):
     finalize_roi()
     
     log.info("Module took %s seconds to process." % (time()-start))
-    
+
+    msg = "Mask creation module finished!\nIt took %s seconds." % int(time()-start)
+    send_email_notification(msg, gconf.emailnotify, log)  

@@ -11,6 +11,7 @@ def resample_dsi():
     log.info("======================================")
 
     input_dsi_file = op.join(gconf.get_nifti4subject(sid), 'DSI.nii')
+    # XXX: this output file is never generated!
     ouput_dsi_file = op.join(gconf.get_cmt_rawdiff4subject(sid), 'DSI_resampled_2x2x2.nii.gz')
     res_dsi_dir = op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2') 
     
@@ -105,3 +106,6 @@ def run(conf, subject_tuple):
         compute_dts()
     
     log.info("Module took %s seconds to process." % (time()-start))
+
+    msg = "Diffusion module finished!\nIt took %s seconds." % int(time()-start)
+    send_email_notification(msg, gconf.emailnotify, log)  

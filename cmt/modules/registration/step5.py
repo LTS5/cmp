@@ -128,3 +128,7 @@ def run(conf, subject_tuple):
     apply_registration()
     
     log.info("Module took %s seconds to process." % (time()-start))
+
+    msg = "Apply registration module finished!\nIt took %s seconds." % int(time()-start)
+    send_email_notification(msg, gconf.emailnotify, log)  
+    

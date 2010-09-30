@@ -55,8 +55,6 @@ def create_folders():
                 log.info("Created directory %s" % p)
      
 
-        
-    
 def run(conf, subject_tuple):
     """ Run the first preprocessing step
     
@@ -80,4 +78,7 @@ def run(conf, subject_tuple):
     create_folders()
 
     log.info("Module took %s seconds to process." % (time()-start))
-                
+    
+    msg = "Preprocessing module finished!\nIt took %s seconds." % int(time()-start)
+    send_email_notification(msg, gconf.emailnotify, log)
+    

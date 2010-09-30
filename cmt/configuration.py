@@ -41,6 +41,10 @@ class PipelineConfiguration(traits.HasTraits):
     # matlab invocation prompt
     matlab_prompt = traits.Str("matlab -nodesktop -nosplash -r")  
         
+    # email notification, needs a local smtp server
+    # sudo apt-get install postfix
+    emailnotify = traits.ListStr(desc='the email address to send to')
+    
     ################################
     # External package Configuration
     ################################

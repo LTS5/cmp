@@ -63,6 +63,9 @@ myp.raw_glob = "*.ima"
 # inspect the results of the registration by starting a fslview/trackvis instance
 myp.inspect_registration = True
 
+# email notification
+myp.emailnotify = ['connectome@unidesign.ch']
+
 myp.subject_list = { ('testsubject1', 'tp1') :
                      {'workingdir' : os.path.join(myp.project_dir, 'testsubject1', 'tp1'),
                       'age' : 55,
@@ -103,14 +106,14 @@ myp.subject_list[sid]['logger'] = \
                         'pipeline-%s-%s-%s.log' % (str(dt.datetime.now()), sid[0], sid[1] ) )) 
 
 preprocessing.run(myp, sid )
-dicomconverter.run(myp, sid )
-registration.run(myp, sid )
-freesurfer.run(myp, sid )
-#maskcreation.run(myp, sid )
-diffusion.run(myp, sid )
-apply_registration.run(myp, sid )
-tractography.run(myp, sid )
-connectionmatrix.run(myp, sid )
+#dicomconverter.run(myp, sid )
+#registration.run(myp, sid )
+#freesurfer.run(myp, sid )
+##maskcreation.run(myp, sid )
+#diffusion.run(myp, sid )
+#apply_registration.run(myp, sid )
+#tractography.run(myp, sid )
+#connectionmatrix.run(myp, sid )
 
 # out-of-main-loop:
 #cffconverter.run(myp)

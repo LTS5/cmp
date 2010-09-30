@@ -139,4 +139,6 @@ def run(conf, subject_tuple):
         t22nifti_diff_unpack()
 
     log.info("Module took %s seconds to process." % (time()-start))
-                
+
+    msg = "DICOM Converter module finished!\nIt took %s seconds." % int(time()-start)
+    send_email_notification(msg, gconf.emailnotify, log)    
