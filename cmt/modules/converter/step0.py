@@ -22,7 +22,11 @@ def diff2nifti_dsi_unpack():
         shutil.copy(op.join(dsi_dir, 'DSI.nii'), op.join(nifti_dir, 'DSI.nii'))
     else:
         # read data
-        first = sorted(glob(op.join(dsi_dir, gconf.raw_glob)))[0]
+        files = glob(op.join(dsi_dir, gconf.raw_glob))
+        if len(files) == 0:
+            raise Exception('No files found for %s. Maybe change raw_glob variable?' % op.join(dsi_dir, gconf.raw_glob) )
+		
+        first = sorted(files)[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DSI.nii'))            
         runCmd(diff_cmd, log)
         
