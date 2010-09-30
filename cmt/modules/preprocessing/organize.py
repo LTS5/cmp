@@ -21,81 +21,40 @@ def log_system_setup():
 #    runCmd( odf_cmd, log )
     
 def create_folders():
-    pass
-
-    nifti_dir = op.join(gconf.get_nifti4subject(sid))
-    if not op.exists(nifti_dir):
-        try:
-            os.makedirs(nifti_dir)
-        except os.error:
-            log.info("%s was already existing" % str(nifti_dir))
-
-    res_dsi_dir = op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2') 
-    if not op.exists(res_dsi_dir):
-        try:
-            os.makedirs(res_dsi_dir)
-        finally:
-            log.info("Created directory %s" % res_dsi_dir)
-            
-    odf_out_path = op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0')
-    try:
-        os.makedirs(odf_out_path)
-    except os.error:
-        log.info("%s was already existing" % str(odf_out_path))
-        
-    fs_4subj_mri = op.join(gconf.get_fs4subject(sid), 'mri', 'orig')
-    try:
-        os.makedirs(fs_4subj_mri)
-    except os.error:
-        log.info("%s was already existing" % str(fs_4subj_mri))
-        
-    wm_exchange_folder = op.join(gconf.get_nifti4subject(sid), 'wm_correction')
-    if not op.exists(wm_exchange_folder):
-        try:
-            wm_exchange_folder = os.makedirs(wm_exchange_folder)
-        except os.error:
-            log.info("%s was already existing" % str(wm_exchange_folder))
-
-    reg_path = op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR')
-    try:
-        os.makedirs(reg_path)
-    except:
-        pass
     
+    paths = [
+        op.join(gconf.get_nifti4subject(sid)),
+        op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2'),
+        op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0'),
+        gconf.get_fs4subject(sid),
+        op.join(gconf.get_nifti4subject(sid), 'wm_correction'),
+        op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR__registered-TO-b0'),
+        gconf.get_cmt_fibers4subject(sid),  
+        gconf.get_log4subject(sid),
+        gconf.get_rawt14subject(sid),
+        gconf.get_raw_diffusion4subject(sid),
+        gconf.get_cmt_scalars4subject(sid),
+        op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR')]
+
+    if gconf.registration_mode == 'N':
+        paths.append(gconf.get_rawt24subject(sid))
+
     for p in gconf.parcellation.keys():
-        log.info("Create path %s" % p )
-        try:
-            os.makedirs(op.join(reg_path, p))
-        except:
-            pass
+        paths.append(op.join(op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR'), p))
         
-    tracto_masks_path_out = op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR__registered-TO-b0')
-    if not op.exists(tracto_masks_path_out):
-        try:
-            os.makedirs(tracto_masks_path_out)
-        except os.error:
-            log.info("%s was already existing" % str(tracto_masks_path_out))
-        finally:
-            log.info("%s created." % tracto_masks_path_out)
-
     for park, parv in gconf.parcellation.items():
-        
-        par_path = op.join(tracto_masks_path_out, park)
+        paths.append(op.join(op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR__registered-TO-b0'), park))
 
-        if not op.exists(par_path):
+    for p in paths:
+        if not op.exists(p):
             try:
-                os.makedirs(par_path)
+                os.makedirs(p)
             except os.error:
-                log.info("%s was already existing" % str(par_path))
+                log.info("%s was already existing" % p)
             finally:
-                log.info("Path created: %s" % par_path)
-        
-    fibers_path = gconf.get_cmt_fibers4subject(sid)        
-    if not op.exists(fibers_path):
-        os.makedirs(fibers_path)
-        
-    if not op.exists(gconf.get_log4subject(sid)):
-        os.makedirs(gconf.get_log4subject(sid))
+                log.info("Created directory %s" % p)
+     
+
         
     
 def run(conf, subject_tuple):

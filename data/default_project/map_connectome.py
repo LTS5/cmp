@@ -63,8 +63,8 @@ myp.raw_glob = "*.ima"
 # inspect the results of the registration by starting a fslview/trackvis instance
 myp.inspect_registration = True
 
-myp.subject_list = { ('testsubject2', 'tp1') :
-                     {'workingdir' : os.path.join(myp.project_dir, 'testsubject2', 'tp1'),
+myp.subject_list = { ('testsubject1', 'tp1') :
+                     {'workingdir' : os.path.join(myp.project_dir, 'testsubject1', 'tp1'),
                       'age' : 55,
                       'sex' :'X',
                       'description' : 'This subject is totally healthy!'},
@@ -95,7 +95,7 @@ myp.consistency_check()
 ##########################
 
 # setup only one subject, will loop over all subjects later
-sid =  ('testsubject2', 'tp1') 
+sid =  ('testsubject1', 'tp1') 
 
 # setup logger for the subject, put this in preprocessing
 myp.subject_list[sid]['logger'] = \
@@ -103,14 +103,14 @@ myp.subject_list[sid]['logger'] = \
                         'pipeline-%s-%s-%s.log' % (str(dt.datetime.now()), sid[0], sid[1] ) )) 
 
 preprocessing.run(myp, sid )
-#dicomconverter.run(myp, sid )
-#registration.run(myp, sid )
-#freesurfer.run(myp, sid )
+dicomconverter.run(myp, sid )
+registration.run(myp, sid )
+freesurfer.run(myp, sid )
 #maskcreation.run(myp, sid )
-#diffusion.run(myp, sid )
-#apply_registration.run(myp, sid )
-#tractography.run(myp, sid )
-#connectionmatrix.run(myp, sid )
+diffusion.run(myp, sid )
+apply_registration.run(myp, sid )
+tractography.run(myp, sid )
+connectionmatrix.run(myp, sid )
 
 # out-of-main-loop:
 #cffconverter.run(myp)
