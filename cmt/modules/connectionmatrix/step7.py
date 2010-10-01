@@ -14,8 +14,6 @@ import struct
 import math
 import nibabel
 
-import pickle
-import math
 
 ################################################################################
 def mm2index(mm3, hdrStreamline):
@@ -43,9 +41,9 @@ def mm2index(mm3, hdrStreamline):
     """
     
     index = np.zeros(3)
-    index[0] = int(math.ceil( mm3[0] / hdrStreamline['voxel_size'][0] - hdrStreamline['voxel_size'][0]/2 )) # round => math.ceil
-    index[1] = int(math.ceil( mm3[1] / hdrStreamline['voxel_size'][1] - hdrStreamline['voxel_size'][1]/2 )) # 0.5 => hdrStreamline['voxel_size'][i]/2
-    index[2] = int(math.ceil( mm3[2] / hdrStreamline['voxel_size'][2] - hdrStreamline['voxel_size'][2]/2 ))
+    index[0] = int(round( mm3[0] / hdrStreamline['voxel_size'][0] - 0.5 ))
+    index[1] = int(round( mm3[1] / hdrStreamline['voxel_size'][1] - 0.5 ))
+    index[2] = int(round( mm3[2] / hdrStreamline['voxel_size'][2] - 0.5 ))
     index[index<0] = 0
     if index[0]>hdrStreamline['dim'][0]:
         index[0] = hdrStreamline['dim'][0]
@@ -117,23 +115,8 @@ def DTB__load_endpoints_from_trk(fib, hdr):
     Christophe Chenes, Stephan Gerhard
     """
 
-    for i, fis in enumerate(fib):
-        fi = fis[0]
-        w = np.zeros( (1,2,3) )
-        w[i,0,:] = mm2index(fi[0], hdr)
-        w[i,1,:] = mm2index(fi[-1], hdr)
-        endpoints = numpy.vstack( (endpoints, w) )
-        epLen.append(len(fi))
-        print "On fiber ", i
-        		
-	# Save the matrices
-	outPath = gconf.get_cmt_fibers4subject(sid)
-	numpy.save(op.join(outPath, 'TEMP_endpoints.npy'), endpoints[1:,:,:])
-	numpy.save(op.join(outPath, 'TEMP_epLen.npy'), numpy.array(epLen))
-
     log.info("============================")
     log.info("DTB__load_endpoints_from_trk")
-
     
     # Init
     endpoints = np.zeros( (hdr['n_count'], 2, 3) )
@@ -383,13 +366,12 @@ def DTB__cmat(fib, hdr):
     log.info("--------------------")
     log.info("Resolution treatment")
     resolution = gconf.parcellation.keys()
-    cmat = {} # NEW matrix
     for r in resolution:
         log.info("\tresolution = "+r)
       
         # Open the corresponding ROI
         log.info("\tOpen the corresponding ROI")
-        roi_fname = op.join(gconf.get_cmt_fsout4subject(sid), 'registered', 'HR__registered-T0-b0', r, 'ROI_HR_th.nii')
+        roi_fname = op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR__registered-TO-b0', r, 'ROI_HR_th.nii')
         roi       = nibabel.load(roi_fname)
         roiData   = roi.get_data()
       
@@ -399,16 +381,7 @@ def DTB__cmat(fib, hdr):
         # TODO and find a way to add everything inside (or the mean)
         n      = roiData.max()
         matrix = np.zeros((n,n))
-        
-        arrNodes = np.ndarray((n), object)   # NEW matrix
-        matEdges = np.ndarray((n,n), object) # NEW matrix
-        eID = 0 # NEW matrix
-        for i in range(0, n): # NEW matrix
-            arrNodes[i] = {'node_id': i} # NEW matrix
-            for j in range (0,n): # NEW matrix
-                matEdges[i][j] = {'edge_id': eID, 'nb_fibers': 0} # NEW matrix
-                eID = eID+1 # NEW matrix
-                
+      
         # Open the shape matrix
 #        f = open(inPath+'fibers/TEMP_shape.npy', 'r')
 #        shape = pickle.load(f)
@@ -422,24 +395,13 @@ def DTB__cmat(fib, hdr):
             # TEMP Add in the corresponding cell the number of fibersFile
             roiF = roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]]
             roiL = roiData[endpoints[i, 1, 0], endpoints[i, 1, 1], endpoints[i, 1, 2]]
+            matrix[roiF-1, roiL-1] += 1
             
-            if roiF != 0 and roiL != 0 and roiF != roiL: # TEST
-                matrix[roiF-1, roiL-1] += 1
-                matEdges[roiF-1][roiL-1]['nb_fibers'] += 1 # NEW matrix
-        
-        cmat.update({r: {'node': arrNodes, 'edge': matEdges}})# NEW matrix
-        
         # Save the matrix
         filename = 'cmat_'+r+'.npy'
         filepath = op.join(gconf.get_cmt_matrices4subject(sid), filename)
         np.save(filepath, matrix)
-        
     log.info("--------------------")
-
-    # NEW matrix => save
-    f = open(op.join(gconf.get_cmt_matrices4subject(sid), 'tester.dat'),'w')
-    pickle.dump(cmat,f)
-    f.close()
 
     log.info("done")
     log.info("=========")							
