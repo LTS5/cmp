@@ -77,7 +77,6 @@ def create_annot_label():
     shutil.copy(op.join(fs_label_dir, 'regenerated_rh_60', 'rh.corpuscallosum.label'), rhco)
     shutil.copy(op.join(fs_label_dir, 'regenerated_lh_60', 'lh.corpuscallosum.label'), lhco)
 
-    # XXX: error: you must specify a registration method, where to save to?, why?
     mri_cmd = """mri_label2vol --label "%s" --label "%s" --label "%s" --label "%s" --temp "%s" --o  "%s" --identity """ % (rhun, lhun, rhco, lhco, op.join(fs_dir, 'mri', 'orig.mgz'), op.join(fs_dir, 'label', 'cc_unknown.nii') )
     runCmd( mri_cmd, log )
 
@@ -98,10 +97,12 @@ def crop_and_move_datasets():
     fs_dir = gconf.get_fs4subject(sid)
     fs_cmd_dir = gconf.get_cmt_fsout4subject(sid)
     reg_path = op.join(fs_cmd_dir, 'registred', 'HR')
-       
+    
+    # datasets to crop and move: (from, to)
     ds = [
           (op.join(fs_dir, 'mri', 'aseg.nii'), op.join(reg_path, 'aseg.nii') ),
           (op.join(fs_dir, 'mri', 'ribbon.nii'), op.join(reg_path, 'ribbon.nii') ),
+          (op.join(fs_dir, 'mri', 'fsmask_1mm.nii'), op.join(reg_path, 'fsmask_1mm.nii') ),
           (op.join(fs_dir, 'label', 'cc_unknown.nii'), op.join(reg_path, 'cc_unknown.nii') )
           ]
     
@@ -117,66 +118,6 @@ def crop_and_move_datasets():
         mri_cmd = 'mri_convert -rl "%s" -rt nearest "%s" -nc "%s"' % (orig, d[0], d[1])
         runCmd( mri_cmd,log )
         
-
-def reorganize():
-    log.info("Move datasets into 'fs_output/registred/HR' folder")
-    
-    fs_dir = gconf.get_fs4subject(sid)
-    
-    # crop to the "space of original T1"
-    log.info(" * Cropping datasets to ORIGINAL GEOMETRY of T1...")
-    
-    ds = [
-     'mri/aseg','mri/ribbon', 'label/cc_unknown', \
-     'label/regenerated_lh_35/ROI_lh','label/regenerated_rh_35/ROI_rh', \
-     'label/regenerated_rh_60/ROI_rh','label/regenerated_lh_60/ROI_lh',  \
-    'label/regenerated_rh_125/ROI_rh','label/regenerated_lh_125/ROI_lh', \
-    'label/regenerated_rh_250/ROI_rh','label/regenerated_lh_250/ROI_lh', \
-    'label/regenerated_rh_500/ROI_rh','label/regenerated_lh_500/ROI_lh', ]
-
-    for d in ds:
-        log.info("Processing %s:" % d)
-        
-        fpa = op.join(fs_dir, d)
-        
-        # reslice to original volume because the roi creation with freesurfer
-        # changed to 256x256x256 resolution
-        mri_cmd = 'mri_convert -rl "%s/mri/orig/001.mgz" -rt nearest "%s.nii" -nc "%s_tmp.nii"' % (fs_dir, fpa, fpa)
-        runCmd( mri_cmd,log )
-        
-        src = '%s_tmp.nii' % fpa
-        dst = '%s.nii' % fpa
-        mymove(src, dst, log )        
-        
-    # create subfolders in '4__CMT' folder
-    
-    #rm -fR "fs_output/registred/HR"
-    reg_path = op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR')
-
-     # XXX: this piece of code only works for the default lausanne pipeline 
-        
-    # copy datasets from '3__FREESURFER' folder
-    src = op.join(fs_dir, 'mri', 'aseg.nii')
-    dst = reg_path    
-    mymove(src,dst,log)
-    
-    src = op.join(fs_dir, 'mri', 'ribbon.nii')
-    dst = reg_path    
-    mymove(src,dst,log)    
-
-    # XXX: adapt this when clear above
-    src = op.join(fs_dir, 'label', 'cc_unknown.nii')
-    dst = reg_path    
-    mymove(src,dst,log)    
-    
-    for p in gconf.parcellation.keys():
-        for hemi in ['lh', 'rh']:
-            spath = gconf.parcellation[p]['fs_label_subdir_name'] % hemi
-            src = op.join(fs_dir, 'label', spath, 'ROI_%s.nii' % hemi)
-            dst = op.join(reg_path, p)
-            mymove(src,dst,log)
-            
-    log.info("[ DONE ]")
 
 def create_roi():
     """ Creates the ROI_%s.nii files using the given parcellation information
@@ -199,10 +140,6 @@ def create_roi():
         rois = np.zeros( (256, 256, 256), dtype=np.int16 )
 
         for brk, brv in pg.nodes_iter(data=True):
-
-            log.info("---------------------")
-            log.info("Work in brain region: %s" % brv['dn_freesurfer_structname'])
-            log.info("---------------------")
             
             if brv['dn_hemisphere'] == 'left':
                 hemi = 'lh'
@@ -210,13 +147,21 @@ def create_roi():
                 hemi = 'rh'
                 
             if brv['dn_region'] == 'subcortical':
-                log.info("... subcortical")
+
+                log.info("---------------------")
+                log.info("Work on %s brain region: %s" % (brv['dn_region'], brv['dn_freesurfer_structname']) )
+                log.info("---------------------")
+
                 # if it is subcortical, retrieve roi from aseg
                 idx = np.where(asegd == int(brv['dn_fs_aseg_val']))
                 rois[idx] = int(brv['dn_intensityvalue'])
             
             elif brv['dn_region'] == 'cortical':
-                log.info("... cortical")
+
+                log.info("---------------------")
+                log.info("Work on %s brain region: %s" % (brv['dn_region'], brv['dn_freesurfer_structname']) )
+                log.info("---------------------")
+
                 labelpath = op.join(fs_dir, 'label', parval['fs_label_subdir_name'] % hemi)
                 # construct .label file name
                 
@@ -236,50 +181,58 @@ def create_roi():
                 idx = np.where(tmpd == 1)
                 rois[idx] = int(brv['dn_intensityvalue'])
                 
-                # remove tmp.nii
-#                os.remove(op.join(labelpath, 'tmp.nii'))
-        
-        # store volume in ROI_HR_th.nii
+                        
+        # store volume eg in ROI_scale33.nii
         out_roi = op.join(fs_dir, 'label', 'ROI_%s.nii' % parkey)
         
-        # create a header
-#        hdr = ni.Nifti1Header()
-#        hdr.set_data_shape(rois.shape)
-#        hdr.set_data_dtype(np.dtype('uint16'))
-        
-        # setting intent code?
         log.info("Save output image to %s" % out_roi)
-        
         img = ni.Nifti1Image(rois, aseg.get_affine(), aseg.get_header())
-        
         ni.save(img, out_roi)
+    
+    log.info("[ DONE ]")  
 
+def create_wm_mask():
     
-#    for hemi in ['lh', 'rh']:
-#        labelpath = op.join(fs_dir, 'label', 'regenerated_%s_35' % hemi)
-#        labels = glob(op.join(labelpath, '*.label'))
-#        for label in labels:
-#            log.info("Processing label %s" % label)
-#            log.info("----------------")
-#            labelin = op.join(labelpath, label)
-#            labelni = op.join(labelpath, label + '.nii')
-#            # explained: http://brainybehavior.com/neuroimaging/2010/05/converting-cortical-labels-from-freesurfer-to-volumetric-masks/
-#            # XXX: dont we need more parameters?
-#            mri_cmd = 'mri_label2vol --label "%s" --temp "%s/mri/orig.mgz" --o %s --identity' % (labelin, fs_dir, labelni)
-#            runCmd( mri_cmd, log )    
-#    
-#    matlab_cmd = gconf.matlab_prompt + """ "roi_creation( '%s','%s' ); exit" """ % (sid[0], sid[1])
-    #runCmd( matlab_cmd, log )
+    log.info("Create white matter mask")
     
-    log.info("[ DONE ]")  
+    fs_dir = gconf.get_fs4subject(sid)
+    fs_cmd_dir = gconf.get_cmt_fsout4subject(sid)
+    reg_path = op.join(fs_cmd_dir, 'registred', 'HR')
     
-def create_final_mask():
-    log.info("Create final ROI mask, cortex and deep gray structures")
+    # load ribbon
+    fsmask = ni.load(op.join(fs_dir, 'mri', 'ribbon.nii'))
     
-    matlab_cmd = gconf.matlab_prompt + """ "roi_merge( '%s','%s' ); exit" """ % (sid[0], sid[1])
-    runCmd( matlab_cmd, log )
+    wmmask = np.zeros( fsmask.get_data().shape )
     
-    log.info("[ DONE ]")  
+    # extract right and left white matter (hardcoded, think about it XXX)
+    idx_lh = np.where(fsmask == 120)
+    idx_rh = np.where(fsmask == 20)
+    
+    wmmask[idx_lh] = 1
+    wmmask[idx_rh] = 1
+    
+    # XXX: REMOVE voxels from csfA, csfB, gr_ncl and remaining structures from 'aseg.nii' dataset
+
+    # XXX: erosion procedures?
+    
+    # remove subcortical nuclei from white matter mask
+    
+    # XXX: REMOVE the voxels labeled in 'scale33/ROI_HR_th'
+    
+    # ADD voxels from 'cc_unknown.nii' dataset
+    
+    ccun = ni.load(op.join(fs_dir, 'label', 'cc_unknown.nii'))
+    ccund = ccun.get_data()
+    idx = np.where(ccund != 0)
+    wmmask[idx] = 1
+    
+    # XXX: subtracting wmmask from ROI necessary?
+    
+    wm_out = op.join(fs_dir, 'mri', 'fsmask_1mm.nii')
+    img = ni.Nifti1Image(wmmask, fsmask.get_affine(), fsmask.get_header() )
+    log.info("Save white matter mask: %s" % wm_out)
+    ni.save(img, wm_out)
+    
 
 def finalize_wm():
     log.info("Finalize WM mask")
@@ -325,11 +278,11 @@ def run(conf, subject_tuple):
     cp = gconf.get_cmt_home()
     env['MATLABPATH'] = "%s:%s/matlab_related:%s/matlab_related/nifti:%s/matlab_related/tractography:%s/registration" % (cp, cp, cp, cp, cp)
     
-#    create_annot_label()
-#    create_roi()
+    create_annot_label()
+    create_roi()
+    create_wm_mask()    
     crop_and_move_datasets()
-#    reorganize()
-#    create_final_mask()
+
 #    finalize_wm()
 #    finalize_roi()
     

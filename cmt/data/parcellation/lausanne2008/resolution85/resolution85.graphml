@@ -791,5 +791,23 @@
 	<data key="dn_fs_aseg_val">16</data>
 	<data key="dn_hemisphere">none</data>
 </node>
+<node id="n84">
+	<data key="dn_href">http://connectome.ch/wiki/IL_(Homo_sapiens)</data>
+	<data key="dn_label">IL_RH</data>
+	<data key="dn_freesurfer_structname">insula</data>
+	<data key="dn_colorcode">150,150,200</data>
+	<data key="dn_intensityvalue">84</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
+</node>
+<node id="n85">
+	<data key="dn_href">http://connectome.ch/wiki/IL_(Homo_sapiens)</data>
+	<data key="dn_label">IL_LH</data>
+	<data key="dn_freesurfer_structname">insula</data>
+	<data key="dn_colorcode">150,150,200</data>
+	<data key="dn_intensityvalue">85</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
+</node>
 </graph>
 </graphml>
