@@ -201,12 +201,13 @@ def create_wm_mask():
     
     # load ribbon
     fsmask = ni.load(op.join(fs_dir, 'mri', 'ribbon.nii'))
-    
+    fsmaskd = fsmask.get_data()
+
     wmmask = np.zeros( fsmask.get_data().shape )
     
-    # extract right and left white matter (hardcoded, think about it XXX)
-    idx_lh = np.where(fsmask == 120)
-    idx_rh = np.where(fsmask == 20)
+    # extract right and left white matter (hardcoded, think about it XXX 
+    idx_lh = np.where(fsmaskd == 120)
+    idx_rh = np.where(fsmaskd == 20)
     
     wmmask[idx_lh] = 1
     wmmask[idx_rh] = 1
@@ -278,8 +279,8 @@ def run(conf, subject_tuple):
     cp = gconf.get_cmt_home()
     env['MATLABPATH'] = "%s:%s/matlab_related:%s/matlab_related/nifti:%s/matlab_related/tractography:%s/registration" % (cp, cp, cp, cp, cp)
     
-    create_annot_label()
-    create_roi()
+#    create_annot_label()
+#    create_roi()
     create_wm_mask()    
     crop_and_move_datasets()
 

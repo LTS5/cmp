@@ -33,8 +33,8 @@ def fiber_tracking_dsi():
     else:
         param = '--angle 60 --rSeed 4'
 
-
-    dtb_cmd = 'DTB_streamline --odf %s --wm %s --out %s %s' % (op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0', 'dsi_'),
+    cmd = op.join(gconf.get_cmt_binary_path(), 'DTB_streamline')
+    dtb_cmd = '%s --odf %s --wm %s --out %s %s' % (cmd, op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0', 'dsi_'),
                             op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm__8bit.nii'),
                             op.join(fibers_path, 'streamline'), param )
     
