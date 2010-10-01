@@ -29,15 +29,14 @@ def fiber_tracking_dsi():
     # streamline tractography
 
     if gconf.mode_parameters.has_key('streamline_param'):
-        param = gconf.mode_parameters('streamline_param')
+        param = gconf.mode_parameters['streamline_param']
     else:
         param = '--angle 60 --rSeed 4'
 
 
-    dtb_cmd = 'DTB_streamline --odf %s --wm --out %s' % (op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0', 'dsi_'),
+    dtb_cmd = 'DTB_streamline --odf %s --wm %s --out %s %s' % (op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0', 'dsi_'),
                             op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm__8bit.nii'),
                             op.join(fibers_path, 'streamline'), param )
-    dtb_cmd = ' '.join(dtb_cmd)
     
     runCmd( dtb_cmd, log )
         
