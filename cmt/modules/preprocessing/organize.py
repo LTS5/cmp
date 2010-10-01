@@ -34,6 +34,7 @@ def create_folders():
         gconf.get_rawt14subject(sid),
         gconf.get_raw_diffusion4subject(sid),
         gconf.get_cmt_scalars4subject(sid),
+        gconf.get_cmt_matrices4subject(sid),
         op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR')]
 
     if gconf.registration_mode == 'N':
