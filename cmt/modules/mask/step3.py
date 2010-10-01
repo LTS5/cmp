@@ -6,8 +6,9 @@ import subprocess
 import sys
 from ...logme import *
 
+import nibabel as ni
 import networkx as nx
-
+import numpy as np
 from cmt.modules.util import mymove
 
 def create_annot_label():
@@ -164,15 +165,19 @@ def create_roi():
     aseg = ni.load(op.join(fs_dir, 'mri', 'aseg.nii'))
     asegd = aseg.get_data()
     
-    for parkey, parval in gconf.parcellation.keys():
+    for parkey, parval in gconf.parcellation.items():
         
         pg = nx.read_graphml(parval['node_information_graphml'])
         
         # each node represents a brain region
         # create a big 256^3 volume for storage of all ROIs
         rois = np.zeros( (256, 256, 256), dtype=np.int16 )
-        
+
         for brk, brv in pg.nodes_iter(data=True):
+
+            log.info("---------------------")
+            log.info("Work in brain region: %s" % brv['dn_freesurfer_structname'])
+            log.info("---------------------")
             
             if brv['dn_hemisphere'] == 'left':
                 hemi = 'lh'
@@ -180,48 +185,65 @@ def create_roi():
                 hemi = 'rh'
                 
             if brv['dn_region'] == 'subcortical':
+                log.info("... subcortical")
                 # if it is subcortical, retrieve roi from aseg
-                
-                pass
+                idx = np.where(asegd == int(brv['dn_fs_aseg_val']))
+                rois[idx] = int(brv['dn_intensityvalue'])
             
             elif brv['dn_region'] == 'cortical':
-                labelpath = op.join(fs_dir, 'label', parval[fs_label_subdir_name] % hemi)
+                log.info("... cortical")
+                labelpath = op.join(fs_dir, 'label', parval['fs_label_subdir_name'] % hemi)
                 # construct .label file name
+                
                 fname = '%s.%s.label' % (hemi, brv['dn_freesurfer_structname'])
 
                 # execute fs mri_label2vol to generate volume roi from the label file
                 # store it in temporary file to be overwritten for each region
 
                 mri_cmd = 'mri_label2vol --label "%s" --temp "%s" --o "%s" --identity' % (op.join(labelpath, fname),
-                        op.join(fsdir, 'mri', 'orig.mgz'), op.join(labelpath, 'tmp.nii'))
+                        op.join(fs_dir, 'mri', 'orig.mgz'), op.join(labelpath, 'tmp.nii'))
                 runCmd( mri_cmd, log )
                 
                 tmp = ni.load(op.join(labelpath, 'tmp.nii'))
                 tmpd = tmp.get_data()
-                
+
                 # find voxel and set them to intensityvalue in rois
-                    
+                idx = np.where(tmpd == 1)
+                rois[idx] = int(brv['dn_intensityvalue'])
+                
+                # remove tmp.nii
+#                os.remove(op.join(labelpath, 'tmp.nii'))
         
         # store volume in ROI_HR_th.nii
         out_roi = op.join(fs_cmt_dir, 'registred', 'HR', parkey, 'ROI_HR_th.nii')
         
+        # create a header
+#        hdr = ni.Nifti1Header()
+#        hdr.set_data_shape(rois.shape)
+#        hdr.set_data_dtype(np.dtype('uint16'))
+        
+        # setting intent code?
+        log.info("Save output image to %s" % out_roi)
+        
+        img = ni.Nifti1Image(rois, aseg.get_affine(), aseg.get_header())
+        
+        ni.save(img, out_roi)
+
     
-    
-    
-    for hemi in ['lh', 'rh']:
-        labelpath = op.join(fs_dir, 'label', 'regenerated_%s_35' % hemi)
-        labels = glob(op.join(labelpath, '*.label'))
-        for label in labels:
-            log.info("Processing label %s" % label)
-            log.info("----------------")
-            labelin = op.join(labelpath, label)
-            labelni = op.join(labelpath, label + '.nii')
-            # explained: http://brainybehavior.com/neuroimaging/2010/05/converting-cortical-labels-from-freesurfer-to-volumetric-masks/
-            # XXX: dont we need more parameters?
-            mri_cmd = 'mri_label2vol --label "%s" --temp "%s/mri/orig.mgz" --o %s --identity' % (labelin, fs_dir, labelni)
-            runCmd( mri_cmd, log )    
-    
-    matlab_cmd = gconf.matlab_prompt + """ "roi_creation( '%s','%s' ); exit" """ % (sid[0], sid[1])
+#    for hemi in ['lh', 'rh']:
+#        labelpath = op.join(fs_dir, 'label', 'regenerated_%s_35' % hemi)
+#        labels = glob(op.join(labelpath, '*.label'))
+#        for label in labels:
+#            log.info("Processing label %s" % label)
+#            log.info("----------------")
+#            labelin = op.join(labelpath, label)
+#            labelni = op.join(labelpath, label + '.nii')
+#            # explained: http://brainybehavior.com/neuroimaging/2010/05/converting-cortical-labels-from-freesurfer-to-volumetric-masks/
+#            # XXX: dont we need more parameters?
+#            mri_cmd = 'mri_label2vol --label "%s" --temp "%s/mri/orig.mgz" --o %s --identity' % (labelin, fs_dir, labelni)
+#            runCmd( mri_cmd, log )    
+#    
+#    matlab_cmd = gconf.matlab_prompt + """ "roi_creation( '%s','%s' ); exit" """ % (sid[0], sid[1])
     #runCmd( matlab_cmd, log )
     
     log.info("[ DONE ]")  
@@ -288,5 +310,5 @@ def run(conf, subject_tuple):
     log.info("Module took %s seconds to process." % (time()-start))
 
     msg = "Mask creation module finished!\nIt took %s seconds." % int(time()-start)
-    send_email_notification(msg, gconf.emailnotify, log)  
+#    send_email_notification(msg, gconf.emailnotify, log)  
 

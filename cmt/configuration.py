@@ -65,7 +65,7 @@ class PipelineConfiguration(traits.HasTraits):
         # the default parcellation provided
         default_parcell = {'scale33' : {'number_of_regions' : 0,
                                         # contains name, url, color, freesurfer_label, etc. used for connection matrix
-                                        'node_information_graphml' : op.join(gconf.get_lausanne_parcellation_path('resolution83'), 'resolution83.graphml'),
+                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution83'), 'resolution83.graphml'),
                                         # scalar node values on fsaverage? or atlas? 
                                         'surface_parcellation' : None,
                                         # scalar node values in fsaverage volume?
