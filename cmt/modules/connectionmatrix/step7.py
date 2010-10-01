@@ -1,7 +1,7 @@
 import os, os.path as op
 from time import time
-import logging
-log = logging.getLogger()
+#import logging
+#log = logging.getLogger()
 from glob import glob
 import subprocess
 
@@ -14,6 +14,8 @@ import struct
 import math
 import nibabel
 
+import pickle
+import math
 
 ################################################################################
 def mm2index(mm3, hdrStreamline):
@@ -41,9 +43,9 @@ def mm2index(mm3, hdrStreamline):
     """
     
     index = np.zeros(3)
-    index[0] = int(round( mm3[0] / hdrStreamline['voxel_size'][0] - 0.5 ))
-    index[1] = int(round( mm3[1] / hdrStreamline['voxel_size'][1] - 0.5 ))
-    index[2] = int(round( mm3[2] / hdrStreamline['voxel_size'][2] - 0.5 ))
+    index[0] = int(math.ceil( mm3[0] / hdrStreamline['voxel_size'][0] - hdrStreamline['voxel_size'][0]/2 )) # round => math.ceil
+    index[1] = int(math.ceil( mm3[1] / hdrStreamline['voxel_size'][1] - hdrStreamline['voxel_size'][1]/2 )) # 0.5 => hdrStreamline['voxel_size'][i]/2
+    index[2] = int(math.ceil( mm3[2] / hdrStreamline['voxel_size'][2] - hdrStreamline['voxel_size'][2]/2 ))
     index[index<0] = 0
     if index[0]>hdrStreamline['dim'][0]:
         index[0] = hdrStreamline['dim'][0]
@@ -235,11 +237,10 @@ def DTB__cmat_shape(fib, hdr):
     log.info("---------------------")
     
     # Save the matrix
-    # TODO add in configuration.py a function get_cmt_matrices4subject()
     log.info("---------------------")
     log.info("Save the shape matrix")
-    filepath = gconf.get_cmt_fibers4subject(sid)
-    np.save(op.join(filepath, 'matrices/cmat_shape.npy'), out_mat)
+    filepath = gconf.get_cmt_matrices4subject(sid)
+    np.save(filepath, out_mat)
     log.info("---------------------")
     
     log.info("done")
@@ -284,10 +285,9 @@ def DTB__cmat_scalar(fib, hdr):
 
     # For each file in the scalar dir
     # TODO Change the method to get scalarfiles
-    # TODO Add in configuration.py a function get_cmt_scalars4subject()
     print '#-----------------------------------------------------------------#\r'
     print '# Scalar informations:                                            #\r'
-    scalarDir   = op.join(gconf.get_cmt4subject(sid), 'scalars/')
+    scalarDir   = gconf.get_cmt_scalars4subject(sid)
     scalarFiles = np.array(os.listdir(scalarDir))
     nbScalar    = scalarFiles.size
     print nbScalar
@@ -367,13 +367,13 @@ def DTB__cmat(fib, hdr):
     en_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_endpoints.npy')
     ep_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_epLen.npy')
     if    not os.path.isfile(en_fname) or not os.path.isfile(ep_fname):
-        print 'computing endpoints'
+        log.info('computing endpoints')
         endpoints, epLen = DTB__load_endpoints_from_trk(fib, hdr)
-        print 'saving endpoints'
+        log.info('saving endpoints')
         np.save(en_fname, endpoints)
         np.save(ep_fname, epLen)
     else:
-        print 'loading endpoints'
+        log.info('loading endpoints')
         endpoints = np.load(en_fname)
         epLen     = np.load(ep_fname)
     log.info("-------------")
@@ -383,6 +383,7 @@ def DTB__cmat(fib, hdr):
     log.info("--------------------")
     log.info("Resolution treatment")
     resolution = gconf.parcellation.keys()
+    cmat = {} # NEW matrix
     for r in resolution:
         log.info("\tresolution = "+r)
       
@@ -398,7 +399,16 @@ def DTB__cmat(fib, hdr):
         # TODO and find a way to add everything inside (or the mean)
         n      = roiData.max()
         matrix = np.zeros((n,n))
-      
+        
+        arrNodes = np.ndarray((n), object)   # NEW matrix
+        matEdges = np.ndarray((n,n), object) # NEW matrix
+        eID = 0 # NEW matrix
+        for i in range(0, n): # NEW matrix
+            arrNodes[i] = {'node_id': i} # NEW matrix
+            for j in range (0,n): # NEW matrix
+                matEdges[i][j] = {'edge_id': eID, 'nb_fibers': 0} # NEW matrix
+                eID = eID+1 # NEW matrix
+                
         # Open the shape matrix
 #        f = open(inPath+'fibers/TEMP_shape.npy', 'r')
 #        shape = pickle.load(f)
@@ -412,13 +422,24 @@ def DTB__cmat(fib, hdr):
             # TEMP Add in the corresponding cell the number of fibersFile
             roiF = roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]]
             roiL = roiData[endpoints[i, 1, 0], endpoints[i, 1, 1], endpoints[i, 1, 2]]
-            matrix[roiF-1, roiL-1] += 1
             
+            if roiF != 0 and roiL != 0 and roiF != roiL: # TEST
+                matrix[roiF-1, roiL-1] += 1
+                matEdges[roiF-1][roiL-1]['nb_fibers'] += 1 # NEW matrix
+        
+        cmat.update({r: {'node': arrNodes, 'edge': matEdges}})# NEW matrix
+        
         # Save the matrix
         filename = 'cmat_'+r+'.npy'
-        filepath = op.join(gconf.get_cmt_fibers4subject(sid), 'matrices', filename)
+        filepath = op.join(gconf.get_cmt_matrices4subject(sid), filename)
         np.save(filepath, matrix)
+        
     log.info("--------------------")
+
+    # NEW matrix => save
+    f = open(op.join(gconf.get_cmt_matrices4subject(sid), 'tester.dat'),'w')
+    pickle.dump(cmat,f)
+    f.close()
 
     log.info("done")
     log.info("=========")							
@@ -438,13 +459,14 @@ def run(conf, subject_tuple):
        
     """
     
-    log.info("########################")
-    log.info("Connection matrix module")
-    
     # setting the global configuration variable
     globals()['gconf'] = conf
     globals()['sid']   = subject_tuple
     start              = time()
+    globals()['log']   = conf.get_logger4subject(subject_tuple)
+    
+    log.info("########################")
+    log.info("Connection matrix module")
     
     # Read the fibers one and for all
     log.info("===============")
