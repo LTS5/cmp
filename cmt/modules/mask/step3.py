@@ -98,9 +98,7 @@ def crop_and_move_datasets():
     fs_dir = gconf.get_fs4subject(sid)
     fs_cmd_dir = gconf.get_cmt_fsout4subject(sid)
     reg_path = op.join(fs_cmd_dir, 'registred', 'HR')
-    
-    log.info(" * Cropping datasets to ORIGINAL GEOMETRY of T1...")
-    
+       
     ds = [
           (op.join(fs_dir, 'mri', 'aseg.nii'), op.join(reg_path, 'aseg.nii') ),
           (op.join(fs_dir, 'mri', 'ribbon.nii'), op.join(reg_path, 'ribbon.nii') ),
@@ -113,7 +111,7 @@ def crop_and_move_datasets():
     orig = op.join(fs_dir, 'mri', 'orig', '001.mgz')
         
     for d in ds:
-        log.info("Processing %s:" % d)
+        log.info("Processing %s:" % d[0])
         # reslice to original volume because the roi creation with freesurfer
         # changed to 256x256x256 resolution
         mri_cmd = 'mri_convert -rl "%s" -rt nearest "%s" -nc "%s"' % (orig, d[0], d[1])
@@ -329,7 +327,7 @@ def run(conf, subject_tuple):
     
 #    create_annot_label()
 #    create_roi()
-    crop_and_move_datasets
+    crop_and_move_datasets()
 #    reorganize()
 #    create_final_mask()
 #    finalize_wm()
