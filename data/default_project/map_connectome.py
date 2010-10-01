@@ -47,6 +47,9 @@ myp.mode_parameters = {'nr_of_gradient_directions' : 515,
                        'nlin_reg_bet_b0_param' : '-f 0.2 -g 0.2',
                        'nlin_reg_fnirt_param' : ''}
 
+# email notification
+myp.emailnotify = ['connectome@unidesign.ch']
+
 # dti processing mode
 # dti_recon $CMT_SUBJECTS_DIR/$MY_SUBJECT/raw_diffusion/iso/*_000.hdr $CMT_SUBJECTS_DIR/$MY_SUBJECT/raw_diffusion/iso/$MY_SUBJECT -gm  $DTI_PATH/dti_30_gradient.txt -b 1000 -b0 1 -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
 # param : -b 1000 -b0 1 -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
@@ -63,8 +66,7 @@ myp.raw_glob = "*.ima"
 # inspect the results of the registration by starting a fslview/trackvis instance
 myp.inspect_registration = True
 
-# email notification
-myp.emailnotify = ['connectome@unidesign.ch']
+
 
 myp.subject_list = { ('testsubject1', 'tp1') :
                      {'workingdir' : os.path.join(myp.project_dir, 'testsubject1', 'tp1'),

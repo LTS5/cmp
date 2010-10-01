@@ -54,6 +54,22 @@ def create_folders():
             finally:
                 log.info("Created directory %s" % p)
      
+def set_env_vars():
+    
+    os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
+    
+def log_paths():
+    
+    log.info("CMT path configuration:")
+
+    log.info(gconf.freesurfer_home)
+    log.info(gconf.fsl_home)
+    log.info(gconf.dtk_home)
+    log.info(gconf.dtk_matrices)
+    log.info(gconf.matlab_home)
+    log.info(gconf.matlab_bin)
+    log.info(gconf.matlab_prompt)
+
 
 def run(conf, subject_tuple):
     """ Run the first preprocessing step
@@ -76,7 +92,9 @@ def run(conf, subject_tuple):
 
     log_system_setup()
     create_folders()
-
+    set_env_vars()
+    log_paths()
+    
     log.info("Module took %s seconds to process." % (time()-start))
     
     msg = "Preprocessing module finished!\nIt took %s seconds." % int(time()-start)
