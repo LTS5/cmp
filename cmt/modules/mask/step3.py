@@ -63,7 +63,7 @@ def create_annot_label():
         else:
             annot = ''
         mri_an_cmd = 'mri_annotation2label --subject "3__FREESURFER" --hemi %s --outdir "%s" %s' % (out[0], op.join(fs_label_dir, out[3]), annot)
-        #runCmd( mri_an_cmd, log )
+        runCmd( mri_an_cmd, log )
         log.info('-----------')
 
     # extract cc and unknown to add to tractography mask, we do not want this as a region of interest
