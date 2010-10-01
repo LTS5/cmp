@@ -14,6 +14,8 @@ import struct
 import math
 import nibabel
 
+import pickle
+import math
 
 ################################################################################
 def mm2index(mm3, hdrStreamline):
@@ -41,9 +43,9 @@ def mm2index(mm3, hdrStreamline):
     """
     
     index = np.zeros(3)
-    index[0] = int(round( mm3[0] / hdrStreamline['voxel_size'][0] - 0.5 ))
-    index[1] = int(round( mm3[1] / hdrStreamline['voxel_size'][1] - 0.5 ))
-    index[2] = int(round( mm3[2] / hdrStreamline['voxel_size'][2] - 0.5 ))
+    index[0] = int(math.ceil( mm3[0] / hdrStreamline['voxel_size'][0] - hdrStreamline['voxel_size'][0]/2 )) # round => math.ceil
+    index[1] = int(math.ceil( mm3[1] / hdrStreamline['voxel_size'][1] - hdrStreamline['voxel_size'][1]/2 )) # 0.5 => hdrStreamline['voxel_size'][i]/2
+    index[2] = int(math.ceil( mm3[2] / hdrStreamline['voxel_size'][2] - hdrStreamline['voxel_size'][2]/2 ))
     index[index<0] = 0
     if index[0]>hdrStreamline['dim'][0]:
         index[0] = hdrStreamline['dim'][0]
@@ -366,6 +368,7 @@ def DTB__cmat(fib, hdr):
     log.info("--------------------")
     log.info("Resolution treatment")
     resolution = gconf.parcellation.keys()
+    cmat = {} # NEW matrix
     for r in resolution:
         log.info("\tresolution = "+r)
       
@@ -381,7 +384,16 @@ def DTB__cmat(fib, hdr):
         # TODO and find a way to add everything inside (or the mean)
         n      = roiData.max()
         matrix = np.zeros((n,n))
-      
+        
+        arrNodes = np.ndarray((n), object)   # NEW matrix
+        matEdges = np.ndarray((n,n), object) # NEW matrix
+        eID = 0 # NEW matrix
+        for i in range(0, n): # NEW matrix
+            arrNodes[i] = {'node_id': i} # NEW matrix
+            for j in range (0,n): # NEW matrix
+                matEdges[i][j] = {'edge_id': eID, 'nb_fibers': 0} # NEW matrix
+                eID = eID+1 # NEW matrix
+                
         # Open the shape matrix
 #        f = open(inPath+'fibers/TEMP_shape.npy', 'r')
 #        shape = pickle.load(f)
@@ -395,13 +407,24 @@ def DTB__cmat(fib, hdr):
             # TEMP Add in the corresponding cell the number of fibersFile
             roiF = roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]]
             roiL = roiData[endpoints[i, 1, 0], endpoints[i, 1, 1], endpoints[i, 1, 2]]
-            matrix[roiF-1, roiL-1] += 1
             
+            if roiF != 0 and roiL != 0 and roiF != roiL: # TEST
+                matrix[roiF-1, roiL-1] += 1
+                matEdges[roiF-1][roiL-1]['nb_fibers'] += 1 # NEW matrix
+        
+        cmat.update({r: {'node': arrNodes, 'edge': matEdges}})# NEW matrix
+        
         # Save the matrix
         filename = 'cmat_'+r+'.npy'
         filepath = op.join(gconf.get_cmt_matrices4subject(sid), filename)
         np.save(filepath, matrix)
+        
     log.info("--------------------")
+
+    # NEW matrix => save
+    f = open(op.join(gconf.get_cmt_matrices4subject(sid), 'tester.dat'),'w')
+    pickle.dump(cmat,f)
+    f.close()
 
     log.info("done")
     log.info("=========")							
