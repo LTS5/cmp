@@ -7,7 +7,12 @@ Required
 
 * Python, 2.7
 * Nibabel
+* NetworkX
+* NumPy
 * Traits / Traits GUI (?)
+
+
+
 
 Optional
 --------

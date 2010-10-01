@@ -64,10 +64,14 @@ class PipelineConfiguration(traits.HasTraits):
 
         # the default parcellation provided
         default_parcell = {'scale33' : {'number_of_regions' : 0,
-                                        'node_information_graphml' : None, # contains name, url, color, freesurfer_label, etc. used for connection matrix
-                                        'surface_parcellation' : None, # scalar node values on fsaverage? or atlas?,
-                                        'volume_parcellation' : None, # scalar node values in fsaverage volume?
-                                        'fs_label_subdir_name' : 'regenerated_%s_35' # the subdirectory name from where to copy parcellations, with hemispheric wildcard
+                                        # contains name, url, color, freesurfer_label, etc. used for connection matrix
+                                        'node_information_graphml' : op.join(gconf.get_lausanne_parcellation_path('resolution83'), 'resolution83.graphml'),
+                                        # scalar node values on fsaverage? or atlas? 
+                                        'surface_parcellation' : None,
+                                        # scalar node values in fsaverage volume?
+                                        'volume_parcellation' : None,
+                                        # the subdirectory name from where to copy parcellations, with hemispheric wildcard
+                                        'fs_label_subdir_name' : 'regenerated_%s_35'
                                         }#,
 #                           'scale60' : {'fs_label_subdir_name' : 'regenerated_%s_60'},
 #                           'scale125' : {'fs_label_subdir_name' : 'regenerated_%s_125'},
@@ -268,6 +272,18 @@ class PipelineConfiguration(traits.HasTraits):
         if name in provided_atlases:
             return op.join(cmt_path, 'data', 'colortable_and_gcs', 'my_atlas_gcs', name)
     
+        
+    def get_lausanne_parcellation_path(self, parcellationname):
+        
+        cmt_path = op.dirname(__file__)
+        
+        allowed_default_parcel = ['resolution83', 'resolution150', 'resolution258', 'resolution500', 'resolution1015']
+        
+        if parcellationname in allowed_default_parcel:
+            return op.join(cmt_path, 'data', 'parcellation', 'lausanne2008', parcellationname)
+        else:
+            log.error("Not a valid default parcellation name for the lausanne2008 parcellation scheme")
+        
         
     def get_cmt_binary_path(self):
         """ Returns the path to the binary files for the current platform

@@ -6,6 +6,8 @@ import subprocess
 import sys
 from ...logme import *
 
+import networkx as nx
+
 from cmt.modules.util import mymove
 
 def create_annot_label():
@@ -150,9 +152,61 @@ def reorganize():
     log.info("[ DONE ]")
 
 def create_roi():
+    """ Creates the ROI_%s.nii files using the given parcellation information
+    from networks. Iteratively create volume. """
+    
     log.info("Create the ROIs:")
 
     fs_dir = gconf.get_fs4subject(sid)
+    fs_cmt_dir = gconf.get_cmt_fsout4subject(sid)
+    
+    # load aseg volume
+    aseg = ni.load(op.join(fs_dir, 'mri', 'aseg.nii'))
+    asegd = aseg.get_data()
+    
+    for parkey, parval in gconf.parcellation.keys():
+        
+        pg = nx.read_graphml(parval['node_information_graphml'])
+        
+        # each node represents a brain region
+        # create a big 256^3 volume for storage of all ROIs
+        rois = np.zeros( (256, 256, 256), dtype=np.int16 )
+        
+        for brk, brv in pg.nodes_iter(data=True):
+            
+            if brv['dn_hemisphere'] == 'left':
+                hemi = 'lh'
+            elif brv['dn_hemisphere'] == 'right':
+                hemi = 'rh'
+                
+            if brv['dn_region'] == 'subcortical':
+                # if it is subcortical, retrieve roi from aseg
+                
+                pass
+            
+            elif brv['dn_region'] == 'cortical':
+                labelpath = op.join(fs_dir, 'label', parval[fs_label_subdir_name] % hemi)
+                # construct .label file name
+                fname = '%s.%s.label' % (hemi, brv['dn_freesurfer_structname'])
+
+                # execute fs mri_label2vol to generate volume roi from the label file
+                # store it in temporary file to be overwritten for each region
+
+                mri_cmd = 'mri_label2vol --label "%s" --temp "%s" --o "%s" --identity' % (op.join(labelpath, fname),
+                        op.join(fsdir, 'mri', 'orig.mgz'), op.join(labelpath, 'tmp.nii'))
+                runCmd( mri_cmd, log )
+                
+                tmp = ni.load(op.join(labelpath, 'tmp.nii'))
+                tmpd = tmp.get_data()
+                
+                # find voxel and set them to intensityvalue in rois
+                    
+        
+        # store volume in ROI_HR_th.nii
+        out_roi = op.join(fs_cmt_dir, 'registred', 'HR', parkey, 'ROI_HR_th.nii')
+        
+    
+    
     
     for hemi in ['lh', 'rh']:
         labelpath = op.join(fs_dir, 'label', 'regenerated_%s_35' % hemi)
@@ -165,7 +219,6 @@ def create_roi():
             # explained: http://brainybehavior.com/neuroimaging/2010/05/converting-cortical-labels-from-freesurfer-to-volumetric-masks/
             # XXX: dont we need more parameters?
             mri_cmd = 'mri_label2vol --label "%s" --temp "%s/mri/orig.mgz" --o %s --identity' % (labelin, fs_dir, labelni)
-            
             runCmd( mri_cmd, log )    
     
     matlab_cmd = gconf.matlab_prompt + """ "roi_creation( '%s','%s' ); exit" """ % (sid[0], sid[1])

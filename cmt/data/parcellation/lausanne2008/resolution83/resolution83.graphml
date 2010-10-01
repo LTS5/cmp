@@ -16,6 +16,15 @@
 <key id="dn_intensityvalue" for="node" attr.name="fs_intensity" attr.type="string">
 	<desc>Refers to the intensity value in the volume files/surface labels corresponding to this node</desc>
 </key>
+<key id="dn_region" for="node" attr.name="dn_region" attr.type="string">
+	<desc>Region of the brain: cortical, subcortical</desc>
+</key>
+<key id="dn_fs_aseg_val" for="node" attr.name="dn_fs_aseg_val" attr.type="string">
+	<desc>If it is a subcortical region, what intensity value in the Freesurfer aseg.nii volume</desc>
+</key>
+<key id="dn_hemisphere" for="node" attr.name="dn_hemisphere" attr.type="string">
+	<desc>What hemisphere?: left, right, none (e.g, for brainstem)</desc>
+</key>
 
 <graph id="Resolution83" edgedefault="undirected">
 <node id="n1">
@@ -24,6 +33,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal</data>
 	<data key="dn_colorcode">35,75,50</data>
 	<data key="dn_intensityvalue">1</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n2">
 	<data key="dn_href">http://www.connectome.ch/wiki/poRes83_RH_(Homo sapiens)</data>
@@ -31,6 +42,8 @@
 	<data key="dn_freesurfer_structname">parsorbitalis</data>
 	<data key="dn_colorcode">20,100,50</data>
 	<data key="dn_intensityvalue">2</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n3">
 	<data key="dn_href">http://www.connectome.ch/wiki/fpRes83_RH_(Homo sapiens)</data>
@@ -38,6 +51,8 @@
 	<data key="dn_freesurfer_structname">frontalpole</data>
 	<data key="dn_colorcode">100,0,100</data>
 	<data key="dn_intensityvalue">3</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n4">
 	<data key="dn_href">http://www.connectome.ch/wiki/mofRes83_RH_(Homo sapiens)</data>
@@ -45,6 +60,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal</data>
 	<data key="dn_colorcode">200,35,75</data>
 	<data key="dn_intensityvalue">4</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n5">
 	<data key="dn_href">http://www.connectome.ch/wiki/ptriRes83_RH_(Homo sapiens)</data>
@@ -52,6 +69,8 @@
 	<data key="dn_freesurfer_structname">parstriangularis</data>
 	<data key="dn_colorcode">220,60,20</data>
 	<data key="dn_intensityvalue">5</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n6">
 	<data key="dn_href">http://www.connectome.ch/wiki/popRes83_RH_(Homo sapiens)</data>
@@ -59,6 +78,8 @@
 	<data key="dn_freesurfer_structname">parsopercularis</data>
 	<data key="dn_colorcode">220,180,140</data>
 	<data key="dn_intensityvalue">6</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n7">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmfRes83_RH_(Homo sapiens)</data>
@@ -66,6 +87,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal</data>
 	<data key="dn_colorcode">75,50,125</data>
 	<data key="dn_intensityvalue">7</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n8">
 	<data key="dn_href">http://www.connectome.ch/wiki/sfRes83_RH_(Homo sapiens)</data>
@@ -73,6 +96,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal</data>
 	<data key="dn_colorcode">20,220,160</data>
 	<data key="dn_intensityvalue">8</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n9">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmfRes83_RH_(Homo sapiens)</data>
@@ -80,6 +105,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal</data>
 	<data key="dn_colorcode">100,25,0</data>
 	<data key="dn_intensityvalue">9</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n10">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcRes83_RH_(Homo sapiens)</data>
@@ -87,6 +114,8 @@
 	<data key="dn_freesurfer_structname">precentral</data>
 	<data key="dn_colorcode">60,20,220</data>
 	<data key="dn_intensityvalue">10</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n11">
 	<data key="dn_href">http://www.connectome.ch/wiki/pacRes83_RH_(Homo sapiens)</data>
@@ -94,6 +123,8 @@
 	<data key="dn_freesurfer_structname">paracentral</data>
 	<data key="dn_colorcode">60,220,60</data>
 	<data key="dn_intensityvalue">11</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n12">
 	<data key="dn_href">http://www.connectome.ch/wiki/raccRes83_RH_(Homo sapiens)</data>
@@ -101,6 +132,8 @@
 	<data key="dn_freesurfer_structname">rostralanteriorcingulate</data>
 	<data key="dn_colorcode">80,20,140</data>
 	<data key="dn_intensityvalue">12</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n13">
 	<data key="dn_href">http://www.connectome.ch/wiki/caccRes83_RH_(Homo sapiens)</data>
@@ -108,6 +141,8 @@
 	<data key="dn_freesurfer_structname">caudalanteriorcingulate</data>
 	<data key="dn_colorcode">125,100,160</data>
 	<data key="dn_intensityvalue">13</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n14">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcRes83_RH_(Homo sapiens)</data>
@@ -115,6 +150,8 @@
 	<data key="dn_freesurfer_structname">posteriorcingulate</data>
 	<data key="dn_colorcode">220,180,220</data>
 	<data key="dn_intensityvalue">14</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n15">
 	<data key="dn_href">http://www.connectome.ch/wiki/icRes83_RH_(Homo sapiens)</data>
@@ -122,6 +159,8 @@
 	<data key="dn_freesurfer_structname">isthmuscingulate</data>
 	<data key="dn_colorcode">140,20,140</data>
 	<data key="dn_intensityvalue">15</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n16">
 	<data key="dn_href">http://www.connectome.ch/wiki/pocRes83_RH_(Homo sapiens)</data>
@@ -129,6 +168,8 @@
 	<data key="dn_freesurfer_structname">postcentral</data>
 	<data key="dn_colorcode">220,20,20</data>
 	<data key="dn_intensityvalue">16</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n17">
 	<data key="dn_href">http://www.connectome.ch/wiki/smRes83_RH_(Homo sapiens)</data>
@@ -136,6 +177,8 @@
 	<data key="dn_freesurfer_structname">supramarginal</data>
 	<data key="dn_colorcode">80,160,20</data>
 	<data key="dn_intensityvalue">17</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n18">
 	<data key="dn_href">http://www.connectome.ch/wiki/spRes83_RH_(Homo sapiens)</data>
@@ -143,6 +186,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal</data>
 	<data key="dn_colorcode">20,180,140</data>
 	<data key="dn_intensityvalue">18</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n19">
 	<data key="dn_href">http://www.connectome.ch/wiki/ipRes83_RH_(Homo sapiens)</data>
@@ -150,6 +195,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal</data>
 	<data key="dn_colorcode">220,60,220</data>
 	<data key="dn_intensityvalue">19</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n20">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcunRes83_RH_(Homo sapiens)</data>
@@ -157,6 +204,8 @@
 	<data key="dn_freesurfer_structname">precuneus</data>
 	<data key="dn_colorcode">160,140,180</data>
 	<data key="dn_intensityvalue">20</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n21">
 	<data key="dn_href">http://www.connectome.ch/wiki/cunRes83_RH_(Homo sapiens)</data>
@@ -164,6 +213,8 @@
 	<data key="dn_freesurfer_structname">cuneus</data>
 	<data key="dn_colorcode">220,20,100</data>
 	<data key="dn_intensityvalue">21</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n22">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcalRes83_RH_(Homo sapiens)</data>
@@ -171,6 +222,8 @@
 	<data key="dn_freesurfer_structname">pericalcarine</data>
 	<data key="dn_colorcode">120,100,60</data>
 	<data key="dn_intensityvalue">22</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n23">
 	<data key="dn_href">http://www.connectome.ch/wiki/locRes83_RH_(Homo sapiens)</data>
@@ -178,6 +231,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital</data>
 	<data key="dn_colorcode">20,30,140</data>
 	<data key="dn_intensityvalue">23</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n24">
 	<data key="dn_href">http://www.connectome.ch/wiki/linRes83_RH_(Homo sapiens)</data>
@@ -185,6 +240,8 @@
 	<data key="dn_freesurfer_structname">lingual</data>
 	<data key="dn_colorcode">225,140,140</data>
 	<data key="dn_intensityvalue">24</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n25">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusiRes83_RH_(Homo sapiens)</data>
@@ -192,6 +249,8 @@
 	<data key="dn_freesurfer_structname">fusiform</data>
 	<data key="dn_colorcode">180,220,140</data>
 	<data key="dn_intensityvalue">25</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n26">
 	<data key="dn_href">http://www.connectome.ch/wiki/paraRes83_RH_(Homo sapiens)</data>
@@ -199,6 +258,8 @@
 	<data key="dn_freesurfer_structname">parahippocampal</data>
 	<data key="dn_colorcode">20,220,60</data>
 	<data key="dn_intensityvalue">26</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n27">
 	<data key="dn_href">http://www.connectome.ch/wiki/entRes83_RH_(Homo sapiens)</data>
@@ -206,6 +267,8 @@
 	<data key="dn_freesurfer_structname">entorhinal</data>
 	<data key="dn_colorcode">220,20,10</data>
 	<data key="dn_intensityvalue">27</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n28">
 	<data key="dn_href">http://www.connectome.ch/wiki/tpRes83_RH_(Homo sapiens)</data>
@@ -213,6 +276,8 @@
 	<data key="dn_freesurfer_structname">temporalpole</data>
 	<data key="dn_colorcode">70,70,70</data>
 	<data key="dn_intensityvalue">28</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n29">
 	<data key="dn_href">http://www.connectome.ch/wiki/itRes83_RH_(Homo sapiens)</data>
@@ -220,6 +285,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal</data>
 	<data key="dn_colorcode">180,40,120</data>
 	<data key="dn_intensityvalue">29</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n30">
 	<data key="dn_href">http://www.connectome.ch/wiki/mtRes83_RH_(Homo sapiens)</data>
@@ -227,6 +294,8 @@
 	<data key="dn_freesurfer_structname">middletemporal</data>
 	<data key="dn_colorcode">160,100,50</data>
 	<data key="dn_intensityvalue">30</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n31">
 	<data key="dn_href">http://www.connectome.ch/wiki/bankRes83_RH_(Homo sapiens)</data>
@@ -234,6 +303,8 @@
 	<data key="dn_freesurfer_structname">bankssts</data>
 	<data key="dn_colorcode">25,100,40</data>
 	<data key="dn_intensityvalue">31</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n32">
 	<data key="dn_href">http://www.connectome.ch/wiki/stRes83_RH_(Homo sapiens)</data>
@@ -241,6 +312,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal</data>
 	<data key="dn_colorcode">140,220,220</data>
 	<data key="dn_intensityvalue">32</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n33">
 	<data key="dn_href">http://www.connectome.ch/wiki/ttRes83_RH_(Homo sapiens)</data>
@@ -248,6 +321,8 @@
 	<data key="dn_freesurfer_structname">transversetemporal</data>
 	<data key="dn_colorcode">150,150,200</data>
 	<data key="dn_intensityvalue">33</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n34">
 	<data key="dn_href">http://www.connectome.ch/wiki/thRes83_RH_(Homo sapiens)</data>
@@ -255,6 +330,9 @@
 	<data key="dn_freesurfer_structname">Right-Thalamus-Proper</data>
 	<data key="dn_colorcode">2,124,5</data>
 	<data key="dn_intensityvalue">34</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">49</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n35">
 	<data key="dn_href">http://www.connectome.ch/wiki/canRes83_RH_(Homo sapiens)</data>
@@ -262,6 +340,9 @@
 	<data key="dn_freesurfer_structname">Right-Caudate</data>
 	<data key="dn_colorcode">100,172,222</data>
 	<data key="dn_intensityvalue">35</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">50</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n36">
 	<data key="dn_href">http://www.connectome.ch/wiki/puRes83_RH_(Homo sapiens)</data>
@@ -269,6 +350,9 @@
 	<data key="dn_freesurfer_structname">Right-Putamen</data>
 	<data key="dn_colorcode">32,101,149</data>
 	<data key="dn_intensityvalue">36</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">51</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n37">
 	<data key="dn_href">http://www.connectome.ch/wiki/gpRes83_RH_(Homo sapiens)</data>
@@ -276,6 +360,9 @@
 	<data key="dn_freesurfer_structname">Right-Pallidum</data>
 	<data key="dn_colorcode">146,210,255</data>
 	<data key="dn_intensityvalue">37</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">52</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n38">
 	<data key="dn_href">http://www.connectome.ch/wiki/accRes83_RH_(Homo sapiens)</data>
@@ -283,6 +370,9 @@
 	<data key="dn_freesurfer_structname">Right-Accumbens-area</data>
 	<data key="dn_colorcode">255,43,78</data>
 	<data key="dn_intensityvalue">38</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">58</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n39">
 	<data key="dn_href">http://www.connectome.ch/wiki/subthRes83_RH_(Homo sapiens)</data>
@@ -290,6 +380,9 @@
 	<data key="dn_freesurfer_structname">Right-Subthalamus</data>
 	<data key="dn_colorcode">231,159,21</data>
 	<data key="dn_intensityvalue">39</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">60</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n40">
 	<data key="dn_href">http://www.connectome.ch/wiki/hippRes83_RH_(Homo sapiens)</data>
@@ -297,6 +390,9 @@
 	<data key="dn_freesurfer_structname">Right-Hippocampus</data>
 	<data key="dn_colorcode">150,246,255</data>
 	<data key="dn_intensityvalue">40</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">53</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n41">
 	<data key="dn_href">http://www.connectome.ch/wiki/amgRes83_RH_(Homo sapiens)</data>
@@ -304,6 +400,9 @@
 	<data key="dn_freesurfer_structname">Right-Amygdala</data>
 	<data key="dn_colorcode">255,128,191</data>
 	<data key="dn_intensityvalue">41</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">54</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n42">
 	<data key="dn_href">http://www.connectome.ch/wiki/lofRes83_LH_(Homo sapiens)</data>
@@ -311,6 +410,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal</data>
 	<data key="dn_colorcode">35,75,50</data>
 	<data key="dn_intensityvalue">42</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n43">
 	<data key="dn_href">http://www.connectome.ch/wiki/poRes83_LH_(Homo sapiens)</data>
@@ -318,6 +419,8 @@
 	<data key="dn_freesurfer_structname">parsorbitalis</data>
 	<data key="dn_colorcode">20,100,50</data>
 	<data key="dn_intensityvalue">43</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n44">
 	<data key="dn_href">http://www.connectome.ch/wiki/fpRes83_LH_(Homo sapiens)</data>
@@ -325,6 +428,8 @@
 	<data key="dn_freesurfer_structname">frontalpole</data>
 	<data key="dn_colorcode">100,0,100</data>
 	<data key="dn_intensityvalue">44</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n45">
 	<data key="dn_href">http://www.connectome.ch/wiki/mofRes83_LH_(Homo sapiens)</data>
@@ -332,6 +437,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal</data>
 	<data key="dn_colorcode">200,35,75</data>
 	<data key="dn_intensityvalue">45</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n46">
 	<data key="dn_href">http://www.connectome.ch/wiki/ptriRes83_LH_(Homo sapiens)</data>
@@ -339,6 +446,8 @@
 	<data key="dn_freesurfer_structname">parstriangularis</data>
 	<data key="dn_colorcode">220,60,20</data>
 	<data key="dn_intensityvalue">46</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n47">
 	<data key="dn_href">http://www.connectome.ch/wiki/popRes83_LH_(Homo sapiens)</data>
@@ -346,6 +455,8 @@
 	<data key="dn_freesurfer_structname">parsopercularis</data>
 	<data key="dn_colorcode">220,180,140</data>
 	<data key="dn_intensityvalue">47</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n48">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmfRes83_LH_(Homo sapiens)</data>
@@ -353,6 +464,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal</data>
 	<data key="dn_colorcode">75,50,125</data>
 	<data key="dn_intensityvalue">48</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n49">
 	<data key="dn_href">http://www.connectome.ch/wiki/sfRes83_LH_(Homo sapiens)</data>
@@ -360,6 +473,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal</data>
 	<data key="dn_colorcode">20,220,160</data>
 	<data key="dn_intensityvalue">49</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n50">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmfRes83_LH_(Homo sapiens)</data>
@@ -367,6 +482,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal</data>
 	<data key="dn_colorcode">100,25,0</data>
 	<data key="dn_intensityvalue">50</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n51">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcRes83_LH_(Homo sapiens)</data>
@@ -374,6 +491,8 @@
 	<data key="dn_freesurfer_structname">precentral</data>
 	<data key="dn_colorcode">60,20,220</data>
 	<data key="dn_intensityvalue">51</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n52">
 	<data key="dn_href">http://www.connectome.ch/wiki/pacRes83_LH_(Homo sapiens)</data>
@@ -381,6 +500,8 @@
 	<data key="dn_freesurfer_structname">paracentral</data>
 	<data key="dn_colorcode">60,220,60</data>
 	<data key="dn_intensityvalue">52</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n53">
 	<data key="dn_href">http://www.connectome.ch/wiki/raccRes83_LH_(Homo sapiens)</data>
@@ -388,6 +509,8 @@
 	<data key="dn_freesurfer_structname">rostralanteriorcingulate</data>
 	<data key="dn_colorcode">80,20,140</data>
 	<data key="dn_intensityvalue">53</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n54">
 	<data key="dn_href">http://www.connectome.ch/wiki/caccRes83_LH_(Homo sapiens)</data>
@@ -395,6 +518,8 @@
 	<data key="dn_freesurfer_structname">caudalanteriorcingulate</data>
 	<data key="dn_colorcode">125,100,160</data>
 	<data key="dn_intensityvalue">54</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n55">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcRes83_LH_(Homo sapiens)</data>
@@ -402,6 +527,8 @@
 	<data key="dn_freesurfer_structname">posteriorcingulate</data>
 	<data key="dn_colorcode">220,180,220</data>
 	<data key="dn_intensityvalue">55</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n56">
 	<data key="dn_href">http://www.connectome.ch/wiki/icRes83_LH_(Homo sapiens)</data>
@@ -409,6 +536,8 @@
 	<data key="dn_freesurfer_structname">isthmuscingulate</data>
 	<data key="dn_colorcode">140,20,140</data>
 	<data key="dn_intensityvalue">56</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n57">
 	<data key="dn_href">http://www.connectome.ch/wiki/pocRes83_LH_(Homo sapiens)</data>
@@ -416,6 +545,8 @@
 	<data key="dn_freesurfer_structname">postcentral</data>
 	<data key="dn_colorcode">220,20,20</data>
 	<data key="dn_intensityvalue">57</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n58">
 	<data key="dn_href">http://www.connectome.ch/wiki/smRes83_LH_(Homo sapiens)</data>
@@ -423,6 +554,8 @@
 	<data key="dn_freesurfer_structname">supramarginal</data>
 	<data key="dn_colorcode">80,160,20</data>
 	<data key="dn_intensityvalue">58</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n59">
 	<data key="dn_href">http://www.connectome.ch/wiki/spRes83_LH_(Homo sapiens)</data>
@@ -430,6 +563,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal</data>
 	<data key="dn_colorcode">20,180,140</data>
 	<data key="dn_intensityvalue">59</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n60">
 	<data key="dn_href">http://www.connectome.ch/wiki/ipRes83_LH_(Homo sapiens)</data>
@@ -437,6 +572,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal</data>
 	<data key="dn_colorcode">220,60,220</data>
 	<data key="dn_intensityvalue">60</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n61">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcunRes83_LH_(Homo sapiens)</data>
@@ -444,6 +581,8 @@
 	<data key="dn_freesurfer_structname">precuneus</data>
 	<data key="dn_colorcode">160,140,180</data>
 	<data key="dn_intensityvalue">61</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n62">
 	<data key="dn_href">http://www.connectome.ch/wiki/cunRes83_LH_(Homo sapiens)</data>
@@ -451,6 +590,8 @@
 	<data key="dn_freesurfer_structname">cuneus</data>
 	<data key="dn_colorcode">220,20,100</data>
 	<data key="dn_intensityvalue">62</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n63">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcalRes83_LH_(Homo sapiens)</data>
@@ -458,6 +599,8 @@
 	<data key="dn_freesurfer_structname">pericalcarine</data>
 	<data key="dn_colorcode">120,100,60</data>
 	<data key="dn_intensityvalue">63</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n64">
 	<data key="dn_href">http://www.connectome.ch/wiki/locRes83_LH_(Homo sapiens)</data>
@@ -465,6 +608,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital</data>
 	<data key="dn_colorcode">20,30,140</data>
 	<data key="dn_intensityvalue">64</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n65">
 	<data key="dn_href">http://www.connectome.ch/wiki/linRes83_LH_(Homo sapiens)</data>
@@ -472,6 +617,8 @@
 	<data key="dn_freesurfer_structname">lingual</data>
 	<data key="dn_colorcode">225,140,140</data>
 	<data key="dn_intensityvalue">65</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n66">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusiRes83_LH_(Homo sapiens)</data>
@@ -479,6 +626,8 @@
 	<data key="dn_freesurfer_structname">fusiform</data>
 	<data key="dn_colorcode">180,220,140</data>
 	<data key="dn_intensityvalue">66</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n67">
 	<data key="dn_href">http://www.connectome.ch/wiki/paraRes83_LH_(Homo sapiens)</data>
@@ -486,6 +635,8 @@
 	<data key="dn_freesurfer_structname">parahippocampal</data>
 	<data key="dn_colorcode">20,220,60</data>
 	<data key="dn_intensityvalue">67</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n68">
 	<data key="dn_href">http://www.connectome.ch/wiki/entRes83_LH_(Homo sapiens)</data>
@@ -493,6 +644,8 @@
 	<data key="dn_freesurfer_structname">entorhinal</data>
 	<data key="dn_colorcode">220,20,10</data>
 	<data key="dn_intensityvalue">68</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n69">
 	<data key="dn_href">http://www.connectome.ch/wiki/tpRes83_LH_(Homo sapiens)</data>
@@ -500,6 +653,8 @@
 	<data key="dn_freesurfer_structname">temporalpole</data>
 	<data key="dn_colorcode">70,70,70</data>
 	<data key="dn_intensityvalue">69</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n70">
 	<data key="dn_href">http://www.connectome.ch/wiki/itRes83_LH_(Homo sapiens)</data>
@@ -507,6 +662,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal</data>
 	<data key="dn_colorcode">180,40,120</data>
 	<data key="dn_intensityvalue">70</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n71">
 	<data key="dn_href">http://www.connectome.ch/wiki/mtRes83_LH_(Homo sapiens)</data>
@@ -514,6 +671,8 @@
 	<data key="dn_freesurfer_structname">middletemporal</data>
 	<data key="dn_colorcode">160,100,50</data>
 	<data key="dn_intensityvalue">71</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n72">
 	<data key="dn_href">http://www.connectome.ch/wiki/bankRes83_LH_(Homo sapiens)</data>
@@ -521,6 +680,8 @@
 	<data key="dn_freesurfer_structname">bankssts</data>
 	<data key="dn_colorcode">25,100,40</data>
 	<data key="dn_intensityvalue">72</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n73">
 	<data key="dn_href">http://www.connectome.ch/wiki/stRes83_LH_(Homo sapiens)</data>
@@ -528,6 +689,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal</data>
 	<data key="dn_colorcode">140,220,220</data>
 	<data key="dn_intensityvalue">73</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n74">
 	<data key="dn_href">http://www.connectome.ch/wiki/ttRes83_LH_(Homo sapiens)</data>
@@ -535,6 +698,8 @@
 	<data key="dn_freesurfer_structname">transversetemporal</data>
 	<data key="dn_colorcode">150,150,200</data>
 	<data key="dn_intensityvalue">74</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n75">
 	<data key="dn_href">http://www.connectome.ch/wiki/thRes83_LH_(Homo sapiens)</data>
@@ -542,6 +707,9 @@
 	<data key="dn_freesurfer_structname">Left-Thalamus-Proper</data>
 	<data key="dn_colorcode">2,124,5</data>
 	<data key="dn_intensityvalue">75</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">10</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n76">
 	<data key="dn_href">http://www.connectome.ch/wiki/canRes83_LH_(Homo sapiens)</data>
@@ -549,6 +717,9 @@
 	<data key="dn_freesurfer_structname">Left-Caudate</data>
 	<data key="dn_colorcode">100,172,222</data>
 	<data key="dn_intensityvalue">76</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">11</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n77">
 	<data key="dn_href">http://www.connectome.ch/wiki/puRes83_LH_(Homo sapiens)</data>
@@ -556,6 +727,9 @@
 	<data key="dn_freesurfer_structname">Left-Putamen</data>
 	<data key="dn_colorcode">32,101,149</data>
 	<data key="dn_intensityvalue">77</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">12</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n78">
 	<data key="dn_href">http://www.connectome.ch/wiki/gpRes83_LH_(Homo sapiens)</data>
@@ -563,6 +737,9 @@
 	<data key="dn_freesurfer_structname">Left-Pallidum</data>
 	<data key="dn_colorcode">146,210,255</data>
 	<data key="dn_intensityvalue">78</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">12</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n79">
 	<data key="dn_href">http://www.connectome.ch/wiki/accRes83_LH_(Homo sapiens)</data>
@@ -570,6 +747,9 @@
 	<data key="dn_freesurfer_structname">Left-Accumbens-area</data>
 	<data key="dn_colorcode">255,43,78</data>
 	<data key="dn_intensityvalue">79</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">26</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n80">
 	<data key="dn_href">http://www.connectome.ch/wiki/subthRes83_LH_(Homo sapiens)</data>
@@ -577,6 +757,9 @@
 	<data key="dn_freesurfer_structname">Left-Subthalamus</data>
 	<data key="dn_colorcode">231,159,21</data>
 	<data key="dn_intensityvalue">80</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">28</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n81">
 	<data key="dn_href">http://www.connectome.ch/wiki/hippRes83_LH_(Homo sapiens)</data>
@@ -584,6 +767,9 @@
 	<data key="dn_freesurfer_structname">Left-Hippocampus</data>
 	<data key="dn_colorcode">150,246,255</data>
 	<data key="dn_intensityvalue">81</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">17</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n82">
 	<data key="dn_href">http://www.connectome.ch/wiki/amgRes83_LH_(Homo sapiens)</data>
@@ -591,6 +777,9 @@
 	<data key="dn_freesurfer_structname">Left-Amygdala</data>
 	<data key="dn_colorcode">255,128,191</data>
 	<data key="dn_intensityvalue">82</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">18</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n83">
 	<data key="dn_href">http://www.connectome.ch/wiki/brstRes83_(Homo sapiens)</data>
@@ -598,6 +787,9 @@
 	<data key="dn_freesurfer_structname">Brain-Stem</data>
 	<data key="dn_colorcode">121,98,74</data>
 	<data key="dn_intensityvalue">83</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_fs_aseg_val">16</data>
+	<data key="dn_hemisphere">none</data>
 </node>
 </graph>
 </graphml>
