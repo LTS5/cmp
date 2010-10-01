@@ -91,6 +91,35 @@ def create_annot_label():
 
     log.info("[ DONE ]")  
 
+def crop_and_move_datasets():
+    
+    log.info("Cropping and moving datasets to CMT/fs_output/registred/HR folder")
+    
+    fs_dir = gconf.get_fs4subject(sid)
+    fs_cmd_dir = gconf.get_cmt_fsout4subject(sid)
+    reg_path = op.join(fs_cmd_dir, 'registred', 'HR')
+    
+    log.info(" * Cropping datasets to ORIGINAL GEOMETRY of T1...")
+    
+    ds = [
+          (op.join(fs_dir, 'mri', 'aseg.nii'), op.join(reg_path, 'aseg.nii') ),
+          (op.join(fs_dir, 'mri', 'ribbon.nii'), op.join(reg_path, 'ribbon.nii') ),
+          (op.join(fs_dir, 'label', 'cc_unknown.nii'), op.join(reg_path, 'cc_unknown.nii') )
+          ]
+    
+    for p in gconf.parcellation.keys():
+        ds.append( (op.join(fs_dir, 'label', 'ROI_%s.nii' % p), op.join(reg_path, p, 'ROI_HR_th.nii')) )
+    
+    orig = op.join(fs_dir, 'mri', 'orig', '001.mgz')
+        
+    for d in ds:
+        log.info("Processing %s:" % d)
+        # reslice to original volume because the roi creation with freesurfer
+        # changed to 256x256x256 resolution
+        mri_cmd = 'mri_convert -rl "%s" -rt nearest "%s" -nc "%s"' % (orig, d[0], d[1])
+        runCmd( mri_cmd,log )
+        
+
 def reorganize():
     log.info("Move datasets into 'fs_output/registred/HR' folder")
     
@@ -115,7 +144,6 @@ def reorganize():
         # reslice to original volume because the roi creation with freesurfer
         # changed to 256x256x256 resolution
         mri_cmd = 'mri_convert -rl "%s/mri/orig/001.mgz" -rt nearest "%s.nii" -nc "%s_tmp.nii"' % (fs_dir, fpa, fpa)
-        
         runCmd( mri_cmd,log )
         
         src = '%s_tmp.nii' % fpa
@@ -159,7 +187,6 @@ def create_roi():
     log.info("Create the ROIs:")
 
     fs_dir = gconf.get_fs4subject(sid)
-    fs_cmt_dir = gconf.get_cmt_fsout4subject(sid)
     
     # load aseg volume
     aseg = ni.load(op.join(fs_dir, 'mri', 'aseg.nii'))
@@ -215,7 +242,7 @@ def create_roi():
 #                os.remove(op.join(labelpath, 'tmp.nii'))
         
         # store volume in ROI_HR_th.nii
-        out_roi = op.join(fs_cmt_dir, 'registred', 'HR', parkey, 'ROI_HR_th.nii')
+        out_roi = op.join(fs_dir, 'label', 'ROI_%s.nii' % parkey)
         
         # create a header
 #        hdr = ni.Nifti1Header()
@@ -301,7 +328,8 @@ def run(conf, subject_tuple):
     env['MATLABPATH'] = "%s:%s/matlab_related:%s/matlab_related/nifti:%s/matlab_related/tractography:%s/registration" % (cp, cp, cp, cp, cp)
     
 #    create_annot_label()
-    create_roi()
+#    create_roi()
+    crop_and_move_datasets
 #    reorganize()
 #    create_final_mask()
 #    finalize_wm()
