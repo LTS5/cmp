@@ -74,7 +74,8 @@ def compute_odfs():
     # XXX: rm -f "odf_${sharpness}/dsi_gfa.nii"
 
     # XXX: this will be replaced by Python code, to compute different scalar fields
-    dta_cmd = 'DTB_gfa --dsi "%s"' % op.join(odf_out_path, 'dsi_')
+    cmd = op.join(gconf.get_cmt_binary_path(), 'DTB_gfa')
+    dta_cmd = '%s --dsi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'))
     runCmd( dta_cmd, log )
 
     if not op.exists(op.join(odf_out_path, "dsi_gfa.nii")):

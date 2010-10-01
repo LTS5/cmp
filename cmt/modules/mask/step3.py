@@ -50,25 +50,32 @@ def create_annot_label():
     ]
 
     for out in comp:      
-        mris_cmd = """mris_ca_label "3__FREESURFER" %s "%s/surf/%s.sphere.reg" "%s" "%s/label/%s" """ % (out[0], out[0], fs_dir, gconf.get_lausanne_atlas(out[1]), fs_dir, out[3])    
+        mris_cmd = 'mris_ca_label "3__FREESURFER" %s "%s/surf/%s.sphere.reg" "%s" "%s" ' % (out[0], 
+		fs_dir, out[0], gconf.get_lausanne_atlas(out[1]), op.join(fs_label_dir, out[2]))    
         runCmd( mris_cmd, log )
         log.info('-----------')
+
         if not out[4] == '':
             annot = '--annotation "%s"' % out[4]
         else:
             annot = ''
-        mri_an_cmd = 'mri_annotation2label --subject "3__FREESURFER" --hemi %s --outdir "%s/label/%s/" %s' % (out[0], fs_dir, out[3], annot)
-        runCmd( mri_an_cmd, log )
+        mri_an_cmd = 'mri_annotation2label --subject "3__FREESURFER" --hemi %s --outdir "%s" %s' % (out[0], op.join(fs_label_dir, out[3]), annot)
+        #runCmd( mri_an_cmd, log )
         log.info('-----------')
 
     # extract cc and unknown to add to tractography mask, we do not want this as a region of interest
-    shutil.copy(op.join(fs_label_dir, 'regenerated_rh_35', 'rh.unknown.label'), op.join(fs_label_dir, 'rh.unknown.label'))
-    shutil.copy(op.join(fs_label_dir, 'regenerated_lh_35', 'lh.unknown.label'), op.join(fs_label_dir, 'lh.unknown.label'))
-    shutil.copy(op.join(fs_label_dir, 'regenerated_rh_35', 'rh.corpuscallosum.label'), op.join(fs_label_dir, 'rh.corpuscallosum.label'))
-    shutil.copy(op.join(fs_label_dir, 'regenerated_lh_35', 'lh.corpuscallosum.label'), op.join(fs_label_dir, 'lh.corpuscallosum.label'))
+    # in FS 5.0, unknown and corpuscallosum are not available for the 35 scale, but for the other scales only, take the ones from _60
+	rhun = op.join(fs_label_dir, 'rh.unknown.label')
+	lhun = op.join(fs_label_dir, 'lh.unknown.label')
+	rhco = op.join(fs_label_dir, 'rh.corpuscallosum.label')
+	lhco = op.join(fs_label_dir, 'lh.corpuscallosum.label')
+    shutil.copy(op.join(fs_label_dir, 'regenerated_rh_60', 'rh.unknown.label'), rhun)
+    shutil.copy(op.join(fs_label_dir, 'regenerated_lh_60', 'lh.unknown.label'), lhun)
+    shutil.copy(op.join(fs_label_dir, 'regenerated_rh_60', 'rh.corpuscallosum.label'), rhco)
+    shutil.copy(op.join(fs_label_dir, 'regenerated_lh_60', 'lh.corpuscallosum.label'), lhco)
 
     # XXX: error: you must specify a registration method, where to save to?, why?
-    mri_cmd = """mri_label2vol --label "rh.corpuscallosum.label" --label "lh.corpuscallosum.label" --label "rh.unknown.label" --label "lh.unknown.label" --temp "%s/mri/orig.mgz" --o  "cc_unknown.nii" --identity """ % fs_dir    
+    mri_cmd = """mri_label2vol --label "%s" --label "%s" --label "%s" --label "%s" --temp "%s" --o  "%s" --identity """ % (rhun, lhun, rhco, lhco, op.join(fs_dir, 'mri', 'orig.mgz'), op.join(fs_dir, 'label', 'cc_unknown.nii') )
     runCmd( mri_cmd, log )
 
     runCmd( 'mris_volmask "3__FREESURFER"', log)
@@ -162,7 +169,7 @@ def create_roi():
             runCmd( mri_cmd, log )    
     
     matlab_cmd = gconf.matlab_prompt + """ "roi_creation( '%s','%s' ); exit" """ % (sid[0], sid[1])
-    runCmd( matlab_cmd, log )
+    #runCmd( matlab_cmd, log )
     
     log.info("[ DONE ]")  
     
@@ -218,14 +225,15 @@ def run(conf, subject_tuple):
     cp = gconf.get_cmt_home()
     env['MATLABPATH'] = "%s:%s/matlab_related:%s/matlab_related/nifti:%s/matlab_related/tractography:%s/registration" % (cp, cp, cp, cp, cp)
     
-    create_annot_label()
-    #create_roi()
-    reorganize()
-    create_final_mask()
-    finalize_wm()
-    finalize_roi()
+#    create_annot_label()
+    create_roi()
+#    reorganize()
+#    create_final_mask()
+#    finalize_wm()
+#    finalize_roi()
     
     log.info("Module took %s seconds to process." % (time()-start))
 
     msg = "Mask creation module finished!\nIt took %s seconds." % int(time()-start)
     send_email_notification(msg, gconf.emailnotify, log)  
+
