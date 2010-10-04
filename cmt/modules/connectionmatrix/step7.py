@@ -379,27 +379,39 @@ def DTB__cmat(fib, hdr):
         roiData   = roi.get_data()
       
         # Create the matrix
-        log.info("\tCreate the connection matrix")
-        # TODO Create the matrix without any dictionnary, use a 4 or 5 dimension matrix  
-        # TODO and find a way to add everything inside (or the mean)
-        n      = roiData.max()
-        matrix = np.zeros((n,n))
-        
-        arrNodes = np.ndarray((n), object)   # NEW matrix
-        matEdges = np.ndarray((n,n), object) # NEW matrix
-        eID = 0 # NEW matrix
-        for i in range(0, n): # NEW matrix
-            arrNodes[i] = {'node_id': i} # NEW matrix
-            for j in range (0,n): # NEW matrix
-                matEdges[i][j] = {'edge_id': eID, 'nb_fibers': 0} # NEW matrix
-                eID = eID+1 # NEW matrix
+        log.info("\tCreate and init the connection matrix")
+        n        = roiData.max()
+        matrix   = np.zeros((n,n)) # TEST
+        arrNodes = np.ndarray((n), object)   
+        matEdges = np.ndarray((n,n), object)
+        eID      = 0 
+        for i in range(0, n): 
+            arrNodes[i] = {'node_id': i} 
+            for j in range (0,n): 
+                matEdges[i][j] = {'edge_id': eID, 'nb_fibers': 0} 
+                eID = eID+1
                 
         # Open the shape matrix
-#        f = open(inPath+'fibers/TEMP_shape.npy', 'r')
-#        shape = pickle.load(f)
-#        f.close()
-#        shapeInfo = np.array(shape.keys())
-#        nShapeInfo = shapeInfo.size
+        log.info("\tLoad the shape matrix")
+        shape = np.load(op.join(gconf.get_cmt_matrices4subject(sid), 'cmat_shape.npy'))
+        
+        # Open each scalar matrix
+        # TODO find a better way to work with scalar matrix
+        # TODO maybe one big matrix with each scalar info
+        # TODO and add in configuration the filename to use
+        log.info("\tLoad the scalar matrix => TODO")
+#        scalarDir   = gconf.get_cmt_scalars4subject(sid)
+#        scalarFiles = np.array(os.listdir(scalarDir))
+#        nbScalar    = scalarFiles.size
+#        nS          = 0
+#        sF          = np.ndarray((nbScalar), 'object')
+#        for i in range(0, nbScalar):
+#            if (scalarFiles[i] != '.' and scalarFiles[i] != '..' and scalarFiles[i] != '.svn') :
+#                sF[nS] = scalarFiles[i]
+#                nS = nS+1
+#        scalar = np.ndarray((nS), 'object')
+#        for i in range(0, nS):
+#            scalar[i] = np.load(sF[i])
             
         # For each fiber
         for i in range(0, hdr['n_count']):
@@ -408,13 +420,25 @@ def DTB__cmat(fib, hdr):
             roiF = roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]]
             roiL = roiData[endpoints[i, 1, 0], endpoints[i, 1, 1], endpoints[i, 1, 2]]
             
-            if roiF != 0 and roiL != 0 and roiF != roiL: # TEST
-                matrix[roiF-1, roiL-1] += 1
-                matEdges[roiF-1][roiL-1]['nb_fibers'] += 1 # NEW matrix
+            # Filter
+            if roiF != 0 and roiL != 0 and roiF != roiL: 
+            
+                matrix[roiF-1, roiL-1]                += 1 # TEST
+                matEdges[roiF-1][roiL-1]['nb_fibers'] += 1 
+                
+                # Add informations about the current fiber to the corresponding edge
+                if matEdges[roiF-1][roiL-1]['nb_fibers'] == 1:
+                    matEdges[roiF-1][roiL-1].update({'length': shape[i]})
+                    matEdges[roiF-1][roiL-1].update({'fibersId': i})
+                else:
+                    matEdges[roiF-1][roiL-1]['length']   = np.hstack(( matEdges[roiF-1][roiL-1]['length'], shape[i] ))
+                    matEdges[roiF-1][roiL-1]['fibersId'] = np.hstack(( matEdges[roiF-1][roiL-1]['fibersId'], i ))
+                
         
-        cmat.update({r: {'node': arrNodes, 'edge': matEdges}})# NEW matrix
+        # Add to cmat
+        cmat.update({r: {'filename': roi_fname, 'node': arrNodes, 'edge': matEdges}})
         
-        # Save the matrix
+        # TEST
         filename = 'cmat_'+r+'.npy'
         filepath = op.join(gconf.get_cmt_matrices4subject(sid), filename)
         np.save(filepath, matrix)
@@ -422,7 +446,7 @@ def DTB__cmat(fib, hdr):
     log.info("--------------------")
 
     # NEW matrix => save
-    f = open(op.join(gconf.get_cmt_matrices4subject(sid), 'tester.dat'),'w')
+    f = open(op.join(gconf.get_cmt_matrices4subject(sid), 'CMat.dat'),'w')
     pickle.dump(cmat,f)
     f.close()
 
