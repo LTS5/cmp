@@ -5,8 +5,6 @@
 
 import os.path
 from cmt import *
-from cmt.logme import *
-import datetime as dt
 
 #################################################
 # Project and processing specific configuration #
@@ -15,7 +13,7 @@ import datetime as dt
 from cmt.configuration import PipelineConfiguration
 
 myp = PipelineConfiguration('Testproject One')
-myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt/data/default_project'
+myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt/testdata/test_project_one'
 myp.project_metadata = {# required metadata
                         'generator' : 'cmt 1.1',
                         'initial-creator' : 'Stephan Gerhard',
@@ -34,7 +32,9 @@ myp.project_metadata = {# required metadata
                         }
 
 myp.registration_mode = 'L'
-myp.processing_mode = 'DSI'
+
+myp.processing_mode = ('DSI', 'Lausanne2011')
+
 myp.mode_parameters = {'nr_of_gradient_directions' : 515,
                        'nr_of_sampling_directions' : 181,
                        'lin_reg_param' : '-usesqform -nosearch -dof 6 -cost mutualinfo',
@@ -60,19 +60,18 @@ myp.emailnotify = ['connectome@unidesign.ch']
 # 3: rerun freesurfer part with corrected white matter mask
 myp.wm_handling = 1
 
-# file types for raw data
-myp.raw_glob = "*.ima"
+# inspect the results of the registration by starting a fslview instance
+myp.inspect_registration = False
 
-# inspect the results of the registration by starting a fslview/trackvis instance
-myp.inspect_registration = True
-
-
-
-myp.subject_list = { ('testsubject1', 'tp1') :
-                     {'workingdir' : os.path.join(myp.project_dir, 'testsubject1', 'tp1'),
+myp.subject_list = { ('testsubject2', 'tp1') :
+                     {'workingdir' : os.path.join(myp.project_dir, 'testsubject2', 'tp1'),
                       'age' : 55,
                       'sex' :'X',
-                      'description' : 'This subject is totally healthy!'},
+                      'description' : 'This subject is totally healthy!',
+                      # file endings for raw data
+                      'raw_glob_diffusion' : '*.ima',
+                      'raw_glob_T1' : '*.ima',
+                      'raw_glob_T2' : '*.ima'},
                    }
 
 #######################################
@@ -88,7 +87,6 @@ myp.matlab_bin = os.path.join(myp.matlab_home, 'bin')
 myp.matlab_prompt = "matlab -nosplash -r " #"matlab -nosplash -nodesktop -r "
 os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
 
-
 #######################################
 # Consistency check the configuration #
 #######################################
@@ -100,12 +98,7 @@ myp.consistency_check()
 ##########################
 
 # setup only one subject, will loop over all subjects later
-sid =  ('testsubject1', 'tp1') 
-
-# setup logger for the subject, put this in preprocessing
-myp.subject_list[sid]['logger'] = \
-    getLog(os.path.join(myp.get_log4subject(sid), \
-                        'pipeline-%s-%s-%s.log' % (str(dt.datetime.now()), sid[0], sid[1] ) )) 
+sid =  ('testsubject2', 'tp1') 
 
 preprocessing.run(myp, sid )
 #dicomconverter.run(myp, sid )

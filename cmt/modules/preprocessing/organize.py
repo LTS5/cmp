@@ -23,19 +23,20 @@ def log_system_setup():
 def create_folders():
     
     paths = [
-        op.join(gconf.get_nifti4subject(sid)),
-        op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2'),
-        op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0'),
+        gconf.get_nifti4subject(sid),
         gconf.get_fs4subject(sid),
-        op.join(gconf.get_nifti4subject(sid), 'wm_correction'),
-        op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR__registered-TO-b0'),
+        gconf.get_cmt_tracto_mask(sid),
+        gconf.get_cmt_tracto_mask_tob0(sid),
         gconf.get_cmt_fibers4subject(sid),  
         gconf.get_log4subject(sid),
         gconf.get_rawt14subject(sid),
         gconf.get_raw_diffusion4subject(sid),
         gconf.get_cmt_scalars4subject(sid),
         gconf.get_cmt_matrices4subject(sid),
-        op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR')]
+        op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2'),
+        op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0'),
+        op.join(gconf.get_nifti4subject(sid), 'wm_correction'),
+        ]
 
     if gconf.registration_mode == 'N':
         paths.append(gconf.get_rawt24subject(sid))

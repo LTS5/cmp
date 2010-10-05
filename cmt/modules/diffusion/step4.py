@@ -100,10 +100,10 @@ def run(conf, subject_tuple):
     globals()['log'] = gconf.get_logger4subject(sid) 
     start = time()
         
-    if gconf.processing_mode == 'DSI':
+    if gconf.processing_mode == ('DSI', 'Lausanne2011'):
         resample_dsi()
         compute_odfs()
-    elif gconf.processing_mode == 'DTI':
+    elif gconf.processing_mode == ('DTI', 'Lausanne2011'):
         compute_dts()
     
     log.info("Module took %s seconds to process." % (time()-start))

@@ -96,7 +96,7 @@ def crop_and_move_datasets():
     
     fs_dir = gconf.get_fs4subject(sid)
     fs_cmd_dir = gconf.get_cmt_fsout4subject(sid)
-    reg_path = op.join(fs_cmd_dir, 'registred', 'HR')
+    reg_path = gconf.get_cmt_tracto_mask(sid)
     
     # datasets to crop and move: (from, to)
     ds = [
@@ -197,7 +197,7 @@ def create_wm_mask():
     
     fs_dir = gconf.get_fs4subject(sid)
     fs_cmd_dir = gconf.get_cmt_fsout4subject(sid)
-    reg_path = op.join(fs_cmd_dir, 'registred', 'HR')
+    reg_path = gconf.get_cmt_tracto_mask(sid)
     
     # load ribbon
     fsmask = ni.load(op.join(fs_dir, 'mri', 'ribbon.nii'))

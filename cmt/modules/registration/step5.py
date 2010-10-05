@@ -16,18 +16,14 @@ def apply_registration():
     log.info("====================================================================")
     log.info("(i.e. fsmask_1mm.*, scale33/ROI_HR_th.* etc)")
 
-    tracto_masks_path = op.join(gconf.get_cmt_fsout4subject(sid),'registred', 'HR')
-    tracto_masks_path_out = op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR__registered-TO-b0')
+    tracto_masks_path = gconf.get_cmt_tracto_mask(sid)
+    tracto_masks_path_out = gconf.get_cmt_tracto_mask_tob0(sid)
     
     if not op.exists(tracto_masks_path):
         msg = "Path does not exists but it should after the mask creation module: %s" % tracto_masks_path
         log.error(msg)
         raise Exception(msg)
     
-    # create folders
-    
-    #rm -fR "${TO}/4__CMT/fs_output/registred/HR__registered-TO-b0" > /dev/null
-            
             
     if gconf.registration_mode == 'N':
         

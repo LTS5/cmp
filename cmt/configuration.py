@@ -3,8 +3,10 @@ that is used to create the configuration for a project. Traits attribute are use
 to check if the pipeline supports the options """
 
 import enthought.traits.api as traits
-import os.path as op
+import os.path as op, os
 import sys
+import datetime as dt
+from cmt.logme import getLog
 
 class PipelineConfiguration(traits.HasTraits):
        
@@ -24,13 +26,10 @@ class PipelineConfiguration(traits.HasTraits):
     registration_mode = traits.Either("L", "N", desc="registration mode: linear or non-linear")
     
     # going to support qBall, HARDI
-    processing_mode = traits.Enum( ['DSI', 'DTI'], desc="diffusion MRI processing mode available")   
+    processing_mode = traits.Enum( [('DSI', 'Lausanne2011'), ('DTI', 'Lausanne2011')], desc="diffusion MRI processing mode available")   
     
     # do you want to do manual whit matter mask correction?
     wm_handling = traits.Int(desc="in what state should the freesurfer step be processed")
-    
-    # dicom format for the raw data
-    raw_glob = traits.Str(desc='file glob for raw data files')
     
     # custom parcellation
     parcellation = traits.Dict(desc="provide the dictionary with your parcellation.")
@@ -104,7 +103,7 @@ class PipelineConfiguration(traits.HasTraits):
                 msg = 'Required software path for %s does not exists: %s' % (k, p)
                 raise Exception(msg)
                 
-        if self.processing_mode == 'DSI':
+        if self.processing_mode[0] == 'DSI':
             ke = self.mode_parameters.keys()
 
             if not 'nr_of_gradient_directions' in ke:
@@ -125,6 +124,7 @@ class PipelineConfiguration(traits.HasTraits):
                     raise Exception(msg)
                 else:
                     wdiff = op.join(self.get_raw_diffusion4subject(subj))
+                    print wdiff
                     if not op.exists(wdiff):
                         msg = 'Diffusion MRI subdirectory %s does not exists for subject %s' % (wdiff, str(subj))
                         raise Exception(msg)
@@ -146,10 +146,36 @@ class PipelineConfiguration(traits.HasTraits):
         """ Get subject log dir """
         return op.join(self.get_subj_dir(subject), '0__LOG')
     
+    def get_rawglob(self, modality, subject):
+        """ Get the file name endings for modality and subject """
+        
+        if modality == 'diffusion':
+            if self.subject_list[subject].has_key('raw_glob_diffusion'):
+                return self.subject_list[subject]['raw_glob_diffusion']
+            else:
+                raise Exception('No raw_glob_diffusion defined for subject %s' % subject)
+
+        elif modality == 'T1':
+            if self.subject_list[subject].has_key('raw_glob_T1'):
+                return self.subject_list[subject]['raw_glob_T1']
+            else:
+                raise Exception('No raw_glob_T1 defined for subject %s' % subject)
+            
+        elif modality == 'T2':
+            if self.subject_list[subject].has_key('raw_glob_T2'):
+                return self.subject_list[subject]['raw_glob_T2']
+            else:
+                raise Exception('No raw_glob_T2 defined for subject %s' % subject)
+        
+    
     def get_logger4subject(self, subject):
         """ Get the logger instance created """
         if not self.subject_list[subject].has_key('logger'):
-            raise Exception('No logger instance available for subject %s' % subject)
+            # setup logger for the subject
+            self.subject_list[subject]['logger'] = \
+                getLog(os.path.join(self.get_log4subject(subject), \
+                        'pipeline-%s-%s-%s.log' % (str(dt.datetime.now()), subject[0], subject[1] ) )) 
+            return self.subject_list[subject]['logger'] 
         else: 
             return self.subject_list[subject]['logger']
     
@@ -163,9 +189,9 @@ class PipelineConfiguration(traits.HasTraits):
 
     def get_raw_diffusion4subject(self, subject):
         """ Get the raw diffusion path for subject """
-        if self.processing_mode == 'DSI':
+        if self.processing_mode[0] == 'DSI':
             return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'DSI')
-        elif self.processing_mode == 'DTI':
+        elif self.processing_mode[0] == 'DTI':
             return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'DTI')
         
     def get_fs4subject(self, subject):
@@ -194,7 +220,10 @@ class PipelineConfiguration(traits.HasTraits):
     def get_cmt_matrices4subject(self, subject):
         return op.join(self.get_subj_dir(subject), '4__CMT', 'fibers', 'matrices')    
 
-    def get_cmt_fsmask4subject(self, subject):
+    def get_cmt_tracto_mask(self, subject):
+        return op.join(self.get_cmt_fsout4subject(subject), 'registred', 'HR')
+    
+    def get_cmt_tracto_mask_tob0(self, subject):
         return op.join(self.get_cmt_fsout4subject(subject), 'registred', 'HR__registered-TO-b0')
 
     def get_subj_dir(self, subject):

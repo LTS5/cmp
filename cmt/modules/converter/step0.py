@@ -21,17 +21,18 @@ def diff2nifti_dsi_unpack():
     if op.exists(op.join(dsi_dir, 'DSI.nii')):
         shutil.copy(op.join(dsi_dir, 'DSI.nii'), op.join(nifti_dir, 'DSI.nii'))
     else:
+        raw_glob = gconf.get_rawglob('diffusion', sid)
         # read data
-        files = glob(op.join(dsi_dir, gconf.raw_glob))
+        files = glob(op.join(dsi_dir, raw_glob))
         if len(files) == 0:
-            raise Exception('No files found for %s. Maybe change raw_glob variable?' % op.join(dsi_dir, gconf.raw_glob) )
+            raise Exception('No files found for %s. Maybe change raw_glob variable for subject?' % op.join(dsi_dir, raw_glob) )
 		
         first = sorted(files)[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DSI.nii'))            
         runCmd(diff_cmd, log)
         
         # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
-        data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, gconf.raw_glob)
+        data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, raw_glob)
         del data
         import numpy as np
         np.savetxt(op.join(nifti_dir, 'dsi_affine.txt'), affine)
@@ -56,13 +57,14 @@ def diff2nifti_dti_unpack():
     if op.exists(op.join(dti_dir, 'DTI.nii')):
         shutil.copy(op.join(dti_dir, 'DTI.nii'), op.join(nifti_dir, 'DTI.nii'))
     else:
+        raw_glob = gconf.get_rawglob('diffusion', sid)
         # read data
-        first = sorted(glob(op.join(dti_dir, gconf.raw_glob)))[0]
+        first = sorted(glob(op.join(dti_dir, raw_glob)))[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii'))            
         runCmd(diff_cmd, log)
         
         # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
-        data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, gconf.raw_glob)
+        data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, raw_glob)
         del data
         import numpy as np
         np.savetxt(op.join(nifti_dir, 'dti_affine.txt'), affine)
@@ -87,7 +89,8 @@ def t12nifti_diff_unpack():
         log.info("T1.nii already exists. No unpacking.")
         shutil.copy(op.join(t1_dir, 'T1.nii'), op.join(nifti_dir, 'T1.nii'))
     else:
-        first = sorted(glob(op.join(t1_dir, gconf.raw_glob)))[0]
+        raw_glob = gconf.get_rawglob('T1', sid)
+        first = sorted(glob(op.join(t1_dir, raw_glob)))[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T1.nii'))
         runCmd(diff_cmd, log)
         log.info("Dataset 'T1.nii' succesfully created!")
@@ -106,7 +109,8 @@ def t22nifti_diff_unpack():
         log.info("T2.nii already exists. No unpacking.")
         shutil.copy(op.join(t2_dir, 'T2.nii'), op.join(nifti_dir, 'T2.nii'))
     else:
-        first = sorted(glob(op.join(t1_dir, gconf.raw_glob)))[0]
+        raw_glob = gconf.get_rawglob('T2', sid)
+        first = sorted(glob(op.join(t1_dir, raw_glob)))[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T2.nii'))
         runCmd (diff_cmd, log)        
         log.info("Dataset 'T2.nii' successfully created!")
@@ -134,9 +138,9 @@ def run(conf, subject_tuple):
     log.info("DICOM -> NIFTI conversion")
     log.info("=========================")
     
-    if gconf.processing_mode == 'DSI':
+    if gconf.processing_mode == ('DSI', 'Lausanne2011'):
         diff2nifti_dsi_unpack()
-    elif gconf.processing_mode == 'DTI':
+    elif gconf.processing_mode == ('DTI', 'Lausanne2011'):
         diff2nifti_dti_unpack()
     t12nifti_diff_unpack()
     if gconf.registration_mode == 'N':

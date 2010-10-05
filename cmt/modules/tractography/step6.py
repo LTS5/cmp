@@ -84,9 +84,9 @@ def run(conf, subject_tuple):
     
     convert_wm_mask()
     
-    if gconf.processing_mode == 'DSI':
+    if gconf.processing_mode == ('DSI', 'Lausanne2011'):
         fiber_tracking_dsi()
-    elif gconf.processing_mode == 'DTI':
+    elif gconf.processing_mode == ('DTI', 'Lausanne2011'):
         fiber_tracking_dti()
 
     spline_filtering()
