@@ -78,9 +78,9 @@ for i in range(endpoints.shape[0]):
         
         # look up in roi volume
         if pos == 'start':
-            start_roi = roid[idx[0], idx[1], idx[2]]
+            start_roi = int(roid[idx[0], idx[1], idx[2]])
         elif pos == 'end':
-            end_roi = roid[idx[0], idx[1], idx[2]]
+            end_roi = int(roid[idx[0], idx[1], idx[2]])
             
     print "fiber", i, "from roi", start_roi, " to roi ", end_roi
     
