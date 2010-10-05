@@ -39,9 +39,27 @@ def diff2nifti_dsi_unpack():
         np.savetxt(op.join(nifti_dir, 'dsi_bvals.txt'), bval)
         np.savetxt(op.join(nifti_dir, 'dsi_bvects.txt'), bvect)
 
+def dsi_resamp():
+    
+    nifti_dir = op.join(gconf.get_nifti4subject(sid))
+    
     log.info("Resampling 'DSI' to 1x1x1 mm^3...")
+    
+    # extract only first image with nibabel
+    img = ni.load(op.join(nifti_dir, 'DSI.nii'))
+    data = img.get_data()
+    hdr = img.get_header()
+    aff = img.get_affine()
+    
+    # update header
+    hdr['dim'][4] = 1
+    # first slice
+    data = data[:,:,:,0]
+    
+    ni.save(ni.Nifti1Image(data, aff, hdr), op.join(nifti_dir, 'DSI_first.nii'))
+    
     mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (
-                           op.join(nifti_dir, 'DSI.nii'),
+                           op.join(nifti_dir, 'DSI_first.nii'),
                            op.join(nifti_dir, 'DSI_b0_resampled.nii'))
     
     runCmd(mri_cmd, log)
@@ -71,13 +89,32 @@ def diff2nifti_dti_unpack():
         np.savetxt(op.join(nifti_dir, 'dti_bvals.txt'), bval)
         np.savetxt(op.join(nifti_dir, 'dti_bvects.txt'), bvect)
 
+
+def dti_resamp():
+    
+    nifti_dir = op.join(gconf.get_nifti4subject(sid))
+    
     log.info("Resampling 'DTI' to 1x1x1 mm^3...")
+    
+    # extract only first image with nibabel
+    img = ni.load(op.join(nifti_dir, 'DTI.nii'))
+    data = img.get_data()
+    hdr = img.get_header()
+    aff = img.get_affine()
+    
+    # update header
+    hdr['dim'][4] = 1
+    # first slice
+    data = data[:,:,:,0]
+    
+    ni.save(ni.Nifti1Image(data, aff, hdr), op.join(nifti_dir, 'DTI_first.nii'))
+    
     mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (
-                           op.join(nifti_dir, 'DTI.nii'),
+                           op.join(nifti_dir, 'DTI_first.nii'),
                            op.join(nifti_dir, 'DTI_b0_resampled.nii'))
     
     runCmd(mri_cmd, log)
-
+    
 def t12nifti_diff_unpack():
 
     raw_dir = op.join(gconf.get_raw4subject(sid))
@@ -140,8 +177,10 @@ def run(conf, subject_tuple):
     
     if gconf.processing_mode == ('DSI', 'Lausanne2011'):
         diff2nifti_dsi_unpack()
+        dsi_resamp()
     elif gconf.processing_mode == ('DTI', 'Lausanne2011'):
         diff2nifti_dti_unpack()
+        dti_resamp()
     t12nifti_diff_unpack()
     if gconf.registration_mode == 'N':
         t22nifti_diff_unpack()

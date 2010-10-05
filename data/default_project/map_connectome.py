@@ -100,8 +100,8 @@ myp.consistency_check()
 # setup only one subject, will loop over all subjects later
 sid =  ('testsubject2', 'tp1') 
 
-preprocessing.run(myp, sid )
-#dicomconverter.run(myp, sid )
+#preprocessing.run(myp, sid )
+dicomconverter.run(myp, sid )
 #registration.run(myp, sid )
 #freesurfer.run(myp, sid )
 ##maskcreation.run(myp, sid )
