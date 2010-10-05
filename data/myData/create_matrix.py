@@ -16,6 +16,8 @@ endpoints = np.zeros( (n, 2, 3), dtype=np.float32 )
 fiblen = np.zeros( (n, 1), dtype=np.float32)
 
 for i, fi in enumerate(fib):
+    print "processing fiber", i
+    
     f = fi[0]
     
     # store startpoint
@@ -30,6 +32,7 @@ for i, fi in enumerate(fib):
         b = f[j,:]
         l += np.linalg.norm(a-b)
     fiblen[i] = l
+    print "calculated length", l
     
 # retrieve starting and ending roi using endpoints
 roi = ni.load('ROI_HR_th.nii')
