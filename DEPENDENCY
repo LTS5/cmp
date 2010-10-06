@@ -9,10 +9,13 @@ Required
 * Nibabel
 * NetworkX
 * NumPy
-* Traits / Traits GUI (?)
+* Traits / Traits GUI (getting rid of it?)
 
 
-
+Binary
+------
+Do we need the linked against libraries?
+Boost, Blitz, libnifti
 
 Optional
 --------

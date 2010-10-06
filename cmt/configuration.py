@@ -233,9 +233,9 @@ class PipelineConfiguration(traits.HasTraits):
         """ Returns the absolute path to the gradient matrix
         (the b-vectors) extracted from the raw diffusion DICOM files """
         
-        if self.processing_mode == 'DSI':
+        if self.processing_mode[0] == 'DSI':
             return op.join(self.get_nifti4subject(subject), 'dsi_bvects.txt')
-        elif  self.processing_mode == 'DTI':
+        elif  self.processing_mode[0] == 'DTI':
             return op.join(self.get_nifti4subject(subject), 'dti_bvects.txt')
 
     def get_cmt_scalarfields(self, subject):
@@ -244,12 +244,12 @@ class PipelineConfiguration(traits.HasTraits):
         
         ret = []
         
-        if self.processing_mode == 'DSI':
+        if self.processing_mode[0] == 'DSI':
             # add gfa per default
             ret.append( ('gfa', op.join(self.get_cmt_scalars4subject(subject), 'dsi_gfa.nii')))
             # XXX: add adc per default
             
-        elif  self.processing_mode == 'DTI':
+        elif  self.processing_mode[0] == 'DTI':
             # nothing to add yet for DTI
             pass
         
