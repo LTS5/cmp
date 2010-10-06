@@ -70,7 +70,9 @@ class PipelineConfiguration(traits.HasTraits):
                                         # scalar node values in fsaverage volume?
                                         'volume_parcellation' : None,
                                         # the subdirectory name from where to copy parcellations, with hemispheric wildcard
-                                        'fs_label_subdir_name' : 'regenerated_%s_35'
+                                        'fs_label_subdir_name' : 'regenerated_%s_35',
+                                        # should we subtract the cortical rois for the white matter mask?
+                                        'subtract_from_wm_mask' : 1
                                         }#,
 #                           'scale60' : {'fs_label_subdir_name' : 'regenerated_%s_60'},
 #                           'scale125' : {'fs_label_subdir_name' : 'regenerated_%s_125'},

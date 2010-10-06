@@ -113,6 +113,10 @@ def crop_and_move_datasets():
         
     for d in ds:
         log.info("Processing %s:" % d[0])
+        
+        # does it exist at all?
+        if not op.exists(d[0]):
+            raise Exception('File %s does not exist.' % d[0])
         # reslice to original volume because the roi creation with freesurfer
         # changed to 256x256x256 resolution
         mri_cmd = 'mri_convert -rl "%s" -rt nearest "%s" -nc "%s"' % (orig, d[0], d[1])
@@ -199,11 +203,13 @@ def create_wm_mask():
     fs_cmd_dir = gconf.get_cmt_fsout4subject(sid)
     reg_path = gconf.get_cmt_tracto_mask(sid)
     
-    # load ribbon
+    # load ribbon as basis for white matter mask
     fsmask = ni.load(op.join(fs_dir, 'mri', 'ribbon.nii'))
     fsmaskd = fsmask.get_data()
 
     wmmask = np.zeros( fsmask.get_data().shape )
+    
+    # these data is stored and can be extracted from fs_dir/stats/aseg.txt
     
     # extract right and left white matter (hardcoded, think about it XXX 
     idx_lh = np.where(fsmaskd == 120)
@@ -212,13 +218,29 @@ def create_wm_mask():
     wmmask[idx_lh] = 1
     wmmask[idx_rh] = 1
     
-    # XXX: REMOVE voxels from csfA, csfB, gr_ncl and remaining structures from 'aseg.nii' dataset
-
-    # XXX: erosion procedures?
-    
     # remove subcortical nuclei from white matter mask
+    # alternatively: we can do tractography through them and later do what?
     
     # XXX: REMOVE the voxels labeled in 'scale33/ROI_HR_th'
+    # XXX: REMOVE voxels from csfA, csfB, gr_ncl and remaining structures from 'aseg.nii' dataset
+    # XXX: erosion procedures?
+
+    aseg = ni.load(op.join(fs_dir, 'mri', 'aseg.nii'))
+    asegd = aseg.get_data()
+    
+#4: Left-Lateral-Ventricle
+#5: Left-Inf-Lat-Vent
+#14: 3rd-Ventricle
+#15: 4th-Ventricle
+#24: CSF
+#43: Right-Lateral-Ventricle
+#44: Right-Inf-Lat-Vent
+#72: 5th-Ventricle
+# XXX: more to discuss
+
+    for i in [4,5,14,15,24,43,44,72]:
+        idx = np.where(asegd == i)
+        wmmask[idx] == 0
     
     # ADD voxels from 'cc_unknown.nii' dataset
     
@@ -227,8 +249,34 @@ def create_wm_mask():
     idx = np.where(ccund != 0)
     wmmask[idx] = 1
     
-    # XXX: subtracting wmmask from ROI necessary?
+    # XXX: subtracting wmmask from ROI. necessary?
+    for parkey, parval in gconf.parcellation.items():
+        
+        # check if we should subtract the cortical rois from this parcellation
+        if parval.has_key('subtract_from_wm_mask'):
+            if not bool(int(parval['subtract_from_wm_mask'])):
+                continue
+        else:
+            continue
+
+        log.info("Loading %s to subtract cortical ROIs from white matter mask" % ('ROI_%s.nii' % parkey) )
+        roi = ni.load(op.join(gconf.get_fs4subject(sid), 'label', 'ROI_%s.nii' % parkey))
+        roid = roi.get_data()
+        
+        assert roid.shape[0] == wmmask.shape[0]
+        
+        pg = nx.read_graphml(parval['node_information_graphml'])
+        
+        for brk, brv in pg.nodes_iter(data=True):
+            
+            if brv['dn_region'] == 'cortical':
+                
+                log.info("Subtracting cortical region %s with intensity value %s" % (brv['dn_region'], brv['dn_intensityvalue']))
     
+                idx = np.where(roid == int(brv['dn_intensityvalue']))
+                wmmask[idx] = 0
+    
+    # output white matter mask. crop and move it afterwards
     wm_out = op.join(fs_dir, 'mri', 'fsmask_1mm.nii')
     img = ni.Nifti1Image(wmmask, fsmask.get_affine(), fsmask.get_header() )
     log.info("Save white matter mask: %s" % wm_out)
@@ -279,8 +327,8 @@ def run(conf, subject_tuple):
     cp = gconf.get_cmt_home()
     env['MATLABPATH'] = "%s:%s/matlab_related:%s/matlab_related/nifti:%s/matlab_related/tractography:%s/registration" % (cp, cp, cp, cp, cp)
     
-#    create_annot_label()
-#    create_roi()
+    create_annot_label()
+    create_roi()
     create_wm_mask()    
     crop_and_move_datasets()
 
@@ -290,5 +338,5 @@ def run(conf, subject_tuple):
     log.info("Module took %s seconds to process." % (time()-start))
 
     msg = "Mask creation module finished!\nIt took %s seconds." % int(time()-start)
-#    send_email_notification(msg, gconf.emailnotify, log)  
+    send_email_notification(msg, gconf.emailnotify, log)  
 
