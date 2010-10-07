@@ -231,14 +231,20 @@ class PipelineConfiguration(traits.HasTraits):
     def get_subj_dir(self, subject):
         return self.subject_list[subject]['workingdir']
 
-    def get_gradient_matrix(self, subject):
+    def get_gradient_matrix(self, subject, raw = True):
         """ Returns the absolute path to the gradient matrix
         (the b-vectors) extracted from the raw diffusion DICOM files """
         
         if self.processing_mode[0] == 'DSI':
             return op.join(self.get_nifti4subject(subject), 'dsi_bvects.txt')
         elif  self.processing_mode[0] == 'DTI':
-            return op.join(self.get_nifti4subject(subject), 'dti_bvects.txt')
+            if raw:
+                # return the raw table
+                return op.join(self.get_nifti4subject(subject), 'dti_bvects.txt')
+            else:
+                # return the processed table with nan set to 0 and 4th component are the bvals
+                
+                pass
 
     def get_cmt_scalarfields(self, subject):
         """ Returns a list with tuples with the scalar field name and the

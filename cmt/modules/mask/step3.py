@@ -90,39 +90,6 @@ def create_annot_label():
 
     log.info("[ DONE ]")  
 
-def crop_and_move_datasets():
-    
-    log.info("Cropping and moving datasets to CMT/fs_output/registred/HR folder")
-    
-    fs_dir = gconf.get_fs4subject(sid)
-    fs_cmd_dir = gconf.get_cmt_fsout4subject(sid)
-    reg_path = gconf.get_cmt_tracto_mask(sid)
-    
-    # datasets to crop and move: (from, to)
-    ds = [
-          (op.join(fs_dir, 'mri', 'aseg.nii'), op.join(reg_path, 'aseg.nii') ),
-          (op.join(fs_dir, 'mri', 'ribbon.nii'), op.join(reg_path, 'ribbon.nii') ),
-          (op.join(fs_dir, 'mri', 'fsmask_1mm.nii'), op.join(reg_path, 'fsmask_1mm.nii') ),
-          (op.join(fs_dir, 'label', 'cc_unknown.nii'), op.join(reg_path, 'cc_unknown.nii') )
-          ]
-    
-    for p in gconf.parcellation.keys():
-        ds.append( (op.join(fs_dir, 'label', 'ROI_%s.nii' % p), op.join(reg_path, p, 'ROI_HR_th.nii')) )
-    
-    orig = op.join(fs_dir, 'mri', 'orig', '001.mgz')
-        
-    for d in ds:
-        log.info("Processing %s:" % d[0])
-        
-        # does it exist at all?
-        if not op.exists(d[0]):
-            raise Exception('File %s does not exist.' % d[0])
-        # reslice to original volume because the roi creation with freesurfer
-        # changed to 256x256x256 resolution
-        mri_cmd = 'mri_convert -rl "%s" -rt nearest "%s" -nc "%s"' % (orig, d[0], d[1])
-        runCmd( mri_cmd,log )
-        
-
 def create_roi():
     """ Creates the ROI_%s.nii files using the given parcellation information
     from networks. Iteratively create volume. """
@@ -194,6 +161,7 @@ def create_roi():
         ni.save(img, out_roi)
     
     log.info("[ DONE ]")  
+    
 
 def create_wm_mask():
     
@@ -281,23 +249,38 @@ def create_wm_mask():
     img = ni.Nifti1Image(wmmask, fsmask.get_affine(), fsmask.get_header() )
     log.info("Save white matter mask: %s" % wm_out)
     ni.save(img, wm_out)
-    
 
-def finalize_wm():
-    log.info("Finalize WM mask")
+def crop_and_move_datasets():
     
-    matlab_cmd = gconf.matlab_prompt + """ "mask_creation( '%s','%s' ); exit" """ % (sid[0], sid[1])
-    runCmd( matlab_cmd, log )
-
-    log.info("[ DONE ]")  
-
-def finalize_roi():
-    log.info("Finalize ROI mask")
+    log.info("Cropping and moving datasets to CMT/fs_output/registred/HR folder")
     
-    matlab_cmd = gconf.matlab_prompt + """ "script_roi_finalize( '%s','%s' ); exit" """ % (sid[0], sid[1])
-    runCmd( matlab_cmd, log )
+    fs_dir = gconf.get_fs4subject(sid)
+    fs_cmd_dir = gconf.get_cmt_fsout4subject(sid)
+    reg_path = gconf.get_cmt_tracto_mask(sid)
     
-    log.info("[ DONE ]")  
+    # datasets to crop and move: (from, to)
+    ds = [
+          (op.join(fs_dir, 'mri', 'aseg.nii'), op.join(reg_path, 'aseg.nii') ),
+          (op.join(fs_dir, 'mri', 'ribbon.nii'), op.join(reg_path, 'ribbon.nii') ),
+          (op.join(fs_dir, 'mri', 'fsmask_1mm.nii'), op.join(reg_path, 'fsmask_1mm.nii') ),
+          (op.join(fs_dir, 'label', 'cc_unknown.nii'), op.join(reg_path, 'cc_unknown.nii') )
+          ]
+    
+    for p in gconf.parcellation.keys():
+        ds.append( (op.join(fs_dir, 'label', 'ROI_%s.nii' % p), op.join(reg_path, p, 'ROI_HR_th.nii')) )
+    
+    orig = op.join(fs_dir, 'mri', 'orig', '001.mgz')
+        
+    for d in ds:
+        log.info("Processing %s:" % d[0])
+        
+        # does it exist at all?
+        if not op.exists(d[0]):
+            raise Exception('File %s does not exist.' % d[0])
+        # reslice to original volume because the roi creation with freesurfer
+        # changed to 256x256x256 resolution
+        mri_cmd = 'mri_convert -rl "%s" -rt nearest "%s" -nc "%s"' % (orig, d[0], d[1])
+        runCmd( mri_cmd,log )
 
 
 def run(conf, subject_tuple):
@@ -319,21 +302,19 @@ def run(conf, subject_tuple):
     log.info("ROI_HR_th.nii / fsmask_1mm.nii CREATION")
     log.info("=======================================")
     
-    from os import environ
-    env = environ
-    env['SUBJECTS_DIR'] = gconf.get_subj_dir(sid)
-    env['DATA_path'] = gconf.project_dir
-    env['CMT_HOME'] = gconf.get_cmt_home()
-    cp = gconf.get_cmt_home()
-    env['MATLABPATH'] = "%s:%s/matlab_related:%s/matlab_related/nifti:%s/matlab_related/tractography:%s/registration" % (cp, cp, cp, cp, cp)
+    # Matlab legacy:
+    #from os import environ
+    #env = environ
+    #env['SUBJECTS_DIR'] = gconf.get_subj_dir(sid)
+    #env['DATA_path'] = gconf.project_dir
+    #env['CMT_HOME'] = gconf.get_cmt_home()
+    #cp = gconf.get_cmt_home()
+    #env['MATLABPATH'] = "%s:%s/matlab_related:%s/matlab_related/nifti:%s/matlab_related/tractography:%s/registration" % (cp, cp, cp, cp, cp)
     
     create_annot_label()
     create_roi()
     create_wm_mask()    
     crop_and_move_datasets()
-
-#    finalize_wm()
-#    finalize_roi()
     
     log.info("Module took %s seconds to process." % (time()-start))
 

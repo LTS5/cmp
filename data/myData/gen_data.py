@@ -2,7 +2,6 @@ import nibabel as ni
 from pylab import *
 import numpy as np
 
-
 a=ni.load('ROI_HR_th.nii')
 d=a.get_data()
 
