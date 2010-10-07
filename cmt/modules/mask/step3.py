@@ -327,8 +327,8 @@ def run(conf, subject_tuple):
     cp = gconf.get_cmt_home()
     env['MATLABPATH'] = "%s:%s/matlab_related:%s/matlab_related/nifti:%s/matlab_related/tractography:%s/registration" % (cp, cp, cp, cp, cp)
     
-    create_annot_label()
-    create_roi()
+    #create_annot_label()
+    #create_roi()
     create_wm_mask()    
     crop_and_move_datasets()
 

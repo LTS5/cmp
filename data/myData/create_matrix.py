@@ -2,8 +2,11 @@ import nibabel as ni
 import numpy as np
 import networkx as nx
 
+ver = 'small'
+
 # load reduced .trk file with 10 fibers only
-fib, hdr = ni.trackvis.read('streamline.trk')
+# fib, hdr = ni.trackvis.read('/home/cmt/data/test_project_one/testsubject1/tp1/4__CMT/fibers/%s-streamline_spline.trk' % ver)
+fib, hdr = ni.trackvis.read('%s/streamline.trk'% ver)
 
 # number of fibers
 n = len(fib)
@@ -35,7 +38,7 @@ for i, fi in enumerate(fib):
 #    print "calculated length", l
     
 # retrieve starting and ending roi using endpoints
-roi = ni.load('ROI_HR_th.nii')
+roi = ni.load('%s/ROI_HR_th.nii'%ver)
 roid = roi.get_data()
 roih = roi.get_header()
 
@@ -114,6 +117,6 @@ print "sum of length of all fibers", np.sum(fiblen, axis=0)
 for ed in G.edges_iter(data=True):
     G.edge[ed[0]][ed[1]]['weight'] = len(ed[2]['fiblist'])
     
-np.save('endpoints.npy', endpoints)
-np.save('fiblen.npy', fiblen)
-nx.write_gpickle(G, 'connectionmatrix.pickle')
+np.save('%s/endpoints.npy' % ver, endpoints)
+np.save('%s/fiblen.npy' % ver, fiblen)
+nx.write_gpickle(G, '%s/connectionmatrix.pickle' % ver)
