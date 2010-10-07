@@ -181,7 +181,7 @@ def DTB__cmat_shape(fib, hdr):
     
     log.info("===============")
     log.info("DTB__cmat_shape")
-       	
+       	    
     # Get the endpoints for each fibers
     log.info("-------------")
     log.info("Get endpoints")
@@ -211,21 +211,45 @@ def DTB__cmat_shape(fib, hdr):
     vxDim = hdr['voxel_size'][0]
 
     # Output shape
-    out_mat = np.zeros((endpoints.shape[0], nbInfos))
+    out_mat_OLD = np.zeros((endpoints.shape[0], nbInfos))
+    out_mat = np.zeros((hdr['n_count'], nbInfos))
 
+    # Euclidian distance
+    log.info("Compute the euclidian distance")
+    pc = -1
+    for i in range(0, hdr['n_count']):  
+     
+        # Percent counter
+        pcN = int(round( float(100*i)/hdr['n_count'] ))
+        if pcN > pc and pcN%10 == 0:	
+            pc = pcN
+            print '\t\t%4.0f%%' % (pc)
+            
+        # Computation for the current fiber
+        crtFiber  = np.array(fib[i][0])
+        crtLength = 0
+        for j in range(0, crtFiber.shape[0]-1):
+            crtEuclidian = math.sqrt( (crtFiber[j+1][0] - crtFiber[j][0])**2 + \
+                                      (crtFiber[j+1][1] - crtFiber[j][1])**2 + \
+                                      (crtFiber[j+1][2] - crtFiber[j][2])**2 )
+            crtLength = crtLength + crtEuclidian    
+        out_mat[i] = crtEuclidian        
+        
     # For each fibers
     for f in range(0, endpoints.shape[0]):
 
         # Length
-        out_mat[f,0] = (epLen[f]-1)*stepSize*vxDim;
+        out_mat_OLD[f,0] = (epLen[f]-1)*stepSize*vxDim;
 	
     log.info("---------------------")
     
     # Save the matrix
     log.info("---------------------")
     log.info("Save the shape matrix")
-    filepath = gconf.get_cmt_matrices4subject(sid)
+    filepath = op.join(gconf.get_cmt_matrices4subject(sid), 'cmat_shape.npy')
+    filepath_OLD = op.join(gconf.get_cmt_matrices4subject(sid), 'OLD_cmat_shape.npy')
     np.save(filepath, out_mat)
+    np.save(filepath_OLD, out_mat_OLD)
     log.info("---------------------")
     
     log.info("done")
@@ -486,9 +510,9 @@ def run(conf, subject_tuple):
     log.info("===============")
     
     # Call
-#    DTB__cmat_shape(fib, hdr)
+    DTB__cmat_shape(fib, hdr)
 #    DTB__cmat_scalar(fib, hdr)
-    DTB__cmat(fib, hdr)
+#    DTB__cmat(fib, hdr)
     
     log.info("Connection matrix module took %s seconds to process" % (time()-start))
     log.info("########################")
