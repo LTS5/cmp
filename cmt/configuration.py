@@ -3,8 +3,10 @@ that is used to create the configuration for a project. Traits attribute are use
 to check if the pipeline supports the options """
 
 import enthought.traits.api as traits
-import os.path as op
+import os.path as op, os
 import sys
+import datetime as dt
+from cmt.logme import getLog
 
 class PipelineConfiguration(traits.HasTraits):
        
@@ -24,13 +26,10 @@ class PipelineConfiguration(traits.HasTraits):
     registration_mode = traits.Either("L", "N", desc="registration mode: linear or non-linear")
     
     # going to support qBall, HARDI
-    processing_mode = traits.Enum( ['DSI', 'DTI'], desc="diffusion MRI processing mode available")   
+    processing_mode = traits.Enum( [('DSI', 'Lausanne2011'), ('DTI', 'Lausanne2011')], desc="diffusion MRI processing mode available")   
     
     # do you want to do manual whit matter mask correction?
     wm_handling = traits.Int(desc="in what state should the freesurfer step be processed")
-    
-    # dicom format for the raw data
-    raw_glob = traits.Str(desc='file glob for raw data files')
     
     # custom parcellation
     parcellation = traits.Dict(desc="provide the dictionary with your parcellation.")
@@ -41,6 +40,10 @@ class PipelineConfiguration(traits.HasTraits):
     # matlab invocation prompt
     matlab_prompt = traits.Str("matlab -nodesktop -nosplash -r")  
         
+    # email notification, needs a local smtp server
+    # sudo apt-get install postfix
+    emailnotify = traits.ListStr(desc='the email address to send to')
+    
     ################################
     # External package Configuration
     ################################
@@ -60,10 +63,16 @@ class PipelineConfiguration(traits.HasTraits):
 
         # the default parcellation provided
         default_parcell = {'scale33' : {'number_of_regions' : 0,
-                                        'node_information_graphml' : None, # contains name, url, color, etc. used for connection matrix
-                                        'surface_parcellation' : None, # scalar node values on fsaverage? or atlas?,
-                                        'volume_parcellation' : None, # scalar node values in fsaverage volume?
-                                        'fs_label_subdir_name' : 'regenerated_%s_35' # the subdirectory name from where to copy parcellations, with hemispheric wildcard
+                                        # contains name, url, color, freesurfer_label, etc. used for connection matrix
+                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution85'), 'resolution85.graphml'),
+                                        # scalar node values on fsaverage? or atlas? 
+                                        'surface_parcellation' : None,
+                                        # scalar node values in fsaverage volume?
+                                        'volume_parcellation' : None,
+                                        # the subdirectory name from where to copy parcellations, with hemispheric wildcard
+                                        'fs_label_subdir_name' : 'regenerated_%s_35',
+                                        # should we subtract the cortical rois for the white matter mask?
+                                        'subtract_from_wm_mask' : 1
                                         }#,
 #                           'scale60' : {'fs_label_subdir_name' : 'regenerated_%s_60'},
 #                           'scale125' : {'fs_label_subdir_name' : 'regenerated_%s_125'},
@@ -96,14 +105,9 @@ class PipelineConfiguration(traits.HasTraits):
                 msg = 'Required software path for %s does not exists: %s' % (k, p)
                 raise Exception(msg)
                 
-        if self.processing_mode == 'DSI':
+        if self.processing_mode[0] == 'DSI':
             ke = self.mode_parameters.keys()
-            if not 'sharpness_odf' in ke:
-                raise Exception('Parameter "sharpness_odf" not set as key in mode_parameters. Required for DSI.')
-            else:
-                if len(self.mode_parameters['sharpness_odf']) > 2:
-                    raise Exception('Too many values for sharpness_odf parameter. Maximally two.')
-                
+
             if not 'nr_of_gradient_directions' in ke:
                 raise Exception('Parameter "nr_of_gradient_directions" not set as key in mode_parameters. Required for DSI.')
                 
@@ -122,6 +126,7 @@ class PipelineConfiguration(traits.HasTraits):
                     raise Exception(msg)
                 else:
                     wdiff = op.join(self.get_raw_diffusion4subject(subj))
+                    print wdiff
                     if not op.exists(wdiff):
                         msg = 'Diffusion MRI subdirectory %s does not exists for subject %s' % (wdiff, str(subj))
                         raise Exception(msg)
@@ -143,22 +148,52 @@ class PipelineConfiguration(traits.HasTraits):
         """ Get subject log dir """
         return op.join(self.get_subj_dir(subject), '0__LOG')
     
+    def get_rawglob(self, modality, subject):
+        """ Get the file name endings for modality and subject """
+        
+        if modality == 'diffusion':
+            if self.subject_list[subject].has_key('raw_glob_diffusion'):
+                return self.subject_list[subject]['raw_glob_diffusion']
+            else:
+                raise Exception('No raw_glob_diffusion defined for subject %s' % subject)
+
+        elif modality == 'T1':
+            if self.subject_list[subject].has_key('raw_glob_T1'):
+                return self.subject_list[subject]['raw_glob_T1']
+            else:
+                raise Exception('No raw_glob_T1 defined for subject %s' % subject)
+            
+        elif modality == 'T2':
+            if self.subject_list[subject].has_key('raw_glob_T2'):
+                return self.subject_list[subject]['raw_glob_T2']
+            else:
+                raise Exception('No raw_glob_T2 defined for subject %s' % subject)
+        
+    
     def get_logger4subject(self, subject):
         """ Get the logger instance created """
         if not self.subject_list[subject].has_key('logger'):
-            raise Exception('No logger instance available for subject %s' % subject)
+            # setup logger for the subject
+            self.subject_list[subject]['logger'] = \
+                getLog(os.path.join(self.get_log4subject(subject), \
+                        'pipeline-%s-%s-%s.log' % (str(dt.datetime.now()), subject[0], subject[1] ) )) 
+            return self.subject_list[subject]['logger'] 
         else: 
             return self.subject_list[subject]['logger']
     
     def get_rawt14subject(self, subject):
-        """ Get raw structural MRI for subject """
+        """ Get raw structural MRI T1 path for subject """
         return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'T1')
-        
+
+    def get_rawt24subject(self, subject):
+        """ Get raw structural MRI T2 path for subject """
+        return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'T2')
+
     def get_raw_diffusion4subject(self, subject):
         """ Get the raw diffusion path for subject """
-        if self.processing_mode == 'DSI':
+        if self.processing_mode[0] == 'DSI':
             return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'DSI')
-        elif self.processing_mode == 'DTI':
+        elif self.processing_mode[0] == 'DTI':
             return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'DTI')
         
     def get_fs4subject(self, subject):
@@ -180,36 +215,89 @@ class PipelineConfiguration(traits.HasTraits):
     
     def get_cmt_fibers4subject(self, subject):
         return op.join(self.get_subj_dir(subject), '4__CMT', 'fibers')
-    
-    # ADD christophe
+
+    def get_cmt_scalars4subject(self, subject):
+        return op.join(self.get_subj_dir(subject), '4__CMT', 'scalars')
+
     def get_cmt_matrices4subject(self, subject):
         return op.join(self.get_subj_dir(subject), '4__CMT', 'fibers', 'matrices')    
-    def get_cmt_scalars4subject(self, subject):
-        return op.join(self.get_subj_dir(subject), '4__CMT', 'scalars')   
+
+    def get_cmt_tracto_mask(self, subject):
+        return op.join(self.get_cmt_fsout4subject(subject), 'registred', 'HR')
     
-    def get_cmt_fsmask4subject(self, subject):
+    def get_cmt_tracto_mask_tob0(self, subject):
         return op.join(self.get_cmt_fsout4subject(subject), 'registred', 'HR__registered-TO-b0')
 
     def get_subj_dir(self, subject):
         return self.subject_list[subject]['workingdir']
-    
-    def get_dsi_matrix(self):
-        """ XXX: Returns the correct DSI matrix given the parameters
-        Should: Return gradient_matrix, optionally forth columns for bvals!
+
+    def get_gradient_matrix(self, subject, raw = True):
+        """ Returns the absolute path to the gradient matrix
+        (the b-vectors) extracted from the raw diffusion DICOM files """
         
-        1. dsi dir
-        2. number of gradient directions
-        3. number of sampling directions
+        if self.processing_mode[0] == 'DSI':
+            return op.join(self.get_nifti4subject(subject), 'dsi_bvects.txt')
+        elif  self.processing_mode[0] == 'DTI':
+            if raw:
+                # return the raw table
+                return op.join(self.get_nifti4subject(subject), 'dti_bvects.txt')
+            else:
+                # return the processed table with nan set to 0 and 4th component are the bvals
+                
+                pass
+
+    def get_cmt_scalarfields(self, subject):
+        """ Returns a list with tuples with the scalar field name and the
+        absolute path to its nifti file """
+        
+        ret = []
+        
+        if self.processing_mode[0] == 'DSI':
+            # add gfa per default
+            ret.append( ('gfa', op.join(self.get_cmt_scalars4subject(subject), 'dsi_gfa.nii')))
+            # XXX: add adc per default
+            
+        elif  self.processing_mode[0] == 'DTI':
+            # nothing to add yet for DTI
+            pass
+        
+        return ret
+        
+        
+    def get_dtk_dsi_matrix(self):
+        """ Returns the DSI matrix from Diffusion Toolkit
+        
+        The mode_parameters have to be set in the configuration object with keys:
+        1. number of gradient directions : 'nr_of_gradient_directions'
+        2. number of sampling directions : 'nr_of_sampling_directions'
+        
+        Example
+        -------
+        
+        confobj.mode_parameters['nr_of_gradient_directions'] = 515
+        confobj.mode_parameters['nr_of_sampling_directions'] = 181
+        
+        Returns matrix including absolute path to DSI_matrix_515x181.dat
+        
         """
         
         # XXX: check fist if it is available at all
+        if not self.mode_parameters.has_key('nr_of_gradient_directions'):
+            msg = 'nr_of_gradient_directions not set in mode_parameters'
+            raise Exception(msg)
+        if not self.mode_parameters.has_key('nr_of_sampling_directions'):
+            msg = 'nr_of_sampling_directions not set in mode_parameters'
+            raise Exception(msg)
+         
         grad = self.mode_parameters['nr_of_gradient_directions']
         samp = self.mode_parameters['nr_of_sampling_directions']
         fpath = op.join(self.dtk_matrices, "DSI_matrix_%sx%s.dat" % (grad, samp))
         if not op.exists(fpath):
-            print "DSI matrix does not exists: %s" % fpath
+            msg = "DSI matrix does not exists: %s" % fpath
+            raise Exception(msg)
             
         return fpath
+    
     
     def get_lausanne_atlas(self, name = None):
         """ Return the absolute path to the lausanne parcellation atlas
@@ -225,6 +313,18 @@ class PipelineConfiguration(traits.HasTraits):
             return op.join(cmt_path, 'data', 'colortable_and_gcs', 'my_atlas_gcs', name)
     
         
+    def get_lausanne_parcellation_path(self, parcellationname):
+        
+        cmt_path = op.dirname(__file__)
+        
+        allowed_default_parcel = ['resolution85', 'resolution150', 'resolution258', 'resolution500', 'resolution1015']
+        
+        if parcellationname in allowed_default_parcel:
+            return op.join(cmt_path, 'data', 'parcellation', 'lausanne2008', parcellationname)
+        else:
+            log.error("Not a valid default parcellation name for the lausanne2008 parcellation scheme")
+        
+        
     def get_cmt_binary_path(self):
         """ Returns the path to the binary files for the current platform
         and architecture """
@@ -238,6 +338,4 @@ class PipelineConfiguration(traits.HasTraits):
                 return op.join(op.dirname(__file__), "binary", "linux2", "bit64")
         else:
             raise('No binary files compiled for your platform!')
-    
-
     

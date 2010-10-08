@@ -222,15 +222,14 @@ def lin_regT12b0():
     log.info("T1 -> b0: Linear registration")
     log.info("=============================")
 
-
     # Linear register "T1" onto "b0_resampled"
     log.info("Started FLIRT to find 'T1 --> b0' linear transformation")
 
-    # rm -f "T1-TO-b0".*
-    if not gconf.mode_parameters.has_key('lin_reg_para'):
-        param = '-usesqform -nosearch -dof 6 -cost mutualinfo'
+    # XXX: rm -f "T1-TO-b0".*
+    if gconf.mode_parameters.has_key('lin_reg_paraM'):
+        param = gconf.mode_parameters['lin_reg_paraM']
     else:
-        param = gconf.mode_parameters['lin_reg_para']
+        param = '-usesqform -nosearch -dof 6 -cost mutualinfo'
         
     flirt_cmd = 'flirt -in %s -ref %s -out %s -omat %s %s' % (
             op.join(gconf.get_nifti4subject(sid), 'T1.nii'),
@@ -238,7 +237,6 @@ def lin_regT12b0():
             op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.nii'),
             op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.mat'),
             param)
-    
     runCmd(flirt_cmd, log)
     
     if not op.exists(op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.mat')):
@@ -278,3 +276,6 @@ def run(conf, subject_tuple):
         lin_regT12b0()
     
     log.info("Module took %s seconds to process." % (time()-start))
+
+    msg = "Registration module finished!\nIt took %s seconds." % int(time()-start)
+    send_email_notification(msg, gconf.emailnotify, log)  

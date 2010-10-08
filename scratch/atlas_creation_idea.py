@@ -12,18 +12,28 @@ adapt pymetis setup.py with:         Libraries("BOOST_PYTHON", ["boost_python-mt
 import numpy as np
 import networkx as nx
 from pymetis import part_graph
+# import pymatlab
+
+import nibabel.gifti as gi
+
+a=gi.read('rh.inflated.gii')
+vert = a.darrays[0].data
+face = a.darrays[1].data
+
+#import pymatlab
+#from pymatlab import Session
+#m=Session()
+# http://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation
+
+#m.run("[v,l,c] = read_annotation('/home/stephan/Dev/PyWorkspace/cmt/scratch/atlas_creation/cmt/rh.myaparc_33.annot');")
 
 # data init
-scalp=np.array([[1,1,0], [1,0,0.5],[0,1,-0.5]])
-# project
-def sp(vec):
-    return np.array([vec[0]/ (1 - vec[2]), vec[1] / (1-vec[2])])
-pmap = np.ones( (scalp.shape[1], 2) )
-for i in range(scalp.shape[1]):
-	pmap[i,:] = sp(scalp[i,:])
+verts = np.array( [ [0,1,1], [2,3,2], [2,1,2], [2,5,4], [5,4,3] ] )
+faces = np.array( [ [0,1,2], [2,1,4], [3,4,2] ] ).tolist()
+# select one region, and extract it as subgraph
+labels = np.array( [ 0,2,2,1,1] )
 
 # create a graph from the mesh
-faces = np.array( [ [0,1,2], [2,1,4], [3,4,2] ] ).tolist()
 h=nx.Graph()
 for f in faces:
 	# add three edges for each triangle

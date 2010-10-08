@@ -105,11 +105,24 @@ def runCmd( cmd, log ):
 
       os.unlink( "out_fifo" )
 
+def send_email_notification(message, to, log, host = 'localhost'):
+    
+    import smtplib
+    
+    sender = 'info@connectomics.org'
+    receivers = to
+    
+    message = """From: Connectome Mapping Toolkit
+To: %s
+Subject: CMT - Notification
 
-#mainlog.debug( os.getcwd() )
-#runCmd( "echo 'bye'", mainlog )
-#runCmd( "/usr/bin/false", mainlog )
-#runCmd( "ls -l; sleep 5; echo 'hi!'; sleep 5; ls -l", mainlog )
-#runCmd( "this_should_not_exists", mainlog )
+%s""" % (','.join(to), message)
+    
+    try:
+        smtpObj = smtplib.SMTP(host)
+        smtpObj.sendmail(sender, receivers, message)         
+        log.info("Successfully sent email")    
+    except smtplib.SMTPException:
+        log.info("Error: Unable to send email")
 
 

@@ -9,15 +9,11 @@ def copy_orig_to_fs():
     
     log.info("Copying '2__NIFTI/T1.nii' dataset to '3__FREESURFER/mri/orig/001.mgz'...")
 
+    fs_4subj_mri = op.join(gconf.get_fs4subject(sid), 'mri', 'orig')
+
     if not op.exists(op.join(gconf.get_nifti4subject(sid), 'T1.nii')):
         log.error("File T1.nii does not exists in subject directory")
-    
-    fs_4subj_mri = op.join(gconf.get_fs4subject(sid), 'mri', 'orig')
-    try:
-        os.makedirs(fs_4subj_mri)
-    except os.error:
-        log.info("%s was already existing" % str(fs_4subj_mri))
-
+        
     # XXX rm -f "${DATA_path}/${MY_SUBJECT}/${MY_TP}/3__FREESURFER/mri/orig/001.mgz"
     mri_cmd = 'mri_convert %s %s' % ( 
                              op.join(gconf.get_nifti4subject(sid), 'T1.nii'),
@@ -55,11 +51,6 @@ def before_wm_corr():
         log.error('/mir/wm.mgz does not exists in subject folder')
 
     wm_exchange_folder = op.join(gconf.get_nifti4subject(sid), 'wm_correction')
-    if not op.exists(wm_exchange_folder):
-        try:
-            wm_exchange_folder = os.makedirs(wm_exchange_folder)
-        except os.error:
-            log.info("%s was already existing" % str(wm_exchange_folder))
     
     # XXX rm -f "${WM_EXCHANGE_FOLDER}/${MY_SUBJECT}/${MY_TP}/T1.nii"
     # XXX rm -f "${WM_EXCHANGE_FOLDER}/${MY_SUBJECT}/${MY_TP}/wm.nii"
@@ -150,3 +141,5 @@ def run(conf, subject_tuple):
         after_wm_corr()
         run_fs_on_corrected_wm()
         
+    msg = "Freesurfer module finished!\nIt took %s seconds." % int(time()-start)
+    send_email_notification(msg, gconf.emailnotify, log)  

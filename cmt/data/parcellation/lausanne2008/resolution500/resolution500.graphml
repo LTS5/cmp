@@ -1,0 +1,3523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+
+<key id="dn_href" for="node" attr.name="href" attr.type="string">
+	<desc>The link to a semantic framework to define the meaning of the node unambiguously</desc>
+</key>
+<key id="dn_label" for="node" attr.name="label" attr.type="string">
+	<desc>The node label</desc>
+</key>
+<key id="dn_freesurfer_structname" for="node" attr.name="fs_structname" attr.type="string">
+	<desc>Derived from the Freesurfer labeling</desc>
+</key>
+<key id="dn_colorcode" for="node" attr.name="fs_colorcode" attr.type="string">
+	<desc>The color-code derived from the Freesurfer atlases (parcellations): R,G,B</desc>
+</key>
+<key id="dn_intensityvalue" for="node" attr.name="fs_intensity" attr.type="string">
+	<desc>Refers to the intensity value in the volume files/surface labels corresponding to this node</desc>
+</key>
+
+<graph id="Resolution500" edgedefault="undirected">
+<node id="n1">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lof1Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_1</data>
+	<data key="dn_colorcode">35,75,50</data>
+	<data key="dn_intensityvalue">1</data>
+</node>
+<node id="n2">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lof2Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_2</data>
+	<data key="dn_colorcode">35,77,50</data>
+	<data key="dn_intensityvalue">2</data>
+</node>
+<node id="n3">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lof3Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_3</data>
+	<data key="dn_colorcode">35,78,50</data>
+	<data key="dn_intensityvalue">3</data>
+</node>
+<node id="n4">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lof4Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_4</data>
+	<data key="dn_colorcode">35,79,50</data>
+	<data key="dn_intensityvalue">4</data>
+</node>
+<node id="n5">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lof5Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_5</data>
+	<data key="dn_colorcode">35,80,50</data>
+	<data key="dn_intensityvalue">5</data>
+</node>
+<node id="n6">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lof6Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_6</data>
+	<data key="dn_colorcode">35,81,50</data>
+	<data key="dn_intensityvalue">6</data>
+</node>
+<node id="n7">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lof7Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_7</data>
+	<data key="dn_colorcode">35,82,50</data>
+	<data key="dn_intensityvalue">7</data>
+</node>
+<node id="n8">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lof8Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_8</data>
+	<data key="dn_colorcode">35,83,50</data>
+	<data key="dn_intensityvalue">8</data>
+</node>
+<node id="n9">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lof9Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_9</data>
+	<data key="dn_colorcode">35,84,50</data>
+	<data key="dn_intensityvalue">9</data>
+</node>
+<node id="n10">
+	<data key="dn_href">http://www.connectome.ch/wiki/po1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">po1Res500_RH</data>
+	<data key="dn_freesurfer_structname">parsorbitalis_1</data>
+	<data key="dn_colorcode">20,100,50</data>
+	<data key="dn_intensityvalue">10</data>
+</node>
+<node id="n11">
+	<data key="dn_href">http://www.connectome.ch/wiki/po2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">po2Res500_RH</data>
+	<data key="dn_freesurfer_structname">parsorbitalis_2</data>
+	<data key="dn_colorcode">20,102,50</data>
+	<data key="dn_intensityvalue">11</data>
+</node>
+<node id="n12">
+	<data key="dn_href">http://www.connectome.ch/wiki/po3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">po3Res500_RH</data>
+	<data key="dn_freesurfer_structname">parsorbitalis_3</data>
+	<data key="dn_colorcode">20,103,50</data>
+	<data key="dn_intensityvalue">12</data>
+</node>
+<node id="n13">
+	<data key="dn_href">http://www.connectome.ch/wiki/fp1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">fp1Res500_RH</data>
+	<data key="dn_freesurfer_structname">frontalpole_1</data>
+	<data key="dn_colorcode">100,0,100</data>
+	<data key="dn_intensityvalue">13</data>
+</node>
+<node id="n14">
+	<data key="dn_href">http://www.connectome.ch/wiki/mof1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mof1Res500_RH</data>
+	<data key="dn_freesurfer_structname">medialorbitofrontal_1</data>
+	<data key="dn_colorcode">200,35,75</data>
+	<data key="dn_intensityvalue">14</data>
+</node>
+<node id="n15">
+	<data key="dn_href">http://www.connectome.ch/wiki/mof2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mof2Res500_RH</data>
+	<data key="dn_freesurfer_structname">medialorbitofrontal_2</data>
+	<data key="dn_colorcode">200,37,75</data>
+	<data key="dn_intensityvalue">15</data>
+</node>
+<node id="n16">
+	<data key="dn_href">http://www.connectome.ch/wiki/mof3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mof3Res500_RH</data>
+	<data key="dn_freesurfer_structname">medialorbitofrontal_3</data>
+	<data key="dn_colorcode">200,38,75</data>
+	<data key="dn_intensityvalue">16</data>
+</node>
+<node id="n17">
+	<data key="dn_href">http://www.connectome.ch/wiki/mof4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mof4Res500_RH</data>
+	<data key="dn_freesurfer_structname">medialorbitofrontal_4</data>
+	<data key="dn_colorcode">200,39,75</data>
+	<data key="dn_intensityvalue">17</data>
+</node>
+<node id="n18">
+	<data key="dn_href">http://www.connectome.ch/wiki/mof5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mof5Res500_RH</data>
+	<data key="dn_freesurfer_structname">medialorbitofrontal_5</data>
+	<data key="dn_colorcode">200,40,75</data>
+	<data key="dn_intensityvalue">18</data>
+</node>
+<node id="n19">
+	<data key="dn_href">http://www.connectome.ch/wiki/mof6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mof6Res500_RH</data>
+	<data key="dn_freesurfer_structname">medialorbitofrontal_6</data>
+	<data key="dn_colorcode">200,41,75</data>
+	<data key="dn_intensityvalue">19</data>
+</node>
+<node id="n20">
+	<data key="dn_href">http://www.connectome.ch/wiki/ptri1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ptri1Res500_RH</data>
+	<data key="dn_freesurfer_structname">parstriangularis_1</data>
+	<data key="dn_colorcode">220,60,20</data>
+	<data key="dn_intensityvalue">20</data>
+</node>
+<node id="n21">
+	<data key="dn_href">http://www.connectome.ch/wiki/ptri2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ptri2Res500_RH</data>
+	<data key="dn_freesurfer_structname">parstriangularis_2</data>
+	<data key="dn_colorcode">220,62,20</data>
+	<data key="dn_intensityvalue">21</data>
+</node>
+<node id="n22">
+	<data key="dn_href">http://www.connectome.ch/wiki/ptri3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ptri3Res500_RH</data>
+	<data key="dn_freesurfer_structname">parstriangularis_3</data>
+	<data key="dn_colorcode">220,63,20</data>
+	<data key="dn_intensityvalue">22</data>
+</node>
+<node id="n23">
+	<data key="dn_href">http://www.connectome.ch/wiki/ptri4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ptri4Res500_RH</data>
+	<data key="dn_freesurfer_structname">parstriangularis_4</data>
+	<data key="dn_colorcode">220,64,20</data>
+	<data key="dn_intensityvalue">23</data>
+</node>
+<node id="n24">
+	<data key="dn_href">http://www.connectome.ch/wiki/ptri5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ptri5Res500_RH</data>
+	<data key="dn_freesurfer_structname">parsopercularis_1</data>
+	<data key="dn_colorcode">220,180,140</data>
+	<data key="dn_intensityvalue">24</data>
+</node>
+<node id="n25">
+	<data key="dn_href">http://www.connectome.ch/wiki/ptri6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ptri6Res500_RH</data>
+	<data key="dn_freesurfer_structname">parsopercularis_2</data>
+	<data key="dn_colorcode">220,182,140</data>
+	<data key="dn_intensityvalue">25</data>
+</node>
+<node id="n26">
+	<data key="dn_href">http://www.connectome.ch/wiki/pop1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pop1Res500_RH</data>
+	<data key="dn_freesurfer_structname">parsopercularis_3</data>
+	<data key="dn_colorcode">220,183,140</data>
+	<data key="dn_intensityvalue">26</data>
+</node>
+<node id="n27">
+	<data key="dn_href">http://www.connectome.ch/wiki/pop2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pop2Res500_RH</data>
+	<data key="dn_freesurfer_structname">parsopercularis_4</data>
+	<data key="dn_colorcode">220,184,140</data>
+	<data key="dn_intensityvalue">27</data>
+</node>
+<node id="n28">
+	<data key="dn_href">http://www.connectome.ch/wiki/pop3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pop3Res500_RH</data>
+	<data key="dn_freesurfer_structname">parsopercularis_5</data>
+	<data key="dn_colorcode">220,185,140</data>
+	<data key="dn_intensityvalue">28</data>
+</node>
+<node id="n29">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">rmf1Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_1</data>
+	<data key="dn_colorcode">75,50,125</data>
+	<data key="dn_intensityvalue">29</data>
+</node>
+<node id="n30">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">rmf2Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_2</data>
+	<data key="dn_colorcode">75,52,125</data>
+	<data key="dn_intensityvalue">30</data>
+</node>
+<node id="n31">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">rmf3Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_3</data>
+	<data key="dn_colorcode">75,53,125</data>
+	<data key="dn_intensityvalue">31</data>
+</node>
+<node id="n32">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">rmf4Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_4</data>
+	<data key="dn_colorcode">75,54,125</data>
+	<data key="dn_intensityvalue">32</data>
+</node>
+<node id="n33">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">rmf5Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_5</data>
+	<data key="dn_colorcode">75,55,125</data>
+	<data key="dn_intensityvalue">33</data>
+</node>
+<node id="n34">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">rmf6Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_6</data>
+	<data key="dn_colorcode">75,56,125</data>
+	<data key="dn_intensityvalue">34</data>
+</node>
+<node id="n35">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">rmf7Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_7</data>
+	<data key="dn_colorcode">75,57,125</data>
+	<data key="dn_intensityvalue">35</data>
+</node>
+<node id="n36">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">rmf8Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_8</data>
+	<data key="dn_colorcode">75,58,125</data>
+	<data key="dn_intensityvalue">36</data>
+</node>
+<node id="n37">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">rmf9Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_9</data>
+	<data key="dn_colorcode">75,59,125</data>
+	<data key="dn_intensityvalue">37</data>
+</node>
+<node id="n38">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf10Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">rmf10Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_10</data>
+	<data key="dn_colorcode">75,60,125</data>
+	<data key="dn_intensityvalue">38</data>
+</node>
+<node id="n39">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf11Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">rmf11Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_11</data>
+	<data key="dn_colorcode">75,61,125</data>
+	<data key="dn_intensityvalue">39</data>
+</node>
+<node id="n40">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf1Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_1</data>
+	<data key="dn_colorcode">20,220,160</data>
+	<data key="dn_intensityvalue">40</data>
+</node>
+<node id="n41">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf2Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_2</data>
+	<data key="dn_colorcode">22,220,160</data>
+	<data key="dn_intensityvalue">41</data>
+</node>
+<node id="n42">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf3Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_3</data>
+	<data key="dn_colorcode">23,220,160</data>
+	<data key="dn_intensityvalue">42</data>
+</node>
+<node id="n43">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf4Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_4</data>
+	<data key="dn_colorcode">24,220,160</data>
+	<data key="dn_intensityvalue">43</data>
+</node>
+<node id="n44">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf5Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_5</data>
+	<data key="dn_colorcode">25,220,160</data>
+	<data key="dn_intensityvalue">44</data>
+</node>
+<node id="n45">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf6Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_6</data>
+	<data key="dn_colorcode">26,220,160</data>
+	<data key="dn_intensityvalue">45</data>
+</node>
+<node id="n46">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf7Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_7</data>
+	<data key="dn_colorcode">27,220,160</data>
+	<data key="dn_intensityvalue">46</data>
+</node>
+<node id="n47">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf8Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_8</data>
+	<data key="dn_colorcode">28,220,160</data>
+	<data key="dn_intensityvalue">47</data>
+</node>
+<node id="n48">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf9Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_9</data>
+	<data key="dn_colorcode">29,220,160</data>
+	<data key="dn_intensityvalue">48</data>
+</node>
+<node id="n49">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf10Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf10Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_10</data>
+	<data key="dn_colorcode">30,220,160</data>
+	<data key="dn_intensityvalue">49</data>
+</node>
+<node id="n50">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf11Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf11Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_11</data>
+	<data key="dn_colorcode">31,220,160</data>
+	<data key="dn_intensityvalue">50</data>
+</node>
+<node id="n51">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf12Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf12Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_12</data>
+	<data key="dn_colorcode">32,220,160</data>
+	<data key="dn_intensityvalue">51</data>
+</node>
+<node id="n52">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf13Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf13Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_13</data>
+	<data key="dn_colorcode">33,220,160</data>
+	<data key="dn_intensityvalue">52</data>
+</node>
+<node id="n53">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf14Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf14Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_14</data>
+	<data key="dn_colorcode">34,220,160</data>
+	<data key="dn_intensityvalue">53</data>
+</node>
+<node id="n54">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf15Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf15Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_15</data>
+	<data key="dn_colorcode">35,220,160</data>
+	<data key="dn_intensityvalue">54</data>
+</node>
+<node id="n55">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf16Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf16Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_16</data>
+	<data key="dn_colorcode">36,220,160</data>
+	<data key="dn_intensityvalue">55</data>
+</node>
+<node id="n56">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf17Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf17Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_17</data>
+	<data key="dn_colorcode">37,220,160</data>
+	<data key="dn_intensityvalue">56</data>
+</node>
+<node id="n57">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf18Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf18Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_18</data>
+	<data key="dn_colorcode">38,220,160</data>
+	<data key="dn_intensityvalue">57</data>
+</node>
+<node id="n58">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf19Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf19Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_19</data>
+	<data key="dn_colorcode">39,220,160</data>
+	<data key="dn_intensityvalue">58</data>
+</node>
+<node id="n59">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf20Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf20Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_20</data>
+	<data key="dn_colorcode">40,220,160</data>
+	<data key="dn_intensityvalue">59</data>
+</node>
+<node id="n60">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf21Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf21Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_21</data>
+	<data key="dn_colorcode">41,220,160</data>
+	<data key="dn_intensityvalue">60</data>
+</node>
+<node id="n61">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf22Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf22Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_22</data>
+	<data key="dn_colorcode">42,220,160</data>
+	<data key="dn_intensityvalue">61</data>
+</node>
+<node id="n62">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf23Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sf23Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_23</data>
+	<data key="dn_colorcode">43,220,160</data>
+	<data key="dn_intensityvalue">62</data>
+</node>
+<node id="n63">
+	<data key="dn_href">http://www.connectome.ch/wiki/cmf1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cmf1Res500_RH</data>
+	<data key="dn_freesurfer_structname">caudalmiddlefrontal_1</data>
+	<data key="dn_colorcode">100,25,0</data>
+	<data key="dn_intensityvalue">63</data>
+</node>
+<node id="n64">
+	<data key="dn_href">http://www.connectome.ch/wiki/cmf2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cmf2Res500_RH</data>
+	<data key="dn_freesurfer_structname">caudalmiddlefrontal_2</data>
+	<data key="dn_colorcode">100,27,0</data>
+	<data key="dn_intensityvalue">64</data>
+</node>
+<node id="n65">
+	<data key="dn_href">http://www.connectome.ch/wiki/cmf3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cmf3Res500_RH</data>
+	<data key="dn_freesurfer_structname">caudalmiddlefrontal_3</data>
+	<data key="dn_colorcode">100,28,0</data>
+	<data key="dn_intensityvalue">65</data>
+</node>
+<node id="n66">
+	<data key="dn_href">http://www.connectome.ch/wiki/cmf4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cmf4Res500_RH</data>
+	<data key="dn_freesurfer_structname">caudalmiddlefrontal_4</data>
+	<data key="dn_colorcode">100,29,0</data>
+	<data key="dn_intensityvalue">66</data>
+</node>
+<node id="n67">
+	<data key="dn_href">http://www.connectome.ch/wiki/cmf5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cmf5Res500_RH</data>
+	<data key="dn_freesurfer_structname">caudalmiddlefrontal_5</data>
+	<data key="dn_colorcode">100,30,0</data>
+	<data key="dn_intensityvalue">67</data>
+</node>
+<node id="n68">
+	<data key="dn_href">http://www.connectome.ch/wiki/cmf6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cmf6Res500_RH</data>
+	<data key="dn_freesurfer_structname">caudalmiddlefrontal_6</data>
+	<data key="dn_colorcode">100,31,0</data>
+	<data key="dn_intensityvalue">68</data>
+</node>
+<node id="n69">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc1Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_1</data>
+	<data key="dn_colorcode">60,20,220</data>
+	<data key="dn_intensityvalue">69</data>
+</node>
+<node id="n70">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc2Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_2</data>
+	<data key="dn_colorcode">60,22,220</data>
+	<data key="dn_intensityvalue">70</data>
+</node>
+<node id="n71">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc3Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_3</data>
+	<data key="dn_colorcode">60,23,220</data>
+	<data key="dn_intensityvalue">71</data>
+</node>
+<node id="n72">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc4Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_4</data>
+	<data key="dn_colorcode">60,24,220</data>
+	<data key="dn_intensityvalue">72</data>
+</node>
+<node id="n73">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc5Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_5</data>
+	<data key="dn_colorcode">60,25,220</data>
+	<data key="dn_intensityvalue">73</data>
+</node>
+<node id="n74">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc6Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_6</data>
+	<data key="dn_colorcode">60,26,220</data>
+	<data key="dn_intensityvalue">74</data>
+</node>
+<node id="n75">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc7Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_7</data>
+	<data key="dn_colorcode">60,27,220</data>
+	<data key="dn_intensityvalue">75</data>
+</node>
+<node id="n76">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc8Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_8</data>
+	<data key="dn_colorcode">60,28,220</data>
+	<data key="dn_intensityvalue">76</data>
+</node>
+<node id="n77">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc9Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_9</data>
+	<data key="dn_colorcode">60,29,220</data>
+	<data key="dn_intensityvalue">77</data>
+</node>
+<node id="n78">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc10Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc10Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_10</data>
+	<data key="dn_colorcode">60,30,220</data>
+	<data key="dn_intensityvalue">78</data>
+</node>
+<node id="n79">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc11Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc11Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_11</data>
+	<data key="dn_colorcode">60,31,220</data>
+	<data key="dn_intensityvalue">79</data>
+</node>
+<node id="n80">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc12Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc12Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_12</data>
+	<data key="dn_colorcode">60,32,220</data>
+	<data key="dn_intensityvalue">80</data>
+</node>
+<node id="n81">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc13Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc13Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_13</data>
+	<data key="dn_colorcode">60,33,220</data>
+	<data key="dn_intensityvalue">81</data>
+</node>
+<node id="n82">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc14Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc14Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_14</data>
+	<data key="dn_colorcode">60,34,220</data>
+	<data key="dn_intensityvalue">82</data>
+</node>
+<node id="n83">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc15Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc15Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_15</data>
+	<data key="dn_colorcode">60,35,220</data>
+	<data key="dn_intensityvalue">83</data>
+</node>
+<node id="n84">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc16Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc16Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_16</data>
+	<data key="dn_colorcode">60,36,220</data>
+	<data key="dn_intensityvalue">84</data>
+</node>
+<node id="n85">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc17Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc17Res500_RH</data>
+	<data key="dn_freesurfer_structname">precentral_17</data>
+	<data key="dn_colorcode">60,37,220</data>
+	<data key="dn_intensityvalue">85</data>
+</node>
+<node id="n86">
+	<data key="dn_href">http://www.connectome.ch/wiki/pac1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pac1Res500_RH</data>
+	<data key="dn_freesurfer_structname">paracentral_1</data>
+	<data key="dn_colorcode">60,220,60</data>
+	<data key="dn_intensityvalue">86</data>
+</node>
+<node id="n87">
+	<data key="dn_href">http://www.connectome.ch/wiki/pac2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pac2Res500_RH</data>
+	<data key="dn_freesurfer_structname">paracentral_2</data>
+	<data key="dn_colorcode">62,220,60</data>
+	<data key="dn_intensityvalue">87</data>
+</node>
+<node id="n88">
+	<data key="dn_href">http://www.connectome.ch/wiki/pac3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pac3Res500_RH</data>
+	<data key="dn_freesurfer_structname">paracentral_3</data>
+	<data key="dn_colorcode">63,220,60</data>
+	<data key="dn_intensityvalue">88</data>
+</node>
+<node id="n89">
+	<data key="dn_href">http://www.connectome.ch/wiki/pac4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pac4Res500_RH</data>
+	<data key="dn_freesurfer_structname">paracentral_4</data>
+	<data key="dn_colorcode">64,220,60</data>
+	<data key="dn_intensityvalue">89</data>
+</node>
+<node id="n90">
+	<data key="dn_href">http://www.connectome.ch/wiki/pac5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pac5Res500_RH</data>
+	<data key="dn_freesurfer_structname">paracentral_5</data>
+	<data key="dn_colorcode">65,220,60</data>
+	<data key="dn_intensityvalue">90</data>
+</node>
+<node id="n91">
+	<data key="dn_href">http://www.connectome.ch/wiki/pac6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pac6Res500_RH</data>
+	<data key="dn_freesurfer_structname">paracentral_6</data>
+	<data key="dn_colorcode">66,220,60</data>
+	<data key="dn_intensityvalue">91</data>
+</node>
+<node id="n92">
+	<data key="dn_href">http://www.connectome.ch/wiki/racc1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">racc1Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralanteriorcingulate_1</data>
+	<data key="dn_colorcode">80,20,140</data>
+	<data key="dn_intensityvalue">92</data>
+</node>
+<node id="n93">
+	<data key="dn_href">http://www.connectome.ch/wiki/racc2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">racc2Res500_RH</data>
+	<data key="dn_freesurfer_structname">rostralanteriorcingulate_2</data>
+	<data key="dn_colorcode">80,22,140</data>
+	<data key="dn_intensityvalue">93</data>
+</node>
+<node id="n94">
+	<data key="dn_href">http://www.connectome.ch/wiki/cacc1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cacc1Res500_RH</data>
+	<data key="dn_freesurfer_structname">caudalanteriorcingulate_1</data>
+	<data key="dn_colorcode">125,100,160</data>
+	<data key="dn_intensityvalue">94</data>
+</node>
+<node id="n95">
+	<data key="dn_href">http://www.connectome.ch/wiki/cacc2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cacc2Res500_RH</data>
+	<data key="dn_freesurfer_structname">caudalanteriorcingulate_2</data>
+	<data key="dn_colorcode">125,102,160</data>
+	<data key="dn_intensityvalue">95</data>
+</node>
+<node id="n96">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc1Res500_RH</data>
+	<data key="dn_freesurfer_structname">posteriorcingulate_1</data>
+	<data key="dn_colorcode">220,180,220</data>
+	<data key="dn_intensityvalue">96</data>
+</node>
+<node id="n97">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc2Res500_RH</data>
+	<data key="dn_freesurfer_structname">posteriorcingulate_2</data>
+	<data key="dn_colorcode">220,182,220</data>
+	<data key="dn_intensityvalue">97</data>
+</node>
+<node id="n98">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pc3Res500_RH</data>
+	<data key="dn_freesurfer_structname">posteriorcingulate_3</data>
+	<data key="dn_colorcode">220,183,220</data>
+	<data key="dn_intensityvalue">98</data>
+</node>
+<node id="n99">
+	<data key="dn_href">http://www.connectome.ch/wiki/ic1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ic1Res500_RH</data>
+	<data key="dn_freesurfer_structname">isthmuscingulate_1</data>
+	<data key="dn_colorcode">140,20,140</data>
+	<data key="dn_intensityvalue">99</data>
+</node>
+<node id="n100">
+	<data key="dn_href">http://www.connectome.ch/wiki/ic2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ic2Res500_RH</data>
+	<data key="dn_freesurfer_structname">isthmuscingulate_2</data>
+	<data key="dn_colorcode">140,22,140</data>
+	<data key="dn_intensityvalue">100</data>
+</node>
+<node id="n101">
+	<data key="dn_href">http://www.connectome.ch/wiki/ic3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ic3Res500_RH</data>
+	<data key="dn_freesurfer_structname">isthmuscingulate_3</data>
+	<data key="dn_colorcode">140,23,140</data>
+	<data key="dn_intensityvalue">101</data>
+</node>
+<node id="n102">
+	<data key="dn_href">http://www.connectome.ch/wiki/ic4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ic4Res500_RH</data>
+	<data key="dn_freesurfer_structname">isthmuscingulate_4</data>
+	<data key="dn_colorcode">140,24,140</data>
+	<data key="dn_intensityvalue">102</data>
+</node>
+<node id="n103">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc1Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_1</data>
+	<data key="dn_colorcode">220,20,20</data>
+	<data key="dn_intensityvalue">103</data>
+</node>
+<node id="n104">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc2Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_2</data>
+	<data key="dn_colorcode">220,22,20</data>
+	<data key="dn_intensityvalue">104</data>
+</node>
+<node id="n105">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc3Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_3</data>
+	<data key="dn_colorcode">220,23,20</data>
+	<data key="dn_intensityvalue">105</data>
+</node>
+<node id="n106">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc4Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_4</data>
+	<data key="dn_colorcode">220,24,20</data>
+	<data key="dn_intensityvalue">106</data>
+</node>
+<node id="n107">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc5Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_5</data>
+	<data key="dn_colorcode">220,25,20</data>
+	<data key="dn_intensityvalue">107</data>
+</node>
+<node id="n108">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc6Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_6</data>
+	<data key="dn_colorcode">220,26,20</data>
+	<data key="dn_intensityvalue">108</data>
+</node>
+<node id="n109">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc7Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_7</data>
+	<data key="dn_colorcode">220,27,20</data>
+	<data key="dn_intensityvalue">109</data>
+</node>
+<node id="n110">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc8Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_8</data>
+	<data key="dn_colorcode">220,28,20</data>
+	<data key="dn_intensityvalue">110</data>
+</node>
+<node id="n111">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc9Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_9</data>
+	<data key="dn_colorcode">220,29,20</data>
+	<data key="dn_intensityvalue">111</data>
+</node>
+<node id="n112">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc10Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc10Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_10</data>
+	<data key="dn_colorcode">220,30,20</data>
+	<data key="dn_intensityvalue">112</data>
+</node>
+<node id="n113">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc11Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc11Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_11</data>
+	<data key="dn_colorcode">220,31,20</data>
+	<data key="dn_intensityvalue">113</data>
+</node>
+<node id="n114">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc12Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc12Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_12</data>
+	<data key="dn_colorcode">220,32,20</data>
+	<data key="dn_intensityvalue">114</data>
+</node>
+<node id="n115">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc13Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc13Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_13</data>
+	<data key="dn_colorcode">220,33,20</data>
+	<data key="dn_intensityvalue">115</data>
+</node>
+<node id="n116">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc14Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc14Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_14</data>
+	<data key="dn_colorcode">220,34,20</data>
+	<data key="dn_intensityvalue">116</data>
+</node>
+<node id="n117">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc15Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">poc15Res500_RH</data>
+	<data key="dn_freesurfer_structname">postcentral_15</data>
+	<data key="dn_colorcode">220,35,20</data>
+	<data key="dn_intensityvalue">117</data>
+</node>
+<node id="n118">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sm1Res500_RH</data>
+	<data key="dn_freesurfer_structname">supramarginal_1</data>
+	<data key="dn_colorcode">80,160,20</data>
+	<data key="dn_intensityvalue">118</data>
+</node>
+<node id="n119">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sm2Res500_RH</data>
+	<data key="dn_freesurfer_structname">supramarginal_2</data>
+	<data key="dn_colorcode">82,160,20</data>
+	<data key="dn_intensityvalue">119</data>
+</node>
+<node id="n120">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sm3Res500_RH</data>
+	<data key="dn_freesurfer_structname">supramarginal_3</data>
+	<data key="dn_colorcode">83,160,20</data>
+	<data key="dn_intensityvalue">120</data>
+</node>
+<node id="n121">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sm4Res500_RH</data>
+	<data key="dn_freesurfer_structname">supramarginal_4</data>
+	<data key="dn_colorcode">84,160,20</data>
+	<data key="dn_intensityvalue">121</data>
+</node>
+<node id="n122">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sm5Res500_RH</data>
+	<data key="dn_freesurfer_structname">supramarginal_5</data>
+	<data key="dn_colorcode">85,160,20</data>
+	<data key="dn_intensityvalue">122</data>
+</node>
+<node id="n123">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sm6Res500_RH</data>
+	<data key="dn_freesurfer_structname">supramarginal_6</data>
+	<data key="dn_colorcode">86,160,20</data>
+	<data key="dn_intensityvalue">123</data>
+</node>
+<node id="n124">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sm7Res500_RH</data>
+	<data key="dn_freesurfer_structname">supramarginal_7</data>
+	<data key="dn_colorcode">87,160,20</data>
+	<data key="dn_intensityvalue">124</data>
+</node>
+<node id="n125">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sm8Res500_RH</data>
+	<data key="dn_freesurfer_structname">supramarginal_8</data>
+	<data key="dn_colorcode">88,160,20</data>
+	<data key="dn_intensityvalue">125</data>
+</node>
+<node id="n126">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp1Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_1</data>
+	<data key="dn_colorcode">20,180,140</data>
+	<data key="dn_intensityvalue">126</data>
+</node>
+<node id="n127">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp2Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_2</data>
+	<data key="dn_colorcode">22,180,140</data>
+	<data key="dn_intensityvalue">127</data>
+</node>
+<node id="n128">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp3Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_3</data>
+	<data key="dn_colorcode">23,180,140</data>
+	<data key="dn_intensityvalue">128</data>
+</node>
+<node id="n129">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp4Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_4</data>
+	<data key="dn_colorcode">24,180,140</data>
+	<data key="dn_intensityvalue">129</data>
+</node>
+<node id="n130">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp5Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_5</data>
+	<data key="dn_colorcode">25,180,140</data>
+	<data key="dn_intensityvalue">130</data>
+</node>
+<node id="n131">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp6Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_6</data>
+	<data key="dn_colorcode">26,180,140</data>
+	<data key="dn_intensityvalue">131</data>
+</node>
+<node id="n132">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp7Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_7</data>
+	<data key="dn_colorcode">27,180,140</data>
+	<data key="dn_intensityvalue">132</data>
+</node>
+<node id="n133">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp8Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_8</data>
+	<data key="dn_colorcode">28,180,140</data>
+	<data key="dn_intensityvalue">133</data>
+</node>
+<node id="n134">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp9Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_9</data>
+	<data key="dn_colorcode">29,180,140</data>
+	<data key="dn_intensityvalue">134</data>
+</node>
+<node id="n135">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp10Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp10Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_10</data>
+	<data key="dn_colorcode">30,180,140</data>
+	<data key="dn_intensityvalue">135</data>
+</node>
+<node id="n136">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp11Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp11Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_11</data>
+	<data key="dn_colorcode">31,180,140</data>
+	<data key="dn_intensityvalue">136</data>
+</node>
+<node id="n137">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp12Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp12Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_12</data>
+	<data key="dn_colorcode">32,180,140</data>
+	<data key="dn_intensityvalue">137</data>
+</node>
+<node id="n138">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp13Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">sp13Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_13</data>
+	<data key="dn_colorcode">33,180,140</data>
+	<data key="dn_intensityvalue">138</data>
+</node>
+<node id="n139">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip1Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_1</data>
+	<data key="dn_colorcode">220,60,220</data>
+	<data key="dn_intensityvalue">139</data>
+</node>
+<node id="n140">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip2Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_2</data>
+	<data key="dn_colorcode">220,62,220</data>
+	<data key="dn_intensityvalue">140</data>
+</node>
+<node id="n141">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip3Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_3</data>
+	<data key="dn_colorcode">220,63,220</data>
+	<data key="dn_intensityvalue">141</data>
+</node>
+<node id="n142">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip4Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_4</data>
+	<data key="dn_colorcode">220,64,220</data>
+	<data key="dn_intensityvalue">142</data>
+</node>
+<node id="n143">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip5Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_5</data>
+	<data key="dn_colorcode">220,65,220</data>
+	<data key="dn_intensityvalue">143</data>
+</node>
+<node id="n144">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip6Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_6</data>
+	<data key="dn_colorcode">220,66,220</data>
+	<data key="dn_intensityvalue">144</data>
+</node>
+<node id="n145">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip7Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_7</data>
+	<data key="dn_colorcode">220,67,220</data>
+	<data key="dn_intensityvalue">145</data>
+</node>
+<node id="n146">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip8Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_8</data>
+	<data key="dn_colorcode">220,68,220</data>
+	<data key="dn_intensityvalue">146</data>
+</node>
+<node id="n147">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip9Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_9</data>
+	<data key="dn_colorcode">220,69,220</data>
+	<data key="dn_intensityvalue">147</data>
+</node>
+<node id="n148">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip10Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip10Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_10</data>
+	<data key="dn_colorcode">220,70,220</data>
+	<data key="dn_intensityvalue">148</data>
+</node>
+<node id="n149">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip11Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip11Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_11</data>
+	<data key="dn_colorcode">220,71,220</data>
+	<data key="dn_intensityvalue">149</data>
+</node>
+<node id="n150">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip12Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip12Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_12</data>
+	<data key="dn_colorcode">220,72,220</data>
+	<data key="dn_intensityvalue">150</data>
+</node>
+<node id="n151">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip13Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip13Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_13</data>
+	<data key="dn_colorcode">220,73,220</data>
+	<data key="dn_intensityvalue">151</data>
+</node>
+<node id="n152">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip14Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ip14Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_14</data>
+	<data key="dn_colorcode">220,74,220</data>
+	<data key="dn_intensityvalue">152</data>
+</node>
+<node id="n153">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcun1Res500_RH</data>
+	<data key="dn_freesurfer_structname">precuneus_1</data>
+	<data key="dn_colorcode">160,140,180</data>
+	<data key="dn_intensityvalue">153</data>
+</node>
+<node id="n154">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcun2Res500_RH</data>
+	<data key="dn_freesurfer_structname">precuneus_2</data>
+	<data key="dn_colorcode">160,142,180</data>
+	<data key="dn_intensityvalue">154</data>
+</node>
+<node id="n155">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcun3Res500_RH</data>
+	<data key="dn_freesurfer_structname">precuneus_3</data>
+	<data key="dn_colorcode">160,143,180</data>
+	<data key="dn_intensityvalue">155</data>
+</node>
+<node id="n156">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcun4Res500_RH</data>
+	<data key="dn_freesurfer_structname">precuneus_4</data>
+	<data key="dn_colorcode">160,144,180</data>
+	<data key="dn_intensityvalue">156</data>
+</node>
+<node id="n157">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcun5Res500_RH</data>
+	<data key="dn_freesurfer_structname">precuneus_5</data>
+	<data key="dn_colorcode">160,145,180</data>
+	<data key="dn_intensityvalue">157</data>
+</node>
+<node id="n158">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcun6Res500_RH</data>
+	<data key="dn_freesurfer_structname">precuneus_6</data>
+	<data key="dn_colorcode">160,146,180</data>
+	<data key="dn_intensityvalue">158</data>
+</node>
+<node id="n159">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcun7Res500_RH</data>
+	<data key="dn_freesurfer_structname">precuneus_7</data>
+	<data key="dn_colorcode">160,147,180</data>
+	<data key="dn_intensityvalue">159</data>
+</node>
+<node id="n160">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcun8Res500_RH</data>
+	<data key="dn_freesurfer_structname">precuneus_8</data>
+	<data key="dn_colorcode">160,148,180</data>
+	<data key="dn_intensityvalue">160</data>
+</node>
+<node id="n161">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcun9Res500_RH</data>
+	<data key="dn_freesurfer_structname">precuneus_9</data>
+	<data key="dn_colorcode">160,149,180</data>
+	<data key="dn_intensityvalue">161</data>
+</node>
+<node id="n162">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun10Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcun10Res500_RH</data>
+	<data key="dn_freesurfer_structname">precuneus_10</data>
+	<data key="dn_colorcode">160,150,180</data>
+	<data key="dn_intensityvalue">162</data>
+</node>
+<node id="n163">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun11Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcun11Res500_RH</data>
+	<data key="dn_freesurfer_structname">precuneus_11</data>
+	<data key="dn_colorcode">160,151,180</data>
+	<data key="dn_intensityvalue">163</data>
+</node>
+<node id="n164">
+	<data key="dn_href">http://www.connectome.ch/wiki/cun1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cun1Res500_RH</data>
+	<data key="dn_freesurfer_structname">cuneus_1</data>
+	<data key="dn_colorcode">220,20,100</data>
+	<data key="dn_intensityvalue">164</data>
+</node>
+<node id="n165">
+	<data key="dn_href">http://www.connectome.ch/wiki/cun2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cun2Res500_RH</data>
+	<data key="dn_freesurfer_structname">cuneus_2</data>
+	<data key="dn_colorcode">220,22,100</data>
+	<data key="dn_intensityvalue">165</data>
+</node>
+<node id="n166">
+	<data key="dn_href">http://www.connectome.ch/wiki/cun3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cun3Res500_RH</data>
+	<data key="dn_freesurfer_structname">cuneus_3</data>
+	<data key="dn_colorcode">220,23,100</data>
+	<data key="dn_intensityvalue">166</data>
+</node>
+<node id="n167">
+	<data key="dn_href">http://www.connectome.ch/wiki/cun4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cun4Res500_RH</data>
+	<data key="dn_freesurfer_structname">cuneus_4</data>
+	<data key="dn_colorcode">220,24,100</data>
+	<data key="dn_intensityvalue">167</data>
+</node>
+<node id="n168">
+	<data key="dn_href">http://www.connectome.ch/wiki/cun5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">cun5Res500_RH</data>
+	<data key="dn_freesurfer_structname">cuneus_5</data>
+	<data key="dn_colorcode">220,25,100</data>
+	<data key="dn_intensityvalue">168</data>
+</node>
+<node id="n169">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcal1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcal1Res500_RH</data>
+	<data key="dn_freesurfer_structname">pericalcarine_1</data>
+	<data key="dn_colorcode">120,100,60</data>
+	<data key="dn_intensityvalue">169</data>
+</node>
+<node id="n170">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcal2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcal2Res500_RH</data>
+	<data key="dn_freesurfer_structname">pericalcarine_2</data>
+	<data key="dn_colorcode">120,102,60</data>
+	<data key="dn_intensityvalue">170</data>
+</node>
+<node id="n171">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcal3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcal3Res500_RH</data>
+	<data key="dn_freesurfer_structname">pericalcarine_3</data>
+	<data key="dn_colorcode">120,103,60</data>
+	<data key="dn_intensityvalue">171</data>
+</node>
+<node id="n172">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcal4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcal4Res500_RH</data>
+	<data key="dn_freesurfer_structname">pericalcarine_4</data>
+	<data key="dn_colorcode">120,104,60</data>
+	<data key="dn_intensityvalue">172</data>
+</node>
+<node id="n173">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcal5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">pcal5Res500_RH</data>
+	<data key="dn_freesurfer_structname">pericalcarine_5</data>
+	<data key="dn_colorcode">120,105,60</data>
+	<data key="dn_intensityvalue">173</data>
+</node>
+<node id="n174">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">loc1Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_1</data>
+	<data key="dn_colorcode">20,30,140</data>
+	<data key="dn_intensityvalue">174</data>
+</node>
+<node id="n175">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">loc2Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_2</data>
+	<data key="dn_colorcode">20,32,140</data>
+	<data key="dn_intensityvalue">175</data>
+</node>
+<node id="n176">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">loc3Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_3</data>
+	<data key="dn_colorcode">20,33,140</data>
+	<data key="dn_intensityvalue">176</data>
+</node>
+<node id="n177">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">loc4Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_4</data>
+	<data key="dn_colorcode">20,34,140</data>
+	<data key="dn_intensityvalue">177</data>
+</node>
+<node id="n178">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">loc5Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_5</data>
+	<data key="dn_colorcode">20,35,140</data>
+	<data key="dn_intensityvalue">178</data>
+</node>
+<node id="n179">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">loc6Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_6</data>
+	<data key="dn_colorcode">20,36,140</data>
+	<data key="dn_intensityvalue">179</data>
+</node>
+<node id="n180">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">loc7Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_7</data>
+	<data key="dn_colorcode">20,37,140</data>
+	<data key="dn_intensityvalue">180</data>
+</node>
+<node id="n181">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">loc8Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_8</data>
+	<data key="dn_colorcode">20,38,140</data>
+	<data key="dn_intensityvalue">181</data>
+</node>
+<node id="n182">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">loc9Res500_RH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_9</data>
+	<data key="dn_colorcode">20,39,140</data>
+	<data key="dn_intensityvalue">182</data>
+</node>
+<node id="n183">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lin1Res500_RH</data>
+	<data key="dn_freesurfer_structname">lingual_1</data>
+	<data key="dn_colorcode">225,140,140</data>
+	<data key="dn_intensityvalue">183</data>
+</node>
+<node id="n184">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lin2Res500_RH</data>
+	<data key="dn_freesurfer_structname">lingual_2</data>
+	<data key="dn_colorcode">225,142,140</data>
+	<data key="dn_intensityvalue">184</data>
+</node>
+<node id="n185">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lin3Res500_RH</data>
+	<data key="dn_freesurfer_structname">lingual_3</data>
+	<data key="dn_colorcode">225,143,140</data>
+	<data key="dn_intensityvalue">185</data>
+</node>
+<node id="n186">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lin4Res500_RH</data>
+	<data key="dn_freesurfer_structname">lingual_4</data>
+	<data key="dn_colorcode">225,144,140</data>
+	<data key="dn_intensityvalue">186</data>
+</node>
+<node id="n187">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lin5Res500_RH</data>
+	<data key="dn_freesurfer_structname">lingual_5</data>
+	<data key="dn_colorcode">225,145,140</data>
+	<data key="dn_intensityvalue">187</data>
+</node>
+<node id="n188">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lin6Res500_RH</data>
+	<data key="dn_freesurfer_structname">lingual_6</data>
+	<data key="dn_colorcode">225,146,140</data>
+	<data key="dn_intensityvalue">188</data>
+</node>
+<node id="n189">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lin7Res500_RH</data>
+	<data key="dn_freesurfer_structname">lingual_7</data>
+	<data key="dn_colorcode">225,147,140</data>
+	<data key="dn_intensityvalue">189</data>
+</node>
+<node id="n190">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">lin8Res500_RH</data>
+	<data key="dn_freesurfer_structname">lingual_8</data>
+	<data key="dn_colorcode">225,148,140</data>
+	<data key="dn_intensityvalue">190</data>
+</node>
+<node id="n191">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">fusi1Res500_RH</data>
+	<data key="dn_freesurfer_structname">fusiform_1</data>
+	<data key="dn_colorcode">180,220,140</data>
+	<data key="dn_intensityvalue">191</data>
+</node>
+<node id="n192">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">fusi2Res500_RH</data>
+	<data key="dn_freesurfer_structname">fusiform_2</data>
+	<data key="dn_colorcode">182,220,140</data>
+	<data key="dn_intensityvalue">192</data>
+</node>
+<node id="n193">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">fusi3Res500_RH</data>
+	<data key="dn_freesurfer_structname">fusiform_3</data>
+	<data key="dn_colorcode">183,220,140</data>
+	<data key="dn_intensityvalue">193</data>
+</node>
+<node id="n194">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">fusi4Res500_RH</data>
+	<data key="dn_freesurfer_structname">fusiform_4</data>
+	<data key="dn_colorcode">184,220,140</data>
+	<data key="dn_intensityvalue">194</data>
+</node>
+<node id="n195">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">fusi5Res500_RH</data>
+	<data key="dn_freesurfer_structname">fusiform_5</data>
+	<data key="dn_colorcode">185,220,140</data>
+	<data key="dn_intensityvalue">195</data>
+</node>
+<node id="n196">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">fusi6Res500_RH</data>
+	<data key="dn_freesurfer_structname">fusiform_6</data>
+	<data key="dn_colorcode">186,220,140</data>
+	<data key="dn_intensityvalue">196</data>
+</node>
+<node id="n197">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">fusi7Res500_RH</data>
+	<data key="dn_freesurfer_structname">fusiform_7</data>
+	<data key="dn_colorcode">187,220,140</data>
+	<data key="dn_intensityvalue">197</data>
+</node>
+<node id="n198">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">fusi8Res500_RH</data>
+	<data key="dn_freesurfer_structname">fusiform_8</data>
+	<data key="dn_colorcode">188,220,140</data>
+	<data key="dn_intensityvalue">198</data>
+</node>
+<node id="n199">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">fusi9Res500_RH</data>
+	<data key="dn_freesurfer_structname">fusiform_9</data>
+	<data key="dn_colorcode">189,220,140</data>
+	<data key="dn_intensityvalue">199</data>
+</node>
+<node id="n200">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi10Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">fusi10Res500_RH</data>
+	<data key="dn_freesurfer_structname">fusiform_10</data>
+	<data key="dn_colorcode">190,220,140</data>
+	<data key="dn_intensityvalue">200</data>
+</node>
+<node id="n201">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi11Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">fusi11Res500_RH</data>
+	<data key="dn_freesurfer_structname">fusiform_11</data>
+	<data key="dn_colorcode">191,220,140</data>
+	<data key="dn_intensityvalue">201</data>
+</node>
+<node id="n202">
+	<data key="dn_href">http://www.connectome.ch/wiki/para1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">para1Res500_RH</data>
+	<data key="dn_freesurfer_structname">parahippocampal_1</data>
+	<data key="dn_colorcode">20,220,60</data>
+	<data key="dn_intensityvalue">202</data>
+</node>
+<node id="n203">
+	<data key="dn_href">http://www.connectome.ch/wiki/para2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">para2Res500_RH</data>
+	<data key="dn_freesurfer_structname">parahippocampal_2</data>
+	<data key="dn_colorcode">22,220,60</data>
+	<data key="dn_intensityvalue">203</data>
+</node>
+<node id="n204">
+	<data key="dn_href">http://www.connectome.ch/wiki/para3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">para3Res500_RH</data>
+	<data key="dn_freesurfer_structname">parahippocampal_3</data>
+	<data key="dn_colorcode">23,220,60</data>
+	<data key="dn_intensityvalue">204</data>
+</node>
+<node id="n205">
+	<data key="dn_href">http://www.connectome.ch/wiki/ent1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">ent1Res500_RH</data>
+	<data key="dn_freesurfer_structname">entorhinal_1</data>
+	<data key="dn_colorcode">220,20,10</data>
+	<data key="dn_intensityvalue">205</data>
+</node>
+<node id="n206">
+	<data key="dn_href">http://www.connectome.ch/wiki/tp1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">tp1Res500_RH</data>
+	<data key="dn_freesurfer_structname">temporalpole_1</data>
+	<data key="dn_colorcode">70,70,70</data>
+	<data key="dn_intensityvalue">206</data>
+</node>
+<node id="n207">
+	<data key="dn_href">http://www.connectome.ch/wiki/it1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">it1Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_1</data>
+	<data key="dn_colorcode">180,40,120</data>
+	<data key="dn_intensityvalue">207</data>
+</node>
+<node id="n208">
+	<data key="dn_href">http://www.connectome.ch/wiki/it2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">it2Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_2</data>
+	<data key="dn_colorcode">180,42,120</data>
+	<data key="dn_intensityvalue">208</data>
+</node>
+<node id="n209">
+	<data key="dn_href">http://www.connectome.ch/wiki/it3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">it3Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_3</data>
+	<data key="dn_colorcode">180,43,120</data>
+	<data key="dn_intensityvalue">209</data>
+</node>
+<node id="n210">
+	<data key="dn_href">http://www.connectome.ch/wiki/it4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">it4Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_4</data>
+	<data key="dn_colorcode">180,44,120</data>
+	<data key="dn_intensityvalue">210</data>
+</node>
+<node id="n211">
+	<data key="dn_href">http://www.connectome.ch/wiki/it5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">it5Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_5</data>
+	<data key="dn_colorcode">180,45,120</data>
+	<data key="dn_intensityvalue">211</data>
+</node>
+<node id="n212">
+	<data key="dn_href">http://www.connectome.ch/wiki/it6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">it6Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_6</data>
+	<data key="dn_colorcode">180,46,120</data>
+	<data key="dn_intensityvalue">212</data>
+</node>
+<node id="n213">
+	<data key="dn_href">http://www.connectome.ch/wiki/it7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">it7Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_7</data>
+	<data key="dn_colorcode">180,47,120</data>
+	<data key="dn_intensityvalue">213</data>
+</node>
+<node id="n214">
+	<data key="dn_href">http://www.connectome.ch/wiki/it8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">it8Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_8</data>
+	<data key="dn_colorcode">180,48,120</data>
+	<data key="dn_intensityvalue">214</data>
+</node>
+<node id="n215">
+	<data key="dn_href">http://www.connectome.ch/wiki/it9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">it9Res500_RH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_9</data>
+	<data key="dn_colorcode">180,49,120</data>
+	<data key="dn_intensityvalue">215</data>
+</node>
+<node id="n216">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mt1Res500_RH</data>
+	<data key="dn_freesurfer_structname">middletemporal_1</data>
+	<data key="dn_colorcode">160,100,50</data>
+	<data key="dn_intensityvalue">216</data>
+</node>
+<node id="n217">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mt2Res500_RH</data>
+	<data key="dn_freesurfer_structname">middletemporal_2</data>
+	<data key="dn_colorcode">160,102,50</data>
+	<data key="dn_intensityvalue">217</data>
+</node>
+<node id="n218">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mt3Res500_RH</data>
+	<data key="dn_freesurfer_structname">middletemporal_3</data>
+	<data key="dn_colorcode">160,103,50</data>
+	<data key="dn_intensityvalue">218</data>
+</node>
+<node id="n219">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mt4Res500_RH</data>
+	<data key="dn_freesurfer_structname">middletemporal_4</data>
+	<data key="dn_colorcode">160,104,50</data>
+	<data key="dn_intensityvalue">219</data>
+</node>
+<node id="n220">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mt5Res500_RH</data>
+	<data key="dn_freesurfer_structname">middletemporal_5</data>
+	<data key="dn_colorcode">160,105,50</data>
+	<data key="dn_intensityvalue">220</data>
+</node>
+<node id="n221">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mt6Res500_RH</data>
+	<data key="dn_freesurfer_structname">middletemporal_6</data>
+	<data key="dn_colorcode">160,106,50</data>
+	<data key="dn_intensityvalue">221</data>
+</node>
+<node id="n222">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mt7Res500_RH</data>
+	<data key="dn_freesurfer_structname">middletemporal_7</data>
+	<data key="dn_colorcode">160,107,50</data>
+	<data key="dn_intensityvalue">222</data>
+</node>
+<node id="n223">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mt8Res500_RH</data>
+	<data key="dn_freesurfer_structname">middletemporal_8</data>
+	<data key="dn_colorcode">160,108,50</data>
+	<data key="dn_intensityvalue">223</data>
+</node>
+<node id="n224">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mt9Res500_RH</data>
+	<data key="dn_freesurfer_structname">middletemporal_9</data>
+	<data key="dn_colorcode">160,109,50</data>
+	<data key="dn_intensityvalue">224</data>
+</node>
+<node id="n225">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt10Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">mt10Res500_RH</data>
+	<data key="dn_freesurfer_structname">middletemporal_10</data>
+	<data key="dn_colorcode">160,110,50</data>
+	<data key="dn_intensityvalue">225</data>
+</node>
+<node id="n226">
+	<data key="dn_href">http://www.connectome.ch/wiki/bank1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">bank1Res500_RH</data>
+	<data key="dn_freesurfer_structname">bankssts_1</data>
+	<data key="dn_colorcode">25,100,40</data>
+	<data key="dn_intensityvalue">226</data>
+</node>
+<node id="n227">
+	<data key="dn_href">http://www.connectome.ch/wiki/bank2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">bank2Res500_RH</data>
+	<data key="dn_freesurfer_structname">bankssts_2</data>
+	<data key="dn_colorcode">25,102,40</data>
+	<data key="dn_intensityvalue">227</data>
+</node>
+<node id="n228">
+	<data key="dn_href">http://www.connectome.ch/wiki/bank3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">bank3Res500_RH</data>
+	<data key="dn_freesurfer_structname">bankssts_3</data>
+	<data key="dn_colorcode">25,103,40</data>
+	<data key="dn_intensityvalue">228</data>
+</node>
+<node id="n229">
+	<data key="dn_href">http://www.connectome.ch/wiki/st1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st1Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_1</data>
+	<data key="dn_colorcode">140,220,220</data>
+	<data key="dn_intensityvalue">229</data>
+</node>
+<node id="n230">
+	<data key="dn_href">http://www.connectome.ch/wiki/st2Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st2Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_2</data>
+	<data key="dn_colorcode">142,220,220</data>
+	<data key="dn_intensityvalue">230</data>
+</node>
+<node id="n231">
+	<data key="dn_href">http://www.connectome.ch/wiki/st3Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st3Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_3</data>
+	<data key="dn_colorcode">143,220,220</data>
+	<data key="dn_intensityvalue">231</data>
+</node>
+<node id="n232">
+	<data key="dn_href">http://www.connectome.ch/wiki/st4Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st4Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_4</data>
+	<data key="dn_colorcode">144,220,220</data>
+	<data key="dn_intensityvalue">232</data>
+</node>
+<node id="n233">
+	<data key="dn_href">http://www.connectome.ch/wiki/st5Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st5Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_5</data>
+	<data key="dn_colorcode">145,220,220</data>
+	<data key="dn_intensityvalue">233</data>
+</node>
+<node id="n234">
+	<data key="dn_href">http://www.connectome.ch/wiki/st6Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st6Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_6</data>
+	<data key="dn_colorcode">146,220,220</data>
+	<data key="dn_intensityvalue">234</data>
+</node>
+<node id="n235">
+	<data key="dn_href">http://www.connectome.ch/wiki/st7Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st7Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_7</data>
+	<data key="dn_colorcode">147,220,220</data>
+	<data key="dn_intensityvalue">235</data>
+</node>
+<node id="n236">
+	<data key="dn_href">http://www.connectome.ch/wiki/st8Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st8Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_8</data>
+	<data key="dn_colorcode">148,220,220</data>
+	<data key="dn_intensityvalue">236</data>
+</node>
+<node id="n237">
+	<data key="dn_href">http://www.connectome.ch/wiki/st9Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st9Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_9</data>
+	<data key="dn_colorcode">149,220,220</data>
+	<data key="dn_intensityvalue">237</data>
+</node>
+<node id="n238">
+	<data key="dn_href">http://www.connectome.ch/wiki/st10Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st10Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_10</data>
+	<data key="dn_colorcode">150,220,220</data>
+	<data key="dn_intensityvalue">238</data>
+</node>
+<node id="n239">
+	<data key="dn_href">http://www.connectome.ch/wiki/st11Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st11Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_11</data>
+	<data key="dn_colorcode">151,220,220</data>
+	<data key="dn_intensityvalue">239</data>
+</node>
+<node id="n240">
+	<data key="dn_href">http://www.connectome.ch/wiki/st12Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st12Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_12</data>
+	<data key="dn_colorcode">152,220,220</data>
+	<data key="dn_intensityvalue">240</data>
+</node>
+<node id="n241">
+	<data key="dn_href">http://www.connectome.ch/wiki/st13Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">st13Res500_RH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_13</data>
+	<data key="dn_colorcode">153,220,220</data>
+	<data key="dn_intensityvalue">241</data>
+</node>
+<node id="n242">
+	<data key="dn_href">http://www.connectome.ch/wiki/tt1Res500_RH_(Homo sapiens)</data>
+	<data key="dn_label">tt1Res500_RH</data>
+	<data key="dn_freesurfer_structname">transversetemporal_1</data>
+	<data key="dn_colorcode">150,150,200</data>
+	<data key="dn_intensityvalue">242</data>
+</node>
+<node id="n243">
+	<data key="dn_href">http://www.connectome.ch/wiki/thRes500_RH_(Homo sapiens)</data>
+	<data key="dn_label">thRes500_RH</data>
+	<data key="dn_freesurfer_structname">Right-Thalamus-Proper</data>
+	<data key="dn_colorcode">2,124,5</data>
+	<data key="dn_intensityvalue">243</data>
+</node>
+<node id="n244">
+	<data key="dn_href">http://www.connectome.ch/wiki/canRes500_RH_(Homo sapiens)</data>
+	<data key="dn_label">canRes500_RH</data>
+	<data key="dn_freesurfer_structname">Right-Caudate</data>
+	<data key="dn_colorcode">100,172,222</data>
+	<data key="dn_intensityvalue">244</data>
+</node>
+<node id="n245">
+	<data key="dn_href">http://www.connectome.ch/wiki/puRes500_RH_(Homo sapiens)</data>
+	<data key="dn_label">puRes500_RH</data>
+	<data key="dn_freesurfer_structname">Right-Putamen</data>
+	<data key="dn_colorcode">32,101,149</data>
+	<data key="dn_intensityvalue">245</data>
+</node>
+<node id="n246">
+	<data key="dn_href">http://www.connectome.ch/wiki/gpRes500_RH_(Homo sapiens)</data>
+	<data key="dn_label">gpRes500_RH</data>
+	<data key="dn_freesurfer_structname">Right-Pallidum</data>
+	<data key="dn_colorcode">146,210,255</data>
+	<data key="dn_intensityvalue">246</data>
+</node>
+<node id="n247">
+	<data key="dn_href">http://www.connectome.ch/wiki/accRes500_RH_(Homo sapiens)</data>
+	<data key="dn_label">accRes500_RH</data>
+	<data key="dn_freesurfer_structname">Right-Accumbens-area</data>
+	<data key="dn_colorcode">255,43,78</data>
+	<data key="dn_intensityvalue">247</data>
+</node>
+<node id="n248">
+	<data key="dn_href">http://www.connectome.ch/wiki/subthRes500_RH_(Homo sapiens)</data>
+	<data key="dn_label">subthRes500_RH</data>
+	<data key="dn_freesurfer_structname">Right-Subthalamus</data>
+	<data key="dn_colorcode">231,159,21</data>
+	<data key="dn_intensityvalue">248</data>
+</node>
+<node id="n249">
+	<data key="dn_href">http://www.connectome.ch/wiki/hippRes500_RH_(Homo sapiens)</data>
+	<data key="dn_label">hippRes500_RH</data>
+	<data key="dn_freesurfer_structname">Right-Hippocampus</data>
+	<data key="dn_colorcode">150,246,255</data>
+	<data key="dn_intensityvalue">249</data>
+</node>
+<node id="n250">
+	<data key="dn_href">http://www.connectome.ch/wiki/amgRes500_RH_(Homo sapiens)</data>
+	<data key="dn_label">amgRes500_RH</data>
+	<data key="dn_freesurfer_structname">Right-Amygdala</data>
+	<data key="dn_colorcode">255,128,191</data>
+	<data key="dn_intensityvalue">250</data>
+</node>
+<node id="n251">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lof1Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_1</data>
+	<data key="dn_colorcode">35,75,50</data>
+	<data key="dn_intensityvalue">251</data>
+</node>
+<node id="n252">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lof2Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_2</data>
+	<data key="dn_colorcode">35,77,50</data>
+	<data key="dn_intensityvalue">252</data>
+</node>
+<node id="n253">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lof3Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_3</data>
+	<data key="dn_colorcode">35,78,50</data>
+	<data key="dn_intensityvalue">253</data>
+</node>
+<node id="n254">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lof4Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_4</data>
+	<data key="dn_colorcode">35,79,50</data>
+	<data key="dn_intensityvalue">254</data>
+</node>
+<node id="n255">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lof5Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_5</data>
+	<data key="dn_colorcode">35,80,50</data>
+	<data key="dn_intensityvalue">255</data>
+</node>
+<node id="n256">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lof6Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_6</data>
+	<data key="dn_colorcode">35,81,50</data>
+	<data key="dn_intensityvalue">256</data>
+</node>
+<node id="n257">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lof7Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_7</data>
+	<data key="dn_colorcode">35,82,50</data>
+	<data key="dn_intensityvalue">257</data>
+</node>
+<node id="n258">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lof8Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_8</data>
+	<data key="dn_colorcode">35,83,50</data>
+	<data key="dn_intensityvalue">258</data>
+</node>
+<node id="n259">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lof9Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_9</data>
+	<data key="dn_colorcode">35,84,50</data>
+	<data key="dn_intensityvalue">259</data>
+</node>
+<node id="n260">
+	<data key="dn_href">http://www.connectome.ch/wiki/lof10Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lof10Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateralorbitofrontal_10</data>
+	<data key="dn_colorcode">35,85,50</data>
+	<data key="dn_intensityvalue">260</data>
+</node>
+<node id="n261">
+	<data key="dn_href">http://www.connectome.ch/wiki/po1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">po1Res500_LH</data>
+	<data key="dn_freesurfer_structname">parsorbitalis_1</data>
+	<data key="dn_colorcode">20,100,50</data>
+	<data key="dn_intensityvalue">261</data>
+</node>
+<node id="n262">
+	<data key="dn_href">http://www.connectome.ch/wiki/po2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">po2Res500_LH</data>
+	<data key="dn_freesurfer_structname">parsorbitalis_2</data>
+	<data key="dn_colorcode">20,102,50</data>
+	<data key="dn_intensityvalue">262</data>
+</node>
+<node id="n263">
+	<data key="dn_href">http://www.connectome.ch/wiki/po3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">po3Res500_LH</data>
+	<data key="dn_freesurfer_structname">parsorbitalis_3</data>
+	<data key="dn_colorcode">20,103,50</data>
+	<data key="dn_intensityvalue">263</data>
+</node>
+<node id="n264">
+	<data key="dn_href">http://www.connectome.ch/wiki/fp1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">fp1Res500_LH</data>
+	<data key="dn_freesurfer_structname">frontalpole_1</data>
+	<data key="dn_colorcode">100,0,100</data>
+	<data key="dn_intensityvalue">264</data>
+</node>
+<node id="n265">
+	<data key="dn_href">http://www.connectome.ch/wiki/mof1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mof1Res500_LH</data>
+	<data key="dn_freesurfer_structname">medialorbitofrontal_1</data>
+	<data key="dn_colorcode">200,35,75</data>
+	<data key="dn_intensityvalue">265</data>
+</node>
+<node id="n266">
+	<data key="dn_href">http://www.connectome.ch/wiki/mof2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mof2Res500_LH</data>
+	<data key="dn_freesurfer_structname">medialorbitofrontal_2</data>
+	<data key="dn_colorcode">200,37,75</data>
+	<data key="dn_intensityvalue">266</data>
+</node>
+<node id="n267">
+	<data key="dn_href">http://www.connectome.ch/wiki/mof3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mof3Res500_LH</data>
+	<data key="dn_freesurfer_structname">medialorbitofrontal_3</data>
+	<data key="dn_colorcode">200,38,75</data>
+	<data key="dn_intensityvalue">267</data>
+</node>
+<node id="n268">
+	<data key="dn_href">http://www.connectome.ch/wiki/mof4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mof4Res500_LH</data>
+	<data key="dn_freesurfer_structname">medialorbitofrontal_4</data>
+	<data key="dn_colorcode">200,39,75</data>
+	<data key="dn_intensityvalue">268</data>
+</node>
+<node id="n269">
+	<data key="dn_href">http://www.connectome.ch/wiki/mof5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mof5Res500_LH</data>
+	<data key="dn_freesurfer_structname">medialorbitofrontal_5</data>
+	<data key="dn_colorcode">200,40,75</data>
+	<data key="dn_intensityvalue">269</data>
+</node>
+<node id="n270">
+	<data key="dn_href">http://www.connectome.ch/wiki/mof6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mof6Res500_LH</data>
+	<data key="dn_freesurfer_structname">medialorbitofrontal_6</data>
+	<data key="dn_colorcode">200,41,75</data>
+	<data key="dn_intensityvalue">270</data>
+</node>
+<node id="n271">
+	<data key="dn_href">http://www.connectome.ch/wiki/ptri1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ptri1Res500_LH</data>
+	<data key="dn_freesurfer_structname">parstriangularis_1</data>
+	<data key="dn_colorcode">220,60,20</data>
+	<data key="dn_intensityvalue">271</data>
+</node>
+<node id="n272">
+	<data key="dn_href">http://www.connectome.ch/wiki/ptri2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ptri2Res500_LH</data>
+	<data key="dn_freesurfer_structname">parstriangularis_2</data>
+	<data key="dn_colorcode">220,62,20</data>
+	<data key="dn_intensityvalue">272</data>
+</node>
+<node id="n273">
+	<data key="dn_href">http://www.connectome.ch/wiki/ptri3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ptri3Res500_LH</data>
+	<data key="dn_freesurfer_structname">parstriangularis_3</data>
+	<data key="dn_colorcode">220,63,20</data>
+	<data key="dn_intensityvalue">273</data>
+</node>
+<node id="n274">
+	<data key="dn_href">http://www.connectome.ch/wiki/ptri4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ptri4Res500_LH</data>
+	<data key="dn_freesurfer_structname">parsopercularis_1</data>
+	<data key="dn_colorcode">220,180,140</data>
+	<data key="dn_intensityvalue">274</data>
+</node>
+<node id="n275">
+	<data key="dn_href">http://www.connectome.ch/wiki/pop1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pop1Res500_LH</data>
+	<data key="dn_freesurfer_structname">parsopercularis_2</data>
+	<data key="dn_colorcode">220,182,140</data>
+	<data key="dn_intensityvalue">275</data>
+</node>
+<node id="n276">
+	<data key="dn_href">http://www.connectome.ch/wiki/pop2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pop2Res500_LH</data>
+	<data key="dn_freesurfer_structname">parsopercularis_3</data>
+	<data key="dn_colorcode">220,183,140</data>
+	<data key="dn_intensityvalue">276</data>
+</node>
+<node id="n277">
+	<data key="dn_href">http://www.connectome.ch/wiki/pop3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pop3Res500_LH</data>
+	<data key="dn_freesurfer_structname">parsopercularis_4</data>
+	<data key="dn_colorcode">220,184,140</data>
+	<data key="dn_intensityvalue">277</data>
+</node>
+<node id="n278">
+	<data key="dn_href">http://www.connectome.ch/wiki/pop4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pop4Res500_LH</data>
+	<data key="dn_freesurfer_structname">parsopercularis_5</data>
+	<data key="dn_colorcode">220,185,140</data>
+	<data key="dn_intensityvalue">278</data>
+</node>
+<node id="n279">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">rmf1Res500_LH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_1</data>
+	<data key="dn_colorcode">75,50,125</data>
+	<data key="dn_intensityvalue">279</data>
+</node>
+<node id="n280">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">rmf2Res500_LH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_2</data>
+	<data key="dn_colorcode">75,52,125</data>
+	<data key="dn_intensityvalue">280</data>
+</node>
+<node id="n281">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">rmf3Res500_LH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_3</data>
+	<data key="dn_colorcode">75,53,125</data>
+	<data key="dn_intensityvalue">281</data>
+</node>
+<node id="n282">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">rmf4Res500_LH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_4</data>
+	<data key="dn_colorcode">75,54,125</data>
+	<data key="dn_intensityvalue">282</data>
+</node>
+<node id="n283">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">rmf5Res500_LH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_5</data>
+	<data key="dn_colorcode">75,55,125</data>
+	<data key="dn_intensityvalue">283</data>
+</node>
+<node id="n284">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">rmf6Res500_LH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_6</data>
+	<data key="dn_colorcode">75,56,125</data>
+	<data key="dn_intensityvalue">284</data>
+</node>
+<node id="n285">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">rmf7Res500_LH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_7</data>
+	<data key="dn_colorcode">75,57,125</data>
+	<data key="dn_intensityvalue">285</data>
+</node>
+<node id="n286">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">rmf8Res500_LH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_8</data>
+	<data key="dn_colorcode">75,58,125</data>
+	<data key="dn_intensityvalue">286</data>
+</node>
+<node id="n287">
+	<data key="dn_href">http://www.connectome.ch/wiki/rmf9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">rmf9Res500_LH</data>
+	<data key="dn_freesurfer_structname">rostralmiddlefrontal_9</data>
+	<data key="dn_colorcode">75,59,125</data>
+	<data key="dn_intensityvalue">287</data>
+</node>
+<node id="n288">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf1Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_1</data>
+	<data key="dn_colorcode">20,220,160</data>
+	<data key="dn_intensityvalue">288</data>
+</node>
+<node id="n289">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf2Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_2</data>
+	<data key="dn_colorcode">22,220,160</data>
+	<data key="dn_intensityvalue">289</data>
+</node>
+<node id="n290">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf3Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_3</data>
+	<data key="dn_colorcode">23,220,160</data>
+	<data key="dn_intensityvalue">290</data>
+</node>
+<node id="n291">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf4Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_4</data>
+	<data key="dn_colorcode">24,220,160</data>
+	<data key="dn_intensityvalue">291</data>
+</node>
+<node id="n292">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf5Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_5</data>
+	<data key="dn_colorcode">25,220,160</data>
+	<data key="dn_intensityvalue">292</data>
+</node>
+<node id="n293">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf6Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_6</data>
+	<data key="dn_colorcode">26,220,160</data>
+	<data key="dn_intensityvalue">293</data>
+</node>
+<node id="n294">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf7Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_7</data>
+	<data key="dn_colorcode">27,220,160</data>
+	<data key="dn_intensityvalue">294</data>
+</node>
+<node id="n295">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf8Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_8</data>
+	<data key="dn_colorcode">28,220,160</data>
+	<data key="dn_intensityvalue">295</data>
+</node>
+<node id="n296">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf9Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_9</data>
+	<data key="dn_colorcode">29,220,160</data>
+	<data key="dn_intensityvalue">296</data>
+</node>
+<node id="n297">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf10Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf10Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_10</data>
+	<data key="dn_colorcode">30,220,160</data>
+	<data key="dn_intensityvalue">297</data>
+</node>
+<node id="n298">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf11Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf11Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_11</data>
+	<data key="dn_colorcode">31,220,160</data>
+	<data key="dn_intensityvalue">298</data>
+</node>
+<node id="n299">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf12Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf12Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_12</data>
+	<data key="dn_colorcode">32,220,160</data>
+	<data key="dn_intensityvalue">299</data>
+</node>
+<node id="n300">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf13Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf13Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_13</data>
+	<data key="dn_colorcode">33,220,160</data>
+	<data key="dn_intensityvalue">300</data>
+</node>
+<node id="n301">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf14Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf14Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_14</data>
+	<data key="dn_colorcode">34,220,160</data>
+	<data key="dn_intensityvalue">301</data>
+</node>
+<node id="n302">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf15Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf15Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_15</data>
+	<data key="dn_colorcode">35,220,160</data>
+	<data key="dn_intensityvalue">302</data>
+</node>
+<node id="n303">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf16Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf16Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_16</data>
+	<data key="dn_colorcode">36,220,160</data>
+	<data key="dn_intensityvalue">303</data>
+</node>
+<node id="n304">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf17Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf17Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_17</data>
+	<data key="dn_colorcode">37,220,160</data>
+	<data key="dn_intensityvalue">304</data>
+</node>
+<node id="n305">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf18Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf18Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_18</data>
+	<data key="dn_colorcode">38,220,160</data>
+	<data key="dn_intensityvalue">305</data>
+</node>
+<node id="n306">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf19Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf19Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_19</data>
+	<data key="dn_colorcode">39,220,160</data>
+	<data key="dn_intensityvalue">306</data>
+</node>
+<node id="n307">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf20Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf20Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_20</data>
+	<data key="dn_colorcode">40,220,160</data>
+	<data key="dn_intensityvalue">307</data>
+</node>
+<node id="n308">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf21Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf21Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_21</data>
+	<data key="dn_colorcode">41,220,160</data>
+	<data key="dn_intensityvalue">308</data>
+</node>
+<node id="n309">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf22Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf22Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_22</data>
+	<data key="dn_colorcode">42,220,160</data>
+	<data key="dn_intensityvalue">309</data>
+</node>
+<node id="n310">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf23Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf23Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_23</data>
+	<data key="dn_colorcode">43,220,160</data>
+	<data key="dn_intensityvalue">310</data>
+</node>
+<node id="n311">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf24Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf24Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_24</data>
+	<data key="dn_colorcode">44,220,160</data>
+	<data key="dn_intensityvalue">311</data>
+</node>
+<node id="n312">
+	<data key="dn_href">http://www.connectome.ch/wiki/sf25Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sf25Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorfrontal_25</data>
+	<data key="dn_colorcode">45,220,160</data>
+	<data key="dn_intensityvalue">312</data>
+</node>
+<node id="n313">
+	<data key="dn_href">http://www.connectome.ch/wiki/cmf1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">cmf1Res500_LH</data>
+	<data key="dn_freesurfer_structname">caudalmiddlefrontal_1</data>
+	<data key="dn_colorcode">100,25,0</data>
+	<data key="dn_intensityvalue">313</data>
+</node>
+<node id="n314">
+	<data key="dn_href">http://www.connectome.ch/wiki/cmf2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">cmf2Res500_LH</data>
+	<data key="dn_freesurfer_structname">caudalmiddlefrontal_2</data>
+	<data key="dn_colorcode">100,27,0</data>
+	<data key="dn_intensityvalue">314</data>
+</node>
+<node id="n315">
+	<data key="dn_href">http://www.connectome.ch/wiki/cmf3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">cmf3Res500_LH</data>
+	<data key="dn_freesurfer_structname">caudalmiddlefrontal_3</data>
+	<data key="dn_colorcode">100,28,0</data>
+	<data key="dn_intensityvalue">315</data>
+</node>
+<node id="n316">
+	<data key="dn_href">http://www.connectome.ch/wiki/cmf4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">cmf4Res500_LH</data>
+	<data key="dn_freesurfer_structname">caudalmiddlefrontal_4</data>
+	<data key="dn_colorcode">100,29,0</data>
+	<data key="dn_intensityvalue">316</data>
+</node>
+<node id="n317">
+	<data key="dn_href">http://www.connectome.ch/wiki/cmf5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">cmf5Res500_LH</data>
+	<data key="dn_freesurfer_structname">caudalmiddlefrontal_5</data>
+	<data key="dn_colorcode">100,30,0</data>
+	<data key="dn_intensityvalue">317</data>
+</node>
+<node id="n318">
+	<data key="dn_href">http://www.connectome.ch/wiki/cmf6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">cmf6Res500_LH</data>
+	<data key="dn_freesurfer_structname">caudalmiddlefrontal_6</data>
+	<data key="dn_colorcode">100,31,0</data>
+	<data key="dn_intensityvalue">318</data>
+</node>
+<node id="n319">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc1Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_1</data>
+	<data key="dn_colorcode">60,20,220</data>
+	<data key="dn_intensityvalue">319</data>
+</node>
+<node id="n320">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc2Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_2</data>
+	<data key="dn_colorcode">60,22,220</data>
+	<data key="dn_intensityvalue">320</data>
+</node>
+<node id="n321">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc3Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_3</data>
+	<data key="dn_colorcode">60,23,220</data>
+	<data key="dn_intensityvalue">321</data>
+</node>
+<node id="n322">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc4Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_4</data>
+	<data key="dn_colorcode">60,24,220</data>
+	<data key="dn_intensityvalue">322</data>
+</node>
+<node id="n323">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc5Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_5</data>
+	<data key="dn_colorcode">60,25,220</data>
+	<data key="dn_intensityvalue">323</data>
+</node>
+<node id="n324">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc6Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_6</data>
+	<data key="dn_colorcode">60,26,220</data>
+	<data key="dn_intensityvalue">324</data>
+</node>
+<node id="n325">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc7Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_7</data>
+	<data key="dn_colorcode">60,27,220</data>
+	<data key="dn_intensityvalue">325</data>
+</node>
+<node id="n326">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc8Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_8</data>
+	<data key="dn_colorcode">60,28,220</data>
+	<data key="dn_intensityvalue">326</data>
+</node>
+<node id="n327">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc9Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_9</data>
+	<data key="dn_colorcode">60,29,220</data>
+	<data key="dn_intensityvalue">327</data>
+</node>
+<node id="n328">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc10Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc10Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_10</data>
+	<data key="dn_colorcode">60,30,220</data>
+	<data key="dn_intensityvalue">328</data>
+</node>
+<node id="n329">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc11Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc11Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_11</data>
+	<data key="dn_colorcode">60,31,220</data>
+	<data key="dn_intensityvalue">329</data>
+</node>
+<node id="n330">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc12Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc12Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_12</data>
+	<data key="dn_colorcode">60,32,220</data>
+	<data key="dn_intensityvalue">330</data>
+</node>
+<node id="n331">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc13Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc13Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_13</data>
+	<data key="dn_colorcode">60,33,220</data>
+	<data key="dn_intensityvalue">331</data>
+</node>
+<node id="n332">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc14Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc14Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_14</data>
+	<data key="dn_colorcode">60,34,220</data>
+	<data key="dn_intensityvalue">332</data>
+</node>
+<node id="n333">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc15Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc15Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_15</data>
+	<data key="dn_colorcode">60,35,220</data>
+	<data key="dn_intensityvalue">333</data>
+</node>
+<node id="n334">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc16Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc16Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_16</data>
+	<data key="dn_colorcode">60,36,220</data>
+	<data key="dn_intensityvalue">334</data>
+</node>
+<node id="n335">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc17Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc17Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_17</data>
+	<data key="dn_colorcode">60,37,220</data>
+	<data key="dn_intensityvalue">335</data>
+</node>
+<node id="n336">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc18Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc18Res500_LH</data>
+	<data key="dn_freesurfer_structname">precentral_18</data>
+	<data key="dn_colorcode">60,38,220</data>
+	<data key="dn_intensityvalue">336</data>
+</node>
+<node id="n337">
+	<data key="dn_href">http://www.connectome.ch/wiki/pac1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pac1Res500_LH</data>
+	<data key="dn_freesurfer_structname">paracentral_1</data>
+	<data key="dn_colorcode">60,220,60</data>
+	<data key="dn_intensityvalue">337</data>
+</node>
+<node id="n338">
+	<data key="dn_href">http://www.connectome.ch/wiki/pac2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pac2Res500_LH</data>
+	<data key="dn_freesurfer_structname">paracentral_2</data>
+	<data key="dn_colorcode">62,220,60</data>
+	<data key="dn_intensityvalue">338</data>
+</node>
+<node id="n339">
+	<data key="dn_href">http://www.connectome.ch/wiki/pac3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pac3Res500_LH</data>
+	<data key="dn_freesurfer_structname">paracentral_3</data>
+	<data key="dn_colorcode">63,220,60</data>
+	<data key="dn_intensityvalue">339</data>
+</node>
+<node id="n340">
+	<data key="dn_href">http://www.connectome.ch/wiki/pac4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pac4Res500_LH</data>
+	<data key="dn_freesurfer_structname">paracentral_4</data>
+	<data key="dn_colorcode">64,220,60</data>
+	<data key="dn_intensityvalue">340</data>
+</node>
+<node id="n341">
+	<data key="dn_href">http://www.connectome.ch/wiki/pac5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pac5Res500_LH</data>
+	<data key="dn_freesurfer_structname">paracentral_5</data>
+	<data key="dn_colorcode">65,220,60</data>
+	<data key="dn_intensityvalue">341</data>
+</node>
+<node id="n342">
+	<data key="dn_href">http://www.connectome.ch/wiki/racc1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">racc1Res500_LH</data>
+	<data key="dn_freesurfer_structname">rostralanteriorcingulate_1</data>
+	<data key="dn_colorcode">80,20,140</data>
+	<data key="dn_intensityvalue">342</data>
+</node>
+<node id="n343">
+	<data key="dn_href">http://www.connectome.ch/wiki/racc2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">racc2Res500_LH</data>
+	<data key="dn_freesurfer_structname">rostralanteriorcingulate_2</data>
+	<data key="dn_colorcode">80,22,140</data>
+	<data key="dn_intensityvalue">343</data>
+</node>
+<node id="n344">
+	<data key="dn_href">http://www.connectome.ch/wiki/cacc1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">cacc1Res500_LH</data>
+	<data key="dn_freesurfer_structname">caudalanteriorcingulate_1</data>
+	<data key="dn_colorcode">125,100,160</data>
+	<data key="dn_intensityvalue">344</data>
+</node>
+<node id="n345">
+	<data key="dn_href">http://www.connectome.ch/wiki/cacc2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">cacc2Res500_LH</data>
+	<data key="dn_freesurfer_structname">caudalanteriorcingulate_2</data>
+	<data key="dn_colorcode">125,102,160</data>
+	<data key="dn_intensityvalue">345</data>
+</node>
+<node id="n346">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc1Res500_LH</data>
+	<data key="dn_freesurfer_structname">posteriorcingulate_1</data>
+	<data key="dn_colorcode">220,180,220</data>
+	<data key="dn_intensityvalue">346</data>
+</node>
+<node id="n347">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc2Res500_LH</data>
+	<data key="dn_freesurfer_structname">posteriorcingulate_2</data>
+	<data key="dn_colorcode">220,182,220</data>
+	<data key="dn_intensityvalue">347</data>
+</node>
+<node id="n348">
+	<data key="dn_href">http://www.connectome.ch/wiki/pc3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pc3Res500_LH</data>
+	<data key="dn_freesurfer_structname">posteriorcingulate_3</data>
+	<data key="dn_colorcode">220,183,220</data>
+	<data key="dn_intensityvalue">348</data>
+</node>
+<node id="n349">
+	<data key="dn_href">http://www.connectome.ch/wiki/ic1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ic1Res500_LH</data>
+	<data key="dn_freesurfer_structname">isthmuscingulate_1</data>
+	<data key="dn_colorcode">140,20,140</data>
+	<data key="dn_intensityvalue">349</data>
+</node>
+<node id="n350">
+	<data key="dn_href">http://www.connectome.ch/wiki/ic2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ic2Res500_LH</data>
+	<data key="dn_freesurfer_structname">isthmuscingulate_2</data>
+	<data key="dn_colorcode">140,22,140</data>
+	<data key="dn_intensityvalue">350</data>
+</node>
+<node id="n351">
+	<data key="dn_href">http://www.connectome.ch/wiki/ic3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ic3Res500_LH</data>
+	<data key="dn_freesurfer_structname">isthmuscingulate_3</data>
+	<data key="dn_colorcode">140,23,140</data>
+	<data key="dn_intensityvalue">351</data>
+</node>
+<node id="n352">
+	<data key="dn_href">http://www.connectome.ch/wiki/ic4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ic4Res500_LH</data>
+	<data key="dn_freesurfer_structname">isthmuscingulate_4</data>
+	<data key="dn_colorcode">140,24,140</data>
+	<data key="dn_intensityvalue">352</data>
+</node>
+<node id="n353">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc1Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_1</data>
+	<data key="dn_colorcode">220,20,20</data>
+	<data key="dn_intensityvalue">353</data>
+</node>
+<node id="n354">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc2Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_2</data>
+	<data key="dn_colorcode">220,22,20</data>
+	<data key="dn_intensityvalue">354</data>
+</node>
+<node id="n355">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc3Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_3</data>
+	<data key="dn_colorcode">220,23,20</data>
+	<data key="dn_intensityvalue">355</data>
+</node>
+<node id="n356">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc4Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_4</data>
+	<data key="dn_colorcode">220,24,20</data>
+	<data key="dn_intensityvalue">356</data>
+</node>
+<node id="n357">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc5Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_5</data>
+	<data key="dn_colorcode">220,25,20</data>
+	<data key="dn_intensityvalue">357</data>
+</node>
+<node id="n358">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc6Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_6</data>
+	<data key="dn_colorcode">220,26,20</data>
+	<data key="dn_intensityvalue">358</data>
+</node>
+<node id="n359">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc7Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_7</data>
+	<data key="dn_colorcode">220,27,20</data>
+	<data key="dn_intensityvalue">359</data>
+</node>
+<node id="n360">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc8Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_8</data>
+	<data key="dn_colorcode">220,28,20</data>
+	<data key="dn_intensityvalue">360</data>
+</node>
+<node id="n361">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc9Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_9</data>
+	<data key="dn_colorcode">220,29,20</data>
+	<data key="dn_intensityvalue">361</data>
+</node>
+<node id="n362">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc10Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc10Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_10</data>
+	<data key="dn_colorcode">220,30,20</data>
+	<data key="dn_intensityvalue">362</data>
+</node>
+<node id="n363">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc11Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc11Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_11</data>
+	<data key="dn_colorcode">220,31,20</data>
+	<data key="dn_intensityvalue">363</data>
+</node>
+<node id="n364">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc12Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc12Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_12</data>
+	<data key="dn_colorcode">220,32,20</data>
+	<data key="dn_intensityvalue">364</data>
+</node>
+<node id="n365">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc13Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc13Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_13</data>
+	<data key="dn_colorcode">220,33,20</data>
+	<data key="dn_intensityvalue">365</data>
+</node>
+<node id="n366">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc14Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc14Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_14</data>
+	<data key="dn_colorcode">220,34,20</data>
+	<data key="dn_intensityvalue">366</data>
+</node>
+<node id="n367">
+	<data key="dn_href">http://www.connectome.ch/wiki/poc15Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">poc15Res500_LH</data>
+	<data key="dn_freesurfer_structname">postcentral_15</data>
+	<data key="dn_colorcode">220,35,20</data>
+	<data key="dn_intensityvalue">367</data>
+</node>
+<node id="n368">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sm1Res500_LH</data>
+	<data key="dn_freesurfer_structname">supramarginal_1</data>
+	<data key="dn_colorcode">80,160,20</data>
+	<data key="dn_intensityvalue">368</data>
+</node>
+<node id="n369">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sm2Res500_LH</data>
+	<data key="dn_freesurfer_structname">supramarginal_2</data>
+	<data key="dn_colorcode">82,160,20</data>
+	<data key="dn_intensityvalue">369</data>
+</node>
+<node id="n370">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sm3Res500_LH</data>
+	<data key="dn_freesurfer_structname">supramarginal_3</data>
+	<data key="dn_colorcode">83,160,20</data>
+	<data key="dn_intensityvalue">370</data>
+</node>
+<node id="n371">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sm4Res500_LH</data>
+	<data key="dn_freesurfer_structname">supramarginal_4</data>
+	<data key="dn_colorcode">84,160,20</data>
+	<data key="dn_intensityvalue">371</data>
+</node>
+<node id="n372">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sm5Res500_LH</data>
+	<data key="dn_freesurfer_structname">supramarginal_5</data>
+	<data key="dn_colorcode">85,160,20</data>
+	<data key="dn_intensityvalue">372</data>
+</node>
+<node id="n373">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sm6Res500_LH</data>
+	<data key="dn_freesurfer_structname">supramarginal_6</data>
+	<data key="dn_colorcode">86,160,20</data>
+	<data key="dn_intensityvalue">373</data>
+</node>
+<node id="n374">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sm7Res500_LH</data>
+	<data key="dn_freesurfer_structname">supramarginal_7</data>
+	<data key="dn_colorcode">87,160,20</data>
+	<data key="dn_intensityvalue">374</data>
+</node>
+<node id="n375">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sm8Res500_LH</data>
+	<data key="dn_freesurfer_structname">supramarginal_8</data>
+	<data key="dn_colorcode">88,160,20</data>
+	<data key="dn_intensityvalue">375</data>
+</node>
+<node id="n376">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sm9Res500_LH</data>
+	<data key="dn_freesurfer_structname">supramarginal_9</data>
+	<data key="dn_colorcode">89,160,20</data>
+	<data key="dn_intensityvalue">376</data>
+</node>
+<node id="n377">
+	<data key="dn_href">http://www.connectome.ch/wiki/sm10Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sm10Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_1</data>
+	<data key="dn_colorcode">20,180,140</data>
+	<data key="dn_intensityvalue">377</data>
+</node>
+<node id="n378">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sp1Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_2</data>
+	<data key="dn_colorcode">22,180,140</data>
+	<data key="dn_intensityvalue">378</data>
+</node>
+<node id="n379">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sp2Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_3</data>
+	<data key="dn_colorcode">23,180,140</data>
+	<data key="dn_intensityvalue">379</data>
+</node>
+<node id="n380">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sp3Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_4</data>
+	<data key="dn_colorcode">24,180,140</data>
+	<data key="dn_intensityvalue">380</data>
+</node>
+<node id="n381">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sp4Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_5</data>
+	<data key="dn_colorcode">25,180,140</data>
+	<data key="dn_intensityvalue">381</data>
+</node>
+<node id="n382">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sp5Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_6</data>
+	<data key="dn_colorcode">26,180,140</data>
+	<data key="dn_intensityvalue">382</data>
+</node>
+<node id="n383">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sp6Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_7</data>
+	<data key="dn_colorcode">27,180,140</data>
+	<data key="dn_intensityvalue">383</data>
+</node>
+<node id="n384">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sp7Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_8</data>
+	<data key="dn_colorcode">28,180,140</data>
+	<data key="dn_intensityvalue">384</data>
+</node>
+<node id="n385">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sp8Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_9</data>
+	<data key="dn_colorcode">29,180,140</data>
+	<data key="dn_intensityvalue">385</data>
+</node>
+<node id="n386">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sp9Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_10</data>
+	<data key="dn_colorcode">30,180,140</data>
+	<data key="dn_intensityvalue">386</data>
+</node>
+<node id="n387">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp10Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sp10Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_11</data>
+	<data key="dn_colorcode">31,180,140</data>
+	<data key="dn_intensityvalue">387</data>
+</node>
+<node id="n388">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp11Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sp11Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_12</data>
+	<data key="dn_colorcode">32,180,140</data>
+	<data key="dn_intensityvalue">388</data>
+</node>
+<node id="n389">
+	<data key="dn_href">http://www.connectome.ch/wiki/sp12Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">sp12Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiorparietal_13</data>
+	<data key="dn_colorcode">33,180,140</data>
+	<data key="dn_intensityvalue">389</data>
+</node>
+<node id="n390">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ip1Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_1</data>
+	<data key="dn_colorcode">220,60,220</data>
+	<data key="dn_intensityvalue">390</data>
+</node>
+<node id="n391">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ip2Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_2</data>
+	<data key="dn_colorcode">220,62,220</data>
+	<data key="dn_intensityvalue">391</data>
+</node>
+<node id="n392">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ip3Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_3</data>
+	<data key="dn_colorcode">220,63,220</data>
+	<data key="dn_intensityvalue">392</data>
+</node>
+<node id="n393">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ip4Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_4</data>
+	<data key="dn_colorcode">220,64,220</data>
+	<data key="dn_intensityvalue">393</data>
+</node>
+<node id="n394">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ip5Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_5</data>
+	<data key="dn_colorcode">220,65,220</data>
+	<data key="dn_intensityvalue">394</data>
+</node>
+<node id="n395">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ip6Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_6</data>
+	<data key="dn_colorcode">220,66,220</data>
+	<data key="dn_intensityvalue">395</data>
+</node>
+<node id="n396">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ip7Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_7</data>
+	<data key="dn_colorcode">220,67,220</data>
+	<data key="dn_intensityvalue">396</data>
+</node>
+<node id="n397">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ip8Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_8</data>
+	<data key="dn_colorcode">220,68,220</data>
+	<data key="dn_intensityvalue">397</data>
+</node>
+<node id="n398">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ip9Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_9</data>
+	<data key="dn_colorcode">220,69,220</data>
+	<data key="dn_intensityvalue">398</data>
+</node>
+<node id="n399">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip10Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ip10Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_10</data>
+	<data key="dn_colorcode">220,70,220</data>
+	<data key="dn_intensityvalue">399</data>
+</node>
+<node id="n400">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip11Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ip11Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_11</data>
+	<data key="dn_colorcode">220,71,220</data>
+	<data key="dn_intensityvalue">400</data>
+</node>
+<node id="n401">
+	<data key="dn_href">http://www.connectome.ch/wiki/ip12Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ip12Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiorparietal_12</data>
+	<data key="dn_colorcode">220,72,220</data>
+	<data key="dn_intensityvalue">401</data>
+</node>
+<node id="n402">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcun1Res500_LH</data>
+	<data key="dn_freesurfer_structname">precuneus_1</data>
+	<data key="dn_colorcode">160,140,180</data>
+	<data key="dn_intensityvalue">402</data>
+</node>
+<node id="n403">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcun2Res500_LH</data>
+	<data key="dn_freesurfer_structname">precuneus_2</data>
+	<data key="dn_colorcode">160,142,180</data>
+	<data key="dn_intensityvalue">403</data>
+</node>
+<node id="n404">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcun3Res500_LH</data>
+	<data key="dn_freesurfer_structname">precuneus_3</data>
+	<data key="dn_colorcode">160,143,180</data>
+	<data key="dn_intensityvalue">404</data>
+</node>
+<node id="n405">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcun4Res500_LH</data>
+	<data key="dn_freesurfer_structname">precuneus_4</data>
+	<data key="dn_colorcode">160,144,180</data>
+	<data key="dn_intensityvalue">405</data>
+</node>
+<node id="n406">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcun5Res500_LH</data>
+	<data key="dn_freesurfer_structname">precuneus_5</data>
+	<data key="dn_colorcode">160,145,180</data>
+	<data key="dn_intensityvalue">406</data>
+</node>
+<node id="n407">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcun6Res500_LH</data>
+	<data key="dn_freesurfer_structname">precuneus_6</data>
+	<data key="dn_colorcode">160,146,180</data>
+	<data key="dn_intensityvalue">407</data>
+</node>
+<node id="n408">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcun7Res500_LH</data>
+	<data key="dn_freesurfer_structname">precuneus_7</data>
+	<data key="dn_colorcode">160,147,180</data>
+	<data key="dn_intensityvalue">408</data>
+</node>
+<node id="n409">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcun8Res500_LH</data>
+	<data key="dn_freesurfer_structname">precuneus_8</data>
+	<data key="dn_colorcode">160,148,180</data>
+	<data key="dn_intensityvalue">409</data>
+</node>
+<node id="n410">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcun9Res500_LH</data>
+	<data key="dn_freesurfer_structname">precuneus_9</data>
+	<data key="dn_colorcode">160,149,180</data>
+	<data key="dn_intensityvalue">410</data>
+</node>
+<node id="n411">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun10Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcun10Res500_LH</data>
+	<data key="dn_freesurfer_structname">precuneus_10</data>
+	<data key="dn_colorcode">160,150,180</data>
+	<data key="dn_intensityvalue">411</data>
+</node>
+<node id="n412">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcun11Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcun11Res500_LH</data>
+	<data key="dn_freesurfer_structname">precuneus_11</data>
+	<data key="dn_colorcode">160,151,180</data>
+	<data key="dn_intensityvalue">412</data>
+</node>
+<node id="n413">
+	<data key="dn_href">http://www.connectome.ch/wiki/cun1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">cun1Res500_LH</data>
+	<data key="dn_freesurfer_structname">cuneus_1</data>
+	<data key="dn_colorcode">220,20,100</data>
+	<data key="dn_intensityvalue">413</data>
+</node>
+<node id="n414">
+	<data key="dn_href">http://www.connectome.ch/wiki/cun2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">cun2Res500_LH</data>
+	<data key="dn_freesurfer_structname">cuneus_2</data>
+	<data key="dn_colorcode">220,22,100</data>
+	<data key="dn_intensityvalue">414</data>
+</node>
+<node id="n415">
+	<data key="dn_href">http://www.connectome.ch/wiki/cun3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">cun3Res500_LH</data>
+	<data key="dn_freesurfer_structname">cuneus_3</data>
+	<data key="dn_colorcode">220,23,100</data>
+	<data key="dn_intensityvalue">415</data>
+</node>
+<node id="n416">
+	<data key="dn_href">http://www.connectome.ch/wiki/cun4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">cun4Res500_LH</data>
+	<data key="dn_freesurfer_structname">cuneus_4</data>
+	<data key="dn_colorcode">220,24,100</data>
+	<data key="dn_intensityvalue">416</data>
+</node>
+<node id="n417">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcal1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcal1Res500_LH</data>
+	<data key="dn_freesurfer_structname">pericalcarine_1</data>
+	<data key="dn_colorcode">120,100,60</data>
+	<data key="dn_intensityvalue">417</data>
+</node>
+<node id="n418">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcal2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcal2Res500_LH</data>
+	<data key="dn_freesurfer_structname">pericalcarine_2</data>
+	<data key="dn_colorcode">120,102,60</data>
+	<data key="dn_intensityvalue">418</data>
+</node>
+<node id="n419">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcal3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcal3Res500_LH</data>
+	<data key="dn_freesurfer_structname">pericalcarine_3</data>
+	<data key="dn_colorcode">120,103,60</data>
+	<data key="dn_intensityvalue">419</data>
+</node>
+<node id="n420">
+	<data key="dn_href">http://www.connectome.ch/wiki/pcal4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">pcal4Res500_LH</data>
+	<data key="dn_freesurfer_structname">pericalcarine_4</data>
+	<data key="dn_colorcode">120,104,60</data>
+	<data key="dn_intensityvalue">420</data>
+</node>
+<node id="n421">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">loc1Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_1</data>
+	<data key="dn_colorcode">20,30,140</data>
+	<data key="dn_intensityvalue">421</data>
+</node>
+<node id="n422">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">loc2Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_2</data>
+	<data key="dn_colorcode">20,32,140</data>
+	<data key="dn_intensityvalue">422</data>
+</node>
+<node id="n423">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">loc3Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_3</data>
+	<data key="dn_colorcode">20,33,140</data>
+	<data key="dn_intensityvalue">423</data>
+</node>
+<node id="n424">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">loc4Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_4</data>
+	<data key="dn_colorcode">20,34,140</data>
+	<data key="dn_intensityvalue">424</data>
+</node>
+<node id="n425">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">loc5Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_5</data>
+	<data key="dn_colorcode">20,35,140</data>
+	<data key="dn_intensityvalue">425</data>
+</node>
+<node id="n426">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">loc6Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_6</data>
+	<data key="dn_colorcode">20,36,140</data>
+	<data key="dn_intensityvalue">426</data>
+</node>
+<node id="n427">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">loc7Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_7</data>
+	<data key="dn_colorcode">20,37,140</data>
+	<data key="dn_intensityvalue">427</data>
+</node>
+<node id="n428">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">loc8Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_8</data>
+	<data key="dn_colorcode">20,38,140</data>
+	<data key="dn_intensityvalue">428</data>
+</node>
+<node id="n429">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">loc9Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_9</data>
+	<data key="dn_colorcode">20,39,140</data>
+	<data key="dn_intensityvalue">429</data>
+</node>
+<node id="n430">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc10Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">loc10Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_10</data>
+	<data key="dn_colorcode">20,40,140</data>
+	<data key="dn_intensityvalue">430</data>
+</node>
+<node id="n431">
+	<data key="dn_href">http://www.connectome.ch/wiki/loc11Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">loc11Res500_LH</data>
+	<data key="dn_freesurfer_structname">lateraloccipital_11</data>
+	<data key="dn_colorcode">20,41,140</data>
+	<data key="dn_intensityvalue">431</data>
+</node>
+<node id="n432">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lin1Res500_LH</data>
+	<data key="dn_freesurfer_structname">lingual_1</data>
+	<data key="dn_colorcode">225,140,140</data>
+	<data key="dn_intensityvalue">432</data>
+</node>
+<node id="n433">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lin2Res500_LH</data>
+	<data key="dn_freesurfer_structname">lingual_2</data>
+	<data key="dn_colorcode">225,142,140</data>
+	<data key="dn_intensityvalue">433</data>
+</node>
+<node id="n434">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lin3Res500_LH</data>
+	<data key="dn_freesurfer_structname">lingual_3</data>
+	<data key="dn_colorcode">225,143,140</data>
+	<data key="dn_intensityvalue">434</data>
+</node>
+<node id="n435">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lin4Res500_LH</data>
+	<data key="dn_freesurfer_structname">lingual_4</data>
+	<data key="dn_colorcode">225,144,140</data>
+	<data key="dn_intensityvalue">435</data>
+</node>
+<node id="n436">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lin5Res500_LH</data>
+	<data key="dn_freesurfer_structname">lingual_5</data>
+	<data key="dn_colorcode">225,145,140</data>
+	<data key="dn_intensityvalue">436</data>
+</node>
+<node id="n437">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lin6Res500_LH</data>
+	<data key="dn_freesurfer_structname">lingual_6</data>
+	<data key="dn_colorcode">225,146,140</data>
+	<data key="dn_intensityvalue">437</data>
+</node>
+<node id="n438">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lin7Res500_LH</data>
+	<data key="dn_freesurfer_structname">lingual_7</data>
+	<data key="dn_colorcode">225,147,140</data>
+	<data key="dn_intensityvalue">438</data>
+</node>
+<node id="n439">
+	<data key="dn_href">http://www.connectome.ch/wiki/lin8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">lin8Res500_LH</data>
+	<data key="dn_freesurfer_structname">lingual_8</data>
+	<data key="dn_colorcode">225,148,140</data>
+	<data key="dn_intensityvalue">439</data>
+</node>
+<node id="n440">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">fusi1Res500_LH</data>
+	<data key="dn_freesurfer_structname">fusiform_1</data>
+	<data key="dn_colorcode">180,220,140</data>
+	<data key="dn_intensityvalue">440</data>
+</node>
+<node id="n441">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">fusi2Res500_LH</data>
+	<data key="dn_freesurfer_structname">fusiform_2</data>
+	<data key="dn_colorcode">182,220,140</data>
+	<data key="dn_intensityvalue">441</data>
+</node>
+<node id="n442">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">fusi3Res500_LH</data>
+	<data key="dn_freesurfer_structname">fusiform_3</data>
+	<data key="dn_colorcode">183,220,140</data>
+	<data key="dn_intensityvalue">442</data>
+</node>
+<node id="n443">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">fusi4Res500_LH</data>
+	<data key="dn_freesurfer_structname">fusiform_4</data>
+	<data key="dn_colorcode">184,220,140</data>
+	<data key="dn_intensityvalue">443</data>
+</node>
+<node id="n444">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">fusi5Res500_LH</data>
+	<data key="dn_freesurfer_structname">fusiform_5</data>
+	<data key="dn_colorcode">185,220,140</data>
+	<data key="dn_intensityvalue">444</data>
+</node>
+<node id="n445">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">fusi6Res500_LH</data>
+	<data key="dn_freesurfer_structname">fusiform_6</data>
+	<data key="dn_colorcode">186,220,140</data>
+	<data key="dn_intensityvalue">445</data>
+</node>
+<node id="n446">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">fusi7Res500_LH</data>
+	<data key="dn_freesurfer_structname">fusiform_7</data>
+	<data key="dn_colorcode">187,220,140</data>
+	<data key="dn_intensityvalue">446</data>
+</node>
+<node id="n447">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">fusi8Res500_LH</data>
+	<data key="dn_freesurfer_structname">fusiform_8</data>
+	<data key="dn_colorcode">188,220,140</data>
+	<data key="dn_intensityvalue">447</data>
+</node>
+<node id="n448">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">fusi9Res500_LH</data>
+	<data key="dn_freesurfer_structname">fusiform_9</data>
+	<data key="dn_colorcode">189,220,140</data>
+	<data key="dn_intensityvalue">448</data>
+</node>
+<node id="n449">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi10Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">fusi10Res500_LH</data>
+	<data key="dn_freesurfer_structname">fusiform_10</data>
+	<data key="dn_colorcode">190,220,140</data>
+	<data key="dn_intensityvalue">449</data>
+</node>
+<node id="n450">
+	<data key="dn_href">http://www.connectome.ch/wiki/fusi11Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">fusi11Res500_LH</data>
+	<data key="dn_freesurfer_structname">fusiform_11</data>
+	<data key="dn_colorcode">191,220,140</data>
+	<data key="dn_intensityvalue">450</data>
+</node>
+<node id="n451">
+	<data key="dn_href">http://www.connectome.ch/wiki/para1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">para1Res500_LH</data>
+	<data key="dn_freesurfer_structname">parahippocampal_1</data>
+	<data key="dn_colorcode">20,220,60</data>
+	<data key="dn_intensityvalue">451</data>
+</node>
+<node id="n452">
+	<data key="dn_href">http://www.connectome.ch/wiki/para2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">para2Res500_LH</data>
+	<data key="dn_freesurfer_structname">parahippocampal_2</data>
+	<data key="dn_colorcode">22,220,60</data>
+	<data key="dn_intensityvalue">452</data>
+</node>
+<node id="n453">
+	<data key="dn_href">http://www.connectome.ch/wiki/para3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">para3Res500_LH</data>
+	<data key="dn_freesurfer_structname">parahippocampal_3</data>
+	<data key="dn_colorcode">23,220,60</data>
+	<data key="dn_intensityvalue">453</data>
+</node>
+<node id="n454">
+	<data key="dn_href">http://www.connectome.ch/wiki/ent1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">ent1Res500_LH</data>
+	<data key="dn_freesurfer_structname">entorhinal_1</data>
+	<data key="dn_colorcode">220,20,10</data>
+	<data key="dn_intensityvalue">454</data>
+</node>
+<node id="n455">
+	<data key="dn_href">http://www.connectome.ch/wiki/tp1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">tp1Res500_LH</data>
+	<data key="dn_freesurfer_structname">temporalpole_1</data>
+	<data key="dn_colorcode">70,70,70</data>
+	<data key="dn_intensityvalue">455</data>
+</node>
+<node id="n456">
+	<data key="dn_href">http://www.connectome.ch/wiki/tp2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">tp2Res500_LH</data>
+	<data key="dn_freesurfer_structname">temporalpole_2</data>
+	<data key="dn_colorcode">72,70,70</data>
+	<data key="dn_intensityvalue">456</data>
+</node>
+<node id="n457">
+	<data key="dn_href">http://www.connectome.ch/wiki/it1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">it1Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_1</data>
+	<data key="dn_colorcode">180,40,120</data>
+	<data key="dn_intensityvalue">457</data>
+</node>
+<node id="n458">
+	<data key="dn_href">http://www.connectome.ch/wiki/it2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">it2Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_2</data>
+	<data key="dn_colorcode">180,42,120</data>
+	<data key="dn_intensityvalue">458</data>
+</node>
+<node id="n459">
+	<data key="dn_href">http://www.connectome.ch/wiki/it3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">it3Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_3</data>
+	<data key="dn_colorcode">180,43,120</data>
+	<data key="dn_intensityvalue">459</data>
+</node>
+<node id="n460">
+	<data key="dn_href">http://www.connectome.ch/wiki/it4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">it4Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_4</data>
+	<data key="dn_colorcode">180,44,120</data>
+	<data key="dn_intensityvalue">460</data>
+</node>
+<node id="n461">
+	<data key="dn_href">http://www.connectome.ch/wiki/it5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">it5Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_5</data>
+	<data key="dn_colorcode">180,45,120</data>
+	<data key="dn_intensityvalue">461</data>
+</node>
+<node id="n462">
+	<data key="dn_href">http://www.connectome.ch/wiki/it6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">it6Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_6</data>
+	<data key="dn_colorcode">180,46,120</data>
+	<data key="dn_intensityvalue">462</data>
+</node>
+<node id="n463">
+	<data key="dn_href">http://www.connectome.ch/wiki/it7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">it7Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_7</data>
+	<data key="dn_colorcode">180,47,120</data>
+	<data key="dn_intensityvalue">463</data>
+</node>
+<node id="n464">
+	<data key="dn_href">http://www.connectome.ch/wiki/it8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">it8Res500_LH</data>
+	<data key="dn_freesurfer_structname">inferiortemporal_8</data>
+	<data key="dn_colorcode">180,48,120</data>
+	<data key="dn_intensityvalue">464</data>
+</node>
+<node id="n465">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mt1Res500_LH</data>
+	<data key="dn_freesurfer_structname">middletemporal_1</data>
+	<data key="dn_colorcode">160,100,50</data>
+	<data key="dn_intensityvalue">465</data>
+</node>
+<node id="n466">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mt2Res500_LH</data>
+	<data key="dn_freesurfer_structname">middletemporal_2</data>
+	<data key="dn_colorcode">160,102,50</data>
+	<data key="dn_intensityvalue">466</data>
+</node>
+<node id="n467">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mt3Res500_LH</data>
+	<data key="dn_freesurfer_structname">middletemporal_3</data>
+	<data key="dn_colorcode">160,103,50</data>
+	<data key="dn_intensityvalue">467</data>
+</node>
+<node id="n468">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mt4Res500_LH</data>
+	<data key="dn_freesurfer_structname">middletemporal_4</data>
+	<data key="dn_colorcode">160,104,50</data>
+	<data key="dn_intensityvalue">468</data>
+</node>
+<node id="n469">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mt5Res500_LH</data>
+	<data key="dn_freesurfer_structname">middletemporal_5</data>
+	<data key="dn_colorcode">160,105,50</data>
+	<data key="dn_intensityvalue">469</data>
+</node>
+<node id="n470">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mt6Res500_LH</data>
+	<data key="dn_freesurfer_structname">middletemporal_6</data>
+	<data key="dn_colorcode">160,106,50</data>
+	<data key="dn_intensityvalue">470</data>
+</node>
+<node id="n471">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mt7Res500_LH</data>
+	<data key="dn_freesurfer_structname">middletemporal_7</data>
+	<data key="dn_colorcode">160,107,50</data>
+	<data key="dn_intensityvalue">471</data>
+</node>
+<node id="n472">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mt8Res500_LH</data>
+	<data key="dn_freesurfer_structname">middletemporal_8</data>
+	<data key="dn_colorcode">160,108,50</data>
+	<data key="dn_intensityvalue">472</data>
+</node>
+<node id="n473">
+	<data key="dn_href">http://www.connectome.ch/wiki/mt9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">mt9Res500_LH</data>
+	<data key="dn_freesurfer_structname">middletemporal_9</data>
+	<data key="dn_colorcode">160,109,50</data>
+	<data key="dn_intensityvalue">473</data>
+</node>
+<node id="n474">
+	<data key="dn_href">http://www.connectome.ch/wiki/bank1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">bank1Res500_LH</data>
+	<data key="dn_freesurfer_structname">bankssts_1</data>
+	<data key="dn_colorcode">25,100,40</data>
+	<data key="dn_intensityvalue">474</data>
+</node>
+<node id="n475">
+	<data key="dn_href">http://www.connectome.ch/wiki/bank2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">bank2Res500_LH</data>
+	<data key="dn_freesurfer_structname">bankssts_2</data>
+	<data key="dn_colorcode">25,102,40</data>
+	<data key="dn_intensityvalue">475</data>
+</node>
+<node id="n476">
+	<data key="dn_href">http://www.connectome.ch/wiki/st1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st1Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_1</data>
+	<data key="dn_colorcode">140,220,220</data>
+	<data key="dn_intensityvalue">476</data>
+</node>
+<node id="n477">
+	<data key="dn_href">http://www.connectome.ch/wiki/st2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st2Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_2</data>
+	<data key="dn_colorcode">142,220,220</data>
+	<data key="dn_intensityvalue">477</data>
+</node>
+<node id="n478">
+	<data key="dn_href">http://www.connectome.ch/wiki/st3Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st3Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_3</data>
+	<data key="dn_colorcode">143,220,220</data>
+	<data key="dn_intensityvalue">478</data>
+</node>
+<node id="n479">
+	<data key="dn_href">http://www.connectome.ch/wiki/st4Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st4Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_4</data>
+	<data key="dn_colorcode">144,220,220</data>
+	<data key="dn_intensityvalue">479</data>
+</node>
+<node id="n480">
+	<data key="dn_href">http://www.connectome.ch/wiki/st5Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st5Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_5</data>
+	<data key="dn_colorcode">145,220,220</data>
+	<data key="dn_intensityvalue">480</data>
+</node>
+<node id="n481">
+	<data key="dn_href">http://www.connectome.ch/wiki/st6Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st6Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_6</data>
+	<data key="dn_colorcode">146,220,220</data>
+	<data key="dn_intensityvalue">481</data>
+</node>
+<node id="n482">
+	<data key="dn_href">http://www.connectome.ch/wiki/st7Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st7Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_7</data>
+	<data key="dn_colorcode">147,220,220</data>
+	<data key="dn_intensityvalue">482</data>
+</node>
+<node id="n483">
+	<data key="dn_href">http://www.connectome.ch/wiki/st8Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st8Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_8</data>
+	<data key="dn_colorcode">148,220,220</data>
+	<data key="dn_intensityvalue">483</data>
+</node>
+<node id="n484">
+	<data key="dn_href">http://www.connectome.ch/wiki/st9Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st9Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_9</data>
+	<data key="dn_colorcode">149,220,220</data>
+	<data key="dn_intensityvalue">484</data>
+</node>
+<node id="n485">
+	<data key="dn_href">http://www.connectome.ch/wiki/st10Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st10Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_10</data>
+	<data key="dn_colorcode">150,220,220</data>
+	<data key="dn_intensityvalue">485</data>
+</node>
+<node id="n486">
+	<data key="dn_href">http://www.connectome.ch/wiki/st11Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st11Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_11</data>
+	<data key="dn_colorcode">151,220,220</data>
+	<data key="dn_intensityvalue">486</data>
+</node>
+<node id="n487">
+	<data key="dn_href">http://www.connectome.ch/wiki/st12Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st12Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_12</data>
+	<data key="dn_colorcode">152,220,220</data>
+	<data key="dn_intensityvalue">487</data>
+</node>
+<node id="n488">
+	<data key="dn_href">http://www.connectome.ch/wiki/st13Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st13Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_13</data>
+	<data key="dn_colorcode">153,220,220</data>
+	<data key="dn_intensityvalue">488</data>
+</node>
+<node id="n489">
+	<data key="dn_href">http://www.connectome.ch/wiki/st14Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">st14Res500_LH</data>
+	<data key="dn_freesurfer_structname">superiortemporal_14</data>
+	<data key="dn_colorcode">154,220,220</data>
+	<data key="dn_intensityvalue">489</data>
+</node>
+<node id="n490">
+	<data key="dn_href">http://www.connectome.ch/wiki/tt1Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">tt1Res500_LH</data>
+	<data key="dn_freesurfer_structname">transversetemporal_1</data>
+	<data key="dn_colorcode">150,150,200</data>
+	<data key="dn_intensityvalue">490</data>
+</node>
+<node id="n491">
+	<data key="dn_href">http://www.connectome.ch/wiki/tt2Res500_LH_(Homo sapiens)</data>
+	<data key="dn_label">tt2Res500_LH</data>
+	<data key="dn_freesurfer_structname">transversetemporal_2</data>
+	<data key="dn_colorcode">152,150,200</data>
+	<data key="dn_intensityvalue">491</data>
+</node>
+<node id="n492">
+	<data key="dn_href">http://www.connectome.ch/wiki/thRes500_LH_(Homo sapiens)</data>
+	<data key="dn_label">thRes500_LH</data>
+	<data key="dn_freesurfer_structname">Left-Thalamus-Proper</data>
+	<data key="dn_colorcode">2,124,5</data>
+	<data key="dn_intensityvalue">492</data>
+</node>
+<node id="n493">
+	<data key="dn_href">http://www.connectome.ch/wiki/canRes500_LH_(Homo sapiens)</data>
+	<data key="dn_label">canRes500_LH</data>
+	<data key="dn_freesurfer_structname">Left-Caudate</data>
+	<data key="dn_colorcode">100,172,222</data>
+	<data key="dn_intensityvalue">493</data>
+</node>
+<node id="n494">
+	<data key="dn_href">http://www.connectome.ch/wiki/puRes500_LH_(Homo sapiens)</data>
+	<data key="dn_label">puRes500_LH</data>
+	<data key="dn_freesurfer_structname">Left-Putamen</data>
+	<data key="dn_colorcode">32,101,149</data>
+	<data key="dn_intensityvalue">494</data>
+</node>
+<node id="n495">
+	<data key="dn_href">http://www.connectome.ch/wiki/gpRes500_LH_(Homo sapiens)</data>
+	<data key="dn_label">gpRes500_LH</data>
+	<data key="dn_freesurfer_structname">Left-Pallidum</data>
+	<data key="dn_colorcode">146,210,255</data>
+	<data key="dn_intensityvalue">495</data>
+</node>
+<node id="n496">
+	<data key="dn_href">http://www.connectome.ch/wiki/accRes500_LH_(Homo sapiens)</data>
+	<data key="dn_label">accRes500_LH</data>
+	<data key="dn_freesurfer_structname">Left-Accumbens-area</data>
+	<data key="dn_colorcode">255,43,78</data>
+	<data key="dn_intensityvalue">496</data>
+</node>
+<node id="n497">
+	<data key="dn_href">http://www.connectome.ch/wiki/subthRes500_LH_(Homo sapiens)</data>
+	<data key="dn_label">subthRes500_LH</data>
+	<data key="dn_freesurfer_structname">Left-Subthalamus</data>
+	<data key="dn_colorcode">231,159,21</data>
+	<data key="dn_intensityvalue">497</data>
+</node>
+<node id="n498">
+	<data key="dn_href">http://www.connectome.ch/wiki/hippRes500_LH_(Homo sapiens)</data>
+	<data key="dn_label">hippRes500_LH</data>
+	<data key="dn_freesurfer_structname">Left-Hippocampus</data>
+	<data key="dn_colorcode">150,246,255</data>
+	<data key="dn_intensityvalue">498</data>
+</node>
+<node id="n499">
+	<data key="dn_href">http://www.connectome.ch/wiki/amgRes500_LH_(Homo sapiens)</data>
+	<data key="dn_label">amgRes500_LH</data>
+	<data key="dn_freesurfer_structname">Left-Amygdala</data>
+	<data key="dn_colorcode">255,128,191</data>
+	<data key="dn_intensityvalue">499</data>
+</node>
+<node id="n500">
+	<data key="dn_href">http://www.connectome.ch/wiki/brstRes500_(Homo sapiens)</data>
+	<data key="dn_label">brstRes500</data>
+	<data key="dn_freesurfer_structname">Brain-Stem</data>
+	<data key="dn_colorcode">121,98,74</data>
+	<data key="dn_intensityvalue">500</data>
+</node>
+
+</graph>
+</graphml>

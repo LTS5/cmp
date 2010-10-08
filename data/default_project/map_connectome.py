@@ -5,20 +5,15 @@
 
 import os.path
 from cmt import *
-from cmt.logme import *
-import datetime as dt
 
-# add a logger server http://www.huyng.com/archives/python-logging-from-multiple-processes/418/
-
-#########################################
-# Data and project specific configuration
-#########################################
+#################################################
+# Project and processing specific configuration #
+#################################################
 
 from cmt.configuration import PipelineConfiguration
 
 myp = PipelineConfiguration('Testproject One')
-
-myp.project_dir = os.path.join(os.path.dirname(__file__) )
+myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt/testdata/test_project_one'
 myp.project_metadata = {# required metadata
                         'generator' : 'cmt 1.1',
                         'initial-creator' : 'Stephan Gerhard',
@@ -38,12 +33,13 @@ myp.project_metadata = {# required metadata
 
 myp.registration_mode = 'L'
 
-myp.processing_mode = 'DSI'
-myp.mode_parameters = {'sharpness_odf' : [0],
-                       'nr_of_gradient_directions' : 515,
+myp.processing_mode = ('DSI', 'Lausanne2011')
+
+myp.mode_parameters = {'nr_of_gradient_directions' : 515,
                        'nr_of_sampling_directions' : 181,
-                       'lin_reg_para' : '-usesqform -nosearch -dof 6 -cost mutualinfo',
-                       'odf_recon_para' : '-b0 1 -dsi -p 4 -sn 0 -ot nii',
+                       'lin_reg_param' : '-usesqform -nosearch -dof 6 -cost mutualinfo',
+                       'odf_recon_param' : '-b0 1 -dsi -p 4 -sn 0 -ot nii',
+                       'streamline_param' : '--angle 60 --rSeed 4',
                        # if nonlinear registration is used at all
                        # f  ->  smaller values give larger brain outline estimates
                        # g  ->  positive values give larger brain outline at bottom, smaller at top
@@ -51,26 +47,36 @@ myp.mode_parameters = {'sharpness_odf' : [0],
                        'nlin_reg_bet_b0_param' : '-f 0.2 -g 0.2',
                        'nlin_reg_fnirt_param' : ''}
 
-myp.wm_handling = 1
+# email notification
+myp.emailnotify = ['connectome@unidesign.ch']
+
+# dti processing mode
+# dti_recon $CMT_SUBJECTS_DIR/$MY_SUBJECT/raw_diffusion/iso/*_000.hdr $CMT_SUBJECTS_DIR/$MY_SUBJECT/raw_diffusion/iso/$MY_SUBJECT -gm  $DTI_PATH/dti_30_gradient.txt -b 1000 -b0 1 -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
+# param : -b 1000 -b0 1 -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
+# gradient map : -gm  $DTI_PATH/dti_30_gradient.txt
+
 # 1: run through the freesurfer step without stopping
 # 2: prepare whitematter mask for correction (store it in subject dir/NIFTI
 # 3: rerun freesurfer part with corrected white matter mask
+myp.wm_handling = 1
 
-# file types for raw data
-myp.raw_glob = "*.ima"
 # inspect the results of the registration by starting a fslview instance
-myp.inspect_registration = True
+myp.inspect_registration = False
 
-myp.subject_list = { ('testsubject1', 'tp1') :
-                     {'workingdir' : os.path.join(myp.project_dir, 'testsubject1', 'tp1'),
+myp.subject_list = { ('testsubject2', 'tp1') :
+                     {'workingdir' : os.path.join(myp.project_dir, 'testsubject2', 'tp1'),
                       'age' : 55,
                       'sex' :'X',
-                      'description' : 'This subject is totally healthy!'},
+                      'description' : 'This subject is totally healthy!',
+                      # file endings for raw data
+                      'raw_glob_diffusion' : '*.ima',
+                      'raw_glob_T1' : '*.ima',
+                      'raw_glob_T2' : '*.ima'},
                    }
 
-#########################
-# setting the environment
-#########################
+#######################################
+# Setting up the software environment #
+#######################################
 
 myp.freesurfer_home = os.path.join(os.environ['FREESURFER_HOME'])
 myp.fsl_home = os.path.join(os.environ['FSL_HOME'])
@@ -79,21 +85,22 @@ myp.dtk_matrices = os.path.join(myp.dtk_home, 'matrices')
 myp.matlab_home = "/home/stephan/Software/MATLAB/"
 myp.matlab_bin = os.path.join(myp.matlab_home, 'bin')
 myp.matlab_prompt = "matlab -nosplash -r " #"matlab -nosplash -nodesktop -r "
-
 os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
 
-# consistency check the configuration
+#######################################
+# Consistency check the configuration #
+#######################################
+
 myp.consistency_check()
 
-########################
-# Run the pipeline steps
-########################
+##########################
+# Run the pipeline steps #
+##########################
 
-sid =  ('testsubject1', 'tp1') 
+# setup only one subject, will loop over all subjects later
+sid =  ('testsubject2', 'tp1') 
 
-# setup logger for subject
-myp.subject_list[sid]['logger'] = getLog(os.path.join(myp.get_log4subject(sid), 'pipeline-%s.log' % str(dt.datetime.now()))) 
-
+#preprocessing.run(myp, sid )
 dicomconverter.run(myp, sid )
 #registration.run(myp, sid )
 #freesurfer.run(myp, sid )
@@ -104,4 +111,4 @@ dicomconverter.run(myp, sid )
 #connectionmatrix.run(myp, sid )
 
 # out-of-main-loop:
-#cffconverter.run(myp, ('control001', 'tp1') )
+#cffconverter.run(myp)

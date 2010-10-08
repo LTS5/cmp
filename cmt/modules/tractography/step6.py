@@ -9,8 +9,8 @@ def convert_wm_mask():
     log.info("Convert WM MASK to 8 bit/pixel")
     log.info("==============================")
     
-    infile = op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm.nii')
-    outfile = op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm__8bit.nii')
+    infile = op.join(gconf.get_cmt_tracto_mask_tob0(sid), 'fsmask_1mm.nii')
+    outfile = op.join(gconf.get_cmt_tracto_mask_tob0(sid), 'fsmask_1mm__8bit.nii')
     
     fsl_cmd = 'fslmaths %s %s -odt char' % (infile, outfile) 
     runCmd( fsl_cmd, log )
@@ -24,41 +24,24 @@ def fiber_tracking_dsi():
     log.info("===========================")
     
     # XXX: rm "fibers/streamline.trk" &> /dev/null
-    
-    if not op.exists(gconf.get_cmt_fibers4subject(sid)):
-        fibers_path = os.makedirs(gconf.get_cmt_fibers4subject(sid))
-    
-    # XXX: be clear about it
-    if len(gconf.mode_parameters['sharpness_odf']) == 1:
-        # normal streamline
-        
-        dtb_cmd = ['DTB_streamline', \
-                                 "--odf %s" % op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0', 'dsi_'),
-                                 "--angle 60",
-                                 "--wm %s" % op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm__8bit.nii'),
-                                 "--rSeed 4",
-                                 "--out %s" % op.join(gconf.get_cmt_fibers4subject(sid), 'streamline')]
-        dtb_cmd = ' '.join(dtb_cmd)
-        
-        runCmd( dtb_cmd, log )
-        
+    fibers_path = gconf.get_cmt_fibers4subject(sid)
+                
+    # streamline tractography
+
+    if gconf.mode_parameters.has_key('streamline_param'):
+        param = gconf.mode_parameters['streamline_param']
     else:
-        # streamline with 2 ODFs
-        for ele in gconf.mode_parameters['sharpness_odf']:
-            log.info("Compute streamline for element %s" % ele)
-            
-            dtb_cmd = ['DTB_streamline', \
-                                     "--odf %s" % op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_%s' % str(ele), 'dsi_'),
-                                     "--angle 45",
-                                     "--odf2 %s" % op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0', 'dsi_'),
-                                     "--angle2 60",
-                                     "--wm %s" % op.join(gconf.get_cmt_fsmask4subject(sid), 'fsmask_1mm__8bit.nii'),
-                                     "--rSeed 4",
-                                     "--out %s" % op.join(gconf.get_cmt_fibers4subject(sid), 'streamline')]
-            dtb_cmd = ' '.join(dtb_cmd)
-            runCmd( dtb_cmd, log )
-                    
-    if not op.exists(op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk')):
+        param = '--angle 60 --rSeed 4'
+
+    cmd = op.join(gconf.get_cmt_binary_path(), 'DTB_streamline')
+    dtb_cmd = '%s --odf %s --wm %s --out %s %s' % (cmd, op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0', 'dsi_'),
+                            # use the white matter mask after registration!
+                            op.join(gconf.get_cmt_tracto_mask_tob0(sid), 'fsmask_1mm__8bit.nii'),
+                            op.join(fibers_path, 'streamline'), param )
+    
+    runCmd( dtb_cmd, log )
+        
+    if not op.exists(op.join(fibers_path, 'streamline.trk')):
         log.error('No streamline.trk created')    
     
     # XXX: rm "${DATA_path}/${MY_SUBJECT}/${MY_TP}/4__CMT/fs_output/registred/HR__registered-TO-b0/fsmask_1mm__8bit.nii"
@@ -102,11 +85,15 @@ def run(conf, subject_tuple):
     
     convert_wm_mask()
     
-    if gconf.processing_mode == 'DSI':
+    if gconf.processing_mode == ('DSI', 'Lausanne2011'):
         fiber_tracking_dsi()
-    elif gconf.processing_mode == 'DTI':
+    elif gconf.processing_mode == ('DTI', 'Lausanne2011'):
         fiber_tracking_dti()
 
     spline_filtering()
     
     log.info("Module took %s seconds to process." % (time()-start))
+    
+    msg = "Tractography module finished!\nIt took %s seconds." % int(time()-start)
+    send_email_notification(msg, gconf.emailnotify, log)  
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+
+<key id="cmt@sid_name" for="node" attr.name="cmt@sid_name" attr.type="string">
+	<desc>The subject id used for the connectome mapping toolkit.</desc>
+</key>
+<key id="cmt@sid_timepoint" for="node" attr.name="cmt@sid_timepoint" attr.type="string">
+	<desc>The subject timepoint used for the connectome mapping toolkit.</desc>
+</key>
+<key id="cmt@workingdir" for="node" attr.name="cmt@workingdir" attr.type="string">
+	<desc>The subject workingdir used for the connectome mapping toolkit.</desc>
+</key>
+<key id="cmt@wm_handling" for="node" attr.name="cmt@wm_handling" attr.type="string">
+	<desc>The white matter handling used for the connectome mapping toolkit.</desc>
+</key>
+<key id="cmt@raw_glob" for="node" attr.name="cmt@raw_glob" attr.type="string">
+	<desc>The file pattern for the input DICOM files used for the connectome mapping toolkit.</desc>
+</key>
+<key id="cmt@inspect_registration" for="node" attr.name="cmt@inspect_registration" attr.type="string">
+	<desc>Show the processed files in fslview/trackvis. Used for the connectome mapping toolkit.</desc>
+</key>
+<key id="age" for="node" attr.name="age" attr.type="string">
+	<desc>The age of the subject</desc>
+</key>
+<key id="sex" for="node" attr.name="sex" attr.type="string">
+	<desc>The sex of the subject</desc>
+</key>
+<key id="description" for="node" attr.name="description" attr.type="string">
+	<desc>Some more description of the subject</desc>
+</key>
+
+<graph id="Subjects">
+
+<node id="s1">
+	<data key="cmt@sid_name">testsubject1</data>
+	<data key="cmt@sid_timepoint">tp1</data>
+	<data key="cmt@workingdir">testsubject1/tp1</data>
+	<data key="cmt@wm_handling">1</data>
+	<data key="cmt@raw_glob">*.IMA</data>
+	<data key="cmt@inspect_registration">False</data>
+	<data key="age">55</data>
+	<data key="sex">M</data>
+	<data key="description">This subject is totally healthy!</data>
+</node>
+
+</graph>
+</graphml>

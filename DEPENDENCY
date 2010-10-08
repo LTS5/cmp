@@ -7,7 +7,15 @@ Required
 
 * Python, 2.7
 * Nibabel
-* Traits / Traits GUI (?)
+* NetworkX
+* NumPy
+* Traits / Traits GUI (getting rid of it?)
+
+
+Binary
+------
+Do we need the linked against libraries?
+Boost, Blitz, libnifti
 
 Optional
 --------
