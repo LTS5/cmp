@@ -43,9 +43,14 @@ def mm2index(mm3, hdrStreamline):
     """
     
     index = np.zeros(3)
-    index[0] = int(math.ceil( mm3[0] / hdrStreamline['voxel_size'][0] - hdrStreamline['voxel_size'][0]/2 )) # round => math.ceil
-    index[1] = int(math.ceil( mm3[1] / hdrStreamline['voxel_size'][1] - hdrStreamline['voxel_size'][1]/2 )) # 0.5 => hdrStreamline['voxel_size'][i]/2
-    index[2] = int(math.ceil( mm3[2] / hdrStreamline['voxel_size'][2] - hdrStreamline['voxel_size'][2]/2 ))
+#    index[0] = int(math.ceil( mm3[0] / hdrStreamline['voxel_size'][0] - hdrStreamline['voxel_size'][0]/2 )) # round => math.ceil
+#    index[1] = int(math.ceil( mm3[1] / hdrStreamline['voxel_size'][1] - hdrStreamline['voxel_size'][1]/2 )) # 0.5 => hdrStreamline['voxel_size'][i]/2
+#    index[2] = int(math.ceil( mm3[2] / hdrStreamline['voxel_size'][2] - hdrStreamline['voxel_size'][2]/2 ))
+    
+    index[0] = int(mm3[0] / hdrStreamline['voxel_size'][0] - 0.5 )
+    index[1] = int(mm3[1] / hdrStreamline['voxel_size'][1] - 0.5 )
+    index[2] = int(mm3[2] / hdrStreamline['voxel_size'][2] - 0.5 )
+    
     index[index<0] = 0
     if index[0]>hdrStreamline['dim'][0]:
         index[0] = hdrStreamline['dim'][0]
@@ -294,27 +299,31 @@ def DTB__cmat_scalar(fib, hdr):
 
     # For each file in the scalar dir
     # TODO Change the method to get scalarfiles
-    print '#-----------------------------------------------------------------#\r'
-    print '# Scalar informations:                                            #\r'
     scalarDir   = gconf.get_cmt_scalars4subject(sid)
     scalarFiles = np.array(os.listdir(scalarDir))
     nbScalar    = scalarFiles.size
-    print nbScalar
     for i in range(0, nbScalar):
         if (scalarFiles[i] != '.' and scalarFiles[i] != '..' and scalarFiles[i] != '.svn') :
             crtName = re.search('[a-z,0-9,A-Z]*.nii',scalarFiles[i]).group(0)
             crtName = re.sub('.nii','',crtName)
-            print '\t#'+str(i+1)+' = '+crtName
-			
+            log.info('#'+str(i+1)+' / '+str(nbScalar)+' = '+crtName)
+		
             # Open the file
-            scalar = nibabel.load(scalarDir+scalarFiles[i])
+            scalar = nibabel.load(op.join(scalarDir, scalarFiles[i]))
 			
 		    # Create the matrix
             fMatrix = np.zeros((hdr['n_count'],nInfo))
 			
             # For each fiber
             # TODO This function is really slow !!
+            pc = -1
             for j in range(0, hdr['n_count']):
+			
+			    # Percent counter
+                pcN = int(round( float(100*j)/hdr['n_count'] ))
+                if pcN > pc and pcN%10 == 0:	
+                    pc = pcN
+                    print '\t\t%4.0f%%' % (pc)
 			
 				# Get the XYZ in mm
                 data = np.array(fib[j][0])
@@ -332,8 +341,8 @@ def DTB__cmat_scalar(fib, hdr):
 			# Save the matrix in a file
             print '\tSave'
             filename = 'cmat_'+crtName+'.npy'
-            filepath = inPath #gconf.get_cmt_fibers4subject(sid)
-            np.save(op.join(filepath, 'matrices/', filename), fMatrix)
+            filepath = gconf.get_cmt_matrices4subject(sid)
+            np.save(op.join(filepath, filename), fMatrix)
             
     log.info("done")
     log.info("================")
@@ -445,22 +454,24 @@ def DTB__cmat(fib, hdr):
             roiL = roiData[endpoints[i, 1, 0], endpoints[i, 1, 1], endpoints[i, 1, 2]]
             
             # Filter
-            if roiF != 0 and roiL != 0 and roiF != roiL: 
-            
+            if roiF != 0 and roiL != 0: # and roiF != roiL: 
+                if roiF-1 <0:
+                    print 'error...'
                 matrix[roiF-1, roiL-1]                += 1 # TEST
-                matEdges[roiF-1][roiL-1]['nb_fibers'] += 1 
+#                matEdges[roiF-1][roiL-1]['nb_fibers'] += 1 # TODO change mm2index with int then remove -1 here
+#                matEdges[roiF][roiL]['nb_fibers'] += 1
                 
                 # Add informations about the current fiber to the corresponding edge
-                if matEdges[roiF-1][roiL-1]['nb_fibers'] == 1:
-                    matEdges[roiF-1][roiL-1].update({'length': shape[i]})
-                    matEdges[roiF-1][roiL-1].update({'fibersId': i})
-                else:
-                    matEdges[roiF-1][roiL-1]['length']   = np.hstack(( matEdges[roiF-1][roiL-1]['length'], shape[i] ))
-                    matEdges[roiF-1][roiL-1]['fibersId'] = np.hstack(( matEdges[roiF-1][roiL-1]['fibersId'], i ))
+#                if matEdges[roiF-1][roiL-1]['nb_fibers'] == 1:
+#                    matEdges[roiF-1][roiL-1].update({'length': shape[i]})
+#                    matEdges[roiF-1][roiL-1].update({'fibersId': i})
+#                else:
+#                    matEdges[roiF-1][roiL-1]['length']   = np.hstack(( matEdges[roiF-1][roiL-1]['length'], shape[i] ))
+#                    matEdges[roiF-1][roiL-1]['fibersId'] = np.hstack(( matEdges[roiF-1][roiL-1]['fibersId'], i ))
                 
         
         # Add to cmat
-        cmat.update({r: {'filename': roi_fname, 'node': arrNodes, 'edge': matEdges}})
+#        cmat.update({r: {'filename': roi_fname, 'node': arrNodes, 'edge': matEdges}})
         
         # TEST
         filename = 'cmat_'+r+'.npy'
@@ -470,9 +481,9 @@ def DTB__cmat(fib, hdr):
     log.info("--------------------")
 
     # NEW matrix => save
-    f = open(op.join(gconf.get_cmt_matrices4subject(sid), 'CMat.dat'),'w')
-    pickle.dump(cmat,f)
-    f.close()
+#    f = open(op.join(gconf.get_cmt_matrices4subject(sid), 'CMat.dat'),'w')
+#    pickle.dump(cmat,f)
+#    f.close()
 
     log.info("done")
     log.info("=========")							
@@ -510,9 +521,9 @@ def run(conf, subject_tuple):
     log.info("===============")
     
     # Call
-    DTB__cmat_shape(fib, hdr)
+#    DTB__cmat_shape(fib, hdr)
 #    DTB__cmat_scalar(fib, hdr)
-#    DTB__cmat(fib, hdr)
+    DTB__cmat(fib, hdr)
     
     log.info("Connection matrix module took %s seconds to process" % (time()-start))
     log.info("########################")
