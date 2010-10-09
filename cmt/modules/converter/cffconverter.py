@@ -2,7 +2,7 @@
 a connectome file format for visualization and analysis in the connectomeviewer """
 
 
-def run(conf, subject_tuple):
+def run(conf):
     """ Run the converter step
     
     Parameters
@@ -13,7 +13,6 @@ def run(conf, subject_tuple):
         
     """
     globals()['gconf'] = conf
-    globals()['sid'] = subject_tuple
     
     print "Happy converting!"
     

@@ -23,13 +23,19 @@ import modules.registration.apply_registration as apply_registration
 import modules.tractography.tractography as tractography
 
 # FIBER FILTERING
-import modules.postpressing.fiberfiltering as fiberfiltering
+import modules.postprocessing.fiberfilter as fiberfilter
 
 # FIBER CLUSTERING
-import modules.postpressing.fiberclustering as fiberclustering
+import modules.postprocessing.fiberclustering as fiberclustering
 
 # CONNECTION MATRIX
 import modules.connectionmatrix.step7 as connectionmatrix
 
 # CFF CONVERTER
 import modules.converter.cffconverter as cffconverter
+
+# OTHER
+import configuration
+import connectome
+import logme
+import util

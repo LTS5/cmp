@@ -9,35 +9,35 @@ def mapit(cobj):
     for subjid, subjval in cobj.subject_list.items():
     
         if cobj.preprocessing:
-            cmt.preprocesing( cobj, subjid )
+            cmt.preprocessing.run( cobj, subjid )
 
         if cobj.dicomconverter:
-            cmt.dicomconverter( cobj, subjid )
+            cmt.dicomconverter.run( cobj, subjid )
             
         if cobj.registration:
-            cmt.registration( cobj, subjid )
+            cmt.registration.run( cobj, subjid )
             
         if cobj.freesurfer:
-            cmt.freesurfer( cobj, subjid )
+            cmt.freesurfer.run( cobj, subjid )
             
         if cobj.maskcreation:
-            cmt.maskcreation( cobj, subjid )
+            cmt.maskcreation.run( cobj, subjid )
             
         if cobj.diffusion:
-            cmt.diffusion( cobj, subjid )
+            cmt.diffusion.run( cobj, subjid )
             
         if cobj.apply_registration:
-            cmt.apply_registration( cobj, subjid )
+            cmt.apply_registration.run( cobj, subjid )
             
         if cobj.tractography:
-            cmt.tractography( cobj, subjid )
+            cmt.tractography.run( cobj, subjid )
 
         if cobj.fiberfiltering:
-            cmt.fiberfiltering( cobj, subjid )
+            cmt.fiberfiltering.run( cobj, subjid )
                         
         if cobj.connectionmatrix:
-            cmt.connectionmatrix( cobj, subjid )
+            cmt.connectionmatrix.run( cobj, subjid )
             
         if cobj.cffconverter:
-            cmt.cffconverter( cobj )
+            cmt.cffconverter.run( cobj )
             
