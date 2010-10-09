@@ -82,6 +82,9 @@ class PipelineConfiguration(traits.HasTraits):
         
         self.parcellation = default_parcell
         
+        # no email notiry
+        self.emailnotify = []
+        
         # setting the project name
         self.project_name = project_name
         
