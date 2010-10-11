@@ -93,14 +93,14 @@ def nlin_regT12b0():
     log.info("[2.1] -> create a T2 brain mask")
 
     if gconf.mode_parameters.has_key('nlin_reg_bet_T2_param'):
-        param = gconf.mode_parameters('nlin_reg_bet_T2_param')
+        param = gconf.mode_parameters['nlin_reg_bet_T2_param']
     else:
         param = '-f 0.35 -g 0.15'
         
     #rm -f "T2-brain-mask.nii" > /dev/null
     infile = op.join(nifti_dir, "T2.nii")
     outfile = op.join(nifti_dir, "T2-brain")
-    bet_cmd = 'bet "T2.nii" "T2-brain" -m -n -R %s' % (infile, outfile, param)
+    bet_cmd = 'bet "%s" "%s" -m -n -R %s' % (infile, outfile, param)
     runCmd( bet_cmd, log ) 
     
     if not op.exists(op.join(nifti_dir, "T2-brain_mask.nii")):
@@ -123,7 +123,7 @@ def nlin_regT12b0():
     log.info("[2.2] -> create a DSI_b0 brain mask")
     
     if gconf.mode_parameters.has_key('nlin_reg_bet_b0_param'):
-        param = gconf.mode_parameters('nlin_reg_bet_b0_param')
+        param = gconf.mode_parameters['nlin_reg_bet_b0_param']
     else:
         param = '-f 0.2 -g 0.2'
         
@@ -131,7 +131,7 @@ def nlin_regT12b0():
     
     infile = op.join(nifti_dir, "DSI_b0_resampled.nii")
     outfile = op.join(nifti_dir, "b0-brain")
-    bet_cmd = 'bet "T2.nii" "T2-brain" -m -n -R %s' % (infile, outfile, param)
+    bet_cmd = 'bet "%s" "%s" -m -n -R %s' % (infile, outfile, param)
     runCmd( bet_cmd, log ) 
     
     if not op.exists(op.join(nifti_dir, "b0-brain_mask.nii")):
@@ -164,8 +164,8 @@ def nlin_regT12b0():
 
     param = '--subsamp=8,4,2,2 --miter==5,5,5,5 --lambda=240,120,90,30 --splineorder=3 --applyinmask=0,0,1,1 --applyrefmask=0,0,1,1'
     if gconf.mode_parameters.has_key('nlin_reg_fnirt_param'):
-        if not gconf.mode_parameters('nlin_reg_fnirt_param') == '':
-            param = gconf.mode_parameters('nlin_reg_fnirt_param')             
+        if not gconf.mode_parameters['nlin_reg_fnirt_param'] == '':
+            param = gconf.mode_parameters['nlin_reg_fnirt_param']
     
     tup = (op.join(nifti_dir, "T2.nii"),
          op.join(nifti_dir, "T2-TO-b0.mat"),
@@ -177,7 +177,7 @@ def nlin_regT12b0():
          op.join(nifti_dir, "b0-brain-mask.nii"),
          param)
 
-    fn_cmd = 'fnirt -v --in="%s" --aff="%s" --ref="%s" --iout="%s" --cout="%s" --fout="%s" --inmask="%s" --refmask="%s %s' % tup
+    fn_cmd = 'fnirt -v --in="%s" --aff="%s" --ref="%s" --iout="%s" --cout="%s" --fout="%s" --inmask="%s" --refmask="%s" %s' % tup
     runCmd( fn_cmd, log )
         
     if not op.exists(op.join(nifti_dir, "T2-TO-b0_warped.nii")):
@@ -226,8 +226,8 @@ def lin_regT12b0():
     log.info("Started FLIRT to find 'T1 --> b0' linear transformation")
 
     # XXX: rm -f "T1-TO-b0".*
-    if gconf.mode_parameters.has_key('lin_reg_paraM'):
-        param = gconf.mode_parameters['lin_reg_paraM']
+    if gconf.mode_parameters.has_key('lin_reg_param'):
+        param = gconf.mode_parameters['lin_reg_param']
     else:
         param = '-usesqform -nosearch -dof 6 -cost mutualinfo'
         
