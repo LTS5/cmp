@@ -147,7 +147,7 @@ def t22nifti_diff_unpack():
         shutil.copy(op.join(t2_dir, 'T2.nii'), op.join(nifti_dir, 'T2.nii'))
     else:
         raw_glob = gconf.get_rawglob('T2', sid)
-        first = sorted(glob(op.join(t1_dir, raw_glob)))[0]
+        first = sorted(glob(op.join(t2_dir, raw_glob)))[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T2.nii'))
         runCmd (diff_cmd, log)        
         log.info("Dataset 'T2.nii' successfully created!")

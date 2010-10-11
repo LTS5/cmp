@@ -36,6 +36,7 @@ def create_folders():
         op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2'),
         op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0'),
         op.join(gconf.get_nifti4subject(sid), 'wm_correction'),
+        op.join(gconf.get_fs4subject(sid), 'mri', 'orig')
         ]
 
     if gconf.registration_mode == 'N':
