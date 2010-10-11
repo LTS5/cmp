@@ -9,6 +9,7 @@ import nibabel
 import math
 import networkx as nx
 
+
 ################################################################################
 def DTB__load_endpoints_from_trk(fib, hdr):
     """ 
@@ -91,6 +92,68 @@ def DTB__load_endpoints_from_trk(fib, hdr):
 
 
 ################################################################################
+def DTB__scalars(fib, hdr):
+    """ 
+    Function
+    ----------
+    Get some scalar informations from the fibers and nifti files
+        
+    Inputs
+    ----------
+    fib: the fibers data
+    hdr: the header of the fibers.trk
+    
+    Outputs
+    ----------
+    scalar1.npy: for each nifti file provided, save a matrix of size [#fibers, 5]
+                      containing the data, mean, min, max and std for each fiber
+    ...
+    scalarN.npy: same
+    
+    Date
+    ----------
+    2010-09-05
+    
+    Author
+    ----------
+    Christophe Chenes
+    """
+    
+    log.info("================")
+    log.info("DTB__scalars")
+        
+    scalars      = {}
+    scalarFields = np.array(gconf.get_cmt_scalarfields(sid))
+    pc           = -1
+    for s in range(0, scalarFields.shape[0]):
+        scalarFile = nibabel.load(scalarFields[s, 1])
+        scalarData = scalarFile.get_data()
+        scalarInfo = []
+        for i,fi in enumerate(fib):
+        
+            # Percent counter
+            pcN = int(round( float(100*i)/(len(fib)*scalarFields.shape[0]) ))
+            if pcN > pc:	
+                pc = pcN
+                print '\t\t%4.0f%%' % (pc)
+                
+            crtFiber  = fi[0]
+            crtScalar = np.zeros((crtFiber.shape[0]))
+            for j in range(0, crtFiber.shape[0]):
+                x = int( crtFiber[j,0] / float(hdr['voxel_size'][0]))
+                y = int( crtFiber[j,1] / float(hdr['voxel_size'][0]))
+                z = int( crtFiber[j,2] / float(hdr['voxel_size'][0]))
+                crtScalar[j] = scalarData[x, y, z]
+            scalarInfo.append(crtScalar)
+        scalars.update({scalarFields[s, 0]: scalarInfo})
+    return scalars               
+    
+    log.info("done")
+    log.info("================")
+################################################################################
+
+
+################################################################################
 def DTB__cmat(fib, hdr): 
     """ 
     Function
@@ -127,7 +190,7 @@ def DTB__cmat(fib, hdr):
     log.info("Get endpoints")
     en_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_endpoints.npy')
     ep_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_epLen.npy')
-    if    not os.path.isfile(en_fname) or not os.path.isfile(ep_fname):
+    if not os.path.isfile(en_fname) or not os.path.isfile(ep_fname):
         log.info('computing endpoints')
         endpoints, epLen = DTB__load_endpoints_from_trk(fib, hdr)
         log.info('saving endpoints')
@@ -137,13 +200,30 @@ def DTB__cmat(fib, hdr):
         log.info('loading endpoints')
         endpoints = np.load(en_fname)
         epLen     = np.load(ep_fname)
+    log.info("done")
+    log.info("-------------")
+	
+	# Get the scalars informations
+    log.info("-------------")
+    log.info("Get scalars info")
+    scalarInfo = np.array(gconf.get_cmt_scalarfields(sid))
+    sc_fname = op.join( gconf.get_cmt_matrices4subject(sid), 'scalars.pickle' )
+    if not os.path.isfile(sc_fname):
+        log.info('computing scalars')
+        scalars = DTB__scalars(fib, hdr)
+        log.info('saving scalars')
+        nx.write_gpickle(scalars, sc_name)         
+    else:
+        log.info('loading scalars')
+        scalars = nx.read_gpickle(sc_fname)
+    log.info("done")
     log.info("-------------")
 	
     # For each resolution
     log.info("--------------------")
     log.info("Resolution treatment")
     resolution = gconf.parcellation.keys()
-    cmat = {} # NEW matrix
+    cmat = {} 
     for r in resolution:
         log.info("\tresolution = "+r)
       
@@ -152,7 +232,6 @@ def DTB__cmat(fib, hdr):
         roi_fname = op.join(gconf.get_cmt_fsout4subject(sid), 'registered', 'HR__registered-T0-b0', r, 'ROI_HR_th.nii')
         roi       = nibabel.load(roi_fname)
         roiData   = roi.get_data()
-        roiHeader = roi.get_header()
       
         # Create the matrix
         log.info("\tCreate and init the connection matrix")
@@ -176,10 +255,16 @@ def DTB__cmat(fib, hdr):
             # Add edge to graph
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
-                G.edge[startROI][endROI]['fiblength'].append(epLen[i])
+                G.edge[startROI][endROI]['fiblength'].append(epLen[i])  
+#                G.edge[startROI][endROI]['gfa'].append(scalars['gfa'][i])  
+                for j in range(0, scalarInfo.shape[0]):
+                    G.edge[startROI][endROI][scalarInfo[j,0]].append(scalars[scalarInfo[j,0]][i])          
             else:
                 G.add_edge(startROI, endROI, fiblist   = [i])
                 G.add_edge(startROI, endROI, fiblength = [epLen[i]])   
+                G.add_edge(startROI, endROI, gfa = [scalars['gfa'][i]]) # TODO Find an automatic way
+#                for j in range(0, scalarInfo.shape[0]):
+#                    G.add_edge(startROI, endROI, str(scalarInfo[j,0]) = [scalars[scalarInfo[j,0]][i]])
         
         # Add the number of fiber per edge
         for ed in G.edges_iter(data=True):
@@ -196,6 +281,7 @@ def DTB__cmat(fib, hdr):
     log.info("done")
     log.info("=========")							
 ################################################################################
+
 
 ################################################################################
 def run(conf, subject_tuple):
@@ -242,10 +328,11 @@ def run(conf, subject_tuple):
     log.info("===============")
     
     # Call
-#    DTB__cmat_shape(fib, hdr)
-#    DTB__cmat_scalar(fib, hdr)
+#    DTB__scalars(fib, hdr)
     DTB__cmat(fib, hdr)
-    
+        
     log.info("Connection matrix module took %s seconds to process" % (time()-start))
     log.info("########################")
 ################################################################################
+
+
