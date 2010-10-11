@@ -140,7 +140,7 @@ def t22nifti_diff_unpack():
     nifti_dir = op.join(gconf.get_nifti4subject(sid))
     
     log.info("Converting 'T2'...")
-    t2_dir = op.join(raw_dir, 'T1')
+    t2_dir = op.join(raw_dir, 'T2')
     # check if .nii / .nii.gz is already available
     if op.exists(op.join(t2_dir, 'T2.nii')):
         log.info("T2.nii already exists. No unpacking.")
