@@ -1,12 +1,8 @@
 import os, os.path as op
 from time import time
 from glob import glob
-import re
-import sys
 import numpy as np
-import pickle
 import nibabel
-import math
 import networkx as nx
 
 
@@ -254,7 +250,7 @@ def DTB__cmat(fib, hdr):
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
                 G.edge[startROI][endROI]['fiblength'].append(epLen[i])   
-                G.edge[startROI][endROI]['gfa'].append(scalars['gfa'][i])  
+                G.edge[startROI][endROI]['gfa'].append(scalars['gfa'][i]) # TODO Find an automatic way
 #                for j in range(0, scalarInfo.shape[0]):
 #                    G.edge[startROI][endROI][scalarInfo[j,0]].append(scalars[scalarInfo[j,0]][i])          
             else:
