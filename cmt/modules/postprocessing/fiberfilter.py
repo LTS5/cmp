@@ -11,7 +11,7 @@ def spline_filtering():
     ren = op.join(gconf.get_cmt_fibers4subject(sid), 'streamline_beforespline.trk')
     
     # rename original fiber
-    util.myrename(src, ren)
+    util.myrename(src, ren, log)
 
     sp_cmd = 'spline_filter %s 1 %s' % (ren, src)
     

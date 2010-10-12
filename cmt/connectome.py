@@ -32,8 +32,8 @@ def mapit(cobj):
         if cobj.tractography:
             cmt.tractography.run( cobj, subjid )
 
-        if cobj.fiberfiltering:
-            cmt.fiberfiltering.run( cobj, subjid )
+        if cobj.fiberfilter:
+            cmt.fiberfilter.run( cobj, subjid )
                         
         if cobj.connectionmatrix:
             cmt.connectionmatrix.run( cobj, subjid )

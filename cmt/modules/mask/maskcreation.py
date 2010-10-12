@@ -303,16 +303,16 @@ def run(conf, subject_tuple):
     log.info("=======================================")
     
     # Matlab legacy:
-    #from os import environ
-    #env = environ
-    #env['SUBJECTS_DIR'] = gconf.get_subj_dir(sid)
+    from os import environ
+    env = environ
+    env['SUBJECTS_DIR'] = gconf.get_subj_dir(sid)
     #env['DATA_path'] = gconf.project_dir
     #env['CMT_HOME'] = gconf.get_cmt_home()
     #cp = gconf.get_cmt_home()
     #env['MATLABPATH'] = "%s:%s/matlab_related:%s/matlab_related/nifti:%s/matlab_related/tractography:%s/registration" % (cp, cp, cp, cp, cp)
     
-    #create_annot_label()
-    #create_roi()
+    create_annot_label()
+    create_roi()
     create_wm_mask()    
     crop_and_move_datasets()
     

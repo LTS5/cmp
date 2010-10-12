@@ -66,6 +66,11 @@ def run(conf, subject_tuple):
     globals()['log'] = gconf.get_logger4subject(sid) 
     start = time()
     
+    from os import environ
+    env = environ
+    # alessandro needs to update the Cpp file
+    env['CMT_HOME'] = gconf.get_cmt_binary_path()
+
     convert_wm_mask()
     
     if gconf.processing_mode == ('DSI', 'Lausanne2011'):

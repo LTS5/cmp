@@ -24,7 +24,7 @@ def apply_nlin_registration():
     orig_mat = op.join(gconf.get_nifti4subject(sid), 'T1-TO-T2.mat')
     out_mat = op.join(tracto_masks_path_out, 'tmp_premat.mat')
     try:
-        sh.copy(orig_mat, out_mat)
+        shutil.copy(orig_mat, out_mat)
     finally:
         log.info("Copied file %s to %s." % (orig_mat, out_mat))
 
@@ -44,7 +44,7 @@ def apply_nlin_registration():
                          op.join(gconf.get_nifti4subject(sid), 'T2-TO-b0_warp.nii'),
                          op.join(tracto_masks_path_out, infile)
                          )
-        runCmd (apply_cmt, log )
+        runCmd (applywarp_cmt, log )
         
         if not op.exists(op.join(tracto_masks_path_out, infile)):
             msg = "An error occurred. File %s not generated." % op.join(tracto_masks_path_out, infile)
@@ -129,8 +129,6 @@ def run(conf, subject_tuple):
         apply_nlin_registration()
     elif gconf.registration_mode == 'L':
         apply_lin_registration()
-    
-    apply_registration()
     
     log.info("Module took %s seconds to process." % (time()-start))
 
