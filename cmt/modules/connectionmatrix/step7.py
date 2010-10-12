@@ -41,7 +41,7 @@ def DTB__load_endpoints_from_trk(fib, hdr):
     Christophe Chenes, Stephan Gerhard
     """
 
-    log.info("============================")
+    log.info("========================")
     log.info("DTB__load_endpoints_from_trk")
     
     # Init
@@ -86,7 +86,7 @@ def DTB__load_endpoints_from_trk(fib, hdr):
     return endpoints, length  
 	
     log.info("done")
-    log.info("============================")
+    log.info("========================")
     print '\n###################################################################\n'
 ################################################################################
 
@@ -119,7 +119,7 @@ def DTB__scalars(fib, hdr):
     Christophe Chenes
     """
     
-    log.info("================")
+    log.info("========================")
     log.info("DTB__scalars")
         
     scalars      = {}
@@ -149,7 +149,7 @@ def DTB__scalars(fib, hdr):
     return scalars               
     
     log.info("done")
-    log.info("================")
+    log.info("========================")
 ################################################################################
 
 
@@ -181,46 +181,43 @@ def DTB__cmat(fib, hdr):
     ----------
     Christophe Chenes, Stephan Gerhard 
     """
-    
-    log.info("=========")
-    log.info("DTB__cmat")	
           	
     # Get the endpoints for each fibers
-    log.info("-------------")
+    log.info("========================")
     log.info("Get endpoints")
     en_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_endpoints.npy')
     ep_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_epLen.npy')
     if not os.path.isfile(en_fname) or not os.path.isfile(ep_fname):
-        log.info('computing endpoints')
+        log.info('\tcomputing endpoints')
         endpoints, epLen = DTB__load_endpoints_from_trk(fib, hdr)
-        log.info('saving endpoints')
+        log.info('\tsaving endpoints')
         np.save(en_fname, endpoints)
         np.save(ep_fname, epLen)
     else:
-        log.info('loading endpoints')
+        log.info('\tloading endpoints')
         endpoints = np.load(en_fname)
         epLen     = np.load(ep_fname)
     log.info("done")
-    log.info("-------------")
+    log.info("========================")
 	
 	# Get the scalars informations
-    log.info("-------------")
+    log.info("========================")
     log.info("Get scalars info")
     scalarInfo = np.array(gconf.get_cmt_scalarfields(sid))
     sc_fname = op.join( gconf.get_cmt_matrices4subject(sid), 'scalars.pickle' )
     if not os.path.isfile(sc_fname):
-        log.info('computing scalars')
+        log.info('\tcomputing scalars')
         scalars = DTB__scalars(fib, hdr)
-        log.info('saving scalars')
-        nx.write_gpickle(scalars, sc_name)         
+        log.info('\tsaving scalars')
+        nx.write_gpickle(scalars, sc_fname)         
     else:
-        log.info('loading scalars')
+        log.info('\tloading scalars')
         scalars = nx.read_gpickle(sc_fname)
     log.info("done")
-    log.info("-------------")
+    log.info("========================")
 	
     # For each resolution
-    log.info("--------------------")
+    log.info("========================")
     log.info("Resolution treatment")
     resolution = gconf.parcellation.keys()
     cmat = {} 
@@ -234,13 +231,14 @@ def DTB__cmat(fib, hdr):
         roiData   = roi.get_data()
       
         # Create the matrix
-        log.info("\tCreate and init the connection matrix")
+        log.info("\tCreate the connection matrix")
         nROIs = roiData.max()
         G     = nx.Graph()
         G.add_nodes_from( range(1, nROIs+1) )
         dis = 0
         
         # For each endpoints
+        log.info("\tFill the connection matrix")
         for i in range(endpoints.shape[0]):
     
             # ROI start => ROI end
@@ -251,14 +249,14 @@ def DTB__cmat(fib, hdr):
             if startROI == 0 or endROI == 0:
                 dis += 1
                 continue
-                
+            
             # Add edge to graph
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
-                G.edge[startROI][endROI]['fiblength'].append(epLen[i])  
-#                G.edge[startROI][endROI]['gfa'].append(scalars['gfa'][i])  
-                for j in range(0, scalarInfo.shape[0]):
-                    G.edge[startROI][endROI][scalarInfo[j,0]].append(scalars[scalarInfo[j,0]][i])          
+                G.edge[startROI][endROI]['fiblength'].append(epLen[i])   
+                G.edge[startROI][endROI]['gfa'].append(scalars['gfa'][i])  
+#                for j in range(0, scalarInfo.shape[0]):
+#                    G.edge[startROI][endROI][scalarInfo[j,0]].append(scalars[scalarInfo[j,0]][i])          
             else:
                 G.add_edge(startROI, endROI, fiblist   = [i])
                 G.add_edge(startROI, endROI, fiblength = [epLen[i]])   
@@ -269,17 +267,27 @@ def DTB__cmat(fib, hdr):
         # Add the number of fiber per edge
         for ed in G.edges_iter(data=True):
             G.edge[ed[0]][ed[1]]['weight'] = len(ed[2]['fiblist'])   
+                
+        # Filtering
+        log.info("\tFiltering the matrix")
+        matMask = np.load(gconf.get_matMask4subject(sid))
+        for i in range (1, nROIs+1):
+            for j in range (1, nROIs+1):
+                if G.has_edge(i, j) and matMask[i-1][j-1]==0:
+                    G.remove_edge(i, j)
         
         # Add all in the current resolution
         cmat.update({r: {'filename': roi_fname, 'graph': G}})  
         
-    log.info("--------------------")
-    
-    # Save the connection matrix
-    nx.write_gpickle(cmat, op.join(gconf.get_cmt_matrices4subject(sid), 'cmat.pickle'))
-    
     log.info("done")
-    log.info("=========")							
+    log.info("========================")
+        
+    # Save the connection matrix
+    log.info("========================")
+    log.info("Save the connection matrix")
+    nx.write_gpickle(cmat, op.join(gconf.get_cmt_matrices4subject(sid), 'cmat.pickle'))
+    log.info("done")
+    log.info("========================")						
 ################################################################################
 
 
@@ -320,15 +328,14 @@ def run(conf, subject_tuple):
     log.info("Connection matrix module")
     
     # Read the fibers one and for all
-    log.info("===============")
+    log.info("========================")
     log.info("Read the fibers")
     fibFilename = op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk')
     fib, hdr    = nibabel.trackvis.read(fibFilename, False)
     log.info("done")
-    log.info("===============")
+    log.info("========================")
     
     # Call
-#    DTB__scalars(fib, hdr)
     DTB__cmat(fib, hdr)
         
     log.info("Connection matrix module took %s seconds to process" % (time()-start))
