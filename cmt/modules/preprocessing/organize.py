@@ -97,8 +97,12 @@ def run(conf, subject_tuple):
     set_env_vars()
     log_paths()
     
+    # consistency check the configuration
+    gconf.consistency_check()
+    
     log.info("Module took %s seconds to process." % (time()-start))
     
-    msg = "Preprocessing module finished!\nIt took %s seconds." % int(time()-start)
-    send_email_notification(msg, gconf.emailnotify, log)
+    if not len(gconf.emailnotify) == 0:
+        msg = "Preprocessing module finished!\nIt took %s seconds." % int(time()-start)
+        send_email_notification(msg, gconf.emailnotify, log)
     

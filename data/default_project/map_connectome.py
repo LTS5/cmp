@@ -4,15 +4,13 @@
 # EPFL, CHUV, 2010
 
 import os.path
-from cmt import *
-
+import cmt
+ 
 #################################################
 # Project and processing specific configuration #
 #################################################
 
-from cmt.configuration import PipelineConfiguration
-
-myp = PipelineConfiguration('Testproject One')
+myp = cmt.configuration.PipelineConfiguration('Testproject One')
 myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt/testdata/test_project_one'
 myp.project_metadata = {# required metadata
                         'generator' : 'cmt 1.1',
@@ -21,7 +19,7 @@ myp.project_metadata = {# required metadata
                         'creation-date' : '2010-09-17',
                         'modification-date' : '2010-09-17',
                         'species' : 'Homo sapiens',
-                        'targetspace' : 'MNI305',
+                        #'targetspace' : 'RAS',
                         'legal-notice' : '',
                         'reference' : '',
                         'url' : '',
@@ -87,28 +85,23 @@ myp.matlab_bin = os.path.join(myp.matlab_home, 'bin')
 myp.matlab_prompt = "matlab -nosplash -r " #"matlab -nosplash -nodesktop -r "
 os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
 
-#######################################
-# Consistency check the configuration #
-#######################################
-
-myp.consistency_check()
-
 ##########################
 # Run the pipeline steps #
 ##########################
 
-# setup only one subject, will loop over all subjects later
-sid =  ('testsubject2', 'tp1') 
+myp.preprocessing = False
+myp.dicomconverter = False
+myp.registration = False
+myp.freesurfer = False
+myp.maskcreation = False
+myp.diffusion = False
+myp.apply_registration = False
+myp.tractography = False
+myp.fiberfiltering = False
+myp.connectionmatrix = False
+myp.cffconverter = False
 
-#preprocessing.run(myp, sid )
-dicomconverter.run(myp, sid )
-#registration.run(myp, sid )
-#freesurfer.run(myp, sid )
-#maskcreation.run(myp, sid )
-#diffusion.run(myp, sid )
-#apply_registration.run(myp, sid )
-#tractography.run(myp, sid )
-#connectionmatrix.run(myp, sid )
-
-# out-of-main-loop:
-#cffconverter.run(myp)
+####################
+# Finally, map it! #
+####################
+cmt.connectome.mapit(myp)

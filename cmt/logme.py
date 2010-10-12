@@ -109,20 +109,16 @@ def send_email_notification(message, to, log, host = 'localhost'):
     
     import smtplib
     
-    sender = 'info@connectomics.org'
+    fromaddr = 'info@connectomics.org'
     receivers = to
     
-    message = """From: Connectome Mapping Toolkit
-To: %s
-Subject: CMT - Notification
-
-%s""" % (','.join(to), message)
-    
+    msg = ("From: %s\r\nTo: %s\r\nSubject: CMT - Notification\r\n\r\n"
+       % (fromaddr, ", ".join(receivers)))
+        
     try:
         smtpObj = smtplib.SMTP(host)
-        smtpObj.sendmail(sender, receivers, message)         
+        smtpObj.sendmail(fromaddr, receivers, message)         
         log.info("Successfully sent email")    
     except smtplib.SMTPException:
         log.info("Error: Unable to send email")
-
 

@@ -42,7 +42,7 @@ class PipelineConfiguration(traits.HasTraits):
         
     # email notification, needs a local smtp server
     # sudo apt-get install postfix
-    emailnotify = traits.ListStr(desc='the email address to send to')
+    emailnotify = traits.ListStr([], desc='the email address to send to')
     
     ################################
     # External package Configuration
@@ -72,7 +72,7 @@ class PipelineConfiguration(traits.HasTraits):
                                         # the subdirectory name from where to copy parcellations, with hemispheric wildcard
                                         'fs_label_subdir_name' : 'regenerated_%s_35',
                                         # should we subtract the cortical rois for the white matter mask?
-                                        'subtract_from_wm_mask' : 1
+                                        'subtract_from_wm_mask' : 1,
                                         }#,
 #                           'scale60' : {'fs_label_subdir_name' : 'regenerated_%s_60'},
 #                           'scale125' : {'fs_label_subdir_name' : 'regenerated_%s_125'},
@@ -81,6 +81,9 @@ class PipelineConfiguration(traits.HasTraits):
                            }
         
         self.parcellation = default_parcell
+        
+        # no email notiry
+        self.emailnotify = []
         
         # setting the project name
         self.project_name = project_name
