@@ -181,8 +181,8 @@ def DTB__cmat(fib, hdr):
     # Get the endpoints for each fibers
     log.info("========================")
     log.info("Get endpoints")
-    en_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_endpoints.npy')
-    ep_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'TEMP_epLen.npy')
+    en_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'endpoints.npy')
+    ep_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'lengths.npy')
     if not os.path.isfile(en_fname) or not os.path.isfile(ep_fname):
         log.info('\tcomputing endpoints')
         endpoints, epLen = DTB__load_endpoints_from_trk(fib, hdr)
@@ -264,12 +264,13 @@ def DTB__cmat(fib, hdr):
         for ed in G.edges_iter(data=True):
             G.edge[ed[0]][ed[1]]['weight'] = len(ed[2]['fiblist'])   
                 
-        # Filtering
+        # Filtering => BUG
         log.info("\tFiltering the matrix")
         matMask = np.load(gconf.get_matMask4subject(sid))
-        for i in range (1, nROIs+1):
-            for j in range (1, nROIs+1):
-                if G.has_edge(i, j) and matMask[i-1][j-1]==0:
+        for i in range (1, matMask.shape[0]+1):
+            for j in range (1, matMask.shape[1]+1):
+                mm = matMask[i-j][j-1]
+                if G.has_edge(i, j) and mm==0:
                     G.remove_edge(i, j)
         
         # Add all in the current resolution
