@@ -266,8 +266,8 @@ def DTB__cmat(fib, hdr):
             G.edge[ed[0]][ed[1]]['weight'] = len(ed[2]['fiblist'])   
         
         # Filter with mat_mask
-        for i in range (1,84):
-            for j in range (i,84):
+        for i in range (1,matMask.shape[0]+1):
+            for j in range (i,matMask.shape[0]+1):
                 if G.has_edge(i,j) and matMask[i-1,j-1] == 0:
                     print 'remove edge ['+str(i)+']['+str(j)+']'
                     G.remove_edge(i,j)
