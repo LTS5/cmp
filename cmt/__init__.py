@@ -8,13 +8,13 @@ import modules.converter.dicomconverter as dicomconverter
 import modules.registration.registration as registration
 
 # FREESURFER
-import modules.freesurfer.freesurfer as freesurfer
+import modules.segmentation.freesurfer as freesurfer
 
 # MASK: ROI_HR_th.nii / fsmask_1mm.nii CREATION
 import modules.mask.maskcreation as maskcreation
 
 # DIFFUSION TOOLKIT
-import modules.diffusion.dtk as diffusion
+import modules.reconstruction.dtk as dtk
 
 # REGISTRATION: Apply registration ROI/WM --> b0
 import modules.registration.apply_registration as apply_registration
@@ -35,6 +35,7 @@ import modules.connectionmatrix.step7 as connectionmatrix
 import modules.converter.cffconverter as cffconverter
 
 # OTHER
+# import * ?
 import configuration
 import connectome
 import logme

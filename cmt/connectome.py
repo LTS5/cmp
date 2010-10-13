@@ -23,8 +23,8 @@ def mapit(cobj):
         if cobj.maskcreation:
             cmt.maskcreation.run( cobj, subjid )
             
-        if cobj.diffusion:
-            cmt.diffusion.run( cobj, subjid )
+        if cobj.dtk:
+            cmt.dtk.run( cobj, subjid )
             
         if cobj.apply_registration:
             cmt.apply_registration.run( cobj, subjid )

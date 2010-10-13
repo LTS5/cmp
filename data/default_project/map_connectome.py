@@ -80,9 +80,6 @@ myp.freesurfer_home = os.path.join(os.environ['FREESURFER_HOME'])
 myp.fsl_home = os.path.join(os.environ['FSL_HOME'])
 myp.dtk_home = os.environ['DTDIR']
 myp.dtk_matrices = os.path.join(myp.dtk_home, 'matrices')
-myp.matlab_home = "/home/stephan/Software/MATLAB/"
-myp.matlab_bin = os.path.join(myp.matlab_home, 'bin')
-myp.matlab_prompt = "matlab -nosplash -r " #"matlab -nosplash -nodesktop -r "
 os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
 
 ##########################
@@ -92,9 +89,10 @@ os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
 myp.preprocessing = False
 myp.dicomconverter = False
 myp.registration = False
-myp.freesurfer = False
+myp.segmentation = False
+myp.freesurfer = ("Freesurfer", True)
 myp.maskcreation = False
-myp.diffusion = False
+myp.dtk = False
 myp.apply_registration = False
 myp.tractography = False
 myp.fiberfiltering = False
