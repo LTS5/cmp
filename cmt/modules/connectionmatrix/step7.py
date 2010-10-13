@@ -212,6 +212,10 @@ def DTB__cmat(fib, hdr):
     log.info("done")
     log.info("========================")
 	
+    # Load the mat_mask 
+    # TODO one mat_mask per resolution ?
+    matMask = np.load(gconf.get_matMask4subject(sid))
+	
     # For each resolution
     log.info("========================")
     log.info("Resolution treatment")
@@ -245,34 +249,29 @@ def DTB__cmat(fib, hdr):
             if startROI == 0 or endROI == 0:
                 dis += 1
                 continue
-            
+                
             # Add edge to graph
+            # TODO Find an automatic way for the scalars informations
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
                 G.edge[startROI][endROI]['fiblength'].append(epLen[i])   
-                G.edge[startROI][endROI]['gfa'].append(scalars['gfa'][i]) # TODO Find an automatic way
-#                for j in range(0, scalarInfo.shape[0]):
-#                    G.edge[startROI][endROI][scalarInfo[j,0]].append(scalars[scalarInfo[j,0]][i])          
+                G.edge[startROI][endROI]['gfa'].append(scalars['gfa'][i])          
             else:
                 G.add_edge(startROI, endROI, fiblist   = [i])
                 G.add_edge(startROI, endROI, fiblength = [epLen[i]])   
-                G.add_edge(startROI, endROI, gfa = [scalars['gfa'][i]]) # TODO Find an automatic way
-#                for j in range(0, scalarInfo.shape[0]):
-#                    G.add_edge(startROI, endROI, str(scalarInfo[j,0]) = [scalars[scalarInfo[j,0]][i]])
+                G.add_edge(startROI, endROI, gfa = [scalars['gfa'][i]])   
         
         # Add the number of fiber per edge
         for ed in G.edges_iter(data=True):
             G.edge[ed[0]][ed[1]]['weight'] = len(ed[2]['fiblist'])   
-                
-        # Filtering => BUG
-        log.info("\tFiltering the matrix")
-        matMask = np.load(gconf.get_matMask4subject(sid))
-        for i in range (1, matMask.shape[0]+1):
-            for j in range (1, matMask.shape[1]+1):
-                mm = matMask[i-j][j-1]
-                if G.has_edge(i, j) and mm==0:
-                    G.remove_edge(i, j)
         
+        # Filter with mat_mask
+        for i in range (1,84):
+            for j in range (i,84):
+                if G.has_edge(i,j) and matMask[i-1,j-1] == 0:
+                    print 'remove edge ['+str(i)+']['+str(j)+']'
+                    G.remove_edge(i,j)
+                        
         # Add all in the current resolution
         cmat.update({r: {'filename': roi_fname, 'graph': G}})  
         
