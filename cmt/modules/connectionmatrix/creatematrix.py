@@ -226,7 +226,7 @@ def cmat(fib, hdr):
       
         # Open the corresponding ROI
         log.info("\tOpen the corresponding ROI")
-        roi_fname = op.join(gconf.get_cmt_fsout4subject(sid), 'registered', 'HR__registered-T0-b0', r, 'ROI_HR_th.nii')
+        roi_fname = op.join(gconf.get_cmt_fsout4subject(sid), 'registered', 'HR__registered-TO-b0', r, 'ROI_HR_th.nii')
         roi       = nibabel.load(roi_fname)
         roiData   = roi.get_data()
       
