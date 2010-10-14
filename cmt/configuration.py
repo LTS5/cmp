@@ -52,8 +52,6 @@ class PipelineConfiguration(traits.HasTraits):
     fsl_home = traits.Directory(exists=True, desc="path to FSL")
     dtk_home = traits.Directory(exists=True, desc="path to diffusion toolkit")
     dtk_matrices = traits.Directory(exists=True, desc="path to diffusion toolkit matrices")
-    matlab_home = traits.Directory(exists=True, desc="path to matlab")
-    matlab_bin = traits.Directory(exists=True, desc="path to matlab binary")
 
     def __init__(self, project_name, **kwargs):
         # NOTE: In python 2.6, object.__init__ no longer accepts input
@@ -222,8 +220,6 @@ class PipelineConfiguration(traits.HasTraits):
     def get_cmt_scalars4subject(self, subject):
         return op.join(self.get_subj_dir(subject), '4__CMT', 'scalars')
 
-    # TEST
-    # return the mat_mask
     def get_matMask4subject(self, subject):
         if not self.mode_parameters.has_key('mat_mask'):
             return op.join(op.dirname(__file__), 'data', 'parcellation', 'lausanne2008', 'resolution83', 'mat_mask.npy')

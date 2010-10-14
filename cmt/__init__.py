@@ -29,7 +29,7 @@ import modules.postprocessing.fiberfilter as fiberfilter
 import modules.postprocessing.fiberclustering as fiberclustering
 
 # CONNECTION MATRIX
-import modules.connectionmatrix.step7 as connectionmatrix
+import modules.connectionmatrix.creatematrix as connectionmatrix
 
 # CFF CONVERTER
 import modules.converter.cffconverter as cffconverter
