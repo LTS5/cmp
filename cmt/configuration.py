@@ -38,7 +38,7 @@ class PipelineConfiguration(traits.HasTraits):
     inspect_registration = traits.Bool(desc='start fslview to inspect the the registration results')
 
     # matlab invocation prompt
-    matlab_prompt = traits.Str("matlab -nodesktop -nosplash -r")  
+#    matlab_prompt = traits.Str("matlab -nodesktop -nosplash -r")  
         
     # email notification, needs a local smtp server
     # sudo apt-get install postfix
@@ -99,8 +99,7 @@ class PipelineConfiguration(traits.HasTraits):
         pas = {'configuration.freesurfer_home' : self.freesurfer_home,
                'configuration.fsl_home' : self.fsl_home,
                'configuration.dtk_home' : self.dtk_home,
-               'configuration.dtk_matrices' : self.dtk_matrices,
-               'configuration.matlab_home' : self.matlab_home}
+               'configuration.dtk_matrices' : self.dtk_matrices}
         for k,p in pas.items():
             if not op.exists(p):
                 msg = 'Required software path for %s does not exists: %s' % (k, p)

@@ -88,7 +88,7 @@ def load_endpoints_from_trk(fib, hdr):
 
 
 ################################################################################
-def scalars(fib, hdr):
+def compute_scalars(fib, hdr):
     """ 
     Function
     ----------
@@ -116,7 +116,7 @@ def scalars(fib, hdr):
     """
     
     log.info("========================")
-    log.info("scalars")
+    log.info("Compute scalars")
         
     scalars      = {}
     scalarFields = np.array(gconf.get_cmt_scalarfields(sid))
@@ -203,7 +203,7 @@ def cmat(fib, hdr):
     sc_fname = op.join( gconf.get_cmt_matrices4subject(sid), 'scalars.pickle' )
     if not os.path.isfile(sc_fname):
         log.info('\tcomputing scalars')
-        scalars = scalars(fib, hdr)
+        scalars = compute_scalars(fib, hdr)
         log.info('\tsaving scalars')
         nx.write_gpickle(scalars, sc_fname)         
     else:

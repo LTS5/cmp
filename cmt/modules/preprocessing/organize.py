@@ -69,9 +69,6 @@ def log_paths():
     log.info(gconf.fsl_home)
     log.info(gconf.dtk_home)
     log.info(gconf.dtk_matrices)
-    log.info(gconf.matlab_home)
-    log.info(gconf.matlab_bin)
-    log.info(gconf.matlab_prompt)
 
 
 def run(conf, subject_tuple):
