@@ -255,11 +255,11 @@ def cmat(fib, hdr):
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
                 G.edge[startROI][endROI]['fiblength'].append(epLen[i])   
-                G.edge[startROI][endROI]['gfa'].append(scalars['gfa'][i])          
+#                G.edge[startROI][endROI]['gfa'].append(scalars['gfa'][i])          
             else:
                 G.add_edge(startROI, endROI, fiblist   = [i])
                 G.add_edge(startROI, endROI, fiblength = [epLen[i]])   
-                G.add_edge(startROI, endROI, gfa = [scalars['gfa'][i]])   
+#                G.add_edge(startROI, endROI, gfa = [scalars['gfa'][i]])   
         
         # Add the number of fiber per edge
         for ed in G.edges_iter(data=True):
