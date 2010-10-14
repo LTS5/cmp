@@ -23,30 +23,31 @@ def log_system_setup():
 def create_folders():
     
     paths = [
-        gconf.get_nifti4subject(sid),
-        gconf.get_fs4subject(sid),
-        gconf.get_cmt_tracto_mask(sid),
-        gconf.get_cmt_tracto_mask_tob0(sid),
-        gconf.get_cmt_fibers4subject(sid),  
-        gconf.get_log4subject(sid),
-        gconf.get_rawt14subject(sid),
-        gconf.get_raw_diffusion4subject(sid),
-        gconf.get_cmt_scalars4subject(sid),
-        gconf.get_cmt_matrices4subject(sid),
-        op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2'),
-        op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0'),
-        op.join(gconf.get_nifti4subject(sid), 'wm_correction'),
-        op.join(gconf.get_fs4subject(sid), 'mri', 'orig')
+        gconf.get_nifti(),
+        gconf.get_fs(),
+        gconf.get_cmt_tracto_mask(),
+        gconf.get_cmt_tracto_mask_tob0(),
+        gconf.get_cmt_fibers(),  
+        gconf.get_log(),
+        gconf.get_stats(),
+        gconf.get_rawt1(),
+        gconf.get_raw_diffusion(),
+        gconf.get_cmt_scalars(),
+        gconf.get_cmt_matrices(),
+        op.join(gconf.get_cmt_rawdiff(), '2x2x2'),
+        op.join(gconf.get_cmt_rawdiff(), 'odf_0'),
+        op.join(gconf.get_nifti(), 'wm_correction'),
+        op.join(gconf.get_fs(), 'mri', 'orig')
         ]
 
     if gconf.registration_mode == 'N':
-        paths.append(gconf.get_rawt24subject(sid))
+        paths.append(gconf.get_rawt2())
 
     for p in gconf.parcellation.keys():
-        paths.append(op.join(op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR'), p))
+        paths.append(op.join(op.join(gconf.get_cmt_fsout(), 'registred', 'HR'), p))
         
     for park, parv in gconf.parcellation.items():
-        paths.append(op.join(op.join(gconf.get_cmt_fsout4subject(sid), 'registred', 'HR__registered-TO-b0'), park))
+        paths.append(op.join(op.join(gconf.get_cmt_fsout(), 'registred', 'HR__registered-TO-b0'), park))
 
     for p in paths:
         if not op.exists(p):

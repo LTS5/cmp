@@ -119,7 +119,7 @@ def compute_scalars(fib, hdr):
     log.info("Compute scalars")
         
     scalars      = {}
-    scalarFields = np.array(gconf.get_cmt_scalarfields(sid))
+    scalarFields = np.array(gconf.get_cmt_scalarfields())
     pc           = -1
     for s in range(0, scalarFields.shape[0]):
         scalarFile = nibabel.load(scalarFields[s, 1])
@@ -181,8 +181,8 @@ def cmat(fib, hdr):
     # Get the endpoints for each fibers
     log.info("========================")
     log.info("Get endpoints")
-    en_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'endpoints.npy')
-    ep_fname  = op.join(gconf.get_cmt_fibers4subject(sid), 'lengths.npy')
+    en_fname  = op.join(gconf.get_cmt_fibers(), 'endpoints.npy')
+    ep_fname  = op.join(gconf.get_cmt_fibers(), 'lengths.npy')
     if not os.path.isfile(en_fname) or not os.path.isfile(ep_fname):
         log.info('\tcomputing endpoints')
         endpoints, epLen = load_endpoints_from_trk(fib, hdr)
@@ -200,7 +200,7 @@ def cmat(fib, hdr):
 #    log.info("========================")
 #    log.info("Get scalars info")
 #    scalarInfo = np.array(gconf.get_cmt_scalarfields(sid))
-#    sc_fname = op.join( gconf.get_cmt_matrices4subject(sid), 'scalars.pickle' )
+#    sc_fname = op.join( gconf.get_cmt_matrices(), 'scalars.pickle' )
 #    if not os.path.isfile(sc_fname):
 #        log.info('\tcomputing scalars')
 #        scalars = compute_scalars(fib, hdr)
@@ -214,7 +214,7 @@ def cmat(fib, hdr):
 	
     # Load the mat_mask 
     # TODO one mat_mask per resolution ?
-    matMask = np.load(gconf.get_matMask4subject(sid))
+    matMask = np.load(gconf.get_matMask4subject())
 	
     # For each resolution
     log.info("========================")
@@ -226,7 +226,7 @@ def cmat(fib, hdr):
       
         # Open the corresponding ROI
         log.info("\tOpen the corresponding ROI")
-        roi_fname = op.join(gconf.get_cmt_fsout4subject(sid), 'registered', 'HR__registered-TO-b0', r, 'ROI_HR_th.nii')
+        roi_fname = op.join(gconf.get_cmt_fsout(), 'registered', 'HR__registered-TO-b0', r, 'ROI_HR_th.nii')
         roi       = nibabel.load(roi_fname)
         roiData   = roi.get_data()
       
@@ -281,7 +281,7 @@ def cmat(fib, hdr):
     # Save the connection matrix
     log.info("========================")
     log.info("Save the connection matrix")
-    nx.write_gpickle(cmat, op.join(gconf.get_cmt_matrices4subject(sid), 'cmat.pickle'))
+    nx.write_gpickle(cmat, op.join(gconf.get_cmt_matrices(), 'cmat.pickle'))
     log.info("done")
     log.info("========================")						
 ################################################################################
@@ -326,7 +326,7 @@ def run(conf, subject_tuple):
     # Read the fibers one and for all
     log.info("========================")
     log.info("Read the fibers")
-    fibFilename = op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk')
+    fibFilename = op.join(gconf.get_cmt_fibers(), 'streamline.trk')
     fib, hdr    = nibabel.trackvis.read(fibFilename, False)
     log.info("done")
     log.info("========================")

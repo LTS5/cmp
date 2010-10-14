@@ -7,8 +7,8 @@ def spline_filtering():
     log.info("Spline filtering the fibers")
     log.info("===========================")
 
-    src = op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk') 
-    ren = op.join(gconf.get_cmt_fibers4subject(sid), 'streamline_beforespline.trk')
+    src = op.join(gconf.get_cmt_fibers(), 'streamline.trk') 
+    ren = op.join(gconf.get_cmt_fibers(), 'streamline_beforespline.trk')
     
     # rename original fiber
     util.myrename(src, ren, log)
@@ -17,7 +17,7 @@ def spline_filtering():
     
     runCmd( sp_cmd, log )
     
-#    os.rename(op.join(gconf.get_cmt_fibers4subject(sid), "tmp.trk"), op.join(gconf.get_cmt_fibers4subject(sid), "streamline.trk"))
+#    os.rename(op.join(gconf.get_cmt_fibers(), "tmp.trk"), op.join(gconf.get_cmt_fibers(), "streamline.trk"))
     
     log.info("[ DONE ]")
     
@@ -33,8 +33,8 @@ def filter_fibers():
         log.info("Can not run filter fibers because DiPy is missing")
         return
 
-    intrk = op.join(gconf.get_cmt_fibers4subject(sid), 'streamline.trk')
-    outtrk = op.join(gconf.get_cmt_fibers4subject(sid), 'streamline_beforefilter.trk')
+    intrk = op.join(gconf.get_cmt_fibers(), 'streamline.trk')
+    outtrk = op.join(gconf.get_cmt_fibers(), 'streamline_beforefilter.trk')
     
     util.myrename(intrk, outtrk)
     

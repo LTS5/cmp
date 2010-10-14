@@ -7,8 +7,8 @@ def convert_wm_mask():
     log.info("Convert WM MASK to 8 bit/pixel")
     log.info("==============================")
     
-    infile = op.join(gconf.get_cmt_tracto_mask_tob0(sid), 'fsmask_1mm.nii')
-    outfile = op.join(gconf.get_cmt_tracto_mask_tob0(sid), 'fsmask_1mm__8bit.nii')
+    infile = op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm.nii')
+    outfile = op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii')
     
     fsl_cmd = 'fslmaths %s %s -odt char' % (infile, outfile) 
     runCmd( fsl_cmd, log )
@@ -22,7 +22,7 @@ def fiber_tracking_dsi():
     log.info("===========================")
     
     # XXX: rm "fibers/streamline.trk" &> /dev/null
-    fibers_path = gconf.get_cmt_fibers4subject(sid)
+    fibers_path = gconf.get_cmt_fibers()
                 
     # streamline tractography
 
@@ -32,9 +32,9 @@ def fiber_tracking_dsi():
         param = '--angle 60 --rSeed 4'
 
     cmd = op.join(gconf.get_cmt_binary_path(), 'DTB_streamline')
-    dtb_cmd = '%s --odf %s --wm %s --out %s %s' % (cmd, op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0', 'dsi_'),
+    dtb_cmd = '%s --odf %s --wm %s --out %s %s' % (cmd, op.join(gconf.get_cmt_rawdiff(), 'odf_0', 'dsi_'),
                             # use the white matter mask after registration!
-                            op.join(gconf.get_cmt_tracto_mask_tob0(sid), 'fsmask_1mm__8bit.nii'),
+                            op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
                             op.join(fibers_path, 'streamline'), param )
     
     runCmd( dtb_cmd, log )

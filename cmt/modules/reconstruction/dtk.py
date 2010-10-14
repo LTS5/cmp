@@ -11,10 +11,10 @@ def resample_dsi():
     log.info("Resample the DSI dataset to 2x2x2 mm^3")
     log.info("======================================")
 
-    input_dsi_file = op.join(gconf.get_nifti4subject(sid), 'DSI.nii')
+    input_dsi_file = op.join(gconf.get_nifti(), 'DSI.nii')
     # XXX: this output file is never generated!
-    ouput_dsi_file = op.join(gconf.get_cmt_rawdiff4subject(sid), 'DSI_resampled_2x2x2.nii.gz')
-    res_dsi_dir = op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2') 
+    ouput_dsi_file = op.join(gconf.get_cmt_rawdiff(), 'DSI_resampled_2x2x2.nii.gz')
+    res_dsi_dir = op.join(gconf.get_cmt_rawdiff(), '2x2x2') 
     
     if not op.exists(input_dsi_file):
         log.error("File does not exists: %s" % input_dsi_file)
@@ -41,10 +41,10 @@ def resample_dti():
     log.info("Resample the DTI dataset to 2x2x2 mm^3")
     log.info("======================================")
 
-    input_dsi_file = op.join(gconf.get_nifti4subject(sid), 'DTI.nii')
+    input_dsi_file = op.join(gconf.get_nifti(), 'DTI.nii')
     # XXX: this output file is never generated!
-    ouput_dsi_file = op.join(gconf.get_cmt_rawdiff4subject(sid), 'DTI_resampled_2x2x2.nii.gz')
-    res_dsi_dir = op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2') 
+    ouput_dsi_file = op.join(gconf.get_cmt_rawdiff(), 'DTI_resampled_2x2x2.nii.gz')
+    res_dsi_dir = op.join(gconf.get_cmt_rawdiff(), '2x2x2') 
     
     if not op.exists(input_dsi_file):
         log.error("File does not exists: %s" % input_dsi_file)
@@ -71,8 +71,8 @@ def compute_dts():
     log.info("==============================")
     
     # XXX: is first file correct like this?
-    first_input_file = op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2', 'MR0000.nii')
-    dti_out_path = op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0')
+    first_input_file = op.join(gconf.get_cmt_rawdiff(), '2x2x2', 'MR0000.nii')
+    dti_out_path = op.join(gconf.get_cmt_rawdiff(), 'odf_0')
     
     if not op.exists(first_input_file):
         msg = "No input file available: %s" % first_input_file
@@ -90,7 +90,7 @@ def compute_dts():
          
     dti_cmd = 'dti_recon  %s %s %s' % (first_input_file,  
                              op.join(dti_out_path, "dti_"),
-                             param % gconf.get_gradient_matrix(sid, False) )
+                             param % gconf.get_gradient_matrix(False) )
     
     runCmd (dti_cmd, log )
 
@@ -103,8 +103,8 @@ def compute_odfs():
     log.info("Compute the ODFs field")
     log.info("=========================")
     
-    first_input_file = op.join(gconf.get_cmt_rawdiff4subject(sid), '2x2x2', 'MR0000.nii')
-    odf_out_path = op.join(gconf.get_cmt_rawdiff4subject(sid), 'odf_0')
+    first_input_file = op.join(gconf.get_cmt_rawdiff(), '2x2x2', 'MR0000.nii')
+    odf_out_path = op.join(gconf.get_cmt_rawdiff(), 'odf_0')
     
     if not op.exists(first_input_file):
         msg = "No input file available: %s" % first_input_file
@@ -143,7 +143,7 @@ def compute_odfs():
     else:
         # copy dsi_gfa.nii to scalar folder for processing with connectionmatrix
         src = op.join(odf_out_path, "dsi_gfa.nii")
-        dst = op.join(gconf.get_cmt_scalars4subject(sid), 'dsi_gfa.nii')
+        dst = op.join(gconf.get_cmt_scalars(), 'dsi_gfa.nii')
         mymove( src, dst, log )
     
     log.info("[ DONE ]")

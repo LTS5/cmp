@@ -44,7 +44,7 @@ class PipelineConfiguration(traits.HasTraits):
     # subject
     subject_name = traits.Str(  )
     subject_timepoint = traits.Str( )
-    subject_workingdir = traits.Directory
+    subject_workingdir = traits.Directory()
     subject_description = traits.Str( "" )
     subject_raw_glob_diffusion = traits.Str( "*.ima" )
     subject_raw_glob_T1 = traits.Str( "*.ima" )
@@ -83,10 +83,6 @@ class PipelineConfiguration(traits.HasTraits):
     # email notification, needs a local smtp server
     # sudo apt-get install postfix
     emailnotify = traits.ListStr([], desc='the email address to send to')
-    
-    ################################
-    # External package Configuration
-    ################################
     
     freesurfer_home = traits.Directory(exists=True, desc="path to Freesurfer")
     fsl_home = traits.Directory(exists=True, desc="path to FSL")
@@ -136,7 +132,7 @@ class PipelineConfiguration(traits.HasTraits):
         os.environ['FSLOUTPUTTYPE'] = self.fsloutputtype
         os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
                 
-
+    # XXX: what about deactivated modules?!
     def consistency_check(self):
         """ Provides a checking facility for configuration objects """
         
@@ -155,14 +151,13 @@ class PipelineConfiguration(traits.HasTraits):
                 msg = 'Required software path for %s does not exists: %s' % (k, p)
                 raise Exception(msg)
                 
-        if self.processing_mode[0] == 'DSI':
-            ke = self.mode_parameters.keys()
+        if self.diffusion_imaging_model == 'DSI':
 
-            if not 'nr_of_gradient_directions' in ke:
-                raise Exception('Parameter "nr_of_gradient_directions" not set as key in mode_parameters. Required for DSI.')
+            if self.nr_of_gradient_directions is None:
+                raise Exception('Parameter "nr_of_gradient_directions" not set. Required for DSI.')
                 
-            if not 'nr_of_sampling_directions' in ke:
-                raise Exception('Parameter "nr_of_sampling_directions" not set as key in mode_parameters. Required for DSI.')
+            if self.nr_of_sampling_directions is None:
+                raise Exception('Parameter "nr_of_sampling_directions" not set. Required for DSI.')
 
         for subj in self.subject_list:
             
@@ -175,14 +170,14 @@ class PipelineConfiguration(traits.HasTraits):
                     msg = 'Working directory %s does not exists for subject %s' % (wdir, str(subj))
                     raise Exception(msg)
                 else:
-                    wdiff = op.join(self.get_raw_diffusion4subject(subj))
+                    wdiff = op.join(self.get_raw_diffusion())
                     print wdiff
                     if not op.exists(wdiff):
-                        msg = 'Diffusion MRI subdirectory %s does not exists for subject %s' % (wdiff, str(subj))
+                        msg = 'Diffusion MRI subdirectory does not exists for the subject'
                         raise Exception(msg)
-                    wt1 = op.join(self.get_rawt14subject(subj))
+                    wt1 = op.join(self.get_rawt1())
                     if not op.exists(wt1):
-                        msg = 'Stuctural MRI subdirectory %s does not exists for subject %s' % (wt1, str(subj))
+                        msg = 'Structural MRI subdirectory T1 does not exist in RAWDATA'
                         raise Exception(msg)
         
         
@@ -190,163 +185,162 @@ class PipelineConfiguration(traits.HasTraits):
         """ Return the cmt home path """
         return op.dirname(__file__)
         
-    def get_raw4subject(self, subject):
-        """ Return raw data path for subject """
-        return op.join(self.get_subj_dir(subject), '1__RAWDATA')
+    def get_raw(self):
+        """ Return raw data path for the subject """
+        return op.join(self.get_subj_dir(subject), 'RAWDATA')
     
-    def get_log4subject(self, subject):
+    def get_log(self):
         """ Get subject log dir """
-        return op.join(self.get_subj_dir(subject), '0__LOG')
+        return op.join(self.get_subj_dir(subject), 'LOG')
     
-    def get_rawglob(self, modality, subject):
-        """ Get the file name endings for modality and subject """
+    def get_logger(self):
+        """ Get the logger instance created """
+        if self.subject_logger is None:
+            # setup logger for the subject
+            self.subject_logger = \
+                getLog(os.path.join(self.get_log(), \
+                        'pipeline-%s-%s-%s.log' % (str(dt.datetime.now()), self.subject_name,
+                                                   self.subject_timepoint ) )) 
+            return self.subject_logger
+        else: 
+            return self.subject_logger
+        
+    def get_rawglob(self, modality):
+        """ Get the file name endings for modality """
         
         if modality == 'diffusion':
-            if self.subject_list[subject].has_key('raw_glob_diffusion'):
-                return self.subject_list[subject]['raw_glob_diffusion']
+            if not self.subject_raw_glob_diffusion == '':
+                return self.subject_raw_glob_diffusion
             else:
-                raise Exception('No raw_glob_diffusion defined for subject %s' % subject)
+                raise Exception('No raw_glob_diffusion defined for subject')
 
         elif modality == 'T1':
-            if self.subject_list[subject].has_key('raw_glob_T1'):
-                return self.subject_list[subject]['raw_glob_T1']
+            if not self.subject_raw_glob_T1 == '':
+                return self.subject_raw_glob_T1
             else:
-                raise Exception('No raw_glob_T1 defined for subject %s' % subject)
+                raise Exception('No raw_glob_T1 defined for subject')
             
         elif modality == 'T2':
-            if self.subject_list[subject].has_key('raw_glob_T2'):
-                return self.subject_list[subject]['raw_glob_T2']
+            if not self.subject_raw_glob_T2 == '':
+                return self.subject_raw_glob_T2
             else:
-                raise Exception('No raw_glob_T2 defined for subject %s' % subject)
-        
-    
-    def get_logger4subject(self, subject):
-        """ Get the logger instance created """
-        if not self.subject_list[subject].has_key('logger'):
-            # setup logger for the subject
-            self.subject_list[subject]['logger'] = \
-                getLog(os.path.join(self.get_log4subject(subject), \
-                        'pipeline-%s-%s-%s.log' % (str(dt.datetime.now()), subject[0], subject[1] ) )) 
-            return self.subject_list[subject]['logger'] 
-        else: 
-            return self.subject_list[subject]['logger']
-    
-    def get_rawt14subject(self, subject):
+                raise Exception('No raw_glob_T2 defined for subject')
+
+    def get_rawt1(self):
         """ Get raw structural MRI T1 path for subject """
-        return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'T1')
+        return op.join(self.get_raw(), 'T1')
 
-    def get_rawt24subject(self, subject):
+    def get_rawt2(self):
         """ Get raw structural MRI T2 path for subject """
-        return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'T2')
+        return op.join(self.get_raw(), 'T2')
 
-    def get_raw_diffusion4subject(self, subject):
+    def get_subj_dir(self):
+        return self.subject_workingdir
+
+    def get_raw_diffusion(self):
         """ Get the raw diffusion path for subject """
-        if self.processing_mode[0] == 'DSI':
-            return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'DSI')
-        elif self.processing_mode[0] == 'DTI':
-            return op.join(self.get_subj_dir(subject), '1__RAWDATA', 'DTI')
-        
-    def get_fs4subject(self, subject):
+        if self.diffusion_imaging_model == 'DSI':
+            return op.join(self.get_subj_dir(subject), 'RAWDATA', 'DSI')
+        elif self.diffusion_imaging_model == 'DTI':
+            return op.join(self.get_subj_dir(subject), 'RAWDATA', 'DTI')
+
+    def get_fs(self):
         """ Returns the subject root folder path for freesurfer files """
-        return op.join(self.get_subj_dir(subject), '3__FREESURFER')
-        
-    def get_nifti4subject(self, subject):
-        """ Returns the subject root folder path for nifti files """
-        return op.join(self.get_subj_dir(subject), '2__NIFTI')
-
-    def get_cmt4subject(self, subject):
-        return op.join(self.get_subj_dir(subject), '4__CMT')
-
-    def get_cmt_rawdiff4subject(self, subject):
-        return op.join(self.get_subj_dir(subject), '4__CMT', 'raw_diffusion')
-        
-    def get_cmt_fsout4subject(self, subject):
-        return op.join(self.get_subj_dir(subject), '4__CMT', 'fs_output')
+        return op.join(self.get_subj_dir(), 'FREESURFER')
     
-    def get_cmt_fibers4subject(self, subject):
-        return op.join(self.get_subj_dir(subject), '4__CMT', 'fibers')
+    def get_stats(self):
+        """ Return statistic output path """
+        return op.join(self.get_subj_dir(), 'STATS')
+    
+    def get_nifti(self):
+        """ Returns the subject root folder path for nifti files """
+        return op.join(self.get_subj_dir(), 'NIFTI')
 
-    def get_cmt_scalars4subject(self, subject):
-        return op.join(self.get_subj_dir(subject), '4__CMT', 'scalars')
+    def get_cmt(self, subject):
+        return op.join(self.get_subj_dir(), 'CMT')
 
-    def get_matMask4subject(self, subject):
+    def get_cmt_rawdiff(self, ):
+        return op.join(self.get_cmt(), 'raw_diffusion')
+        
+    def get_cmt_fsout(self, ):
+        return op.join(self.get_cmt(), 'fs_output')
+    
+    def get_cmt_fibers(self, ):
+        return op.join(self.get_cmt(), 'fibers')
+
+    def get_cmt_scalars(self, ):
+        return op.join(self.get_cmt(), 'scalars')
+        
+    def get_cmt_matrices(self, subject):
+        return op.join(self.get_cmt_fibers(), 'matrices')  
+    
+    def get_cmt_tracto_mask(self):
+        return op.join(self.get_cmt_fsout(), 'registered', 'HR')
+    
+    def get_cmt_tracto_mask_tob0(self, subject):
+        return op.join(self.get_cmt_fsout(), 'registered', 'HR__registered-TO-b0')
+
+    # XXX
+    def get_matMask4subject(self):
         if not self.mode_parameters.has_key('mat_mask'):
             return op.join(op.dirname(__file__), 'data', 'parcellation', 'lausanne2008', 'resolution83', 'mat_mask.npy')
         else:
             return self.mode_parameters['mat_mask']
-        
-    def get_cmt_matrices4subject(self, subject):
-        return op.join(self.get_subj_dir(subject), '4__CMT', 'fibers', 'matrices')    
-
-    def get_cmt_tracto_mask(self, subject):
-        return op.join(self.get_cmt_fsout4subject(subject), 'registred', 'HR')
-    
-    def get_cmt_tracto_mask_tob0(self, subject):
-        return op.join(self.get_cmt_fsout4subject(subject), 'registred', 'HR__registered-TO-b0')
-
-    def get_subj_dir(self, subject):
-        return self.subject_list[subject]['workingdir']
-
-    def get_gradient_matrix(self, subject, raw = True):
+          
+    # XXX
+    def get_gradient_matrix(self, raw = True):
         """ Returns the absolute path to the gradient matrix
         (the b-vectors) extracted from the raw diffusion DICOM files """
         
-        if self.processing_mode[0] == 'DSI':
-            return op.join(self.get_nifti4subject(subject), 'dsi_bvects.txt')
-        elif  self.processing_mode[0] == 'DTI':
+        if self.diffusion_imaging_model == 'DSI':
+            return op.join(self.get_nifti(), 'dsi_bvects.txt')
+        elif  self.diffusion_imaging_model == 'DTI':
             if raw:
                 # return the raw table
-                return op.join(self.get_nifti4subject(subject), 'dti_bvects.txt')
+                return op.join(self.get_nifti(), 'dti_bvects.txt')
             else:
-                # return the processed table with nan set to 0 and 4th component are the bvals
-                
+                # XXX: return the processed table with nan set to 0 and 4th component are the bvals
                 pass
-
+    
+    
+    # XXX
     def get_cmt_scalarfields(self, subject):
         """ Returns a list with tuples with the scalar field name and the
         absolute path to its nifti file """
         
         ret = []
         
-        if self.processing_mode[0] == 'DSI':
+        if self.diffusion_imaging_model == 'DSI':
             # add gfa per default
-            ret.append( ('gfa', op.join(self.get_cmt_scalars4subject(subject), 'dsi_gfa.nii')))
+            ret.append( ('gfa', op.join(self.get_cmt_scalars(), 'dsi_gfa.nii')))
             # XXX: add adc per default
             
-        elif  self.processing_mode[0] == 'DTI':
+        elif  self.diffusion_imaging_model == 'DTI':
             # nothing to add yet for DTI
             pass
         
         return ret
-        
+
         
     def get_dtk_dsi_matrix(self):
         """ Returns the DSI matrix from Diffusion Toolkit
         
-        The mode_parameters have to be set in the configuration object with keys:
+        The parameters have to be set in the configuration object with keys:
         1. number of gradient directions : 'nr_of_gradient_directions'
         2. number of sampling directions : 'nr_of_sampling_directions'
         
         Example
         -------
         
-        confobj.mode_parameters['nr_of_gradient_directions'] = 515
-        confobj.mode_parameters['nr_of_sampling_directions'] = 181
+        confobj.nr_of_gradient_directions = 515
+        confobj.nr_of_sampling_directions = 181
         
         Returns matrix including absolute path to DSI_matrix_515x181.dat
         
         """
-        
-        # XXX: check fist if it is available at all
-        if not self.mode_parameters.has_key('nr_of_gradient_directions'):
-            msg = 'nr_of_gradient_directions not set in mode_parameters'
-            raise Exception(msg)
-        if not self.mode_parameters.has_key('nr_of_sampling_directions'):
-            msg = 'nr_of_sampling_directions not set in mode_parameters'
-            raise Exception(msg)
          
-        grad = self.mode_parameters['nr_of_gradient_directions']
-        samp = self.mode_parameters['nr_of_sampling_directions']
+        grad = self.nr_of_gradient_directions
+        samp = self.nr_of_sampling_directions
         fpath = op.join(self.dtk_matrices, "DSI_matrix_%sx%s.dat" % (grad, samp))
         if not op.exists(fpath):
             msg = "DSI matrix does not exists: %s" % fpath

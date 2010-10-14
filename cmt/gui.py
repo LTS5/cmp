@@ -1,20 +1,15 @@
-""" Defines the graphical user interface to the cmt
+""" Defines the graphical user interface to the Connectome Mapping Toolkit
 
-Layout:
-* Tabs for the different modules
-* Each module can be activated or not
-* Parameters are set per module specific
 * Logwindow that gets updated
 * Run Button
 
 """
 
-# Imports:
-from enthought.traits.api import HasTraits, Int, Str, Password, Directory, List,\
-                 Bool, File, Button, Instance, Enum, DelegatesTo
+from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
+                 Bool, File, Button, Enum
     
-from enthought.traits.ui.api import View, Item, ListStrEditor, HGroup, Handler, \
-                    message, spring, Group, EnumEditor, VGroup
+from enthought.traits.ui.api import View, Item, HGroup, Handler, \
+                    message, spring, Group, VGroup
                     
 from cmt.configuration import PipelineConfiguration
 
@@ -94,9 +89,9 @@ class CMTGUI( PipelineConfiguration ):
                       label = "Linear Registration"
                       ),
                VGroup(
-                      Item('nlin_reg_bet_T2_param'),
-                      Item('nlin_reg_bet_b0_param'),
-                      Item('nlin_reg_fnirt_param'),
+                      Item('nlin_reg_bet_T2_param', label="BET T2 Parameters"),
+                      Item('nlin_reg_bet_b0_param', label="BET b0 Parameters"),
+                      Item('nlin_reg_fnirt_param', label="FNIRT Parameters"),
                       enabled_when = 'registration_mode == "N"',
                       label = "Nonlinear Registration"
                ),
@@ -171,10 +166,6 @@ class CMTGUI( PipelineConfiguration ):
         ),
         resizable = True,
         title     = 'Connectome Mapping Toolkit',
-#        width     = 800,
-#        height    = 500,
-        
-#        buttons   = [ 'About', 'Close', 'Run!']
     )
     
     def _about_fired(self):
@@ -190,8 +181,6 @@ class CMTGUI( PipelineConfiguration ):
         #cmt.connectome.mapit2(myp)
 
 
-
-# Run the demo (if invoked from the command line):
 if __name__ == '__main__':
     cmtgui = CMTGUI()
     cmtgui.configure_traits()

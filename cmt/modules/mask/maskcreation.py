@@ -16,10 +16,10 @@ def create_annot_label():
     log.info("Create the cortical labels necessary for our ROIs")
     log.info("=================================================")
     
-    subjects_dir = gconf.get_subj_dir(sid)
+    subjects_dir = gconf.get_subj_dir()
 
-    fs_label_dir = op.join(gconf.get_fs4subject(sid), 'label')
-    fs_dir = gconf.get_fs4subject(sid)
+    fs_label_dir = op.join(gconf.get_fs(), 'label')
+    fs_dir = gconf.get_fs()
     
     paths = []
     
@@ -53,7 +53,7 @@ def create_annot_label():
     ]
 
     for out in comp:      
-        mris_cmd = 'mris_ca_label "3__FREESURFER" %s "%s/surf/%s.sphere.reg" "%s" "%s" ' % (out[0], 
+        mris_cmd = 'mris_ca_label "FREESURFER" %s "%s/surf/%s.sphere.reg" "%s" "%s" ' % (out[0], 
 		fs_dir, out[0], gconf.get_lausanne_atlas(out[1]), op.join(fs_label_dir, out[2]))    
         runCmd( mris_cmd, log )
         log.info('-----------')
@@ -62,7 +62,7 @@ def create_annot_label():
             annot = '--annotation "%s"' % out[4]
         else:
             annot = ''
-        mri_an_cmd = 'mri_annotation2label --subject "3__FREESURFER" --hemi %s --outdir "%s" %s' % (out[0], op.join(fs_label_dir, out[3]), annot)
+        mri_an_cmd = 'mri_annotation2label --subject "FREESURFER" --hemi %s --outdir "%s" %s' % (out[0], op.join(fs_label_dir, out[3]), annot)
         runCmd( mri_an_cmd, log )
         log.info('-----------')
 
@@ -80,7 +80,7 @@ def create_annot_label():
     mri_cmd = """mri_label2vol --label "%s" --label "%s" --label "%s" --label "%s" --temp "%s" --o  "%s" --identity """ % (rhun, lhun, rhco, lhco, op.join(fs_dir, 'mri', 'orig.mgz'), op.join(fs_dir, 'label', 'cc_unknown.nii') )
     runCmd( mri_cmd, log )
 
-    runCmd( 'mris_volmask "3__FREESURFER"', log)
+    runCmd( 'mris_volmask "FREESURFER"', log)
 
     mri_cmd = 'mri_convert -i "%s/mri/ribbon.mgz" -o "%s/mri/ribbon.nii"' % (fs_dir, fs_dir)
     runCmd( mri_cmd, log )
@@ -96,7 +96,7 @@ def create_roi():
     
     log.info("Create the ROIs:")
 
-    fs_dir = gconf.get_fs4subject(sid)
+    fs_dir = gconf.get_fs()
     
     # load aseg volume
     aseg = ni.load(op.join(fs_dir, 'mri', 'aseg.nii'))
@@ -167,9 +167,9 @@ def create_wm_mask():
     
     log.info("Create white matter mask")
     
-    fs_dir = gconf.get_fs4subject(sid)
-    fs_cmd_dir = gconf.get_cmt_fsout4subject(sid)
-    reg_path = gconf.get_cmt_tracto_mask(sid)
+    fs_dir = gconf.get_fs()
+    fs_cmd_dir = gconf.get_cmt_fsout()
+    reg_path = gconf.get_cmt_tracto_mask()
     
     # load ribbon as basis for white matter mask
     fsmask = ni.load(op.join(fs_dir, 'mri', 'ribbon.nii'))
@@ -228,7 +228,7 @@ def create_wm_mask():
             continue
 
         log.info("Loading %s to subtract cortical ROIs from white matter mask" % ('ROI_%s.nii' % parkey) )
-        roi = ni.load(op.join(gconf.get_fs4subject(sid), 'label', 'ROI_%s.nii' % parkey))
+        roi = ni.load(op.join(gconf.get_fs(), 'label', 'ROI_%s.nii' % parkey))
         roid = roi.get_data()
         
         assert roid.shape[0] == wmmask.shape[0]
@@ -254,9 +254,9 @@ def crop_and_move_datasets():
     
     log.info("Cropping and moving datasets to CMT/fs_output/registred/HR folder")
     
-    fs_dir = gconf.get_fs4subject(sid)
-    fs_cmd_dir = gconf.get_cmt_fsout4subject(sid)
-    reg_path = gconf.get_cmt_tracto_mask(sid)
+    fs_dir = gconf.get_fs()
+    fs_cmd_dir = gconf.get_cmt_fsout()
+    reg_path = gconf.get_cmt_tracto_mask()
     
     # datasets to crop and move: (from, to)
     ds = [
@@ -305,7 +305,7 @@ def run(conf, subject_tuple):
     # Matlab legacy:
     from os import environ
     env = environ
-    env['SUBJECTS_DIR'] = gconf.get_subj_dir(sid)
+    env['SUBJECTS_DIR'] = gconf.get_subj_dir()
     #env['DATA_path'] = gconf.project_dir
     #env['CMT_HOME'] = gconf.get_cmt_home()
     #cp = gconf.get_cmt_home()

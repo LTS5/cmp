@@ -12,8 +12,8 @@ import nibabel as ni
 
 def diff2nifti_dsi_unpack():
 
-    raw_dir = op.join(gconf.get_raw4subject(sid))    
-    nifti_dir = op.join(gconf.get_nifti4subject(sid))
+    raw_dir = op.join(gconf.get_rawdata())    
+    nifti_dir = op.join(gconf.get_nifti())
 
     dsi_dir = op.join(raw_dir, 'DSI')
     log.info("Convert DSI ...") 
@@ -21,7 +21,7 @@ def diff2nifti_dsi_unpack():
     if op.exists(op.join(dsi_dir, 'DSI.nii')):
         shutil.copy(op.join(dsi_dir, 'DSI.nii'), op.join(nifti_dir, 'DSI.nii'))
     else:
-        raw_glob = gconf.get_rawglob('diffusion', sid)
+        raw_glob = gconf.get_rawglob('diffusion')
         # read data
         files = glob(op.join(dsi_dir, raw_glob))
         if len(files) == 0:
@@ -41,7 +41,7 @@ def diff2nifti_dsi_unpack():
 
 def dsi_resamp():
     
-    nifti_dir = op.join(gconf.get_nifti4subject(sid))
+    nifti_dir = op.join(gconf.get_nifti())
     
     log.info("Resampling 'DSI' to 1x1x1 mm^3...")
     
@@ -66,8 +66,8 @@ def dsi_resamp():
 
 def diff2nifti_dti_unpack():
 
-    raw_dir = op.join(gconf.get_raw4subject(sid))    
-    nifti_dir = op.join(gconf.get_nifti4subject(sid))
+    raw_dir = op.join(gconf.get_rawdata())    
+    nifti_dir = op.join(gconf.get_nifti())
 
     dti_dir = op.join(raw_dir, 'DTI')
     log.info("Convert DTI ...") 
@@ -75,7 +75,7 @@ def diff2nifti_dti_unpack():
     if op.exists(op.join(dti_dir, 'DTI.nii')):
         shutil.copy(op.join(dti_dir, 'DTI.nii'), op.join(nifti_dir, 'DTI.nii'))
     else:
-        raw_glob = gconf.get_rawglob('diffusion', sid)
+        raw_glob = gconf.get_rawglob('diffusion')
         # read data
         first = sorted(glob(op.join(dti_dir, raw_glob)))[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii'))            
@@ -92,7 +92,7 @@ def diff2nifti_dti_unpack():
 
 def dti_resamp():
     
-    nifti_dir = op.join(gconf.get_nifti4subject(sid))
+    nifti_dir = op.join(gconf.get_nifti())
     
     log.info("Resampling 'DTI' to 1x1x1 mm^3...")
     
@@ -117,8 +117,8 @@ def dti_resamp():
     
 def t12nifti_diff_unpack():
 
-    raw_dir = op.join(gconf.get_raw4subject(sid))
-    nifti_dir = op.join(gconf.get_nifti4subject(sid))
+    raw_dir = op.join(gconf.get_rawdata())
+    nifti_dir = op.join(gconf.get_nifti())
     
     log.info("Converting 'T1'...")
     t1_dir = op.join(raw_dir, 'T1')
@@ -126,7 +126,7 @@ def t12nifti_diff_unpack():
         log.info("T1.nii already exists. No unpacking.")
         shutil.copy(op.join(t1_dir, 'T1.nii'), op.join(nifti_dir, 'T1.nii'))
     else:
-        raw_glob = gconf.get_rawglob('T1', sid)
+        raw_glob = gconf.get_rawglob('T1')
         first = sorted(glob(op.join(t1_dir, raw_glob)))[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T1.nii'))
         runCmd(diff_cmd, log)
@@ -136,8 +136,8 @@ def t12nifti_diff_unpack():
         
 def t22nifti_diff_unpack():
     
-    raw_dir = op.join(gconf.get_raw4subject(sid))
-    nifti_dir = op.join(gconf.get_nifti4subject(sid))
+    raw_dir = op.join(gconf.get_rawdata())
+    nifti_dir = op.join(gconf.get_nifti())
     
     log.info("Converting 'T2'...")
     t2_dir = op.join(raw_dir, 'T2')
@@ -146,7 +146,7 @@ def t22nifti_diff_unpack():
         log.info("T2.nii already exists. No unpacking.")
         shutil.copy(op.join(t2_dir, 'T2.nii'), op.join(nifti_dir, 'T2.nii'))
     else:
-        raw_glob = gconf.get_rawglob('T2', sid)
+        raw_glob = gconf.get_rawglob('T2')
         first = sorted(glob(op.join(t2_dir, raw_glob)))[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T2.nii'))
         runCmd (diff_cmd, log)        

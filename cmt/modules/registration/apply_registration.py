@@ -12,8 +12,8 @@ def apply_nlin_registration():
     log.info("==============================================================================")
     log.info("(i.e. fsmask_1mm.*, scale33/ROI_HR_th.* etc)")
 
-    tracto_masks_path = gconf.get_cmt_tracto_mask(sid)
-    tracto_masks_path_out = gconf.get_cmt_tracto_mask_tob0(sid)
+    tracto_masks_path = gconf.get_cmt_tracto_mask()
+    tracto_masks_path_out = gconf.get_cmt_tracto_mask_tob0()
     
     if not op.exists(tracto_masks_path):
         msg = "Path does not exists but it should after the mask creation module: %s" % tracto_masks_path
@@ -21,7 +21,7 @@ def apply_nlin_registration():
         raise Exception(msg)  
 
     # XXX: is this correct?
-    orig_mat = op.join(gconf.get_nifti4subject(sid), 'T1-TO-T2.mat')
+    orig_mat = op.join(gconf.get_nifti(), 'T1-TO-T2.mat')
     out_mat = op.join(tracto_masks_path_out, 'tmp_premat.mat')
     try:
         shutil.copy(orig_mat, out_mat)
@@ -40,8 +40,8 @@ def apply_nlin_registration():
         applywarp_cmt = 'applywarp --in="%s" --premat="%s" --ref="%s" --warp="%s" --out="%s" --interp=nn' % \
                         (op.join(tracto_masks_path, infile),
                          out_mat,
-                         op.join(gconf.get_nifti4subject(sid), 'DSI_b0_resampled.nii'),
-                         op.join(gconf.get_nifti4subject(sid), 'T2-TO-b0_warp.nii'),
+                         op.join(gconf.get_nifti(), 'DSI_b0_resampled.nii'),
+                         op.join(gconf.get_nifti(), 'T2-TO-b0_warp.nii'),
                          op.join(tracto_masks_path_out, infile)
                          )
         runCmd (applywarp_cmt, log )
@@ -63,15 +63,15 @@ def apply_lin_registration():
     log.info("===========================================================================")
     log.info("(i.e. fsmask_1mm.*, scale33/ROI_HR_th.* etc)")
 
-    tracto_masks_path = gconf.get_cmt_tracto_mask(sid)
-    tracto_masks_path_out = gconf.get_cmt_tracto_mask_tob0(sid)
+    tracto_masks_path = gconf.get_cmt_tracto_mask()
+    tracto_masks_path_out = gconf.get_cmt_tracto_mask_tob0()
     
     if not op.exists(tracto_masks_path):
         msg = "Path does not exists but it should after the mask creation module: %s" % tracto_masks_path
         log.error(msg)
         raise Exception(msg)  
 
-    orig_mat = op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.mat')
+    orig_mat = op.join(gconf.get_nifti(), 'T1-TO-b0.mat')
     out_mat = op.join(tracto_masks_path_out, 'tmp_premat.mat')
     try:
         shutil.copy(orig_mat, out_mat)
@@ -91,7 +91,7 @@ def apply_lin_registration():
         flirt_cmd = 'flirt -applyxfm -init %s -in %s -ref %s -out %s -interp nearestneighbour' % (
                     out_mat,
                     op.join(tracto_masks_path, infile),
-                    op.join(gconf.get_nifti4subject(sid), 'DSI_b0_resampled.nii'),
+                    op.join(gconf.get_nifti(), 'DSI_b0_resampled.nii'),
                     op.join(tracto_masks_path_out, infile)
                     )
         

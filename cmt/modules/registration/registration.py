@@ -11,7 +11,7 @@ def nlin_regT12b0():
     log.info("T1 -> b0: Non-linear registration")
     log.info("=================================")
     
-    nifti_dir = gconf.get_nifti4subject(sid)
+    nifti_dir = gconf.get_nifti()
     
     #===========================================================================
     log.info('[SUB-STEP 1] LINEAR register "T2" onto "b0_resampled"')
@@ -33,8 +33,8 @@ def nlin_regT12b0():
 
     if gconf.inspect_registration:
         log.info("FLIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti4subject(sid), 'T2.nii'),
-                                                           op.join(gconf.get_nifti4subject(sid), 'T1-TO-T2.nii') )
+        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti(), 'T2.nii'),
+                                                           op.join(gconf.get_nifti(), 'T1-TO-T2.nii') )
         runCmd( fsl_view_cmd, log )
         
         
@@ -54,8 +54,8 @@ def nlin_regT12b0():
 
     if gconf.inspect_registration:
         log.info("FLIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti4subject(sid), 'DSI_b0_resampled.nii'),
-                                                           op.join(gconf.get_nifti4subject(sid), 'T2-TO-b0.nii') )
+        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti(), 'DSI_b0_resampled.nii'),
+                                                           op.join(gconf.get_nifti(), 'T2-TO-b0.nii') )
         runCmd( fsl_view_cmd, log )
         
         
@@ -80,8 +80,8 @@ def nlin_regT12b0():
     
     if gconf.inspect_registration:
         log.info("FLIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti4subject(sid), 'DSI_b0_resampled.nii'),
-                                                           op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.nii') )
+        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti(), 'DSI_b0_resampled.nii'),
+                                                           op.join(gconf.get_nifti(), 'T1-TO-b0.nii') )
         runCmd( fsl_view_cmd, log )
         
         
@@ -115,8 +115,8 @@ def nlin_regT12b0():
     
     if gconf.inspect_registration:
         log.info("FLIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview %s %s -l Red -b 0,1 -t 0.4' % (op.join(gconf.get_nifti4subject(sid), 'T2.nii'),
-                                                           op.join(gconf.get_nifti4subject(sid), 'T2-brain-mask.nii') )
+        fsl_view_cmd = 'fslview %s %s -l Red -b 0,1 -t 0.4' % (op.join(gconf.get_nifti(), 'T2.nii'),
+                                                           op.join(gconf.get_nifti(), 'T2-brain-mask.nii') )
         runCmd( fsl_view_cmd, log )
          
 
@@ -146,8 +146,8 @@ def nlin_regT12b0():
     
     if gconf.inspect_registration:
         log.info("FLIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview %s %s -l Red -b 0,1 -t 0.4' % (op.join(gconf.get_nifti4subject(sid), "DSI_b0_resampled.nii"),
-                                                           op.join(gconf.get_nifti4subject(sid), "b0-brain-mask.nii") )
+        fsl_view_cmd = 'fslview %s %s -l Red -b 0,1 -t 0.4' % (op.join(gconf.get_nifti(), "DSI_b0_resampled.nii"),
+                                                           op.join(gconf.get_nifti(), "b0-brain-mask.nii") )
         runCmd( fsl_view_cmd, log )
 
 
@@ -232,23 +232,23 @@ def lin_regT12b0():
         param = '-usesqform -nosearch -dof 6 -cost mutualinfo'
         
     flirt_cmd = 'flirt -in %s -ref %s -out %s -omat %s %s' % (
-            op.join(gconf.get_nifti4subject(sid), 'T1.nii'),
-            op.join(gconf.get_nifti4subject(sid), 'DSI_b0_resampled.nii'),
-            op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.nii'),
-            op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.mat'),
+            op.join(gconf.get_nifti(), 'T1.nii'),
+            op.join(gconf.get_nifti(), 'DSI_b0_resampled.nii'),
+            op.join(gconf.get_nifti(), 'T1-TO-b0.nii'),
+            op.join(gconf.get_nifti(), 'T1-TO-b0.mat'),
             param)
     runCmd(flirt_cmd, log)
     
-    if not op.exists(op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.mat')):
-        msg = "An error occurred. Linear transformation file %s not generated." % op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.mat')
+    if not op.exists(op.join(gconf.get_nifti(), 'T1-TO-b0.mat')):
+        msg = "An error occurred. Linear transformation file %s not generated." % op.join(gconf.get_nifti(), 'T1-TO-b0.mat')
         log.error(msg)
         raise Exception(msg)
 
     # check the results
     if gconf.inspect_registration:
         log.info("FLIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti4subject(sid), 'DSI_b0_resampled.nii'),
-                                                           op.join(gconf.get_nifti4subject(sid), 'T1-TO-b0.nii') )
+        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti(), 'DSI_b0_resampled.nii'),
+                                                           op.join(gconf.get_nifti(), 'T1-TO-b0.nii') )
         runCmd( fsl_view_cmd, log )
     
     log.info("[ DONE ]")
