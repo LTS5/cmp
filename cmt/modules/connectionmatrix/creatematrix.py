@@ -197,20 +197,20 @@ def cmat(fib, hdr):
     log.info("========================")
 	
 	# Get the scalars informations
-    log.info("========================")
-    log.info("Get scalars info")
-    scalarInfo = np.array(gconf.get_cmt_scalarfields(sid))
-    sc_fname = op.join( gconf.get_cmt_matrices4subject(sid), 'scalars.pickle' )
-    if not os.path.isfile(sc_fname):
-        log.info('\tcomputing scalars')
-        scalars = compute_scalars(fib, hdr)
-        log.info('\tsaving scalars')
-        nx.write_gpickle(scalars, sc_fname)         
-    else:
-        log.info('\tloading scalars')
-        scalars = nx.read_gpickle(sc_fname)
-    log.info("done")
-    log.info("========================")
+#    log.info("========================")
+#    log.info("Get scalars info")
+#    scalarInfo = np.array(gconf.get_cmt_scalarfields(sid))
+#    sc_fname = op.join( gconf.get_cmt_matrices4subject(sid), 'scalars.pickle' )
+#    if not os.path.isfile(sc_fname):
+#        log.info('\tcomputing scalars')
+#        scalars = compute_scalars(fib, hdr)
+#        log.info('\tsaving scalars')
+#        nx.write_gpickle(scalars, sc_fname)         
+#    else:
+#        log.info('\tloading scalars')
+#        scalars = nx.read_gpickle(sc_fname)
+#    log.info("done")
+#    log.info("========================")
 	
     # Load the mat_mask 
     # TODO one mat_mask per resolution ?
