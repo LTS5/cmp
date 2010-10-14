@@ -10,36 +10,76 @@ from cmt.logme import getLog
 
 class PipelineConfiguration(traits.HasTraits):
        
-    # project name
+    # project settings
     project_name = traits.Str(desc="the name of the project")
+    project_dir = traits.Directory(exists=True, desc="data path to where the project is stored")
         
     # project metadata (for connectome file)
     project_metadata = traits.Dict(desc="project metadata to be stored in the connectome file")
-
-    # data path where the project is
-    project_dir = traits.Directory(exists=True, desc="data path to where the project is stored")
-    
+    generator = traits.Enum( "cmt 1.1", ["cmt 1.1"] )
+        
     # subject list
     subject_list = traits.Dict(desc="a dictionary representing information about single subjects")
     
     # choose between 'L' (linear) and 'N' (non-linear)
-    registration_mode = traits.Either("L", "N", desc="registration mode: linear or non-linear")
+    registration_mode = traits.Enum("L", ["L", "N"], desc="registration mode: linear or non-linear")
     
     # going to support qBall, HARDI
-    processing_mode = traits.Enum( [('DSI', 'Lausanne2011'), ('DTI', 'Lausanne2011')], desc="diffusion MRI processing mode available")   
+    processing_mode = traits.Enum( ('DSI', 'Lausanne2011'), [('DSI', 'Lausanne2011'), ('DTI', 'Lausanne2011')], desc="diffusion MRI processing mode available")   
     
+    diffusion_imaging_model = traits.Enum( "DSI", ["DSI", "DTI", "HARDI/Q-Ball" ])
+    diffusion_imaging_stream = traits.Enum( "Lausanne2011", ["Lausanne2011"] )
+    
+    nr_of_gradient_directions = traits.Int(515)
+    nr_of_sampling_directions = traits.Int(181)
+    
+    odf_recon_param = traits.Str('-b0 1 -dsi -p 4 -sn 0 -ot nii')
+    streamline_param = traits.Str('--angle 60 --rSeed 4')
+    
+    lin_reg_param = traits.Str('-usesqform -nosearch -dof 6 -cost mutualinfo')
+    nlin_reg_bet_T2_param = traits.Str('-f 0.35 -g 0.15')
+    nlin_reg_bet_b0_param = traits.Str('-f 0.2 -g 0.2')
+    nlin_reg_fnirt_param = traits.Str('')
+
+    # subject
+    subject_name = traits.Str(  )
+    subject_timepoint = traits.Str( )
+    subject_workingdir = traits.Directory
+    subject_description = traits.Str( "" )
+    subject_raw_glob_diffusion = traits.Str( "*.ima" )
+    subject_raw_glob_T1 = traits.Str( "*.ima" )
+    subject_raw_glob_T2 = traits.Str( "*.ima" )
+        
+    active_dicomconverter = traits.Bool(True)
+    active_registration = traits.Bool(True)
+    active_segmentation = traits.Bool(True)
+    active_maskcreation = traits.Bool(True)
+    active_reconstruction = traits.Bool(True)
+    active_tractography = traits.Bool(True)
+    active_fiberfilter = traits.Bool(True)
+    active_connectome = traits.Bool(True)
+    active_cffconverter = traits.Bool(True)
+
+    author = traits.Str()
+    institution = traits.Str()
+    creationdate = traits.Str()
+    modificationdate = traits.Str()
+    species = traits.Str()
+    legalnotice = traits.Str()
+    reference = traits.Str()
+    url = traits.Str()
+    description = traits.Str()
+                        
     # do you want to do manual whit matter mask correction?
-    wm_handling = traits.Int(desc="in what state should the freesurfer step be processed")
+    wm_handling = traits.Enum(1, [1,2,3], desc="in what state should the freesurfer step be processed")
     
     # custom parcellation
     parcellation = traits.Dict(desc="provide the dictionary with your parcellation.")
     
     # start up fslview
-    inspect_registration = traits.Bool(desc='start fslview to inspect the the registration results')
-
-    # matlab invocation prompt
-#    matlab_prompt = traits.Str("matlab -nodesktop -nosplash -r")  
-        
+    inspect_registration = traits.Bool(False, desc='start fslview to inspect the the registration results')
+    fsloutputtype = traits.Enum( 'NIFTI', ['NIFTI'] )
+    
     # email notification, needs a local smtp server
     # sudo apt-get install postfix
     emailnotify = traits.ListStr([], desc='the email address to send to')
@@ -53,7 +93,7 @@ class PipelineConfiguration(traits.HasTraits):
     dtk_home = traits.Directory(exists=True, desc="path to diffusion toolkit")
     dtk_matrices = traits.Directory(exists=True, desc="path to diffusion toolkit matrices")
 
-    def __init__(self, project_name, **kwargs):
+    def __init__(self, **kwargs):
         # NOTE: In python 2.6, object.__init__ no longer accepts input
         # arguments.  HasTraits does not define an __init__ and
         # therefore these args were being ignored.
@@ -80,12 +120,22 @@ class PipelineConfiguration(traits.HasTraits):
         
         self.parcellation = default_parcell
         
-        # no email notiry
+        # no email notify
         self.emailnotify = []
         
-        # setting the project name
-        self.project_name = project_name
+        # try to discover paths from environment variables
+        try:
+            self.freesurfer_home = op.join(os.environ['FREESURFER_HOME'])
+            self.fsl_home = op.join(os.environ['FSL_HOME'])
+            self.dtk_home = os.environ['DTDIR']
+            self.dtk_matrices = op.join(myp.dtk_home, 'matrices')
+        except KeyError:
+            pass
         
+        self.fsloutputtype = 'NIFTI'
+        os.environ['FSLOUTPUTTYPE'] = self.fsloutputtype
+        os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
+                
 
     def consistency_check(self):
         """ Provides a checking facility for configuration objects """

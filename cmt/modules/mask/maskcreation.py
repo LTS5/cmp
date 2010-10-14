@@ -9,7 +9,7 @@ from ...logme import *
 import nibabel as ni
 import networkx as nx
 import numpy as np
-from cmt.modules.util import mymove
+from cmt.util import mymove
 
 def create_annot_label():
 

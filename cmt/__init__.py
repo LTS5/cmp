@@ -34,9 +34,3 @@ import modules.connectionmatrix.creatematrix as connectionmatrix
 # CFF CONVERTER
 import modules.converter.cffconverter as cffconverter
 
-# OTHER
-# import * ?
-import configuration
-import connectome
-import logme
-import util

@@ -5,7 +5,7 @@ import subprocess
 import sys
 from ...logme import *
 import shutil 
-from cmt.modules.util import mymove
+from cmt.util import mymove
 
 def nlin_regT12b0():
     log.info("T1 -> b0: Non-linear registration")

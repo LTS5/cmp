@@ -10,7 +10,8 @@ import cmt
 # Project and processing specific configuration #
 #################################################
 
-myp = cmt.configuration.PipelineConfiguration('Testproject One')
+myp = cmt.configuration.PipelineConfiguration()
+myp.project_name = 'Testproject One'
 myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt/testdata/test_project_one'
 myp.project_metadata = {# required metadata
                         'generator' : 'cmt 1.1',
@@ -53,9 +54,6 @@ myp.emailnotify = ['connectome@unidesign.ch']
 # param : -b 1000 -b0 1 -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
 # gradient map : -gm  $DTI_PATH/dti_30_gradient.txt
 
-# 1: run through the freesurfer step without stopping
-# 2: prepare whitematter mask for correction (store it in subject dir/NIFTI
-# 3: rerun freesurfer part with corrected white matter mask
 myp.wm_handling = 1
 
 # inspect the results of the registration by starting a fslview instance
@@ -72,15 +70,6 @@ myp.subject_list = { ('testsubject2', 'tp1') :
                       'raw_glob_T2' : '*.ima'},
                    }
 
-#######################################
-# Setting up the software environment #
-#######################################
-
-myp.freesurfer_home = os.path.join(os.environ['FREESURFER_HOME'])
-myp.fsl_home = os.path.join(os.environ['FSL_HOME'])
-myp.dtk_home = os.environ['DTDIR']
-myp.dtk_matrices = os.path.join(myp.dtk_home, 'matrices')
-os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
 
 ##########################
 # Run the pipeline steps #
@@ -90,7 +79,6 @@ myp.preprocessing = False
 myp.dicomconverter = False
 myp.registration = False
 myp.segmentation = False
-# myp.freesurfer = ("Freesurfer", True)
 myp.maskcreation = False
 myp.dtk = False
 myp.apply_registration = False
@@ -98,8 +86,3 @@ myp.tractography = False
 myp.fiberfiltering = False
 myp.connectionmatrix = False
 myp.cffconverter = False
-
-####################
-# Finally, map it! #
-####################
-cmt.connectome.mapit(myp)

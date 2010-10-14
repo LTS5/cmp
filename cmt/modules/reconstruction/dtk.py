@@ -4,7 +4,7 @@ from time import time
 from ...logme import *
 from glob import glob
 import subprocess
-from cmt.modules.util import mymove
+from cmt.util import mymove
 
 def resample_dsi():
 

@@ -2,6 +2,42 @@
 
 import cmt
 
+def mapit2(cobj):
+    
+    # XXX check if we need to run the preprocessing step
+    cmt.preprocessing.run( cobj )
+
+    if cobj.active_dicomconverter:
+        cmt.dicomconverter.run( cobj, subjid )
+        
+    if cobj.active_registration:
+        cmt.registration.run( cobj, subjid )
+        
+    if cobj.active_segmentation:
+        cmt.freesurfer.run( cobj, subjid )
+        
+    if cobj.active_maskcreation:
+        cmt.maskcreation.run( cobj, subjid )
+        cmt.apply_registration.run( cobj, subjid )
+        
+    if cobj.active_reconstruction:
+        cmt.dtk.run( cobj, subjid )
+        
+    if cobj.active_tractography:
+        cmt.tractography.run( cobj, subjid )
+        
+    if cobj.active_fiberfilter:
+        cmt.fiberfilter.run( cobj, subjid )
+
+    if cobj.active_connectome:
+        cmt.connectionmatrix.run( cobj, subjid )
+        
+    if cobj.active_cffconverter:
+        cmt.cffconverter.run( cobj )
+   
+            
+    
+
 def mapit(cobj):
     """ Maps the connectome """
     
