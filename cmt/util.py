@@ -63,7 +63,8 @@ def reorient(src, ref, log):
     
     # if needed, match orientation to reference
     if src_orient == ref_orient:
-        log.info("Nor reorientation needed")
+        log.info("No reorientation needed")
+        return
     else:
         log.info("src has conv %s and ref has conv %s" % (src_conv, ref_conv))
         if src_conv != ref_conv:
