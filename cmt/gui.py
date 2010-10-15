@@ -203,6 +203,18 @@ Testing:
 """
         print msg
     
+    def load_state(self, cmtconfigfile):
+        """ Load CMT Configuration state directly.
+        Useful if you do not want to invoke the GUI"""
+        import pickle
+        import enthought.sweet_pickle as sp
+        import os.path
+        
+        output = open(cmtconfigfile, 'rb')
+        data = sp.load(output)
+        self.__setstate__(data.__getstate__())
+        output.close()
+                    
     def _run_fired(self):
         # execute the pipeline thread
         cmtthread = CMTThread(self)
