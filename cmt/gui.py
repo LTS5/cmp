@@ -11,8 +11,21 @@ from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
 from enthought.traits.ui.api import View, Item, HGroup, Handler, \
                     message, spring, Group, VGroup
                     
+import threading
 from cmt.configuration import PipelineConfiguration
 import cmt.connectome
+
+class CMTThread( threading.Thread ):
+
+    def __init__(self, gconf): 
+        threading.Thread.__init__(self) 
+        self.gconf = gconf 
+ 
+    def run(self): 
+        print "Starting CMT Thread..."
+        cmt.connectome.mapit(self.gconf)
+        print "Ended CMT Thread."
+        
 
 class CMTGUI( PipelineConfiguration ):
     """ The Graphical User Interface for the CMT
@@ -180,10 +193,8 @@ class CMTGUI( PipelineConfiguration ):
         
         # execute the pipeline
         print "Execute parallel/threaded ...."
-        ####################
-        # Finally, map it! #
-        ####################
-        cmt.connectome.mapit2(self)
+        cmtthread = CMTThread(self)
+        cmtthread.start()
 
 #
 #if __name__ == '__main__':

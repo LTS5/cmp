@@ -2,7 +2,7 @@
 
 import cmt
 
-def mapit2(cobj):
+def mapit(cobj):
     
     cobj.consistency_check()
     cmt.preprocessing.run( cobj )
