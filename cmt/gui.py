@@ -40,9 +40,9 @@ class CMTGUI( PipelineConfiguration ):
                     VGroup(
                     Item('active_dicomconverter', label = 'DICOM Converter'),
                     Item('active_registration', label = 'Registration'),
-                    
                     Item('active_segmentation', label = 'Segmentation'),
                     Item('active_maskcreation', label = 'Mask Creation'),
+		    Item('active_reconstruction', label = 'Reconstruction'),
                     Item('active_tractography', label = 'Tractography'),
                     Item('active_fiberfilter', label = 'Fiberfiltering'),
                     Item('active_connectome', label = 'Connectome Creation'),

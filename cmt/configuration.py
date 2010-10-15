@@ -122,7 +122,7 @@ class PipelineConfiguration(traits.HasTraits):
             self.freesurfer_home = op.join(os.environ['FREESURFER_HOME'])
             self.fsl_home = op.join(os.environ['FSL_HOME'])
             self.dtk_home = os.environ['DTDIR']
-            self.dtk_matrices = op.join(myp.dtk_home, 'matrices')
+            self.dtk_matrices = op.join(self.dtk_home, 'matrices')
         except KeyError:
             pass
         
@@ -169,11 +169,11 @@ class PipelineConfiguration(traits.HasTraits):
                 wdiff = op.join(self.get_raw_diffusion())
                 print wdiff
                 if not op.exists(wdiff):
-                    msg = 'Diffusion MRI subdirectory does not exists for the subject'
+                    msg = 'Diffusion MRI subdirectory %s does not exists for the subject' % wdiff
                     raise Exception(msg)
                 wt1 = op.join(self.get_rawt1())
                 if not op.exists(wt1):
-                    msg = 'Structural MRI subdirectory T1 does not exist in RAWDATA'
+                    msg = 'Structural MRI subdirectory %s T1 does not exist in RAWDATA' % wt1
                     raise Exception(msg)
         
         
@@ -181,7 +181,7 @@ class PipelineConfiguration(traits.HasTraits):
         """ Return the cmt home path """
         return op.dirname(__file__)
         
-    def get_raw(self):
+    def get_rawdata(self):
         """ Return raw data path for the subject """
         return op.join(self.get_subj_dir(), 'RAWDATA')
     
@@ -224,11 +224,11 @@ class PipelineConfiguration(traits.HasTraits):
 
     def get_rawt1(self):
         """ Get raw structural MRI T1 path for subject """
-        return op.join(self.get_raw(), 'T1')
+        return op.join(self.get_rawdata(), 'T1')
 
     def get_rawt2(self):
         """ Get raw structural MRI T2 path for subject """
-        return op.join(self.get_raw(), 'T2')
+        return op.join(self.get_rawdata(), 'T2')
 
     def get_subj_dir(self):
         return self.subject_workingdir
