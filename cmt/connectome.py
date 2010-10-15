@@ -31,6 +31,9 @@ def mapit(cobj):
 
     if cobj.active_connectome:
         cmt.connectionmatrix.run( cobj )
+
+    if cobj.active_statistics:
+        cmt.statistics.run( cobj )
         
     if cobj.active_cffconverter:
         cmt.cffconverter.run( cobj )

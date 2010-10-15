@@ -54,6 +54,7 @@ class PipelineConfiguration(traits.HasTraits):
     active_tractography = traits.Bool(True)
     active_fiberfilter = traits.Bool(True)
     active_connectome = traits.Bool(True)
+    active_statistics = traits.Bool(True)
     active_cffconverter = traits.Bool(True)
 
     author = traits.Str()

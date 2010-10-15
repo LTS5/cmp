@@ -31,6 +31,9 @@ import modules.postprocessing.fiberclustering as fiberclustering
 # CONNECTION MATRIX
 import modules.connectionmatrix.creatematrix as connectionmatrix
 
+# STATISTICS
+import modules.stats.statistics as statistics
+
 # CFF CONVERTER
 import modules.converter.cffconverter as cffconverter
 

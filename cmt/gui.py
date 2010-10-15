@@ -54,13 +54,14 @@ class CMTGUI( PipelineConfiguration ):
                     Item('active_tractography', label = 'Tractography'),
                     Item('active_fiberfilter', label = 'Fiberfiltering'),
                     Item('active_connectome', label = 'Connectome Creation'),
+                    Item('active_statistics', label = 'Statistics'),
                     Item('active_cffconverter', label = 'CFF Converter'),
                     label="Execute"     
                     ),
                     label = "Main",
                     show_border = False
                     )
-                        
+
     metadata_group = Group(
                     VGroup(
                         Item('author', label = "Author"),
