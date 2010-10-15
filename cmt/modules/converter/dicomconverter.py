@@ -60,7 +60,7 @@ def dsi_resamp():
     
     mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (
                            op.join(nifti_dir, 'DSI_first.nii'),
-                           op.join(nifti_dir, 'DSI_b0_resampled.nii'))
+                           op.join(nifti_dir, 'Diffusion_b0_resampled.nii'))
     
     runCmd(mri_cmd, log)
 

@@ -43,7 +43,7 @@ def nlin_regT12b0():
     
     fli_cmt = 'flirt -in "%s" -ref "%s" -nosearch -dof 12 -cost normmi -out "%s" -omat "%s"' % (
             op.join(nifti_dir, "T2.nii"),
-            op.join(nifti_dir, "DSI_b0_resampled.nii"),
+            op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
             op.join(nifti_dir, "T2-TO-b0.nii"),
             op.join(nifti_dir, "T2-TO-b0.mat"),
             )
@@ -54,7 +54,7 @@ def nlin_regT12b0():
 
     if gconf.inspect_registration:
         log.info("FLIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti(), 'DSI_b0_resampled.nii'),
+        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
                                                            op.join(gconf.get_nifti(), 'T2-TO-b0.nii') )
         runCmd( fsl_view_cmd, log )
         
@@ -69,7 +69,7 @@ def nlin_regT12b0():
     
     fli_cmt = 'flirt -in "%s" -ref "%s" -applyxfm -init "%s" -out "%s" -interp sinc' % (
             op.join(nifti_dir, "T1.nii"),
-            op.join(nifti_dir, "DSI_b0_resampled.nii"),
+            op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
             op.join(nifti_dir, "T1-TO-b0.mat"),
             op.join(nifti_dir, "T1-TO-b0.nii"),
             )
@@ -80,7 +80,7 @@ def nlin_regT12b0():
     
     if gconf.inspect_registration:
         log.info("FLIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti(), 'DSI_b0_resampled.nii'),
+        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
                                                            op.join(gconf.get_nifti(), 'T1-TO-b0.nii') )
         runCmd( fsl_view_cmd, log )
         
@@ -129,7 +129,7 @@ def nlin_regT12b0():
         
     #    rm -f "b0-brain-mask.nii"
     
-    infile = op.join(nifti_dir, "DSI_b0_resampled.nii")
+    infile = op.join(nifti_dir, "Diffusion_b0_resampled.nii")
     outfile = op.join(nifti_dir, "b0-brain")
     bet_cmd = 'bet "%s" "%s" -m -n -R %s' % (infile, outfile, param)
     runCmd( bet_cmd, log ) 
@@ -146,7 +146,7 @@ def nlin_regT12b0():
     
     if gconf.inspect_registration:
         log.info("FLIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview %s %s -l Red -b 0,1 -t 0.4' % (op.join(gconf.get_nifti(), "DSI_b0_resampled.nii"),
+        fsl_view_cmd = 'fslview %s %s -l Red -b 0,1 -t 0.4' % (op.join(gconf.get_nifti(), "Diffusion_b0_resampled.nii"),
                                                            op.join(gconf.get_nifti(), "b0-brain-mask.nii") )
         runCmd( fsl_view_cmd, log )
 
@@ -170,7 +170,7 @@ def nlin_regT12b0():
     
     tup = (op.join(nifti_dir, "T2.nii"),
          op.join(nifti_dir, "T2-TO-b0.mat"),
-         op.join(nifti_dir, "DSI_b0_resampled.nii"),
+         op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
          op.join(nifti_dir, "T2-TO-b0_warped.nii"),
          op.join(nifti_dir, "T2-TO-b0_warp.nii"),
          op.join(nifti_dir, "T2-TO-b0_warp-field.nii"),
@@ -186,7 +186,7 @@ def nlin_regT12b0():
         
     if gconf.inspect_registration:
         log.info("FNIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview "%s" -l Copper "%s" "%s" -t 0.5' % (op.join(nifti_dir, "DSI_b0_resampled.nii"),
+        fsl_view_cmd = 'fslview "%s" -l Copper "%s" "%s" -t 0.5' % (op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
                                                                     op.join(nifti_dir, "T2-TO-b0.nii"),
                                                                     op.join(nifti_dir, "T2-TO-b0_warped.nii") )
         runCmd( fsl_view_cmd, log )
@@ -197,7 +197,7 @@ def nlin_regT12b0():
     # rm -f "T1-TO-b0_warped".*
     tup = (op.join(nifti_dir, "T1.nii"),
            op.join(nifti_dir, "T1-TO-T2.mat"),
-           op.join(nifti_dir, "DSI_b0_resampled.nii"),
+           op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
            op.join(nifti_dir, "T2-TO-b0_warp.nii"),
            op.join(nifti_dir, "T1-TO-b0_warped.nii"))
     
@@ -212,7 +212,7 @@ def nlin_regT12b0():
     
     if gconf.inspect_registration:
         log.info("FNIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview "%s" -l Copper "%s" "%s"' % (op.join(nifti_dir, "DSI_b0_resampled.nii"),
+        fsl_view_cmd = 'fslview "%s" -l Copper "%s" "%s"' % (op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
                                                                     op.join(nifti_dir, "T1-TO-b0.nii"),
                                                                     op.join(nifti_dir, "T1-TO-b0_warped.nii") )
         runCmd( fsl_view_cmd, log )
@@ -234,7 +234,7 @@ def lin_regT12b0():
         
     flirt_cmd = 'flirt -in %s -ref %s -out %s -omat %s %s' % (
             op.join(gconf.get_nifti(), 'T1.nii'),
-            op.join(gconf.get_nifti(), 'DSI_b0_resampled.nii'),
+            op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
             op.join(gconf.get_nifti(), 'T1-TO-b0.nii'),
             op.join(gconf.get_nifti(), 'T1-TO-b0.mat'),
             param)
@@ -248,7 +248,7 @@ def lin_regT12b0():
     # check the results
     if gconf.inspect_registration:
         log.info("FLIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti(), 'DSI_b0_resampled.nii'),
+        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
                                                            op.join(gconf.get_nifti(), 'T1-TO-b0.nii') )
         runCmd( fsl_view_cmd, log )
     
