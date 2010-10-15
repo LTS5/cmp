@@ -85,7 +85,8 @@ class CMTGUI( PipelineConfiguration ):
             Item('subject_description',label="Description"),
             Item('subject_raw_glob_diffusion',label="Diffusion File Pattern"),
             Item('subject_raw_glob_T1',label="T1 File Pattern"),
-            Item('subject_raw_glob_T2',label="T2 File Pattern"),
+            Item('subject_raw_glob_T2',label="T2 File Pattern",
+                 enabled_when = "registration_mode == 'N'"),
             show_border = True
         ),
         label = "Subject"
@@ -117,11 +118,19 @@ class CMTGUI( PipelineConfiguration ):
         VGroup(
                Item('diffusion_imaging_model'),
                Item('diffusion_imaging_stream'),
+               show_border = False,               
+               ),
+        VGroup(
                Item('nr_of_gradient_directions'),
                Item('nr_of_sampling_directions'),
                Item('odf_recon_param'),
                show_border = True,
                enabled_when = "active_reconstruction"   
+            ),
+        VGroup(
+               # XXX: Item('b0_value'),
+               show_border = True,
+               enabled_when = "diffusion_imaging_model == 'DTI'"
             ),
         visible_when = "active_reconstruction",
         label = "Reconstruction",                         
@@ -206,24 +215,29 @@ Testing:
     def load_state(self, cmtconfigfile):
         """ Load CMT Configuration state directly.
         Useful if you do not want to invoke the GUI"""
-        import pickle
-        import enthought.sweet_pickle as sp
-        import os.path
-        
+        import enthought.sweet_pickle as sp        
         output = open(cmtconfigfile, 'rb')
         data = sp.load(output)
         self.__setstate__(data.__getstate__())
         output.close()
-                    
+
+    def save_state(self, cmtconfigfile):
+        """ Save CMT Configuration state directly.
+        Useful if you do not want to invoke the GUI"""
+        import pickle
+        import enthought.sweet_pickle as sp
+        output = open(cmtconfigfile, 'wb')
+        # Pickle the list using the highest protocol available.
+        sp.dump(self, output, -1)
+        output.close()
+                            
     def _run_fired(self):
         # execute the pipeline thread
         cmtthread = CMTThread(self)
         cmtthread.start()
 
     def _load_fired(self):
-        import pickle
         import enthought.sweet_pickle as sp
-        import os.path
         from enthought.pyface.api import FileDialog, OK
         
         wildcard = "CMT Configuration State (*.pkl)|*.pkl|" \
@@ -236,10 +250,7 @@ Testing:
             if not os.path.isfile(dlg.path):
                 return
             else:
-                output = open(dlg.path, 'rb')
-                data = sp.load(output)
-                self.__setstate__(data.__getstate__())
-                output.close()
+                self.load_state(dlg.path)
 
     def _save_fired(self):
         print "blubb"
@@ -254,8 +265,5 @@ Testing:
                          resizeable=False, \
                          default_directory=self.subject_workingdir,)
         
-        if dlg.open() == OK:            
-            output = open(dlg.path, 'wb')
-            # Pickle the list using the highest protocol available.
-            sp.dump(self, output, -1)
-            output.close()
+        if dlg.open() == OK:
+            self.save_state(dlg.path)

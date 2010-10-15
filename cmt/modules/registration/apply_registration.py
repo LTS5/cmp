@@ -21,7 +21,7 @@ def apply_nlin_registration():
         raise Exception(msg)  
 
     # XXX: is this correct?
-    orig_mat = op.join(gconf.get_nifti(), 'T1-TO-T2.mat')
+    orig_mat = op.join(gconf.get_nifti_trafo(), 'T1-TO-T2.mat')
     out_mat = op.join(tracto_masks_path_out, 'tmp_premat.mat')
     try:
         shutil.copy(orig_mat, out_mat)
@@ -71,7 +71,7 @@ def apply_lin_registration():
         log.error(msg)
         raise Exception(msg)  
 
-    orig_mat = op.join(gconf.get_nifti(), 'T1-TO-b0.mat')
+    orig_mat = op.join(gconf.get_nifti_trafo(), 'T1-TO-b0.mat')
     out_mat = op.join(tracto_masks_path_out, 'tmp_premat.mat')
     try:
         shutil.copy(orig_mat, out_mat)

@@ -22,7 +22,7 @@ class PipelineConfiguration(traits.HasTraits):
     registration_mode = traits.Enum("L", ["L", "N"], desc="registration mode: linear or non-linear")
     
     # going to support qBall, HARDI
-    diffusion_imaging_model = traits.Enum( "DSI", ["DSI", "DTI", "QBall" ])
+    diffusion_imaging_model = traits.Enum( "DSI", ["DSI", "DTI"])
     diffusion_imaging_stream = traits.Enum( "Lausanne2011", ["Lausanne2011"] )
     
     nr_of_gradient_directions = traits.Int(515)
@@ -250,6 +250,10 @@ class PipelineConfiguration(traits.HasTraits):
         """ Returns the subject root folder path for nifti files """
         return op.join(self.get_subj_dir(), 'NIFTI')
 
+    def get_nifti_trafo(self):
+        """ Returns the path to the subjects transformation / registration matrices """
+        return op.join(self.get_nifti(), 'transformations')
+        
     def get_cmt(self):
         return op.join(self.get_subj_dir(), 'CMT')
 

@@ -7,6 +7,42 @@ from ...logme import *
 import shutil 
 from cmt.util import mymove
 
+def lin_regT12b0():
+    log.info("T1 -> b0: Linear registration")
+    log.info("=============================")
+
+    # Linear register "T1" onto "b0_resampled"
+    log.info("Started FLIRT to find 'T1 --> b0' linear transformation")
+
+    # XXX: rm -f "T1-TO-b0".*
+    if not gconf.lin_reg_param == '':
+        param = gconf.lin_reg_param
+    else:
+        param = '-usesqform -nosearch -dof 6 -cost mutualinfo'
+        
+    flirt_cmd = 'flirt -in %s -ref %s -out %s -omat %s %s' % (
+            op.join(gconf.get_nifti(), 'T1.nii'),
+            op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
+            op.join(gconf.get_nifti(), 'T1-TO-b0.nii'),
+            op.join(gconf.get_nifti(), 'T1-TO-b0.mat'),
+            param)
+    runCmd(flirt_cmd, log)
+    
+    if not op.exists(op.join(gconf.get_nifti(), 'T1-TO-b0.mat')):
+        msg = "An error occurred. Linear transformation file %s not generated." % op.join(gconf.get_nifti(), 'T1-TO-b0.mat')
+        log.error(msg)
+        raise Exception(msg)
+
+    # check the results
+    if gconf.inspect_registration:
+        log.info("FLIRT has finished. Check the result with FSLVIEW.")        
+        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
+                                                           op.join(gconf.get_nifti(), 'T1-TO-b0.nii') )
+        runCmd( fsl_view_cmd, log )
+    
+    log.info("[ DONE ]")
+
+
 def nlin_regT12b0():
     log.info("T1 -> b0: Non-linear registration")
     log.info("=================================")
@@ -24,11 +60,11 @@ def nlin_regT12b0():
             op.join(nifti_dir, "T1.nii"),
             op.join(nifti_dir, "T2.nii"),
             op.join(nifti_dir, "T1-TO-T2.nii"),
-            op.join(nifti_dir, "T1-TO-T2.mat"),
+            op.join(gconf.get_nifti_trafo(), "T1-TO-T2.mat"),
             )
     runCmd( fli_cmt, log )
     
-    if not op.exists(op.join(nifti_dir, "T1-TO-T2.mat")):
+    if not op.exists(op.join(gconf.get_nifti_trafo(), "T1-TO-T2.mat")):
         log.error("T1-TO-T2.mat Problem with FLIRT. Unable to find linear transformation 'T1-TO-T2.mat'.")
 
     if gconf.inspect_registration:
@@ -45,7 +81,7 @@ def nlin_regT12b0():
             op.join(nifti_dir, "T2.nii"),
             op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
             op.join(nifti_dir, "T2-TO-b0.nii"),
-            op.join(nifti_dir, "T2-TO-b0.mat"),
+            op.join(gconf.get_nifti_trafo(), "T2-TO-b0.mat"),
             )
     runCmd( fli_cmt, log )
     
@@ -62,15 +98,15 @@ def nlin_regT12b0():
     ##############
     log.info('[1.3] -> apply the linear registration "T1" --> "b0" (for comparison)')
     
-    con_cmt = 'convert_xfm -concat "%s" "%s" -omat "%s"' % (op.join(nifti_dir, "T2-TO-b0.mat"),
-                                                                                op.join(nifti_dir, "T1-TO-T2.mat"),
-                                                                                op.join(nifti_dir, "T1-TO-b0.mat"))
+    con_cmt = 'convert_xfm -concat "%s" "%s" -omat "%s"' % (op.join(gconf.get_nifti_trafo(), "T2-TO-b0.mat"),
+                                                            op.join(gconf.get_nifti_trafo(), "T1-TO-T2.mat"),
+                                                            op.join(gconf.get_nifti_trafo(), "T1-TO-b0.mat"))
     runCmd( con_cmt, log )
     
     fli_cmt = 'flirt -in "%s" -ref "%s" -applyxfm -init "%s" -out "%s" -interp sinc' % (
             op.join(nifti_dir, "T1.nii"),
             op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
-            op.join(nifti_dir, "T1-TO-b0.mat"),
+            op.join(gconf.get_nifti_trafo(), "T1-TO-b0.mat"),
             op.join(nifti_dir, "T1-TO-b0.nii"),
             )
     runCmd( fli_cmt, log )
@@ -169,7 +205,7 @@ def nlin_regT12b0():
         param = '--subsamp=8,4,2,2 --miter==5,5,5,5 --lambda=240,120,90,30 --splineorder=3 --applyinmask=0,0,1,1 --applyrefmask=0,0,1,1'
     
     tup = (op.join(nifti_dir, "T2.nii"),
-         op.join(nifti_dir, "T2-TO-b0.mat"),
+         op.join(gconf.get_nifti_trafo(), "T2-TO-b0.mat"),
          op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
          op.join(nifti_dir, "T2-TO-b0_warped.nii"),
          op.join(nifti_dir, "T2-TO-b0_warp.nii"),
@@ -196,7 +232,7 @@ def nlin_regT12b0():
 
     # rm -f "T1-TO-b0_warped".*
     tup = (op.join(nifti_dir, "T1.nii"),
-           op.join(nifti_dir, "T1-TO-T2.mat"),
+           op.join(gconf.get_nifti_trafo(), "T1-TO-T2.mat"),
            op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
            op.join(nifti_dir, "T2-TO-b0_warp.nii"),
            op.join(nifti_dir, "T1-TO-b0_warped.nii"))
@@ -218,42 +254,6 @@ def nlin_regT12b0():
         runCmd( fsl_view_cmd, log )
 
     
-
-def lin_regT12b0():
-    log.info("T1 -> b0: Linear registration")
-    log.info("=============================")
-
-    # Linear register "T1" onto "b0_resampled"
-    log.info("Started FLIRT to find 'T1 --> b0' linear transformation")
-
-    # XXX: rm -f "T1-TO-b0".*
-    if not gconf.lin_reg_param == '':
-        param = gconf.lin_reg_param
-    else:
-        param = '-usesqform -nosearch -dof 6 -cost mutualinfo'
-        
-    flirt_cmd = 'flirt -in %s -ref %s -out %s -omat %s %s' % (
-            op.join(gconf.get_nifti(), 'T1.nii'),
-            op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
-            op.join(gconf.get_nifti(), 'T1-TO-b0.nii'),
-            op.join(gconf.get_nifti(), 'T1-TO-b0.mat'),
-            param)
-    runCmd(flirt_cmd, log)
-    
-    if not op.exists(op.join(gconf.get_nifti(), 'T1-TO-b0.mat')):
-        msg = "An error occurred. Linear transformation file %s not generated." % op.join(gconf.get_nifti(), 'T1-TO-b0.mat')
-        log.error(msg)
-        raise Exception(msg)
-
-    # check the results
-    if gconf.inspect_registration:
-        log.info("FLIRT has finished. Check the result with FSLVIEW.")        
-        fsl_view_cmd = 'fslview %s %s -l Copper -t 0.5' % (op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
-                                                           op.join(gconf.get_nifti(), 'T1-TO-b0.nii') )
-        runCmd( fsl_view_cmd, log )
-    
-    log.info("[ DONE ]")
-
 
 def run(conf):
     """ Run the first registration step
