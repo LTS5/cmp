@@ -184,14 +184,14 @@ class CMTGUI( PipelineConfiguration ):
         msg = """Connectome Mapping Toolkit
 Version 1.0
 
-Copyright (C) 2010, Ecole Polytechnique Fédérale de Lausanne (EPFL) and
+Copyright (C) 2010, Ecole Polytechnique Federale de Lausanne (EPFL) and
 Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland
                 
 Contributors
 ------------
 Development:
 * Stephan Gerhard
-* Christophe Chênes
+* Christophe Chenes
 
 Image Processing:
 * Alessandro Daducci
