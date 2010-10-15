@@ -132,8 +132,6 @@ def t12nifti_diff_unpack():
         runCmd(diff_cmd, log)
         log.info("Dataset 'T1.nii' succesfully created!")
         
-    reorient(op.join(nifti_dir, 'T1.nii'), op.join(nifti_dir, 'Diffusion_b0_resampled.nii'), log)
-        
 def t22nifti_diff_unpack():
     
     raw_dir = op.join(gconf.get_rawdata())
