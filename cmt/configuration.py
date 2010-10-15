@@ -12,7 +12,7 @@ class PipelineConfiguration(traits.HasTraits):
        
     # project settings
     project_name = traits.Str(desc="the name of the project")
-    project_dir = traits.Directory(exists=True, desc="data path to where the project is stored")
+    project_dir = traits.Directory(exists=False, desc="data path to where the project is stored")
         
     # project metadata (for connectome file)
     project_metadata = traits.Dict(desc="project metadata to be stored in the connectome file")
@@ -22,9 +22,7 @@ class PipelineConfiguration(traits.HasTraits):
     registration_mode = traits.Enum("L", ["L", "N"], desc="registration mode: linear or non-linear")
     
     # going to support qBall, HARDI
-    processing_mode = traits.Enum( ('DSI', 'Lausanne2011'), [('DSI', 'Lausanne2011'), ('DTI', 'Lausanne2011')], desc="diffusion MRI processing mode available")   
-    
-    diffusion_imaging_model = traits.Enum( "DSI", ["DSI", "DTI", "HARDI/Q-Ball" ])
+    diffusion_imaging_model = traits.Enum( "DSI", ["DSI", "DTI", "QBall" ])
     diffusion_imaging_stream = traits.Enum( "Lausanne2011", ["Lausanne2011"] )
     
     nr_of_gradient_directions = traits.Int(515)
@@ -82,10 +80,10 @@ class PipelineConfiguration(traits.HasTraits):
     # sudo apt-get install postfix
     emailnotify = traits.ListStr([], desc='the email address to send to')
     
-    freesurfer_home = traits.Directory(exists=True, desc="path to Freesurfer")
-    fsl_home = traits.Directory(exists=True, desc="path to FSL")
-    dtk_home = traits.Directory(exists=True, desc="path to diffusion toolkit")
-    dtk_matrices = traits.Directory(exists=True, desc="path to diffusion toolkit matrices")
+    freesurfer_home = traits.Directory(exists=False, desc="path to Freesurfer")
+    fsl_home = traits.Directory(exists=False, desc="path to FSL")
+    dtk_home = traits.Directory(exists=False, desc="path to diffusion toolkit")
+    dtk_matrices = traits.Directory(exists=False, desc="path to diffusion toolkit matrices")
 
     def __init__(self, **kwargs):
         # NOTE: In python 2.6, object.__init__ no longer accepts input

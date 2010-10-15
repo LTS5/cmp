@@ -162,10 +162,12 @@ def run(conf):
     globals()['log'] = gconf.get_logger() 
     start = time()
         
-    if gconf.processing_mode == ('DSI', 'Lausanne2011'):
+    if gconf.diffusion_imaging_model == 'DSI' and \
+        gconf.diffusion_imaging_stream == 'Lausanne2011':
         resample_dsi()
         compute_odfs()
-    elif gconf.processing_mode == ('DTI', 'Lausanne2011'):
+    elif gconf.diffusion_imaging_model == 'DTI' and \
+        gconf.diffusion_imaging_stream == 'Lausanne2011':
         resample_dti()
         compute_dts()
     

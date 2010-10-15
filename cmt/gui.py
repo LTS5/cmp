@@ -1,8 +1,4 @@
 """ Defines the graphical user interface to the Connectome Mapping Toolkit
-
-* Logwindow that gets updated
-* Run Button
-
 """
 
 from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
@@ -38,7 +34,6 @@ class CMTGUI( PipelineConfiguration ):
         super(CMTGUI, self).__init__(**kwargs)
         
     about = Button
-    close = Button
     run = Button
     save = Button
     load = Button
@@ -175,9 +170,8 @@ class CMTGUI( PipelineConfiguration ):
             HGroup( 
                 #Item( 'validate_form', label = 'Validate Form', show_label = False),
                 Item( 'about', label = 'About', show_label = False),
-                Item( 'close', label = 'Save', show_label = False),
-                Item( 'close', label = 'Load', show_label = False),
-                Item( 'close', label = 'Close', show_label = False),
+                Item( 'save', label = 'Save', show_label = False),
+                Item( 'load', label = 'Load', show_label = False),
                 spring,
                 Item( 'run', label = 'Run!', show_label = False),
             ),
@@ -187,17 +181,69 @@ class CMTGUI( PipelineConfiguration ):
     )
     
     def _about_fired(self):
-        print "About..."
+        msg = """Connectome Mapping Toolkit
+Version 1.0
+
+Copyright (C) 2010, Ecole Polytechnique Fédérale de Lausanne (EPFL) and
+Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland
+                
+Contributors
+------------
+Development:
+* Stephan Gerhard
+* Christophe Chênes
+
+Image Processing:
+* Alessandro Daducci
+* Alia Lemkaddem
+* Patric Hagmann
+        
+Testing:
+* Elda Fischi
+"""
+        print msg
     
     def _run_fired(self):
-        
-        # execute the pipeline
-        print "Execute parallel/threaded ...."
+        # execute the pipeline thread
         cmtthread = CMTThread(self)
         cmtthread.start()
 
-#
-#if __name__ == '__main__':
-#    cmtgui = CMTGUI()
-#    cmtgui.configure_traits()
-    
+    def _load_fired(self):
+        import pickle
+        import enthought.sweet_pickle as sp
+        import os.path
+        from enthought.pyface.api import FileDialog, OK
+        
+        wildcard = "CMT Configuration State (*.pkl)|*.pkl|" \
+                        "All files (*.*)|*.*"
+        dlg = FileDialog(wildcard=wildcard,title="Select a configuration state to load",\
+                         resizeable=False, \
+                         default_directory=self.project_dir,)
+        
+        if dlg.open() == OK:            
+            if not os.path.isfile(dlg.path):
+                return
+            else:
+                output = open(dlg.path, 'rb')
+                data = sp.load(output)
+                self.__setstate__(data.__getstate__())
+                output.close()
+
+    def _save_fired(self):
+        print "blubb"
+        import pickle
+        import enthought.sweet_pickle as sp
+        import os.path
+        from enthought.pyface.api import FileDialog, OK
+        
+        wildcard = "CMT Configuration State (*.pkl)|*.pkl|" \
+                        "All files (*.*)|*.*"
+        dlg = FileDialog(wildcard=wildcard,title="Filename to store configuration state",\
+                         resizeable=False, \
+                         default_directory=self.subject_workingdir,)
+        
+        if dlg.open() == OK:            
+            output = open(dlg.path, 'wb')
+            # Pickle the list using the highest protocol available.
+            sp.dump(self, output, -1)
+            output.close()

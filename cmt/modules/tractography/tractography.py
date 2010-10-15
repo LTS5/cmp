@@ -70,9 +70,11 @@ def run(conf):
 
     convert_wm_mask()
     
-    if gconf.processing_mode == ('DSI', 'Lausanne2011'):
+    if gconf.diffusion_imaging_model == 'DSI' and \
+        gconf.diffusion_imaging_stream == 'Lausanne2011':
         fiber_tracking_dsi()
-    elif gconf.processing_mode == ('DTI', 'Lausanne2011'):
+    elif gconf.diffusion_imaging_model == 'DTI' and \
+        gconf.diffusion_imaging_stream == 'Lausanne2011':
         fiber_tracking_dti()
     
     log.info("Module took %s seconds to process." % (time()-start))

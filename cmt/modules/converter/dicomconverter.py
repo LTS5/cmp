@@ -172,10 +172,10 @@ def run(conf):
     log.info("DICOM -> NIFTI conversion")
     log.info("=========================")
     
-    if gconf.processing_mode == ('DSI', 'Lausanne2011'):
+    if gconf.diffusion_imaging_model == 'DSI':
         diff2nifti_dsi_unpack()
         dsi_resamp()
-    elif gconf.processing_mode == ('DTI', 'Lausanne2011'):
+    elif gconf.diffusion_imaging_model == 'DTI':
         diff2nifti_dti_unpack()
         dti_resamp()
     t12nifti_diff_unpack()
