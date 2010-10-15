@@ -111,7 +111,7 @@ def dti_resamp():
     
     mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (
                            op.join(nifti_dir, 'DTI_first.nii'),
-                           op.join(nifti_dir, 'DTI_b0_resampled.nii'))
+                           op.join(nifti_dir, 'Diffusion_b0_resampled.nii'))
     
     runCmd(mri_cmd, log)
     
