@@ -132,7 +132,7 @@ def t12nifti_diff_unpack():
         runCmd(diff_cmd, log)
         log.info("Dataset 'T1.nii' succesfully created!")
         
-    reorient(op.join(nifti_dir, 'T1.nii'), op.join(nifti_dir, 'DSI.nii'), log)
+    reorient(op.join(nifti_dir, 'T1.nii'), op.join(nifti_dir, 'Diffusion_b0_resampled.nii'), log)
         
 def t22nifti_diff_unpack():
     
@@ -152,7 +152,8 @@ def t22nifti_diff_unpack():
         runCmd (diff_cmd, log)        
         log.info("Dataset 'T2.nii' successfully created!")
 
-    reorient(op.join(nifti_dir, 'T2.nii'), op.join(nifti_dir, 'DSI.nii'), log)
+    # XXX: Diffusion_.. should be the same orientatino as DSI.nii before, correct?
+    reorient(op.join(nifti_dir, 'T2.nii'), op.join(nifti_dir, 'Diffusion_b0_resampled.nii'), log)
 
     log.info("[ DONE ]")
     
