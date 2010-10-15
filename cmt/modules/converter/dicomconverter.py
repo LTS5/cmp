@@ -152,10 +152,24 @@ def t22nifti_diff_unpack():
         runCmd (diff_cmd, log)        
         log.info("Dataset 'T2.nii' successfully created!")
 
-    # XXX: Diffusion_.. should be the same orientatino as DSI.nii before, correct?
-    reorient(op.join(nifti_dir, 'T2.nii'), op.join(nifti_dir, 'Diffusion_b0_resampled.nii'), log)
-
     log.info("[ DONE ]")
+    
+    
+def reorient_t1(model):
+    nifti_dir = op.join(gconf.get_nifti())
+    if model == 'DSI':
+        reorient(op.join(nifti_dir, 'T1.nii'), op.join(nifti_dir, 'DSI.nii'), log)
+    elif model == 'DTI':
+        reorient(op.join(nifti_dir, 'T1.nii'), op.join(nifti_dir, 'DTI.nii'), log)
+
+def reorient_t2(model):
+    nifti_dir = op.join(gconf.get_nifti())
+    if model == 'DSI':
+        reorient(op.join(nifti_dir, 'T2.nii'), op.join(nifti_dir, 'DSI.nii'), log)
+        
+    elif model == 'DTI':
+        reorient(op.join(nifti_dir, 'T2.nii'), op.join(nifti_dir, 'DTI.nii'), log)
+    
     
 def run(conf):
     """ Run the first dicom converter step
@@ -176,12 +190,19 @@ def run(conf):
     if gconf.diffusion_imaging_model == 'DSI':
         diff2nifti_dsi_unpack()
         dsi_resamp()
+        
+        
     elif gconf.diffusion_imaging_model == 'DTI':
         diff2nifti_dti_unpack()
         dti_resamp()
+        t12nifti_diff_unpack()
+        
     t12nifti_diff_unpack()
+    reorient_t1(gconf.diffusion_imaging_model)
+    
     if gconf.registration_mode == 'N':
         t22nifti_diff_unpack()
+        reorient_t2(gconf.diffusion_imaging_model)
 
     log.info("Module took %s seconds to process." % (time()-start))
 
