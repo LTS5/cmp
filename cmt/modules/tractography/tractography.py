@@ -26,8 +26,8 @@ def fiber_tracking_dsi():
                 
     # streamline tractography
 
-    if gconf.mode_parameters.has_key('streamline_param'):
-        param = gconf.mode_parameters['streamline_param']
+    if not gconf.streamline_param == '':
+        param = gconf.streamline_param
     else:
         param = '--angle 60 --rSeed 4'
 
@@ -50,20 +50,17 @@ def fiber_tracking_dti():
     pass
 
 
-def run(conf, subject_tuple):
+def run(conf):
     """ Run the tractography step
     
     Parameters
     ----------
     conf : PipelineConfiguration object
-    subject_tuple : tuple, (subject_id, timepoint)
-        Process the given subject
         
     """
     # setting the global configuration variable
     globals()['gconf'] = conf
-    globals()['sid'] = subject_tuple
-    globals()['log'] = gconf.get_logger4subject(sid) 
+    globals()['log'] = gconf.get_logger() 
     start = time()
     
     from os import environ

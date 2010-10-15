@@ -47,20 +47,17 @@ def filter_fibers():
     # and which have a minimum angle smaller than y degrees
     
     
-def run(conf, subject_tuple):
+def run(conf):
     """ Run the fiber filtering
     
     Parameters
     ----------
     conf : PipelineConfiguration object
-    subject_tuple : tuple, (subject_id, timepoint)
-        Process the given subject
         
     """
     # setting the global configuration variable
     globals()['gconf'] = conf
-    globals()['sid'] = subject_tuple
-    globals()['log'] = gconf.get_logger4subject(sid) 
+    globals()['log'] = gconf.get_logger() 
     start = time()
     
     spline_filtering()

@@ -114,14 +114,14 @@ def compute_odfs():
     # calculate ODF map
     
     # XXX: rm -f "odf_${sharpness}/dsi_"*
-    if gconf.mode_parameters.has_key('odf_recon_param'):
-        param = gconf.mode_parameters['odf_recon_param']
+    if not gconf.odf_recon_param == '':
+        param = gconf.odf_recon_param
     else:
         param = '-b0 1 -dsi -p 4 -sn 0 -ot nii'
 
     odf_cmd = 'odf_recon %s %s %s %s -mat %s -s 0 %s' % (first_input_file, 
-                             str(gconf.mode_parameters['nr_of_gradient_directions']),
-                             str(gconf.mode_parameters['nr_of_sampling_directions']), 
+                             str(gconf.nr_of_gradient_directions),
+                             str(gconf.nr_of_sampling_directions), 
                              op.join(odf_out_path, "dsi_"),
                              gconf.get_dtk_dsi_matrix(),
                              param )
@@ -148,21 +148,18 @@ def compute_odfs():
     
     log.info("[ DONE ]")
 
-def run(conf, subject_tuple):
+def run(conf):
     """ Run the diffusion step
     
     Parameters
     ----------
     conf : PipelineConfiguration object
-    subject_tuple : tuple, (subject_id, timepoint)
-        Process the given subject
         
     """
     
     # setting the global configuration variable
     globals()['gconf'] = conf
-    globals()['sid'] = subject_tuple
-    globals()['log'] = gconf.get_logger4subject(sid) 
+    globals()['log'] = gconf.get_logger() 
     start = time()
         
     if gconf.processing_mode == ('DSI', 'Lausanne2011'):

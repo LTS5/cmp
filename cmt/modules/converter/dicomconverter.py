@@ -156,20 +156,17 @@ def t22nifti_diff_unpack():
 
     log.info("[ DONE ]")
     
-def run(conf, subject_tuple):
+def run(conf):
     """ Run the first dicom converter step
     
     Parameters
     ----------
     conf : PipelineConfiguration object
-    subject_tuple : tuple, (subject_id, timepoint)
-        Process the given subject
         
     """
     # setting the global configuration variable
     globals()['gconf'] = conf
-    globals()['sid'] = subject_tuple
-    globals()['log'] = gconf.get_logger4subject(sid) 
+    globals()['log'] = gconf.get_logger() 
     start = time()
     
     log.info("DICOM -> NIFTI conversion")

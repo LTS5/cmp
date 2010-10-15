@@ -21,20 +21,17 @@ def create_connectionbased_parcellation():
         # segment ROIs (according to number of connection fibers)
     # could find anatomical labeling using a standardized atlas
 
-def run(conf, subject_tuple):
+def run(conf):
     """ Run the fiber clustering
     
     Parameters
     ----------
     conf : PipelineConfiguration object
-    subject_tuple : tuple, (subject_id, timepoint)
-        Process the given subject
         
     """
     # setting the global configuration variable
     globals()['gconf'] = conf
-    globals()['sid'] = subject_tuple
-    globals()['log'] = gconf.get_logger4subject(sid) 
+    globals()['log'] = gconf.get_logger() 
     start = time()
     
     find_clusters()

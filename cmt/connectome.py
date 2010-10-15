@@ -5,6 +5,9 @@ import cmt
 def mapit2(cobj):
     
     # XXX check if we need to run the preprocessing step
+        # consistency check the configuration
+        
+    cobj.consistency_check()
     cmt.preprocessing.run( cobj )
 
     if cobj.active_dicomconverter:

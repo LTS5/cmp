@@ -111,20 +111,17 @@ def run_fs_on_corrected_wm():
     log.info("[ DONE ]")
 
 
-def run(conf, subject_tuple):
+def run(conf):
     """ Run the freesurfer step
     
     Parameters
     ----------
     conf : PipelineConfiguration object
-    subject_tuple : tuple, (subject_id, timepoint)
-        Process the given subject
         
     """
     # setting the global configuration variable
     globals()['gconf'] = conf
-    globals()['sid'] = subject_tuple
-    globals()['log'] = gconf.get_logger4subject(sid) 
+    globals()['log'] = gconf.get_logger() 
     start = time()
     
     log.info("Running the FREESURFER module")
@@ -135,7 +132,7 @@ def run(conf, subject_tuple):
         recon_all()
     elif gconf.wm_handling == 2:
         before_wm_corr()
-        msg = 'You can now correct the white matter for subject %s' % sid
+        msg = 'You can now correct the white matter for subject '
         raise Exception(msg)
     elif gconf.wm_handling == 3:
         after_wm_corr()

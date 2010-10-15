@@ -288,15 +288,13 @@ def cmat(fib, hdr):
 
 
 ################################################################################
-def run(conf, subject_tuple):
+def run(conf):
     """ 
     Run the connection matrix module
         
     Parameters
     ----------
     conf : PipelineConfiguration object
-    subject_tuple : tuple, (subject_id, timepoint)
-      Process the given subject
       
     Functions
     ----------
@@ -316,9 +314,8 @@ def run(conf, subject_tuple):
         
     # setting the global configuration variable
     globals()['gconf'] = conf
-    globals()['sid']   = subject_tuple
     start              = time()
-    globals()['log']   = conf.get_logger4subject(subject_tuple)
+    globals()['log']   = conf.get_logger()
     
     log.info("########################")
     log.info("Connection matrix module")

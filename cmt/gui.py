@@ -12,6 +12,7 @@ from enthought.traits.ui.api import View, Item, HGroup, Handler, \
                     message, spring, Group, VGroup
                     
 from cmt.configuration import PipelineConfiguration
+import cmt.connectome
 
 class CMTGUI( PipelineConfiguration ):
     """ The Graphical User Interface for the CMT
@@ -26,8 +27,10 @@ class CMTGUI( PipelineConfiguration ):
     about = Button
     close = Button
     run = Button
+    save = Button
+    load = Button
 
-    panel_group = Group(
+    main_group = Group(
                     VGroup(
                     Item('project_name', label='Project Name:', tooltip = 'Please enter a name for your project'),
                     Item('project_dir', label='Project Directory:'),
@@ -46,7 +49,7 @@ class CMTGUI( PipelineConfiguration ):
                     Item('active_cffconverter', label = 'CFF Converter'),
                     label="Execute"     
                     ),
-                    label = "Panel",
+                    label = "Main",
                     show_border = False
                     )
                         
@@ -145,7 +148,7 @@ class CMTGUI( PipelineConfiguration ):
     view = View(
         VGroup(
             HGroup(
-              panel_group,
+              main_group,
               metadata_group,
               subject_group,
               registration_group,
@@ -159,6 +162,8 @@ class CMTGUI( PipelineConfiguration ):
             HGroup( 
                 #Item( 'validate_form', label = 'Validate Form', show_label = False),
                 Item( 'about', label = 'About', show_label = False),
+                Item( 'close', label = 'Save', show_label = False),
+                Item( 'close', label = 'Load', show_label = False),
                 Item( 'close', label = 'Close', show_label = False),
                 spring,
                 Item( 'run', label = 'Run!', show_label = False),
@@ -178,10 +183,10 @@ class CMTGUI( PipelineConfiguration ):
         ####################
         # Finally, map it! #
         ####################
-        #cmt.connectome.mapit2(myp)
+        cmt.connectome.mapit2(self)
 
-
-if __name__ == '__main__':
-    cmtgui = CMTGUI()
-    cmtgui.configure_traits()
+#
+#if __name__ == '__main__':
+#    cmtgui = CMTGUI()
+#    cmtgui.configure_traits()
     

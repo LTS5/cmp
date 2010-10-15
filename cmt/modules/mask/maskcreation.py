@@ -283,7 +283,7 @@ def crop_and_move_datasets():
         runCmd( mri_cmd,log )
 
 
-def run(conf, subject_tuple):
+def run(conf):
     """ Run the first mask creation step
     
     Parameters
@@ -295,8 +295,7 @@ def run(conf, subject_tuple):
     """
     # setting the global configuration variable
     globals()['gconf'] = conf
-    globals()['sid'] = subject_tuple
-    globals()['log'] = gconf.get_logger4subject(sid) 
+    globals()['log'] = gconf.get_logger() 
     start = time()
     
     log.info("ROI_HR_th.nii / fsmask_1mm.nii CREATION")

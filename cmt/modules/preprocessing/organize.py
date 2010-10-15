@@ -72,20 +72,17 @@ def log_paths():
     log.info(gconf.dtk_matrices)
 
 
-def run(conf, subject_tuple):
+def run(conf):
     """ Run the first preprocessing step
     
     Parameters
     ----------
     conf : PipelineConfiguration object
-    subject_tuple : tuple, (subject_id, timepoint)
-        Process the given subject
         
     """
     # setting the global configuration variable
     globals()['gconf'] = conf
-    globals()['sid'] = subject_tuple
-    globals()['log'] = gconf.get_logger4subject(sid) 
+    globals()['log'] = gconf.get_logger() 
     start = time()
     
     log.info("Preprocessing")
@@ -95,9 +92,6 @@ def run(conf, subject_tuple):
     create_folders()
     set_env_vars()
     log_paths()
-    
-    # consistency check the configuration
-    gconf.consistency_check()
     
     log.info("Module took %s seconds to process." % (time()-start))
     

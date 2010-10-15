@@ -108,20 +108,17 @@ def apply_lin_registration():
     log.info("[ Saved in %s ]" % tracto_masks_path_out)
     
 
-def run(conf, subject_tuple):
+def run(conf):
     """ Run the apply registration step
     
     Parameters
     ----------
     conf : PipelineConfiguration object
-    subject_tuple : tuple, (subject_id, timepoint)
-        Process the given subject
         
     """
     # setting the global configuration variable
     globals()['gconf'] = conf
-    globals()['sid'] = subject_tuple
-    globals()['log'] = gconf.get_logger4subject(sid) 
+    globals()['log'] = gconf.get_logger() 
     
     start = time()
     

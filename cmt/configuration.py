@@ -16,10 +16,7 @@ class PipelineConfiguration(traits.HasTraits):
         
     # project metadata (for connectome file)
     project_metadata = traits.Dict(desc="project metadata to be stored in the connectome file")
-    generator = traits.Enum( "cmt 1.1", ["cmt 1.1"] )
-        
-    # subject list
-    subject_list = traits.Dict(desc="a dictionary representing information about single subjects")
+    generator = traits.Enum( "cmt 1.0", ["cmt 1.0"] )
     
     # choose between 'L' (linear) and 'N' (non-linear)
     registration_mode = traits.Enum("L", ["L", "N"], desc="registration mode: linear or non-linear")
@@ -39,7 +36,7 @@ class PipelineConfiguration(traits.HasTraits):
     lin_reg_param = traits.Str('-usesqform -nosearch -dof 6 -cost mutualinfo')
     nlin_reg_bet_T2_param = traits.Str('-f 0.35 -g 0.15')
     nlin_reg_bet_b0_param = traits.Str('-f 0.2 -g 0.2')
-    nlin_reg_fnirt_param = traits.Str('')
+    nlin_reg_fnirt_param = traits.Str('--subsamp=8,4,2,2 --miter==5,5,5,5 --lambda=240,120,90,30 --splineorder=3 --applyinmask=0,0,1,1 --applyrefmask=0,0,1,1')
 
     # subject
     subject_name = traits.Str(  )
@@ -49,7 +46,8 @@ class PipelineConfiguration(traits.HasTraits):
     subject_raw_glob_diffusion = traits.Str( "*.ima" )
     subject_raw_glob_T1 = traits.Str( "*.ima" )
     subject_raw_glob_T2 = traits.Str( "*.ima" )
-        
+    subject_logger = None
+    
     active_dicomconverter = traits.Bool(True)
     active_registration = traits.Bool(True)
     active_segmentation = traits.Bool(True)
@@ -159,26 +157,24 @@ class PipelineConfiguration(traits.HasTraits):
             if self.nr_of_sampling_directions is None:
                 raise Exception('Parameter "nr_of_sampling_directions" not set. Required for DSI.')
 
-        for subj in self.subject_list:
-            
-            if not self.subject_list[subj].has_key('workingdir'):
-                msg = 'No working directory defined for subject %s' % str(subj)
+        if self.subject_workingdir == '':
+            msg = 'No working directory defined for subject'
+            raise Exception(msg)
+        else:
+            wdir = self.get_subj_dir()
+            if not op.exists(wdir):
+                msg = 'Working directory %s does not exists for subject' % (wdir)
                 raise Exception(msg)
             else:
-                wdir = self.get_subj_dir(subj)
-                if not op.exists(wdir):
-                    msg = 'Working directory %s does not exists for subject %s' % (wdir, str(subj))
+                wdiff = op.join(self.get_raw_diffusion())
+                print wdiff
+                if not op.exists(wdiff):
+                    msg = 'Diffusion MRI subdirectory does not exists for the subject'
                     raise Exception(msg)
-                else:
-                    wdiff = op.join(self.get_raw_diffusion())
-                    print wdiff
-                    if not op.exists(wdiff):
-                        msg = 'Diffusion MRI subdirectory does not exists for the subject'
-                        raise Exception(msg)
-                    wt1 = op.join(self.get_rawt1())
-                    if not op.exists(wt1):
-                        msg = 'Structural MRI subdirectory T1 does not exist in RAWDATA'
-                        raise Exception(msg)
+                wt1 = op.join(self.get_rawt1())
+                if not op.exists(wt1):
+                    msg = 'Structural MRI subdirectory T1 does not exist in RAWDATA'
+                    raise Exception(msg)
         
         
     def get_cmt_home(self):
@@ -187,11 +183,11 @@ class PipelineConfiguration(traits.HasTraits):
         
     def get_raw(self):
         """ Return raw data path for the subject """
-        return op.join(self.get_subj_dir(subject), 'RAWDATA')
+        return op.join(self.get_subj_dir(), 'RAWDATA')
     
     def get_log(self):
         """ Get subject log dir """
-        return op.join(self.get_subj_dir(subject), 'LOG')
+        return op.join(self.get_subj_dir(), 'LOG')
     
     def get_logger(self):
         """ Get the logger instance created """
@@ -240,9 +236,9 @@ class PipelineConfiguration(traits.HasTraits):
     def get_raw_diffusion(self):
         """ Get the raw diffusion path for subject """
         if self.diffusion_imaging_model == 'DSI':
-            return op.join(self.get_subj_dir(subject), 'RAWDATA', 'DSI')
+            return op.join(self.get_subj_dir(), 'RAWDATA', 'DSI')
         elif self.diffusion_imaging_model == 'DTI':
-            return op.join(self.get_subj_dir(subject), 'RAWDATA', 'DTI')
+            return op.join(self.get_subj_dir(), 'RAWDATA', 'DTI')
 
     def get_fs(self):
         """ Returns the subject root folder path for freesurfer files """
@@ -256,28 +252,28 @@ class PipelineConfiguration(traits.HasTraits):
         """ Returns the subject root folder path for nifti files """
         return op.join(self.get_subj_dir(), 'NIFTI')
 
-    def get_cmt(self, subject):
+    def get_cmt(self):
         return op.join(self.get_subj_dir(), 'CMT')
 
     def get_cmt_rawdiff(self, ):
         return op.join(self.get_cmt(), 'raw_diffusion')
         
-    def get_cmt_fsout(self, ):
+    def get_cmt_fsout(self):
         return op.join(self.get_cmt(), 'fs_output')
     
-    def get_cmt_fibers(self, ):
+    def get_cmt_fibers(self):
         return op.join(self.get_cmt(), 'fibers')
 
-    def get_cmt_scalars(self, ):
+    def get_cmt_scalars(self):
         return op.join(self.get_cmt(), 'scalars')
         
-    def get_cmt_matrices(self, subject):
+    def get_cmt_matrices(self):
         return op.join(self.get_cmt_fibers(), 'matrices')  
     
     def get_cmt_tracto_mask(self):
         return op.join(self.get_cmt_fsout(), 'registered', 'HR')
     
-    def get_cmt_tracto_mask_tob0(self, subject):
+    def get_cmt_tracto_mask_tob0(self):
         return op.join(self.get_cmt_fsout(), 'registered', 'HR__registered-TO-b0')
 
     # XXX
@@ -304,7 +300,7 @@ class PipelineConfiguration(traits.HasTraits):
     
     
     # XXX
-    def get_cmt_scalarfields(self, subject):
+    def get_cmt_scalarfields(self):
         """ Returns a list with tuples with the scalar field name and the
         absolute path to its nifti file """
         
