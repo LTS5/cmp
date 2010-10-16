@@ -97,3 +97,6 @@ def reorient(src, ref, log):
     
     log.info("File %s written" % src)    
 
+def DTB_viewer():
+    """ Run the DTB Viewer """
+    #XXX

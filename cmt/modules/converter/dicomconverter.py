@@ -31,13 +31,14 @@ def diff2nifti_dsi_unpack():
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DSI.nii'))            
         runCmd(diff_cmd, log)
         
-        # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
-        data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, raw_glob)
-        del data
-        import numpy as np
-        np.savetxt(op.join(nifti_dir, 'dsi_affine.txt'), affine)
-        np.savetxt(op.join(nifti_dir, 'dsi_bvals.txt'), bval)
-        np.savetxt(op.join(nifti_dir, 'dsi_bvects.txt'), bvect)
+    # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
+    data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, raw_glob)
+    del data
+    import numpy as np
+    np.savetxt(op.join(nifti_dir, 'dsi_affine.txt'), affine)
+    np.savetxt(op.join(nifti_dir, 'dsi_bvals.txt'), bval)
+    np.savetxt(op.join(nifti_dir, 'dsi_bvects.txt'), bvect)
+
 
 def dsi_resamp():
     
@@ -81,13 +82,13 @@ def diff2nifti_dti_unpack():
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii'))            
         runCmd(diff_cmd, log)
         
-        # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
-        data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, raw_glob)
-        del data
-        import numpy as np
-        np.savetxt(op.join(nifti_dir, 'dti_affine.txt'), affine)
-        np.savetxt(op.join(nifti_dir, 'dti_bvals.txt'), bval)
-        np.savetxt(op.join(nifti_dir, 'dti_bvects.txt'), bvect)
+    # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
+    data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, raw_glob)
+    del data
+    import numpy as np
+    np.savetxt(op.join(nifti_dir, 'dti_affine.txt'), affine)
+    np.savetxt(op.join(nifti_dir, 'dti_bvals.txt'), bval)
+    np.savetxt(op.join(nifti_dir, 'dti_bvects.txt'), bvect)
 
 
 def dti_resamp():

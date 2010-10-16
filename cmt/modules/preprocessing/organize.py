@@ -45,10 +45,10 @@ def create_folders():
         paths.append(gconf.get_rawt2())
 
     for p in gconf.parcellation.keys():
-        paths.append(op.join(op.join(gconf.get_cmt_fsout(), 'registred', 'HR'), p))
+        paths.append(op.join(op.join(gconf.get_cmt_fsout(), 'registered', 'HR'), p))
         
     for park, parv in gconf.parcellation.items():
-        paths.append(op.join(op.join(gconf.get_cmt_fsout(), 'registred', 'HR__registered-TO-b0'), park))
+        paths.append(op.join(op.join(gconf.get_cmt_fsout(), 'registered', 'HR__registered-TO-b0'), park))
 
     for p in paths:
         if not op.exists(p):

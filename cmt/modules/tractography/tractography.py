@@ -42,7 +42,7 @@ def fiber_tracking_dsi():
     if not op.exists(op.join(fibers_path, 'streamline.trk')):
         log.error('No streamline.trk created')    
     
-    # XXX: rm "${DATA_path}/${MY_SUBJECT}/${MY_TP}/4__CMT/fs_output/registred/HR__registered-TO-b0/fsmask_1mm__8bit.nii"
+    # XXX: rm "${DATA_path}/${MY_SUBJECT}/${MY_TP}/4__CMT/fs_output/registered/HR__registered-TO-b0/fsmask_1mm__8bit.nii"
     log.info("[ DONE ]")
 
 

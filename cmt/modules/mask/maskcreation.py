@@ -252,7 +252,7 @@ def create_wm_mask():
 
 def crop_and_move_datasets():
     
-    log.info("Cropping and moving datasets to CMT/fs_output/registred/HR folder")
+    log.info("Cropping and moving datasets to CMT/fs_output/registered/HR folder")
     
     fs_dir = gconf.get_fs()
     fs_cmd_dir = gconf.get_cmt_fsout()
