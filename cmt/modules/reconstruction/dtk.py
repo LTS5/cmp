@@ -13,7 +13,7 @@ def resample_dsi():
 
     input_dsi_file = op.join(gconf.get_nifti(), 'DSI.nii')
     # XXX: this output file is never generated!
-    ouput_dsi_file = op.join(gconf.get_cmt_rawdiff(), 'DSI_resampled_2x2x2.nii.gz')
+    output_dsi_file = op.join(gconf.get_cmt_rawdiff(), 'DSI_resampled_2x2x2.nii')
     res_dsi_dir = op.join(gconf.get_cmt_rawdiff(), '2x2x2') 
     
     if not op.exists(input_dsi_file):
@@ -32,6 +32,9 @@ def resample_dsi():
         fsl_cmd = 'fslmaths %s %s -odt short' % (tmp_file, file)
         runCmd( fsl_cmd, log )        
 
+    fslmerge_cmd = 'fslmerge -a %s %s' % (output_dsi_file,  op.join(res_dsi_dir, 'MR0000.nii'))
+    runCmd( fslmerge_cmd, log )
+
     log.info(" [DONE] ")
     
     
@@ -43,7 +46,7 @@ def resample_dti():
 
     input_dsi_file = op.join(gconf.get_nifti(), 'DTI.nii')
     # XXX: this output file is never generated!
-    ouput_dsi_file = op.join(gconf.get_cmt_rawdiff(), 'DTI_resampled_2x2x2.nii.gz')
+    output_dsi_file = op.join(gconf.get_cmt_rawdiff(), 'DTI_resampled_2x2x2.nii')
     res_dsi_dir = op.join(gconf.get_cmt_rawdiff(), '2x2x2') 
     
     if not op.exists(input_dsi_file):
@@ -64,7 +67,7 @@ def resample_dti():
     
     fslmerge_cmd = 'fslmerge -a %s %s' % (output_dsi_file,  op.join(res_dsi_dir, 'MR*.nii'))
     runCmd( fslmerge_cmd, log )
-    
+
     log.info(" [DONE] ")
     
     
@@ -73,27 +76,28 @@ def compute_dts():
     log.info("Compute diffusion tensor field")
     log.info("==============================")
     
-    input_file = op.join(gconf.get_cmt_rawdiff(), '2x2x2', 'MR0000.nii')
+    input_file = op.join(gconf.get_cmt_rawdiff(), 'DTI_resampled_2x2x2.nii')
     dti_out_path = op.join(gconf.get_cmt_rawdiff(), 'dti_0')
     
-    if not op.exists(first_input_file):
-        msg = "No input file available: %s" % first_input_file
+    if not op.exists(input_file):
+        msg = "No input file available: %s" % input_file
         log.error(msg)
         raise Exception(msg)
     
-    
     if not gconf.dti_recon_param == '':
-        param = gconf.dti_recon_param
+        param = gconf.dti_recon_param + ' -gm %s' % gconf.gradient_table_file
     else:
-        param = ''
+        param = ' -gm %s' % gconf.gradient_table_file
         # store bvalues in 4th component of gradient_matrix
         # otherwise use --b_value 1000 for a global b value
         # param = '--number_of_b0 1 --gradient_matrix %s 1'
         # others? -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
          
-    dti_cmd = 'dti_recon  %s %s %s' % (first_input_file,  
+    dti_cmd = 'dti_recon %s %s -b0 %s -b %s %s' % (input_file,  
                              op.join(dti_out_path, "dti_"),
-                             param % gconf.gradient_table_file )
+			     gconf.nr_of_b0,
+			     gconf.max_b0_val,
+                             param)
     
     runCmd (dti_cmd, log )
 
