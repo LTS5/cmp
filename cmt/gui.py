@@ -129,7 +129,10 @@ class CMTGUI( PipelineConfiguration ):
                enabled_when = "active_reconstruction"   
             ),
         VGroup(
-               # XXX: Item('b0_value'),
+               Item('gradient_table'),
+               Item('nr_of_b0'),
+               Item('max_b0_val'),
+               Item('dti_recon_param'),
                show_border = True,
                enabled_when = "diffusion_imaging_model == 'DTI'"
             ),
@@ -232,6 +235,16 @@ Testing:
         sp.dump(self, output, -1)
         output.close()
                             
+    def _gradient_table_changed(self, value):
+        if value == 'custom':
+            self.gradient_table_file = self.get_custom_gradient_table()
+        else:
+            self.gradient_table_file = self.get_cmt_gradient_table(value)
+            
+        if not os.exists(self.gradient_table_file):
+            msg = 'Selected gradient table %s does not exist!' % self.gradient_table_file
+            raise Exception(msg)
+    
     def _run_fired(self):
         # execute the pipeline thread
         cmtthread = CMTThread(self)

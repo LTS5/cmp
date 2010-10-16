@@ -35,6 +35,7 @@ def create_folders():
         gconf.get_cmt_scalars(),
         gconf.get_cmt_matrices(),
         gconf.get_nifti_trafo(),
+        gconf.get_diffusion_metadata(),
         op.join(gconf.get_cmt_rawdiff(), '2x2x2'),
         op.join(gconf.get_cmt_rawdiff(), 'odf_0'),
         op.join(gconf.get_nifti(), 'wm_correction'),

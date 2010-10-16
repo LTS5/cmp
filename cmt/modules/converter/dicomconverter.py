@@ -39,6 +39,13 @@ def diff2nifti_dsi_unpack():
         np.savetxt(op.join(nifti_dir, 'dsi_bvals.txt'), bval)
         np.savetxt(op.join(nifti_dir, 'dsi_bvects.txt'), bvect)
 
+        # XXX: retrieve number of b0 images
+        # put 0,0,0 in front or as parameter?
+        arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
+        arr[:,:3] = bvect
+        arr[:,4] = bval
+        np.savetxt(op.join(diffme, 'gradient_table.txt'), arr)
+        
 
 def dsi_resamp():
     
@@ -69,6 +76,7 @@ def diff2nifti_dti_unpack():
 
     raw_dir = op.join(gconf.get_rawdata())    
     nifti_dir = op.join(gconf.get_nifti())
+    diffme = gconf.get_diffusion_metadata()
     dti_dir = op.join(raw_dir, 'DTI')
     raw_glob = gconf.get_rawglob('diffusion')
 
@@ -86,9 +94,17 @@ def diff2nifti_dti_unpack():
         data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, raw_glob)
         del data
         import numpy as np
-        np.savetxt(op.join(nifti_dir, 'dti_affine.txt'), affine)
-        np.savetxt(op.join(nifti_dir, 'dti_bvals.txt'), bval)
-        np.savetxt(op.join(nifti_dir, 'dti_bvects.txt'), bvect)
+        np.savetxt(op.join(diffme, 'dti_affine.txt'), affine)
+        np.savetxt(op.join(diffme, 'dti_bvals.txt'), bval)
+        np.savetxt(op.join(diffme, 'dti_bvects.txt'), bvect)
+        
+        # XXX: retrieve number of b0 images
+        # put 0,0,0 in front ? or as parameter ?
+        arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
+        arr[:,:3] = bvect
+        arr[:,4] = bval
+        np.savetxt(op.join(diffme, 'gradient_table.txt'), arr)
+
 
 
 def dti_resamp():

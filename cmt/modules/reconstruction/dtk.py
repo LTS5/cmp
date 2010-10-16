@@ -61,7 +61,7 @@ def resample_dti():
         runCmd( mri_cmd, log )
         fsl_cmd = 'fslmaths %s %s -odt short' % (tmp_file, file)
         runCmd( fsl_cmd, log )        
-
+    
     log.info(" [DONE] ")
     
     
@@ -70,9 +70,8 @@ def compute_dts():
     log.info("Compute diffusion tensor field")
     log.info("==============================")
     
-    # XXX: is first file correct like this?
-    first_input_file = op.join(gconf.get_cmt_rawdiff(), '2x2x2', 'MR0000.nii')
-    dti_out_path = op.join(gconf.get_cmt_rawdiff(), 'odf_0')
+    input_file = op.join(gconf.get_cmt_rawdiff(), '2x2x2', 'MR0000.nii')
+    dti_out_path = op.join(gconf.get_cmt_rawdiff(), 'dti_0')
     
     if not op.exists(first_input_file):
         msg = "No input file available: %s" % first_input_file
@@ -80,17 +79,18 @@ def compute_dts():
         raise Exception(msg)
     
     
-    if gconf.mode_parameters.has_key('dti_recon_param'):
-        param = gconf.mode_parameters['dti_recon_param']
+    if not gconf.dti_recon_param == '':
+        param = gconf.dti_recon_param
     else:
+        param = ''
         # store bvalues in 4th component of gradient_matrix
         # otherwise use --b_value 1000 for a global b value
-        param = '--number_of_b0 1 --gradient_matrix %s 1'
+        # param = '--number_of_b0 1 --gradient_matrix %s 1'
         # others? -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
          
     dti_cmd = 'dti_recon  %s %s %s' % (first_input_file,  
                              op.join(dti_out_path, "dti_"),
-                             param % gconf.get_gradient_matrix(False) )
+                             param % gconf.gradient_table_file )
     
     runCmd (dti_cmd, log )
 

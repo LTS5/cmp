@@ -25,10 +25,18 @@ class PipelineConfiguration(traits.HasTraits):
     diffusion_imaging_model = traits.Enum( "DSI", ["DSI", "DTI"])
     diffusion_imaging_stream = traits.Enum( "Lausanne2011", ["Lausanne2011"] )
     
+    # DSI
     nr_of_gradient_directions = traits.Int(515)
     nr_of_sampling_directions = traits.Int(181)
-    
     odf_recon_param = traits.Str('-b0 1 -dsi -p 4 -sn 0 -ot nii')
+    
+    # DTI
+    gradient_table_file = traits.File(exists=False)
+    gradient_table = traits.Enum('siemens_64', ['custom', 'siemens_64'])
+    nr_of_b0 = traits.Int(1)
+    max_b0_val = traits.Int(1000)
+    dti_recon_param = traits.Str('')
+               
     streamline_param = traits.Str('--angle 60 --rSeed 4')
     
     lin_reg_param = traits.Str('-usesqform -nosearch -dof 6 -cost mutualinfo')
@@ -254,6 +262,10 @@ class PipelineConfiguration(traits.HasTraits):
     def get_nifti_trafo(self):
         """ Returns the path to the subjects transformation / registration matrices """
         return op.join(self.get_nifti(), 'transformations')
+
+    def get_diffusion_metadata(self):
+        """ Diffusion metadata, i.e. where gradient_table.txt is stored """
+        return op.join(self.get_nifti(), 'diffusion_metadata')
         
     def get_cmt(self):
         return op.join(self.get_subj_dir(), 'CMT')
@@ -286,20 +298,16 @@ class PipelineConfiguration(traits.HasTraits):
         else:
             return self.mode_parameters['mat_mask']
           
-    # XXX
-    def get_gradient_matrix(self, raw = True):
-        """ Returns the absolute path to the gradient matrix
-        (the b-vectors) extracted from the raw diffusion DICOM files """
-        
-        if self.diffusion_imaging_model == 'DSI':
-            return op.join(self.get_nifti(), 'dsi_bvects.txt')
-        elif  self.diffusion_imaging_model == 'DTI':
-            if raw:
-                # return the raw table
-                return op.join(self.get_nifti(), 'dti_bvects.txt')
-            else:
-                # XXX: return the processed table with nan set to 0 and 4th component are the bvals
-                pass
+    def get_custom_gradient_table(self):
+        """ Returns the absolute path to the custom gradient table
+        with optional b-values in the 4th row """
+        return op.join(self.get_diffusion_metadata(), 'gradient_table.txt')
+    
+    def get_cmt_gradient_table(self, name):
+        """ Return default gradient tables shipped with CMT. These are mainly derived from
+        Diffusion Toolkit """
+        cmt_path = op.dirname(__file__)
+        return op.join(cmt_path, 'data', 'gradient_tables', name + '.txt')
     
     
     # XXX
