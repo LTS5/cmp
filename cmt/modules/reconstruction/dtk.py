@@ -62,6 +62,9 @@ def resample_dti():
         fsl_cmd = 'fslmaths %s %s -odt short' % (tmp_file, file)
         runCmd( fsl_cmd, log )        
     
+    fslmerge_cmd = 'fslmerge -a %s %s' % (output_dsi_file,  op.join(res_dsi_dir, 'MR0000.nii'))
+    runCmd( fslmerge_cmd, log )
+    
     log.info(" [DONE] ")
     
     
