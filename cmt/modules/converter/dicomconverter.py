@@ -16,7 +16,8 @@ def diff2nifti_dsi_unpack():
     nifti_dir = op.join(gconf.get_nifti())
     dsi_dir = op.join(raw_dir, 'DSI')
     raw_glob = gconf.get_rawglob('diffusion')
-    
+    diffme = gconf.get_diffusion_metadata()
+
     log.info("Convert DSI ...")
     # check if .nii / .nii.gz is already available
     if op.exists(op.join(dsi_dir, 'DSI.nii')):
@@ -43,7 +44,7 @@ def diff2nifti_dsi_unpack():
         # put 0,0,0 in front or as parameter?
         arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
         arr[:,:3] = bvect
-        arr[:,4] = bval
+        arr[:,3] = bval
         np.savetxt(op.join(diffme, 'gradient_table.txt'), arr)
         
 
@@ -102,7 +103,7 @@ def diff2nifti_dti_unpack():
         # put 0,0,0 in front ? or as parameter ?
         arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
         arr[:,:3] = bvect
-        arr[:,4] = bval
+        arr[:,3] = bval
         np.savetxt(op.join(diffme, 'gradient_table.txt'), arr)
 
 
