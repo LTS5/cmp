@@ -10,6 +10,7 @@ from enthought.traits.ui.api import View, Item, HGroup, Handler, \
 import threading
 from cmt.configuration import PipelineConfiguration
 import cmt.connectome
+import os.path
 
 class CMTThread( threading.Thread ):
 
@@ -234,14 +235,31 @@ Testing:
         # Pickle the list using the highest protocol available.
         sp.dump(self, output, -1)
         output.close()
-                            
+                    
+#    def _gradient_table_file_default(self):
+#    	return self.get_gradient_table_file()
+
+    # XXX this is not automatically invoked!       
+    def _get_gradient_table_file(self):
+
+        if self.gradient_table == 'custom':
+            gradfile = self.get_custom_gradient_table()
+        else:
+            gradfile = self.get_cmt_gradient_table(self.gradient_table)
+
+        if not os.path.exists(gradfile):
+            msg = 'Selected gradient table %s does not exist!' % gradfile
+            raise Exception(msg)
+
+	return gradfile
+	
     def _gradient_table_changed(self, value):
         if value == 'custom':
             self.gradient_table_file = self.get_custom_gradient_table()
         else:
             self.gradient_table_file = self.get_cmt_gradient_table(value)
             
-        if not os.exists(self.gradient_table_file):
+        if not os.path.exists(self.gradient_table_file):
             msg = 'Selected gradient table %s does not exist!' % self.gradient_table_file
             raise Exception(msg)
     

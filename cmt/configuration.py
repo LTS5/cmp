@@ -307,7 +307,7 @@ class PipelineConfiguration(traits.HasTraits):
         """ Return default gradient tables shipped with CMT. These are mainly derived from
         Diffusion Toolkit """
         cmt_path = op.dirname(__file__)
-        return op.join(cmt_path, 'data', 'gradient_tables', name + '.txt')
+        return op.join(cmt_path, 'data', 'diffusion', 'gradient_tables', name + '.txt')
     
     
     # XXX
