@@ -14,14 +14,14 @@ def diff2nifti_dsi_unpack():
 
     raw_dir = op.join(gconf.get_rawdata())    
     nifti_dir = op.join(gconf.get_nifti())
-
     dsi_dir = op.join(raw_dir, 'DSI')
-    log.info("Convert DSI ...") 
+    raw_glob = gconf.get_rawglob('diffusion')
+    
+    log.info("Convert DSI ...")
     # check if .nii / .nii.gz is already available
     if op.exists(op.join(dsi_dir, 'DSI.nii')):
         shutil.copy(op.join(dsi_dir, 'DSI.nii'), op.join(nifti_dir, 'DSI.nii'))
     else:
-        raw_glob = gconf.get_rawglob('diffusion')
         # read data
         files = glob(op.join(dsi_dir, raw_glob))
         if len(files) == 0:
@@ -69,14 +69,14 @@ def diff2nifti_dti_unpack():
 
     raw_dir = op.join(gconf.get_rawdata())    
     nifti_dir = op.join(gconf.get_nifti())
-
     dti_dir = op.join(raw_dir, 'DTI')
+    raw_glob = gconf.get_rawglob('diffusion')
+
     log.info("Convert DTI ...") 
     # check if .nii / .nii.gz is already available
     if op.exists(op.join(dti_dir, 'DTI.nii')):
         shutil.copy(op.join(dti_dir, 'DTI.nii'), op.join(nifti_dir, 'DTI.nii'))
     else:
-        raw_glob = gconf.get_rawglob('diffusion')
         # read data
         first = sorted(glob(op.join(dti_dir, raw_glob)))[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii'))            
