@@ -21,7 +21,7 @@ def mymove(src, dst, log, copy = False):
         log.info("Copy file %s to %s" % (src, dst))
         shutil.copy(src, dst)
     else:
-        log.inf("Move file %s to %s" % (src, dst))
+        log.info("Move file %s to %s" % (src, dst))
         shutil.move(src, dst)
 
 def myrename(src, dst, log):
