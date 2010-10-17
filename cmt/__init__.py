@@ -11,7 +11,7 @@ import modules.registration.registration as registration
 import modules.segmentation.freesurfer as freesurfer
 
 # MASK: ROI_HR_th.nii / fsmask_1mm.nii CREATION
-import modules.mask.maskcreation as maskcreation
+import modules.parcellation.maskcreation as maskcreation
 
 # DIFFUSION TOOLKIT
 import modules.reconstruction.dtk as dtk

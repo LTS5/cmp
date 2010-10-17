@@ -201,10 +201,14 @@ Version 1.0
 Copyright (C) 2010, Ecole Polytechnique Federale de Lausanne (EPFL) and
 Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland
                 
+Contact
+-------
+info@connectomics.org
+
 Contributors
 ------------
 Development:
-* Stephan Gerhard
+* Stephan Gerhard 
 * Christophe Chenes
 
 Image Processing:
@@ -285,7 +289,6 @@ Testing:
                 self.load_state(dlg.path)
 
     def _save_fired(self):
-        print "blubb"
         import pickle
         import enthought.sweet_pickle as sp
         import os.path
