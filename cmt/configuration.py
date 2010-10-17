@@ -292,11 +292,8 @@ class PipelineConfiguration(traits.HasTraits):
         return op.join(self.get_cmt_fsout(), 'registered', 'HR__registered-TO-b0')
 
     # XXX
-    def get_matMask4subject(self):
-        if not self.mode_parameters.has_key('mat_mask'):
-            return op.join(op.dirname(__file__), 'data', 'parcellation', 'lausanne2008', 'resolution83', 'mat_mask.npy')
-        else:
-            return self.mode_parameters['mat_mask']
+    def get_matMask4subject(self, name, parcellation):
+        return op.join(op.dirname(__file__), 'data', 'parcellation', name, parcellation, 'mat_mask.npy')
           
     def get_custom_gradient_table(self):
         """ Returns the absolute path to the custom gradient table

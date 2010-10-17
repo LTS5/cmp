@@ -214,7 +214,7 @@ def cmat(fib, hdr):
 	
     # Load the mat_mask 
     # TODO one mat_mask per resolution ?
-    matMask = np.load(gconf.get_matMask4subject())
+    matMask = np.load(gconf.get_matMask4subject('lausanne2008', 'resolution83'))
 	
     # For each resolution
     log.info("========================")
