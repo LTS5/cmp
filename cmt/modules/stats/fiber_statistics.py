@@ -27,7 +27,7 @@ def fiberlength_histogram():
 
 
 def run(conf):
-    """ Run the statistics module
+    """ Run the fiber statistics module
     
     Parameters
     ----------
