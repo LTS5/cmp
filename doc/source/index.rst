@@ -3,14 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Connectome Mapping Toolkit's documentation!
-======================================================
+Connectome Mapping Toolkit documentation
+========================================
+
+The target date for the release is January 2011. Stay tuned!
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
-
 
    installation
    mappingsteps
