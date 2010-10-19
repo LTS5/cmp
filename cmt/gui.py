@@ -46,18 +46,24 @@ class CMTGUI( PipelineConfiguration ):
                     Item('generator', label='Generator', ),
                       label="Project Settings"
                     ),
-                    VGroup(
-                    Item('active_dicomconverter', label = 'DICOM Converter'),
-                    Item('active_registration', label = 'Registration'),
-                    Item('active_segmentation', label = 'Segmentation'),
-                    Item('active_maskcreation', label = 'Mask Creation'),
-		    Item('active_reconstruction', label = 'Reconstruction'),
-                    Item('active_tractography', label = 'Tractography'),
-                    Item('active_fiberfilter', label = 'Fiberfiltering'),
-                    Item('active_connectome', label = 'Connectome Creation'),
-                    Item('active_statistics', label = 'Statistics'),
-                    Item('active_cffconverter', label = 'CFF Converter'),
-                    label="Execute"     
+                    HGroup(
+                        VGroup(
+                        Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
+                        Item('active_registration', label = 'Registration'),
+                        Item('active_segmentation', label = 'Segmentation'),
+                        Item('active_maskcreation', label = 'Mask Creation'),
+    		            Item('active_reconstruction', label = 'Reconstruction'),
+                        Item('active_tractography', label = 'Tractography'),
+                        Item('active_fiberfilter', label = 'Fiberfiltering'),
+                        Item('active_connectome', label = 'Connectome Creation'),
+                        Item('active_statistics', label = 'Statistics'),
+                        Item('active_cffconverter', label = 'CFF Converter'),
+                        label="Execute"     
+                        ),
+                        VGroup(
+                        label="Status",
+                        )
+                        
                     ),
                     label = "Main",
                     show_border = False
@@ -123,19 +129,21 @@ class CMTGUI( PipelineConfiguration ):
                show_border = False,               
                ),
         VGroup(
-               Item('nr_of_gradient_directions'),
-               Item('nr_of_sampling_directions'),
-               Item('odf_recon_param'),
+               Item('nr_of_gradient_directions', label="Number of Gradient Directions"),
+               Item('nr_of_sampling_directions', label="Number of Sampling Directions"),
+               Item('nr_of_b0', label="Number of b0 volumes"),
+               Item('odf_recon_param', label="odf_recon Parameters"),
                show_border = True,
-               enabled_when = "active_reconstruction"   
+               visible_when = "diffusion_imaging_model == 'DSI'"   
             ),
         VGroup(
-               Item('gradient_table'),
-               Item('nr_of_b0'),
-               Item('max_b0_val'),
-               Item('dti_recon_param'),
+               Item('gradient_table', label="Gradient Table"),
+               Item('gradient_table_file', label="Gradient Table File"),
+               Item('nr_of_b0', label="Number of b0 volumes"),
+               Item('max_b0_val', label="Maximumb b value"),
+               Item('dti_recon_param', label="dti_recon Parameters"),
                show_border = True,
-               enabled_when = "diffusion_imaging_model == 'DTI'"
+               visible_when = "diffusion_imaging_model == 'DTI'"
             ),
         visible_when = "active_reconstruction",
         label = "Reconstruction",                         
@@ -143,7 +151,7 @@ class CMTGUI( PipelineConfiguration ):
     
     tractography_group = Group(
         VGroup(
-               Item('streamline_param'),
+               Item('streamline_param', label="DTB_streamline Parameters"),
                show_border = True,
                enabled_when = "active_tractography"   
             ),
@@ -302,3 +310,7 @@ Testing:
         
         if dlg.open() == OK:
             self.save_state(dlg.path)
+
+if __name__ == '__main__':
+    a = CMTGUI()
+    a.configure_traits()

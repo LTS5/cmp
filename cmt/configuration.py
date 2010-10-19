@@ -32,7 +32,9 @@ class PipelineConfiguration(traits.HasTraits):
     
     # DTI
     gradient_table_file = traits.File(exists=False)
-    gradient_table = traits.Enum('siemens_64', ['custom', 'siemens_64'])
+    gradient_table = traits.Enum('siemens_64', ['custom', 'mgh_dti_006', 'mgh_dti_018', 'mgh_dti_030', 'mgh_dti_042', 'mgh_dti_060',
+     'mgh_dti_072', 'mgh_dti_090', 'mgh_dti_120', 'mgh_dti_144', 'siemens_06',
+     'siemens_12', 'siemens_20', 'siemens_256', 'siemens_30', 'siemens_64'])
     nr_of_b0 = traits.Int(1)
     max_b0_val = traits.Int(1000)
     dti_recon_param = traits.Str('')
@@ -74,6 +76,7 @@ class PipelineConfiguration(traits.HasTraits):
     reference = traits.Str()
     url = traits.Str()
     description = traits.Str()
+                  
                         
     # do you want to do manual whit matter mask correction?
     wm_handling = traits.Enum(1, [1,2,3], desc="in what state should the freesurfer step be processed")
@@ -123,6 +126,9 @@ class PipelineConfiguration(traits.HasTraits):
         
         # no email notify
         self.emailnotify = []
+        
+        # default gradient table for DTI
+        self.gradient_table_file = self.get_cmt_gradient_table('siemens_64')
         
         # try to discover paths from environment variables
         try:
