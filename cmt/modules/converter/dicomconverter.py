@@ -36,16 +36,14 @@ def diff2nifti_dsi_unpack():
         data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, raw_glob)
         del data
         import numpy as np
-        np.savetxt(op.join(nifti_dir, 'dsi_affine.txt'), affine)
-        np.savetxt(op.join(nifti_dir, 'dsi_bvals.txt'), bval)
-        np.savetxt(op.join(nifti_dir, 'dsi_bvects.txt'), bvect)
+        np.savetxt(op.join(diffme, 'dsi_affine.txt'), affine, delimiter=',')
+        np.savetxt(op.join(diffme, 'dsi_bvals.txt'), bval, delimiter=',')
+        np.savetxt(op.join(diffme, 'dsi_bvects.txt'), bvect, delimiter=',')
 
-        # XXX: retrieve number of b0 images
-        # put 0,0,0 in front or as parameter?
         arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
         arr[:,:3] = bvect
         arr[:,3] = bval
-        np.savetxt(op.join(diffme, 'gradient_table.txt'), arr)
+        np.savetxt(op.join(diffme, 'gradient_table.txt'), arr, delimiter=',')
         
 
 def dsi_resamp():
@@ -95,16 +93,14 @@ def diff2nifti_dti_unpack():
         data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, raw_glob)
         del data
         import numpy as np
-        np.savetxt(op.join(diffme, 'dti_affine.txt'), affine)
-        np.savetxt(op.join(diffme, 'dti_bvals.txt'), bval)
-        np.savetxt(op.join(diffme, 'dti_bvects.txt'), bvect)
+        np.savetxt(op.join(diffme, 'dti_affine.txt'), affine, delimiter=',')
+        np.savetxt(op.join(diffme, 'dti_bvals.txt'), bval, delimiter=',')
+        np.savetxt(op.join(diffme, 'dti_bvects.txt'), bvect, delimiter=',')
         
-        # XXX: retrieve number of b0 images
-        # put 0,0,0 in front ? or as parameter ?
         arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
         arr[:,:3] = bvect
         arr[:,3] = bval
-        np.savetxt(op.join(diffme, 'gradient_table.txt'), arr)
+        np.savetxt(op.join(diffme, 'gradient_table.txt'), arr, delimiter=',')
 
 
 

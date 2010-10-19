@@ -100,3 +100,4 @@ def reorient(src, ref, log):
 def DTB_viewer():
     """ Run the DTB Viewer """
     #XXX
+    pass

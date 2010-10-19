@@ -63,7 +63,6 @@ class CMTGUI( PipelineConfiguration ):
                         VGroup(
                         label="Status",
                         )
-                        
                     ),
                     label = "Main",
                     show_border = False
