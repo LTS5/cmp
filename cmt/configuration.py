@@ -306,10 +306,10 @@ class PipelineConfiguration(traits.HasTraits):
         return op.join(self.get_cmt_fibers(), 'matrices')  
     
     def get_cmt_tracto_mask(self):
-        return op.join(self.get_cmt_fsout(), 'registered', 'HR')
+        return op.join(self.get_cmt_fsout(), 'HR')
     
     def get_cmt_tracto_mask_tob0(self):
-        return op.join(self.get_cmt_fsout(), 'registered', 'HR__registered-TO-b0')
+        return op.join(self.get_cmt_fsout(), 'HR__registered-TO-b0')
 
     # XXX
     def get_matMask4subject(self, name, parcellation):
