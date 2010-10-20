@@ -21,18 +21,17 @@ def fiber_tracking_dsi():
     log.info("Run STREAMLINE tractography")
     log.info("===========================")
     
-    # XXX: rm "fibers/streamline.trk" &> /dev/null
     fibers_path = gconf.get_cmt_fibers()
-                
+    odf_out_path = gconf.get_cmt_rawdiff_reconout()
+    
     # streamline tractography
-
     if not gconf.streamline_param == '':
         param = gconf.streamline_param
     else:
         param = '--angle 40 --rSeed 4'
 
     cmd = op.join(gconf.get_cmt_binary_path(), 'DTB_streamline')
-    dtb_cmd = '%s --odf %s --wm %s --odfdir %s --out %s %s' % (cmd, op.join(gconf.get_cmt_rawdiff(), 'odf_0', 'dsi_'),
+    dtb_cmd = '%s --odf %s --wm %s --odfdir %s --out %s %s' % (cmd, op.join(odf_out_path, 'dsi_'),
                             # use the white matter mask after registration!
                             op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
                             gconf.get_dtb_streamline_vecs_file(),
@@ -43,7 +42,6 @@ def fiber_tracking_dsi():
     if not op.exists(op.join(fibers_path, 'streamline.trk')):
         log.error('No streamline.trk created')    
     
-    # XXX: rm "${DATA_path}/${MY_SUBJECT}/${MY_TP}/4__CMT/fs_output/registered/HR__registered-TO-b0/fsmask_1mm__8bit.nii"
     log.info("[ DONE ]")
 
 
@@ -64,11 +62,6 @@ def run(conf):
     globals()['log'] = gconf.get_logger() 
     start = time()
     
-    from os import environ
-    env = environ
-    # alessandro needs to update the Cpp file
-    env['CMT_HOME'] = gconf.get_cmt_binary_path()
-
     convert_wm_mask()
     
     if gconf.diffusion_imaging_model == 'DSI' and \

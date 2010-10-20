@@ -36,9 +36,9 @@ def create_folders():
         gconf.get_cmt_matrices(),
         gconf.get_nifti_trafo(),
         gconf.get_diffusion_metadata(),
-        op.join(gconf.get_cmt_rawdiff(), '2x2x2'),
-        op.join(gconf.get_cmt_rawdiff(), 'odf_0'),
-        op.join(gconf.get_nifti(), 'wm_correction'),
+        gconf.get_nifti_wm_correction(),
+        gconf.get_cmt_rawdiff_resampled(),
+        gconf.get_cmt_rawdiff_reconout(),
         op.join(gconf.get_fs(), 'mri', 'orig')
         ]
 
@@ -46,10 +46,10 @@ def create_folders():
         paths.append(gconf.get_rawt2())
 
     for p in gconf.parcellation.keys():
-        paths.append(op.join(op.join(gconf.get_cmt_fsout(), 'registered', 'HR'), p))
+        paths.append(gconf.get_cmt_tracto_mask(), p)
         
-    for park, parv in gconf.parcellation.items():
-        paths.append(op.join(op.join(gconf.get_cmt_fsout(), 'registered', 'HR__registered-TO-b0'), park))
+    for p in gconf.parcellation.keys():
+        paths.append(gconf.get_cmt_tracto_mask_tob0(), p)
 
     for p in paths:
         if not op.exists(p):

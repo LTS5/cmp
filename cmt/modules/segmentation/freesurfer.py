@@ -14,7 +14,6 @@ def copy_orig_to_fs():
     if not op.exists(op.join(gconf.get_nifti(), 'T1.nii')):
         log.error("File T1.nii does not exists in subject directory")
         
-    # XXX rm -f "${DATA_path}/${MY_SUBJECT}/${MY_TP}/3__FREESURFER/mri/orig/001.mgz"
     mri_cmd = 'mri_convert %s %s' % ( 
                              op.join(gconf.get_nifti(), 'T1.nii'),
                              op.join(gconf.get_fs(), 'mri', 'orig', '001.mgz') )
@@ -50,11 +49,8 @@ def before_wm_corr():
     if not op.exists(op.join(gconf.get_fs(), 'mri', 'wm.mgz')):
         log.error('/mir/wm.mgz does not exists in subject folder')
 
-    wm_exchange_folder = op.join(gconf.get_nifti(), 'wm_correction')
+    wm_exchange_folder = gconf.get_nifti_wm_correction()
     
-    # XXX rm -f "${WM_EXCHANGE_FOLDER}/${MY_SUBJECT}/${MY_TP}/T1.nii"
-    # XXX rm -f "${WM_EXCHANGE_FOLDER}/${MY_SUBJECT}/${MY_TP}/wm.nii"
-
     mri_cmd = 'mri_convert %s %s' % ( 
                              op.join(gconf.get_fs(), 'mri', 'T1.mgz'),
                              op.join(wm_exchange_folder, 'T1.nii') )
@@ -80,12 +76,10 @@ def after_wm_corr():
 
     log.info("Copying back the corrected 'wm mask' " );
     
-    wm_exchange_folder = op.join(gconf.get_nifti(), 'wm_correction')
+    wm_exchange_folder = gconf.get_nifti_wm_correction()
     
     if not op.exists(op.join(wm_exchange_folder, 'wm_corrected.nii')):
         log.error('Need to provide a corrected white matter mask wm_corrected.nii in %s' % wm_exchange_folder)
-
-    # XXX rm -f "${DATA_path}/${MY_SUBJECT}/${MY_TP}/3__FREESURFER/mri/wm.mgz"
     
     mri_cmd = 'mri_convert -odt uchar %s %s' % (
                              op.join(wm_exchange_folder, 'wm_corrected.nii'),

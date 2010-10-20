@@ -14,7 +14,7 @@ def resample_dsi():
     input_dsi_file = op.join(gconf.get_nifti(), 'DSI.nii')
     # XXX: this output file is never generated!
     output_dsi_file = op.join(gconf.get_cmt_rawdiff(), 'DSI_resampled_2x2x2.nii')
-    res_dsi_dir = op.join(gconf.get_cmt_rawdiff(), '2x2x2') 
+    res_dsi_dir = gconf.get_cmt_rawdiff_resampled()
     
     if not op.exists(input_dsi_file):
         log.error("File does not exists: %s" % input_dsi_file)
@@ -47,7 +47,7 @@ def resample_dti():
     input_dsi_file = op.join(gconf.get_nifti(), 'DTI.nii')
     # XXX: this output file is never generated!
     output_dsi_file = op.join(gconf.get_cmt_rawdiff(), 'DTI_resampled_2x2x2.nii')
-    res_dsi_dir = op.join(gconf.get_cmt_rawdiff(), '2x2x2') 
+    res_dsi_dir = gconf.get_cmt_rawdiff_resampled()
     
     if not op.exists(input_dsi_file):
         log.error("File does not exists: %s" % input_dsi_file)
@@ -77,7 +77,7 @@ def compute_dts():
     log.info("==============================")
     
     input_file = op.join(gconf.get_cmt_rawdiff(), 'DTI_resampled_2x2x2.nii')
-    dti_out_path = op.join(gconf.get_cmt_rawdiff(), 'dti_0')
+    dti_out_path = gconf.get_cmt_rawdiff_reconout()
     
     if not op.exists(input_file):
         msg = "No input file available: %s" % input_file
@@ -111,7 +111,7 @@ def compute_odfs():
     log.info("=========================")
     
     first_input_file = op.join(gconf.get_cmt_rawdiff(), '2x2x2', 'MR0000.nii')
-    odf_out_path = op.join(gconf.get_cmt_rawdiff(), 'odf_0')
+    odf_out_path = gconf.get_cmt_rawdiff_reconout()
     
     if not op.exists(first_input_file):
         msg = "No input file available: %s" % first_input_file
@@ -138,7 +138,6 @@ def compute_odfs():
         log.error("Unable to reconstruct ODF!")
         
     # calculate GFA map
-    # XXX: rm -f "odf_${sharpness}/dsi_gfa.nii"
 
     # XXX: this will be replaced by Python code, to compute different scalar fields
     cmd = op.join(gconf.get_cmt_binary_path(), 'DTB_gfa')

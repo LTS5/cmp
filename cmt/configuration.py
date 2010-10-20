@@ -272,12 +272,26 @@ class PipelineConfiguration(traits.HasTraits):
     def get_diffusion_metadata(self):
         """ Diffusion metadata, i.e. where gradient_table.txt is stored """
         return op.join(self.get_nifti(), 'diffusion_metadata')
+    
+    def get_nifti_wm_correction(self):
+        """ Returns the path to the subjects wm_correction path """
+        return op.join(self.get_nifti(), 'wm_correction')
         
     def get_cmt(self):
         return op.join(self.get_subj_dir(), 'CMT')
 
     def get_cmt_rawdiff(self, ):
         return op.join(self.get_cmt(), 'raw_diffusion')
+
+    def get_cmt_rawdiff_reconout(self):
+        """ Returns the output path for diffusion reconstruction without prefix"""
+        if self.diffusion_imaging_model == 'DSI':
+            return op.join(self.get_cmt(), 'raw_diffusion', 'odf_0')
+        elif self.diffusion_imaging_model == 'DTI':
+            return op.join(self.get_cmt(), 'raw_diffusion', 'dti_0')
+
+    def get_cmt_rawdiff_resampled(self):
+        return op.join(self.get_cmt_rawdiff(), '2x2x2')
         
     def get_cmt_fsout(self):
         return op.join(self.get_cmt(), 'fs_output')
