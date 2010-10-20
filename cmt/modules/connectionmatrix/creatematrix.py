@@ -5,8 +5,6 @@ import numpy as np
 import nibabel
 import networkx as nx
 
-
-################################################################################
 def load_endpoints_from_trk(fib, hdr):
     """ 
     Function
@@ -84,10 +82,7 @@ def load_endpoints_from_trk(fib, hdr):
     log.info("done")
     log.info("========================")
     print '\n###################################################################\n'
-################################################################################
 
-
-################################################################################
 def compute_scalars(fib, hdr):
     """ 
     Function
@@ -146,10 +141,7 @@ def compute_scalars(fib, hdr):
     
     log.info("done")
     log.info("========================")
-################################################################################
 
-
-################################################################################
 def cmat(fib, hdr): 
     """ 
     Function
@@ -184,6 +176,14 @@ def cmat(fib, hdr):
     en_fname  = op.join(gconf.get_cmt_fibers(), 'endpoints.npy')
     ep_fname  = op.join(gconf.get_cmt_fibers(), 'lengths.npy')
     if not os.path.isfile(en_fname) or not os.path.isfile(ep_fname):
+        # only read the fibers when we need it for endpoint calculations
+        log.info("========================")
+        log.info("Read the fibers")
+        fibFilename = op.join(gconf.get_cmt_fibers(), 'streamline.trk')
+        fib, hdr    = nibabel.trackvis.read(fibFilename, True)
+        log.info("done")
+        log.info("========================")
+        
         log.info('\tcomputing endpoints')
         endpoints, epLen = load_endpoints_from_trk(fib, hdr)
         log.info('\tsaving endpoints')
@@ -265,12 +265,13 @@ def cmat(fib, hdr):
         for ed in G.edges_iter(data=True):
             G.edge[ed[0]][ed[1]]['weight'] = len(ed[2]['fiblist'])   
         
+        # XXX: skip filtering with mask for now as the ordering of the ROIs might not be the same!
         # Filter with mat_mask
-        for i in range (1,matMask.shape[0]+1):
-            for j in range (i,matMask.shape[0]+1):
-                if G.has_edge(i,j) and matMask[i-1,j-1] == 0:
-                    print 'remove edge ['+str(i)+']['+str(j)+']'
-                    G.remove_edge(i,j)
+#        for i in range (1,matMask.shape[0]+1):
+#            for j in range (i,matMask.shape[0]+1):
+#                if G.has_edge(i,j) and matMask[i-1,j-1] == 0:
+#                    print 'remove edge ['+str(i)+']['+str(j)+']'
+#                    G.remove_edge(i,j)
                         
         # Add all in the current resolution
         cmat.update({r: {'filename': roi_fname, 'graph': G}})  
@@ -284,10 +285,7 @@ def cmat(fib, hdr):
     nx.write_gpickle(cmat, op.join(gconf.get_cmt_matrices(), 'cmat.pickle'))
     log.info("done")
     log.info("========================")						
-################################################################################
 
-
-################################################################################
 def run(conf):
     """ 
     Run the connection matrix module
@@ -299,8 +297,6 @@ def run(conf):
     Functions
     ----------
     cmat: create the connection matrix
-    cmat_shape: get some shape informations about each fibers (length)
-    cmat_scalar: get some scalar informations about each fibers (gfa)
         
     Date
     ----------
@@ -320,19 +316,9 @@ def run(conf):
     log.info("########################")
     log.info("Connection matrix module")
     
-    # Read the fibers one and for all
-    log.info("========================")
-    log.info("Read the fibers")
-    fibFilename = op.join(gconf.get_cmt_fibers(), 'streamline.trk')
-    fib, hdr    = nibabel.trackvis.read(fibFilename, False)
-    log.info("done")
-    log.info("========================")
-    
-    # Call
     cmat(fib, hdr)
         
     log.info("Connection matrix module took %s seconds to process" % (time()-start))
     log.info("########################")
-################################################################################
 
 
