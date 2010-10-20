@@ -189,33 +189,106 @@ def create_wm_mask():
     # remove subcortical nuclei from white matter mask
     # alternatively: we can do tractography through them and later do what?
     
-    # XXX: REMOVE the voxels labeled in 'scale33/ROI_HR_th'
-    # XXX: REMOVE voxels from csfA, csfB, gr_ncl and remaining structures from 'aseg.nii' dataset
-    # XXX: erosion procedures?
 
     aseg = ni.load(op.join(fs_dir, 'mri', 'aseg.nii'))
     asegd = aseg.get_data()
-    
-#4: Left-Lateral-Ventricle
-#5: Left-Inf-Lat-Vent
-#14: 3rd-Ventricle
-#15: 4th-Ventricle
-#24: CSF
-#43: Right-Lateral-Ventricle
-#44: Right-Inf-Lat-Vent
-#72: 5th-Ventricle
-# XXX: more to discuss
 
-    for i in [4,5,14,15,24,43,44,72]:
+    try:
+        import scipy.ndimage.morphology as nd
+    except ImportError:
+        raise Exception('Need scipy for binary erosion of white matter mask')
+
+    # need binary erosion function
+    imerode = nd.binary_erosion
+    
+    # ventricle erosion    
+    csfA = np.zeros( asegd.shape )
+    csfB = np.zeros( asegd.shape )
+
+    # structuring elements for erosion
+    se1 = np.zeros( (3,3,5) )
+    se1[1,:,2] = 1; se1[:,1,2] = 1; se1[1,1,:] = 1
+    se = np.zeros( (3,3,3) );
+    se[1,:,1] = 1; se[:,1,1] = 1; se[1,1,:] = 1
+
+    # lateral ventricles, thalamus proper and caudate
+    # the latter two removed for better erosion, but put back afterwards
+    idx = np.where( (asegd == 4) |
+                    (asegd == 43) |
+                    (asegd == 11) |
+                    (asegd == 50) |
+                    (asegd == 31) |
+                    (asegd == 63) |
+                    (asegd == 10) |
+                    (asegd == 49) )
+    csfA[idx] = 1
+    csfA = imerode(imerode(csfA, se1),se)
+    
+    # thalmus proper and cuadate are put back because they are not lateral ventricles
+    idx = np.where( (asegd == 11) |
+                    (asegd == 50) |
+                    (asegd == 10) |
+                    (asegd == 49) )
+    csfA[idx] = 0
+
+    # REST CSF, IE 3RD AND 4TH VENTRICULE AND EXTRACEREBRAL CSF    
+    idx = np.where( (asegd == 5) |
+                    (asegd == 14) |
+                    (asegd == 15) |
+                    (asegd == 24) |
+                    (asegd == 44) |
+                    (asegd == 72) |
+                    (asegd == 75) |
+                    (asegd == 76) |
+                    (asegd == 213) |
+                    (asegd == 221))    
+    # 43 ??, 4??  213?, 221?
+    # more to discuss.
+    for i in [5,14,15,24,44,72,75,76,213,221]:
         idx = np.where(asegd == i)
-        wmmask[idx] == 0
+        csfB[idx] = 1
+    
+    # do not remove the subthalamic nucleus for now from the wm mask
+    # 23, 60
+    # would stop the fiber going to the segmented "brainstem"
+        
+    # grey nuclei, either with or without erosion
+    gr_ncl = np.zeros( asegd.shape )
+    
+    # with erosion
+    for i in [10,11,12,49,50,51]:
+        idx = np.where(asegd == i)
+        # temporary volume
+        tmp = np.zeros( asegd.shape )
+        tmp[idx] = 1
+        tmp = imerode(tmp,se)
+        idx = np.where(tmp == 1)
+        gr_ncl[idx] = 1
+        
+    # without erosion
+    for i in [13,17,18,26,52,53,54,58]:
+        idx = np.where(asegd == i)
+        gr_ncl[idx] = 1
+
+    # remove remaining structure, e.g. brainstem
+    remaining = np.zeros( asegd.shape )
+    idx = np.where( asegd == 16 )
+    remaining[idx] = 1
     
     # ADD voxels from 'cc_unknown.nii' dataset
-    
     ccun = ni.load(op.join(fs_dir, 'label', 'cc_unknown.nii'))
     ccund = ccun.get_data()
     idx = np.where(ccund != 0)
     wmmask[idx] = 1
+    # XXX add unknown dilation for connecting corpus callosum?
+#    se2R = zeros(15,3,3); se2R(8:end,2,2)=1;
+#    se2L = zeros(15,3,3); se2L(1:8,2,2)=1;
+#    temp = (cc_unknown.img==1 | cc_unknown.img==2);
+#    fsmask.img(imdilate(temp,se2R))    =  1;
+#    fsmask.img(imdilate(temp,se2L))    =  1;
+#    fsmask.img(cc_unknown.img==3)    =  1;
+#    fsmask.img(cc_unknown.img==4)    =  1;
+    
     
     # XXX: subtracting wmmask from ROI. necessary?
     for parkey, parval in gconf.parcellation.items():
