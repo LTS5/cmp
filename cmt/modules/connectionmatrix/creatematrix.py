@@ -142,7 +142,7 @@ def compute_scalars(fib, hdr):
     log.info("done")
     log.info("========================")
 
-def cmat(fib, hdr): 
+def cmat(): 
     """ 
     Function
     ----------
@@ -226,7 +226,7 @@ def cmat(fib, hdr):
       
         # Open the corresponding ROI
         log.info("\tOpen the corresponding ROI")
-        roi_fname = op.join(gconf.get_cmt_fsout(), 'registered', 'HR__registered-TO-b0', r, 'ROI_HR_th.nii')
+        roi_fname = op.join(gconf.get_cmt_tracto_mask_tob0(), r, 'ROI_HR_th.nii')
         roi       = nibabel.load(roi_fname)
         roiData   = roi.get_data()
       
@@ -316,7 +316,7 @@ def run(conf):
     log.info("########################")
     log.info("Connection matrix module")
     
-    cmat(fib, hdr)
+    cmat()
         
     log.info("Connection matrix module took %s seconds to process" % (time()-start))
     log.info("########################")
