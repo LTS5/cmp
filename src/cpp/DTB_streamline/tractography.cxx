@@ -6,7 +6,7 @@ typedef Array<float,2> FIBER;
 
 
 /* GLOBAL variables */
-extern 	string 	CMT_HOME, BASE_filename, MASK_filename, BASE_outname, BASE_filename_2;
+extern 	string 	BASE_filename, MASK_filename, SAMPDIR_filename, BASE_outname, BASE_filename_2;
 extern 	float	maxAngle, maxAngle_2;
 extern 	int		CONFIG__seeds;
 
@@ -218,7 +218,8 @@ int main__tractography()
 
 
 	/* READING the gradients' directions file */
-	string dirlistFilename = CMT_HOME+"/c++/bin/181_vecs.dat";
+        //string dirlistFilename = CMT_HOME+"/c++/bin/181_vecs.dat";
+        string dirlistFilename = SAMPDIR_filename;
 
 	cout <<COLOR(37,40,1)<< "-> Reading 'ODF DIRECTIONS' list...\n" <<COLOR_reset;
 
