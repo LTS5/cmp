@@ -275,6 +275,10 @@ def create_wm_mask():
     idx = np.where( asegd == 16 )
     remaining[idx] = 1
     
+    # now remove all the structures from the white matter
+    idx = np.where( (csfA != 0) | (csfB != 0) | (gr_ncl != 0) | (remaining != 0) )
+    wmmask[idx] = 0
+    
     # ADD voxels from 'cc_unknown.nii' dataset
     ccun = ni.load(op.join(fs_dir, 'label', 'cc_unknown.nii'))
     ccund = ccun.get_data()
