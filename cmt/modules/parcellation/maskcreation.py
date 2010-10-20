@@ -177,9 +177,9 @@ def create_wm_mask():
 
     wmmask = np.zeros( fsmask.get_data().shape )
     
-    # these data is stored and can be extracted from fs_dir/stats/aseg.txt
+    # these data is stored and could be extracted from fs_dir/stats/aseg.txt
     
-    # extract right and left white matter (hardcoded, think about it XXX 
+    # extract right and left white matter 
     idx_lh = np.where(fsmaskd == 120)
     idx_rh = np.where(fsmaskd == 20)
     
@@ -187,9 +187,6 @@ def create_wm_mask():
     wmmask[idx_rh] = 1
     
     # remove subcortical nuclei from white matter mask
-    # alternatively: we can do tractography through them and later do what?
-    
-
     aseg = ni.load(op.join(fs_dir, 'mri', 'aseg.nii'))
     asegd = aseg.get_data()
 
@@ -278,11 +275,13 @@ def create_wm_mask():
     # now remove all the structures from the white matter
     idx = np.where( (csfA != 0) | (csfB != 0) | (gr_ncl != 0) | (remaining != 0) )
     wmmask[idx] = 0
+    log.info("Removing lateral ventricles and eroded grey nuclei and brainstem from white matter mask")
     
     # ADD voxels from 'cc_unknown.nii' dataset
     ccun = ni.load(op.join(fs_dir, 'label', 'cc_unknown.nii'))
     ccund = ccun.get_data()
     idx = np.where(ccund != 0)
+    log.info("Add corpus callosum and unknown to wm mask")
     wmmask[idx] = 1
     # XXX add unknown dilation for connecting corpus callosum?
 #    se2R = zeros(15,3,3); se2R(8:end,2,2)=1;
@@ -292,7 +291,6 @@ def create_wm_mask():
 #    fsmask.img(imdilate(temp,se2L))    =  1;
 #    fsmask.img(cc_unknown.img==3)    =  1;
 #    fsmask.img(cc_unknown.img==4)    =  1;
-    
     
     # XXX: subtracting wmmask from ROI. necessary?
     for parkey, parval in gconf.parcellation.items():
@@ -378,14 +376,9 @@ def run(conf):
     log.info("ROI_HR_th.nii / fsmask_1mm.nii CREATION")
     log.info("=======================================")
     
-    # Matlab legacy:
     from os import environ
     env = environ
     env['SUBJECTS_DIR'] = gconf.get_subj_dir()
-    #env['DATA_path'] = gconf.project_dir
-    #env['CMT_HOME'] = gconf.get_cmt_home()
-    #cp = gconf.get_cmt_home()
-    #env['MATLABPATH'] = "%s:%s/matlab_related:%s/matlab_related/nifti:%s/matlab_related/tractography:%s/registration" % (cp, cp, cp, cp, cp)
     
     create_annot_label()
     create_roi()
