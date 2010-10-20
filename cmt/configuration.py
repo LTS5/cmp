@@ -312,6 +312,10 @@ class PipelineConfiguration(traits.HasTraits):
         cmt_path = op.dirname(__file__)
         return op.join(cmt_path, 'data', 'diffusion', 'gradient_tables', name + '.txt')
     
+    def get_dtb_streamline_vecs_file(self):
+        """ Returns the odf directions file used for DTB_streamline """
+        cmt_path = op.dirname(__file__)
+        return op.join(cmt_path, 'data', 'diffusion', 'odf_directions', '181_vecs.dat')
     
     # XXX
     def get_cmt_scalarfields(self):

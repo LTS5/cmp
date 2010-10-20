@@ -11,6 +11,8 @@ Dependencies
 ------------
 
 * Ubuntu dependencies
+libblitz0-dev
+libboost-all-dev
 
 * Python dependencies
 

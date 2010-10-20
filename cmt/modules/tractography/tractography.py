@@ -29,12 +29,13 @@ def fiber_tracking_dsi():
     if not gconf.streamline_param == '':
         param = gconf.streamline_param
     else:
-        param = '--angle 60 --rSeed 4'
+        param = '--angle 40 --rSeed 4'
 
     cmd = op.join(gconf.get_cmt_binary_path(), 'DTB_streamline')
-    dtb_cmd = '%s --odf %s --wm %s --out %s %s' % (cmd, op.join(gconf.get_cmt_rawdiff(), 'odf_0', 'dsi_'),
+    dtb_cmd = '%s --odf %s --wm %s --odfdir %s --out %s %s' % (cmd, op.join(gconf.get_cmt_rawdiff(), 'odf_0', 'dsi_'),
                             # use the white matter mask after registration!
                             op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
+                            gconf.get_dtb_streamline_vecs_file(),
                             op.join(fibers_path, 'streamline'), param )
     
     runCmd( dtb_cmd, log )
