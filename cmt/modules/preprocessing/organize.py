@@ -46,10 +46,10 @@ def create_folders():
         paths.append(gconf.get_rawt2())
 
     for p in gconf.parcellation.keys():
-        paths.append(gconf.get_cmt_tracto_mask(), p)
+        paths.append(op.join(gconf.get_cmt_tracto_mask(), p))
         
     for p in gconf.parcellation.keys():
-        paths.append(gconf.get_cmt_tracto_mask_tob0(), p)
+        paths.append(op.join(gconf.get_cmt_tracto_mask_tob0(), p))
 
     for p in paths:
         if not op.exists(p):
