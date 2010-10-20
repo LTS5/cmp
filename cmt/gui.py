@@ -46,23 +46,18 @@ class CMTGUI( PipelineConfiguration ):
                     Item('generator', label='Generator', ),
                       label="Project Settings"
                     ),
-                    HGroup(
-                        VGroup(
-                        Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
-                        Item('active_registration', label = 'Registration'),
-                        Item('active_segmentation', label = 'Segmentation'),
-                        Item('active_maskcreation', label = 'Mask Creation'),
-    		            Item('active_reconstruction', label = 'Reconstruction'),
-                        Item('active_tractography', label = 'Tractography'),
-                        Item('active_fiberfilter', label = 'Fiberfiltering'),
-                        Item('active_connectome', label = 'Connectome Creation'),
-                        Item('active_statistics', label = 'Statistics'),
-                        Item('active_cffconverter', label = 'CFF Converter'),
-                        label="Execute"     
-                        ),
-                        VGroup(
-                        label="Status",
-                        )
+                    VGroup(
+                    Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
+                    Item('active_registration', label = 'Registration'),
+                    Item('active_segmentation', label = 'Segmentation'),
+                    Item('active_maskcreation', label = 'Mask Creation'),
+		            Item('active_reconstruction', label = 'Reconstruction'),
+                    Item('active_tractography', label = 'Tractography'),
+                    Item('active_fiberfilter', label = 'Fiberfiltering'),
+                    Item('active_connectome', label = 'Connectome Creation'),
+                    Item('active_statistics', label = 'Statistics'),
+                    Item('active_cffconverter', label = 'CFF Converter'),
+                    label="Execute"     
                     ),
                     label = "Main",
                     show_border = False
