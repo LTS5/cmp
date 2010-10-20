@@ -1,88 +1,10 @@
-#!/usr/bin/env python
+import cmt, cmt.gui, cmt.connectome
+cmtgui = cmt.gui.CMTGUI()
 
-# Connectome Mapping Pipeline TEMPLATE
-# EPFL, CHUV, 2010
+cmtgui.project_name = '/home/stephan/Dev/PyWorkspace/cmt/data/default_project'
+cmtgui.subject_name = 'test'
+cmtgui.subject_timepoint = 'tp1'
+cmtgui.subject_workingdir = '/home/stephan/Dev/PyWorkspace/cmt/data/default_project/test/tp1'
 
-import os.path
-import cmt
- 
-#################################################
-# Project and processing specific configuration #
-#################################################
-
-myp = cmt.configuration.PipelineConfiguration()
-myp.project_name = 'Testproject One'
-myp.project_dir = '/home/stephan/Dev/PyWorkspace/cmt/testdata/test_project_one'
-myp.project_metadata = {# required metadata
-                        'generator' : 'cmt 1.1',
-                        'initial-creator' : 'Stephan Gerhard',
-                        'institution' : 'EPFL / CHUV',
-                        'creation-date' : '2010-09-17',
-                        'modification-date' : '2010-09-17',
-                        'species' : 'Homo sapiens',
-                        #'targetspace' : 'RAS',
-                        'legal-notice' : '',
-                        'reference' : '',
-                        'url' : '',
-                        'description' : 'This is the first connectome file created with cmt',
-                        # optional metadata
-                        'metadata' : {'nr_of_subjects' : 2,
-                                      'project_dir' : myp.project_dir}
-                        }
-
-myp.registration_mode = 'L'
-
-myp.processing_mode = ('DSI', 'Lausanne2011')
-
-myp.mode_parameters = {'nr_of_gradient_directions' : 515,
-                       'nr_of_sampling_directions' : 181,
-                       'lin_reg_param' : '-usesqform -nosearch -dof 6 -cost mutualinfo',
-                       'odf_recon_param' : '-b0 1 -dsi -p 4 -sn 0 -ot nii',
-                       'streamline_param' : '--angle 60 --rSeed 4',
-                       # if nonlinear registration is used at all
-                       # f  ->  smaller values give larger brain outline estimates
-                       # g  ->  positive values give larger brain outline at bottom, smaller at top
-                       'nlin_reg_bet_T2_param' : '-f 0.35 -g 0.15',
-                       'nlin_reg_bet_b0_param' : '-f 0.2 -g 0.2',
-                       'nlin_reg_fnirt_param' : ''}
-
-# email notification
-myp.emailnotify = ['connectome@unidesign.ch']
-
-# dti processing mode
-# dti_recon $CMT_SUBJECTS_DIR/$MY_SUBJECT/raw_diffusion/iso/*_000.hdr $CMT_SUBJECTS_DIR/$MY_SUBJECT/raw_diffusion/iso/$MY_SUBJECT -gm  $DTI_PATH/dti_30_gradient.txt -b 1000 -b0 1 -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
-# param : -b 1000 -b0 1 -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
-# gradient map : -gm  $DTI_PATH/dti_30_gradient.txt
-
-myp.wm_handling = 1
-
-# inspect the results of the registration by starting a fslview instance
-myp.inspect_registration = False
-
-myp.subject_list = { ('testsubject2', 'tp1') :
-                     {'workingdir' : os.path.join(myp.project_dir, 'testsubject2', 'tp1'),
-                      'age' : 55,
-                      'sex' :'X',
-                      'description' : 'This subject is totally healthy!',
-                      # file endings for raw data
-                      'raw_glob_diffusion' : '*.ima',
-                      'raw_glob_T1' : '*.ima',
-                      'raw_glob_T2' : '*.ima'},
-                   }
-
-
-##########################
-# Run the pipeline steps #
-##########################
-
-myp.preprocessing = False
-myp.dicomconverter = False
-myp.registration = False
-myp.segmentation = False
-myp.maskcreation = False
-myp.dtk = False
-myp.apply_registration = False
-myp.tractography = False
-myp.fiberfiltering = False
-myp.connectionmatrix = False
-myp.cffconverter = False
+cmtgui.configure_traits()
+#cmt.connectome.mapit(cmtgui)
