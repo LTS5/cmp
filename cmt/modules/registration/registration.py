@@ -24,7 +24,7 @@ def lin_regT12b0():
             op.join(gconf.get_nifti(), 'T1.nii'),
             op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
             op.join(gconf.get_nifti(), 'T1-TO-b0.nii'),
-            op.join(gconf.get_nifti(), 'T1-TO-b0.mat'),
+            op.join(gconf.get_nifti_trafo(), 'T1-TO-b0.mat'),
             param)
     runCmd(flirt_cmd, log)
     
@@ -75,7 +75,7 @@ def nlin_regT12b0():
         
         
     ##############
-    log.info('1.2] -> linear register "T2" onto "b0_resampled"')
+    log.info('[1.2] -> linear register "T2" onto "b0_resampled"')
     
     fli_cmt = 'flirt -in "%s" -ref "%s" -nosearch -dof 12 -cost normmi -out "%s" -omat "%s"' % (
             op.join(nifti_dir, "T2.nii"),

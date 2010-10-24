@@ -104,6 +104,20 @@ def run_fs_on_corrected_wm():
     
     log.info("[ DONE ]")
 
+def cleanup_symlinks():
+    """ Cleans up created symlinks by the recon-all commands """
+    
+    log.info("Remove symbolic links that were created by recon-all")
+
+    subjdir = gconf.get_subj_dir()
+    
+    paths = ['fsaverage', ]
+    
+    for f in paths:
+        pa = op.join(subjdir, f)
+        if op.exists(pa):
+            # remove the symlink
+            os.remove(pa)
 
 def run(conf):
     """ Run the freesurfer step
@@ -131,6 +145,8 @@ def run(conf):
     elif gconf.wm_handling == 3:
         after_wm_corr()
         run_fs_on_corrected_wm()
+        
+    cleanup_symlinks()
 
     if not len(gconf.emailnotify) == 0:        
         msg = "Freesurfer module finished!\nIt took %s seconds." % int(time()-start)
