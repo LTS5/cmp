@@ -111,12 +111,12 @@ def cleanup_symlinks():
 
     subjdir = gconf.get_subj_dir()
     
-    paths = ['fsaverage', ]
+    paths = ['fsaverage', 'lh.EC_average', 'rh.EC_average']
     
     for f in paths:
         pa = op.join(subjdir, f)
         if op.exists(pa):
-            # remove the symlink
+            # remove the symlinks
             os.remove(pa)
 
 def run(conf):
