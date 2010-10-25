@@ -47,6 +47,11 @@ class CMTGUI( PipelineConfiguration ):
                       label="Project Settings"
                     ),
                     VGroup(
+                    Item('diffusion_imaging_model', label='Imaging Model'),
+                    Item('diffusion_imaging_stream', label='Imaging Stream'),
+                    show_border = False,                
+                    ),
+                    VGroup(
                     Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
                     Item('active_registration', label = 'Registration'),
                     Item('active_segmentation', label = 'Segmentation'),
@@ -117,11 +122,6 @@ class CMTGUI( PipelineConfiguration ):
         )
             
     reconstruction_group = Group(
-        VGroup(
-               Item('diffusion_imaging_model'),
-               Item('diffusion_imaging_stream'),
-               show_border = False,               
-               ),
         VGroup(
                Item('nr_of_gradient_directions', label="Number of Gradient Directions"),
                Item('nr_of_sampling_directions', label="Number of Sampling Directions"),
