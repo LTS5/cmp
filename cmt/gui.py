@@ -48,7 +48,8 @@ class CMTGUI( PipelineConfiguration ):
                     ),
                     VGroup(
                     Item('diffusion_imaging_model', label='Imaging Model'),
-                    Item('diffusion_imaging_stream', label='Imaging Stream'),
+                    Item('diffusion_imaging_stream', label='Stream Type'),
+                    label = 'Imaging Stream',
                     show_border = False,                
                     ),
                     VGroup(
