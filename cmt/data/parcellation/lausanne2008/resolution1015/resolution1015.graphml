@@ -16,6 +16,15 @@
 <key id="dn_intensityvalue" for="node" attr.name="fs_intensity" attr.type="string">
 	<desc>Refers to the intensity value in the volume files/surface labels corresponding to this node</desc>
 </key>
+<key id="dn_region" for="node" attr.name="dn_region" attr.type="string">
+  <desc>Region of the brain: cortical, subcortical</desc>
+</key>
+<key id="dn_fs_aseg_val" for="node" attr.name="dn_fs_aseg_val" attr.type="string">
+  <desc>If it is a subcortical region, what intensity value in the Freesurfer aseg.nii volume</desc>
+</key>
+<key id="dn_hemisphere" for="node" attr.name="dn_hemisphere" attr.type="string">
+  <desc>What hemisphere?: left, right, none (e.g, for brainstem)</desc>
+</key>
 
 <graph id="Resolution1015" edgedefault="undirected">
 <node id="n1">
