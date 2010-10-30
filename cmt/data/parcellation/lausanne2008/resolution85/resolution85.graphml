@@ -738,7 +738,7 @@
 	<data key="dn_colorcode">146,210,255</data>
 	<data key="dn_intensityvalue">78</data>
 	<data key="dn_region">subcortical</data>
-	<data key="dn_fs_aseg_val">12</data>
+	<data key="dn_fs_aseg_val">13</data>
 	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n79">

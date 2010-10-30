@@ -24,6 +24,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_1</data>
 	<data key="dn_colorcode">35,75,50</data>
 	<data key="dn_intensityvalue">1</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n2">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof2Res500_RH_(Homo sapiens)</data>
@@ -31,6 +33,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_2</data>
 	<data key="dn_colorcode">35,77,50</data>
 	<data key="dn_intensityvalue">2</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n3">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof3Res500_RH_(Homo sapiens)</data>
@@ -38,6 +42,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_3</data>
 	<data key="dn_colorcode">35,78,50</data>
 	<data key="dn_intensityvalue">3</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n4">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof4Res500_RH_(Homo sapiens)</data>
@@ -45,6 +51,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_4</data>
 	<data key="dn_colorcode">35,79,50</data>
 	<data key="dn_intensityvalue">4</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n5">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof5Res500_RH_(Homo sapiens)</data>
@@ -52,6 +60,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_5</data>
 	<data key="dn_colorcode">35,80,50</data>
 	<data key="dn_intensityvalue">5</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n6">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof6Res500_RH_(Homo sapiens)</data>
@@ -59,6 +69,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_6</data>
 	<data key="dn_colorcode">35,81,50</data>
 	<data key="dn_intensityvalue">6</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n7">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof7Res500_RH_(Homo sapiens)</data>
@@ -66,6 +78,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_7</data>
 	<data key="dn_colorcode">35,82,50</data>
 	<data key="dn_intensityvalue">7</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n8">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof8Res500_RH_(Homo sapiens)</data>
@@ -73,6 +87,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_8</data>
 	<data key="dn_colorcode">35,83,50</data>
 	<data key="dn_intensityvalue">8</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n9">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof9Res500_RH_(Homo sapiens)</data>
@@ -80,6 +96,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_9</data>
 	<data key="dn_colorcode">35,84,50</data>
 	<data key="dn_intensityvalue">9</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n10">
 	<data key="dn_href">http://www.connectome.ch/wiki/po1Res500_RH_(Homo sapiens)</data>
@@ -87,6 +105,8 @@
 	<data key="dn_freesurfer_structname">parsorbitalis_1</data>
 	<data key="dn_colorcode">20,100,50</data>
 	<data key="dn_intensityvalue">10</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n11">
 	<data key="dn_href">http://www.connectome.ch/wiki/po2Res500_RH_(Homo sapiens)</data>
@@ -94,6 +114,8 @@
 	<data key="dn_freesurfer_structname">parsorbitalis_2</data>
 	<data key="dn_colorcode">20,102,50</data>
 	<data key="dn_intensityvalue">11</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n12">
 	<data key="dn_href">http://www.connectome.ch/wiki/po3Res500_RH_(Homo sapiens)</data>
@@ -101,6 +123,8 @@
 	<data key="dn_freesurfer_structname">parsorbitalis_3</data>
 	<data key="dn_colorcode">20,103,50</data>
 	<data key="dn_intensityvalue">12</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n13">
 	<data key="dn_href">http://www.connectome.ch/wiki/fp1Res500_RH_(Homo sapiens)</data>
@@ -108,6 +132,8 @@
 	<data key="dn_freesurfer_structname">frontalpole_1</data>
 	<data key="dn_colorcode">100,0,100</data>
 	<data key="dn_intensityvalue">13</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n14">
 	<data key="dn_href">http://www.connectome.ch/wiki/mof1Res500_RH_(Homo sapiens)</data>
@@ -115,6 +141,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal_1</data>
 	<data key="dn_colorcode">200,35,75</data>
 	<data key="dn_intensityvalue">14</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n15">
 	<data key="dn_href">http://www.connectome.ch/wiki/mof2Res500_RH_(Homo sapiens)</data>
@@ -122,6 +150,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal_2</data>
 	<data key="dn_colorcode">200,37,75</data>
 	<data key="dn_intensityvalue">15</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n16">
 	<data key="dn_href">http://www.connectome.ch/wiki/mof3Res500_RH_(Homo sapiens)</data>
@@ -129,6 +159,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal_3</data>
 	<data key="dn_colorcode">200,38,75</data>
 	<data key="dn_intensityvalue">16</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n17">
 	<data key="dn_href">http://www.connectome.ch/wiki/mof4Res500_RH_(Homo sapiens)</data>
@@ -136,6 +168,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal_4</data>
 	<data key="dn_colorcode">200,39,75</data>
 	<data key="dn_intensityvalue">17</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n18">
 	<data key="dn_href">http://www.connectome.ch/wiki/mof5Res500_RH_(Homo sapiens)</data>
@@ -143,6 +177,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal_5</data>
 	<data key="dn_colorcode">200,40,75</data>
 	<data key="dn_intensityvalue">18</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n19">
 	<data key="dn_href">http://www.connectome.ch/wiki/mof6Res500_RH_(Homo sapiens)</data>
@@ -150,6 +186,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal_6</data>
 	<data key="dn_colorcode">200,41,75</data>
 	<data key="dn_intensityvalue">19</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n20">
 	<data key="dn_href">http://www.connectome.ch/wiki/ptri1Res500_RH_(Homo sapiens)</data>
@@ -157,6 +195,8 @@
 	<data key="dn_freesurfer_structname">parstriangularis_1</data>
 	<data key="dn_colorcode">220,60,20</data>
 	<data key="dn_intensityvalue">20</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n21">
 	<data key="dn_href">http://www.connectome.ch/wiki/ptri2Res500_RH_(Homo sapiens)</data>
@@ -164,6 +204,8 @@
 	<data key="dn_freesurfer_structname">parstriangularis_2</data>
 	<data key="dn_colorcode">220,62,20</data>
 	<data key="dn_intensityvalue">21</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n22">
 	<data key="dn_href">http://www.connectome.ch/wiki/ptri3Res500_RH_(Homo sapiens)</data>
@@ -171,6 +213,8 @@
 	<data key="dn_freesurfer_structname">parstriangularis_3</data>
 	<data key="dn_colorcode">220,63,20</data>
 	<data key="dn_intensityvalue">22</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n23">
 	<data key="dn_href">http://www.connectome.ch/wiki/ptri4Res500_RH_(Homo sapiens)</data>
@@ -178,6 +222,8 @@
 	<data key="dn_freesurfer_structname">parstriangularis_4</data>
 	<data key="dn_colorcode">220,64,20</data>
 	<data key="dn_intensityvalue">23</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n24">
 	<data key="dn_href">http://www.connectome.ch/wiki/ptri5Res500_RH_(Homo sapiens)</data>
@@ -185,6 +231,8 @@
 	<data key="dn_freesurfer_structname">parsopercularis_1</data>
 	<data key="dn_colorcode">220,180,140</data>
 	<data key="dn_intensityvalue">24</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n25">
 	<data key="dn_href">http://www.connectome.ch/wiki/ptri6Res500_RH_(Homo sapiens)</data>
@@ -192,6 +240,8 @@
 	<data key="dn_freesurfer_structname">parsopercularis_2</data>
 	<data key="dn_colorcode">220,182,140</data>
 	<data key="dn_intensityvalue">25</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n26">
 	<data key="dn_href">http://www.connectome.ch/wiki/pop1Res500_RH_(Homo sapiens)</data>
@@ -199,6 +249,8 @@
 	<data key="dn_freesurfer_structname">parsopercularis_3</data>
 	<data key="dn_colorcode">220,183,140</data>
 	<data key="dn_intensityvalue">26</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n27">
 	<data key="dn_href">http://www.connectome.ch/wiki/pop2Res500_RH_(Homo sapiens)</data>
@@ -206,6 +258,8 @@
 	<data key="dn_freesurfer_structname">parsopercularis_4</data>
 	<data key="dn_colorcode">220,184,140</data>
 	<data key="dn_intensityvalue">27</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n28">
 	<data key="dn_href">http://www.connectome.ch/wiki/pop3Res500_RH_(Homo sapiens)</data>
@@ -213,6 +267,8 @@
 	<data key="dn_freesurfer_structname">parsopercularis_5</data>
 	<data key="dn_colorcode">220,185,140</data>
 	<data key="dn_intensityvalue">28</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n29">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf1Res500_RH_(Homo sapiens)</data>
@@ -220,6 +276,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_1</data>
 	<data key="dn_colorcode">75,50,125</data>
 	<data key="dn_intensityvalue">29</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n30">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf2Res500_RH_(Homo sapiens)</data>
@@ -227,6 +285,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_2</data>
 	<data key="dn_colorcode">75,52,125</data>
 	<data key="dn_intensityvalue">30</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n31">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf3Res500_RH_(Homo sapiens)</data>
@@ -234,6 +294,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_3</data>
 	<data key="dn_colorcode">75,53,125</data>
 	<data key="dn_intensityvalue">31</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n32">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf4Res500_RH_(Homo sapiens)</data>
@@ -241,6 +303,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_4</data>
 	<data key="dn_colorcode">75,54,125</data>
 	<data key="dn_intensityvalue">32</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n33">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf5Res500_RH_(Homo sapiens)</data>
@@ -248,6 +312,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_5</data>
 	<data key="dn_colorcode">75,55,125</data>
 	<data key="dn_intensityvalue">33</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n34">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf6Res500_RH_(Homo sapiens)</data>
@@ -255,6 +321,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_6</data>
 	<data key="dn_colorcode">75,56,125</data>
 	<data key="dn_intensityvalue">34</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n35">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf7Res500_RH_(Homo sapiens)</data>
@@ -262,6 +330,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_7</data>
 	<data key="dn_colorcode">75,57,125</data>
 	<data key="dn_intensityvalue">35</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n36">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf8Res500_RH_(Homo sapiens)</data>
@@ -269,6 +339,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_8</data>
 	<data key="dn_colorcode">75,58,125</data>
 	<data key="dn_intensityvalue">36</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n37">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf9Res500_RH_(Homo sapiens)</data>
@@ -276,6 +348,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_9</data>
 	<data key="dn_colorcode">75,59,125</data>
 	<data key="dn_intensityvalue">37</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n38">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf10Res500_RH_(Homo sapiens)</data>
@@ -283,6 +357,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_10</data>
 	<data key="dn_colorcode">75,60,125</data>
 	<data key="dn_intensityvalue">38</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n39">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf11Res500_RH_(Homo sapiens)</data>
@@ -290,6 +366,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_11</data>
 	<data key="dn_colorcode">75,61,125</data>
 	<data key="dn_intensityvalue">39</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n40">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf1Res500_RH_(Homo sapiens)</data>
@@ -297,6 +375,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_1</data>
 	<data key="dn_colorcode">20,220,160</data>
 	<data key="dn_intensityvalue">40</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n41">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf2Res500_RH_(Homo sapiens)</data>
@@ -304,6 +384,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_2</data>
 	<data key="dn_colorcode">22,220,160</data>
 	<data key="dn_intensityvalue">41</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n42">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf3Res500_RH_(Homo sapiens)</data>
@@ -311,6 +393,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_3</data>
 	<data key="dn_colorcode">23,220,160</data>
 	<data key="dn_intensityvalue">42</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n43">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf4Res500_RH_(Homo sapiens)</data>
@@ -318,6 +402,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_4</data>
 	<data key="dn_colorcode">24,220,160</data>
 	<data key="dn_intensityvalue">43</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n44">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf5Res500_RH_(Homo sapiens)</data>
@@ -325,6 +411,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_5</data>
 	<data key="dn_colorcode">25,220,160</data>
 	<data key="dn_intensityvalue">44</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n45">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf6Res500_RH_(Homo sapiens)</data>
@@ -332,6 +420,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_6</data>
 	<data key="dn_colorcode">26,220,160</data>
 	<data key="dn_intensityvalue">45</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n46">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf7Res500_RH_(Homo sapiens)</data>
@@ -339,6 +429,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_7</data>
 	<data key="dn_colorcode">27,220,160</data>
 	<data key="dn_intensityvalue">46</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n47">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf8Res500_RH_(Homo sapiens)</data>
@@ -346,6 +438,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_8</data>
 	<data key="dn_colorcode">28,220,160</data>
 	<data key="dn_intensityvalue">47</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n48">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf9Res500_RH_(Homo sapiens)</data>
@@ -353,6 +447,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_9</data>
 	<data key="dn_colorcode">29,220,160</data>
 	<data key="dn_intensityvalue">48</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n49">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf10Res500_RH_(Homo sapiens)</data>
@@ -360,6 +456,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_10</data>
 	<data key="dn_colorcode">30,220,160</data>
 	<data key="dn_intensityvalue">49</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n50">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf11Res500_RH_(Homo sapiens)</data>
@@ -367,6 +465,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_11</data>
 	<data key="dn_colorcode">31,220,160</data>
 	<data key="dn_intensityvalue">50</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n51">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf12Res500_RH_(Homo sapiens)</data>
@@ -374,6 +474,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_12</data>
 	<data key="dn_colorcode">32,220,160</data>
 	<data key="dn_intensityvalue">51</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n52">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf13Res500_RH_(Homo sapiens)</data>
@@ -381,6 +483,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_13</data>
 	<data key="dn_colorcode">33,220,160</data>
 	<data key="dn_intensityvalue">52</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n53">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf14Res500_RH_(Homo sapiens)</data>
@@ -388,6 +492,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_14</data>
 	<data key="dn_colorcode">34,220,160</data>
 	<data key="dn_intensityvalue">53</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n54">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf15Res500_RH_(Homo sapiens)</data>
@@ -395,6 +501,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_15</data>
 	<data key="dn_colorcode">35,220,160</data>
 	<data key="dn_intensityvalue">54</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n55">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf16Res500_RH_(Homo sapiens)</data>
@@ -402,6 +510,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_16</data>
 	<data key="dn_colorcode">36,220,160</data>
 	<data key="dn_intensityvalue">55</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n56">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf17Res500_RH_(Homo sapiens)</data>
@@ -409,6 +519,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_17</data>
 	<data key="dn_colorcode">37,220,160</data>
 	<data key="dn_intensityvalue">56</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n57">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf18Res500_RH_(Homo sapiens)</data>
@@ -416,6 +528,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_18</data>
 	<data key="dn_colorcode">38,220,160</data>
 	<data key="dn_intensityvalue">57</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n58">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf19Res500_RH_(Homo sapiens)</data>
@@ -423,6 +537,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_19</data>
 	<data key="dn_colorcode">39,220,160</data>
 	<data key="dn_intensityvalue">58</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n59">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf20Res500_RH_(Homo sapiens)</data>
@@ -430,6 +546,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_20</data>
 	<data key="dn_colorcode">40,220,160</data>
 	<data key="dn_intensityvalue">59</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n60">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf21Res500_RH_(Homo sapiens)</data>
@@ -437,6 +555,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_21</data>
 	<data key="dn_colorcode">41,220,160</data>
 	<data key="dn_intensityvalue">60</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n61">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf22Res500_RH_(Homo sapiens)</data>
@@ -444,6 +564,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_22</data>
 	<data key="dn_colorcode">42,220,160</data>
 	<data key="dn_intensityvalue">61</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n62">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf23Res500_RH_(Homo sapiens)</data>
@@ -451,6 +573,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_23</data>
 	<data key="dn_colorcode">43,220,160</data>
 	<data key="dn_intensityvalue">62</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n63">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmf1Res500_RH_(Homo sapiens)</data>
@@ -458,6 +582,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal_1</data>
 	<data key="dn_colorcode">100,25,0</data>
 	<data key="dn_intensityvalue">63</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n64">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmf2Res500_RH_(Homo sapiens)</data>
@@ -465,6 +591,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal_2</data>
 	<data key="dn_colorcode">100,27,0</data>
 	<data key="dn_intensityvalue">64</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n65">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmf3Res500_RH_(Homo sapiens)</data>
@@ -472,6 +600,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal_3</data>
 	<data key="dn_colorcode">100,28,0</data>
 	<data key="dn_intensityvalue">65</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n66">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmf4Res500_RH_(Homo sapiens)</data>
@@ -479,6 +609,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal_4</data>
 	<data key="dn_colorcode">100,29,0</data>
 	<data key="dn_intensityvalue">66</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n67">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmf5Res500_RH_(Homo sapiens)</data>
@@ -486,6 +618,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal_5</data>
 	<data key="dn_colorcode">100,30,0</data>
 	<data key="dn_intensityvalue">67</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n68">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmf6Res500_RH_(Homo sapiens)</data>
@@ -493,6 +627,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal_6</data>
 	<data key="dn_colorcode">100,31,0</data>
 	<data key="dn_intensityvalue">68</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n69">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc1Res500_RH_(Homo sapiens)</data>
@@ -500,6 +636,8 @@
 	<data key="dn_freesurfer_structname">precentral_1</data>
 	<data key="dn_colorcode">60,20,220</data>
 	<data key="dn_intensityvalue">69</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n70">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc2Res500_RH_(Homo sapiens)</data>
@@ -507,6 +645,8 @@
 	<data key="dn_freesurfer_structname">precentral_2</data>
 	<data key="dn_colorcode">60,22,220</data>
 	<data key="dn_intensityvalue">70</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n71">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc3Res500_RH_(Homo sapiens)</data>
@@ -514,6 +654,8 @@
 	<data key="dn_freesurfer_structname">precentral_3</data>
 	<data key="dn_colorcode">60,23,220</data>
 	<data key="dn_intensityvalue">71</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n72">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc4Res500_RH_(Homo sapiens)</data>
@@ -521,6 +663,8 @@
 	<data key="dn_freesurfer_structname">precentral_4</data>
 	<data key="dn_colorcode">60,24,220</data>
 	<data key="dn_intensityvalue">72</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n73">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc5Res500_RH_(Homo sapiens)</data>
@@ -528,6 +672,8 @@
 	<data key="dn_freesurfer_structname">precentral_5</data>
 	<data key="dn_colorcode">60,25,220</data>
 	<data key="dn_intensityvalue">73</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n74">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc6Res500_RH_(Homo sapiens)</data>
@@ -535,6 +681,8 @@
 	<data key="dn_freesurfer_structname">precentral_6</data>
 	<data key="dn_colorcode">60,26,220</data>
 	<data key="dn_intensityvalue">74</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n75">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc7Res500_RH_(Homo sapiens)</data>
@@ -542,6 +690,8 @@
 	<data key="dn_freesurfer_structname">precentral_7</data>
 	<data key="dn_colorcode">60,27,220</data>
 	<data key="dn_intensityvalue">75</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n76">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc8Res500_RH_(Homo sapiens)</data>
@@ -549,6 +699,8 @@
 	<data key="dn_freesurfer_structname">precentral_8</data>
 	<data key="dn_colorcode">60,28,220</data>
 	<data key="dn_intensityvalue">76</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n77">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc9Res500_RH_(Homo sapiens)</data>
@@ -556,6 +708,8 @@
 	<data key="dn_freesurfer_structname">precentral_9</data>
 	<data key="dn_colorcode">60,29,220</data>
 	<data key="dn_intensityvalue">77</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n78">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc10Res500_RH_(Homo sapiens)</data>
@@ -563,6 +717,8 @@
 	<data key="dn_freesurfer_structname">precentral_10</data>
 	<data key="dn_colorcode">60,30,220</data>
 	<data key="dn_intensityvalue">78</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n79">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc11Res500_RH_(Homo sapiens)</data>
@@ -570,6 +726,8 @@
 	<data key="dn_freesurfer_structname">precentral_11</data>
 	<data key="dn_colorcode">60,31,220</data>
 	<data key="dn_intensityvalue">79</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n80">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc12Res500_RH_(Homo sapiens)</data>
@@ -577,6 +735,8 @@
 	<data key="dn_freesurfer_structname">precentral_12</data>
 	<data key="dn_colorcode">60,32,220</data>
 	<data key="dn_intensityvalue">80</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n81">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc13Res500_RH_(Homo sapiens)</data>
@@ -584,6 +744,8 @@
 	<data key="dn_freesurfer_structname">precentral_13</data>
 	<data key="dn_colorcode">60,33,220</data>
 	<data key="dn_intensityvalue">81</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n82">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc14Res500_RH_(Homo sapiens)</data>
@@ -591,6 +753,8 @@
 	<data key="dn_freesurfer_structname">precentral_14</data>
 	<data key="dn_colorcode">60,34,220</data>
 	<data key="dn_intensityvalue">82</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n83">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc15Res500_RH_(Homo sapiens)</data>
@@ -598,6 +762,8 @@
 	<data key="dn_freesurfer_structname">precentral_15</data>
 	<data key="dn_colorcode">60,35,220</data>
 	<data key="dn_intensityvalue">83</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n84">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc16Res500_RH_(Homo sapiens)</data>
@@ -605,6 +771,8 @@
 	<data key="dn_freesurfer_structname">precentral_16</data>
 	<data key="dn_colorcode">60,36,220</data>
 	<data key="dn_intensityvalue">84</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n85">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc17Res500_RH_(Homo sapiens)</data>
@@ -612,6 +780,8 @@
 	<data key="dn_freesurfer_structname">precentral_17</data>
 	<data key="dn_colorcode">60,37,220</data>
 	<data key="dn_intensityvalue">85</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n86">
 	<data key="dn_href">http://www.connectome.ch/wiki/pac1Res500_RH_(Homo sapiens)</data>
@@ -619,6 +789,8 @@
 	<data key="dn_freesurfer_structname">paracentral_1</data>
 	<data key="dn_colorcode">60,220,60</data>
 	<data key="dn_intensityvalue">86</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n87">
 	<data key="dn_href">http://www.connectome.ch/wiki/pac2Res500_RH_(Homo sapiens)</data>
@@ -626,6 +798,8 @@
 	<data key="dn_freesurfer_structname">paracentral_2</data>
 	<data key="dn_colorcode">62,220,60</data>
 	<data key="dn_intensityvalue">87</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n88">
 	<data key="dn_href">http://www.connectome.ch/wiki/pac3Res500_RH_(Homo sapiens)</data>
@@ -633,6 +807,8 @@
 	<data key="dn_freesurfer_structname">paracentral_3</data>
 	<data key="dn_colorcode">63,220,60</data>
 	<data key="dn_intensityvalue">88</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n89">
 	<data key="dn_href">http://www.connectome.ch/wiki/pac4Res500_RH_(Homo sapiens)</data>
@@ -640,6 +816,8 @@
 	<data key="dn_freesurfer_structname">paracentral_4</data>
 	<data key="dn_colorcode">64,220,60</data>
 	<data key="dn_intensityvalue">89</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n90">
 	<data key="dn_href">http://www.connectome.ch/wiki/pac5Res500_RH_(Homo sapiens)</data>
@@ -647,6 +825,8 @@
 	<data key="dn_freesurfer_structname">paracentral_5</data>
 	<data key="dn_colorcode">65,220,60</data>
 	<data key="dn_intensityvalue">90</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n91">
 	<data key="dn_href">http://www.connectome.ch/wiki/pac6Res500_RH_(Homo sapiens)</data>
@@ -654,6 +834,8 @@
 	<data key="dn_freesurfer_structname">paracentral_6</data>
 	<data key="dn_colorcode">66,220,60</data>
 	<data key="dn_intensityvalue">91</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n92">
 	<data key="dn_href">http://www.connectome.ch/wiki/racc1Res500_RH_(Homo sapiens)</data>
@@ -661,6 +843,8 @@
 	<data key="dn_freesurfer_structname">rostralanteriorcingulate_1</data>
 	<data key="dn_colorcode">80,20,140</data>
 	<data key="dn_intensityvalue">92</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n93">
 	<data key="dn_href">http://www.connectome.ch/wiki/racc2Res500_RH_(Homo sapiens)</data>
@@ -668,6 +852,8 @@
 	<data key="dn_freesurfer_structname">rostralanteriorcingulate_2</data>
 	<data key="dn_colorcode">80,22,140</data>
 	<data key="dn_intensityvalue">93</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n94">
 	<data key="dn_href">http://www.connectome.ch/wiki/cacc1Res500_RH_(Homo sapiens)</data>
@@ -675,6 +861,8 @@
 	<data key="dn_freesurfer_structname">caudalanteriorcingulate_1</data>
 	<data key="dn_colorcode">125,100,160</data>
 	<data key="dn_intensityvalue">94</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n95">
 	<data key="dn_href">http://www.connectome.ch/wiki/cacc2Res500_RH_(Homo sapiens)</data>
@@ -682,6 +870,8 @@
 	<data key="dn_freesurfer_structname">caudalanteriorcingulate_2</data>
 	<data key="dn_colorcode">125,102,160</data>
 	<data key="dn_intensityvalue">95</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n96">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc1Res500_RH_(Homo sapiens)</data>
@@ -689,6 +879,8 @@
 	<data key="dn_freesurfer_structname">posteriorcingulate_1</data>
 	<data key="dn_colorcode">220,180,220</data>
 	<data key="dn_intensityvalue">96</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n97">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc2Res500_RH_(Homo sapiens)</data>
@@ -696,6 +888,8 @@
 	<data key="dn_freesurfer_structname">posteriorcingulate_2</data>
 	<data key="dn_colorcode">220,182,220</data>
 	<data key="dn_intensityvalue">97</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n98">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc3Res500_RH_(Homo sapiens)</data>
@@ -703,6 +897,8 @@
 	<data key="dn_freesurfer_structname">posteriorcingulate_3</data>
 	<data key="dn_colorcode">220,183,220</data>
 	<data key="dn_intensityvalue">98</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n99">
 	<data key="dn_href">http://www.connectome.ch/wiki/ic1Res500_RH_(Homo sapiens)</data>
@@ -710,6 +906,8 @@
 	<data key="dn_freesurfer_structname">isthmuscingulate_1</data>
 	<data key="dn_colorcode">140,20,140</data>
 	<data key="dn_intensityvalue">99</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n100">
 	<data key="dn_href">http://www.connectome.ch/wiki/ic2Res500_RH_(Homo sapiens)</data>
@@ -717,6 +915,8 @@
 	<data key="dn_freesurfer_structname">isthmuscingulate_2</data>
 	<data key="dn_colorcode">140,22,140</data>
 	<data key="dn_intensityvalue">100</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n101">
 	<data key="dn_href">http://www.connectome.ch/wiki/ic3Res500_RH_(Homo sapiens)</data>
@@ -724,6 +924,8 @@
 	<data key="dn_freesurfer_structname">isthmuscingulate_3</data>
 	<data key="dn_colorcode">140,23,140</data>
 	<data key="dn_intensityvalue">101</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n102">
 	<data key="dn_href">http://www.connectome.ch/wiki/ic4Res500_RH_(Homo sapiens)</data>
@@ -731,6 +933,8 @@
 	<data key="dn_freesurfer_structname">isthmuscingulate_4</data>
 	<data key="dn_colorcode">140,24,140</data>
 	<data key="dn_intensityvalue">102</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n103">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc1Res500_RH_(Homo sapiens)</data>
@@ -738,6 +942,8 @@
 	<data key="dn_freesurfer_structname">postcentral_1</data>
 	<data key="dn_colorcode">220,20,20</data>
 	<data key="dn_intensityvalue">103</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n104">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc2Res500_RH_(Homo sapiens)</data>
@@ -745,6 +951,8 @@
 	<data key="dn_freesurfer_structname">postcentral_2</data>
 	<data key="dn_colorcode">220,22,20</data>
 	<data key="dn_intensityvalue">104</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n105">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc3Res500_RH_(Homo sapiens)</data>
@@ -752,6 +960,8 @@
 	<data key="dn_freesurfer_structname">postcentral_3</data>
 	<data key="dn_colorcode">220,23,20</data>
 	<data key="dn_intensityvalue">105</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n106">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc4Res500_RH_(Homo sapiens)</data>
@@ -759,6 +969,8 @@
 	<data key="dn_freesurfer_structname">postcentral_4</data>
 	<data key="dn_colorcode">220,24,20</data>
 	<data key="dn_intensityvalue">106</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n107">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc5Res500_RH_(Homo sapiens)</data>
@@ -766,6 +978,8 @@
 	<data key="dn_freesurfer_structname">postcentral_5</data>
 	<data key="dn_colorcode">220,25,20</data>
 	<data key="dn_intensityvalue">107</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n108">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc6Res500_RH_(Homo sapiens)</data>
@@ -773,6 +987,8 @@
 	<data key="dn_freesurfer_structname">postcentral_6</data>
 	<data key="dn_colorcode">220,26,20</data>
 	<data key="dn_intensityvalue">108</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n109">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc7Res500_RH_(Homo sapiens)</data>
@@ -780,6 +996,8 @@
 	<data key="dn_freesurfer_structname">postcentral_7</data>
 	<data key="dn_colorcode">220,27,20</data>
 	<data key="dn_intensityvalue">109</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n110">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc8Res500_RH_(Homo sapiens)</data>
@@ -787,6 +1005,8 @@
 	<data key="dn_freesurfer_structname">postcentral_8</data>
 	<data key="dn_colorcode">220,28,20</data>
 	<data key="dn_intensityvalue">110</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n111">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc9Res500_RH_(Homo sapiens)</data>
@@ -794,6 +1014,8 @@
 	<data key="dn_freesurfer_structname">postcentral_9</data>
 	<data key="dn_colorcode">220,29,20</data>
 	<data key="dn_intensityvalue">111</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n112">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc10Res500_RH_(Homo sapiens)</data>
@@ -801,6 +1023,8 @@
 	<data key="dn_freesurfer_structname">postcentral_10</data>
 	<data key="dn_colorcode">220,30,20</data>
 	<data key="dn_intensityvalue">112</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n113">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc11Res500_RH_(Homo sapiens)</data>
@@ -808,6 +1032,8 @@
 	<data key="dn_freesurfer_structname">postcentral_11</data>
 	<data key="dn_colorcode">220,31,20</data>
 	<data key="dn_intensityvalue">113</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n114">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc12Res500_RH_(Homo sapiens)</data>
@@ -815,6 +1041,8 @@
 	<data key="dn_freesurfer_structname">postcentral_12</data>
 	<data key="dn_colorcode">220,32,20</data>
 	<data key="dn_intensityvalue">114</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n115">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc13Res500_RH_(Homo sapiens)</data>
@@ -822,6 +1050,8 @@
 	<data key="dn_freesurfer_structname">postcentral_13</data>
 	<data key="dn_colorcode">220,33,20</data>
 	<data key="dn_intensityvalue">115</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n116">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc14Res500_RH_(Homo sapiens)</data>
@@ -829,6 +1059,8 @@
 	<data key="dn_freesurfer_structname">postcentral_14</data>
 	<data key="dn_colorcode">220,34,20</data>
 	<data key="dn_intensityvalue">116</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n117">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc15Res500_RH_(Homo sapiens)</data>
@@ -836,6 +1068,8 @@
 	<data key="dn_freesurfer_structname">postcentral_15</data>
 	<data key="dn_colorcode">220,35,20</data>
 	<data key="dn_intensityvalue">117</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n118">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm1Res500_RH_(Homo sapiens)</data>
@@ -843,6 +1077,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_1</data>
 	<data key="dn_colorcode">80,160,20</data>
 	<data key="dn_intensityvalue">118</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n119">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm2Res500_RH_(Homo sapiens)</data>
@@ -850,6 +1086,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_2</data>
 	<data key="dn_colorcode">82,160,20</data>
 	<data key="dn_intensityvalue">119</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n120">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm3Res500_RH_(Homo sapiens)</data>
@@ -857,6 +1095,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_3</data>
 	<data key="dn_colorcode">83,160,20</data>
 	<data key="dn_intensityvalue">120</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n121">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm4Res500_RH_(Homo sapiens)</data>
@@ -864,6 +1104,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_4</data>
 	<data key="dn_colorcode">84,160,20</data>
 	<data key="dn_intensityvalue">121</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n122">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm5Res500_RH_(Homo sapiens)</data>
@@ -871,6 +1113,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_5</data>
 	<data key="dn_colorcode">85,160,20</data>
 	<data key="dn_intensityvalue">122</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n123">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm6Res500_RH_(Homo sapiens)</data>
@@ -878,6 +1122,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_6</data>
 	<data key="dn_colorcode">86,160,20</data>
 	<data key="dn_intensityvalue">123</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n124">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm7Res500_RH_(Homo sapiens)</data>
@@ -885,6 +1131,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_7</data>
 	<data key="dn_colorcode">87,160,20</data>
 	<data key="dn_intensityvalue">124</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n125">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm8Res500_RH_(Homo sapiens)</data>
@@ -892,6 +1140,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_8</data>
 	<data key="dn_colorcode">88,160,20</data>
 	<data key="dn_intensityvalue">125</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n126">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp1Res500_RH_(Homo sapiens)</data>
@@ -899,6 +1149,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_1</data>
 	<data key="dn_colorcode">20,180,140</data>
 	<data key="dn_intensityvalue">126</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n127">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp2Res500_RH_(Homo sapiens)</data>
@@ -906,6 +1158,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_2</data>
 	<data key="dn_colorcode">22,180,140</data>
 	<data key="dn_intensityvalue">127</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n128">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp3Res500_RH_(Homo sapiens)</data>
@@ -913,6 +1167,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_3</data>
 	<data key="dn_colorcode">23,180,140</data>
 	<data key="dn_intensityvalue">128</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n129">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp4Res500_RH_(Homo sapiens)</data>
@@ -920,6 +1176,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_4</data>
 	<data key="dn_colorcode">24,180,140</data>
 	<data key="dn_intensityvalue">129</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n130">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp5Res500_RH_(Homo sapiens)</data>
@@ -927,6 +1185,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_5</data>
 	<data key="dn_colorcode">25,180,140</data>
 	<data key="dn_intensityvalue">130</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n131">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp6Res500_RH_(Homo sapiens)</data>
@@ -934,6 +1194,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_6</data>
 	<data key="dn_colorcode">26,180,140</data>
 	<data key="dn_intensityvalue">131</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n132">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp7Res500_RH_(Homo sapiens)</data>
@@ -941,6 +1203,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_7</data>
 	<data key="dn_colorcode">27,180,140</data>
 	<data key="dn_intensityvalue">132</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n133">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp8Res500_RH_(Homo sapiens)</data>
@@ -948,6 +1212,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_8</data>
 	<data key="dn_colorcode">28,180,140</data>
 	<data key="dn_intensityvalue">133</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n134">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp9Res500_RH_(Homo sapiens)</data>
@@ -955,6 +1221,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_9</data>
 	<data key="dn_colorcode">29,180,140</data>
 	<data key="dn_intensityvalue">134</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n135">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp10Res500_RH_(Homo sapiens)</data>
@@ -962,6 +1230,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_10</data>
 	<data key="dn_colorcode">30,180,140</data>
 	<data key="dn_intensityvalue">135</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n136">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp11Res500_RH_(Homo sapiens)</data>
@@ -969,6 +1239,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_11</data>
 	<data key="dn_colorcode">31,180,140</data>
 	<data key="dn_intensityvalue">136</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n137">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp12Res500_RH_(Homo sapiens)</data>
@@ -976,6 +1248,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_12</data>
 	<data key="dn_colorcode">32,180,140</data>
 	<data key="dn_intensityvalue">137</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n138">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp13Res500_RH_(Homo sapiens)</data>
@@ -983,6 +1257,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_13</data>
 	<data key="dn_colorcode">33,180,140</data>
 	<data key="dn_intensityvalue">138</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n139">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip1Res500_RH_(Homo sapiens)</data>
@@ -990,6 +1266,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_1</data>
 	<data key="dn_colorcode">220,60,220</data>
 	<data key="dn_intensityvalue">139</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n140">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip2Res500_RH_(Homo sapiens)</data>
@@ -997,6 +1275,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_2</data>
 	<data key="dn_colorcode">220,62,220</data>
 	<data key="dn_intensityvalue">140</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n141">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip3Res500_RH_(Homo sapiens)</data>
@@ -1004,6 +1284,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_3</data>
 	<data key="dn_colorcode">220,63,220</data>
 	<data key="dn_intensityvalue">141</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n142">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip4Res500_RH_(Homo sapiens)</data>
@@ -1011,6 +1293,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_4</data>
 	<data key="dn_colorcode">220,64,220</data>
 	<data key="dn_intensityvalue">142</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n143">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip5Res500_RH_(Homo sapiens)</data>
@@ -1018,6 +1302,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_5</data>
 	<data key="dn_colorcode">220,65,220</data>
 	<data key="dn_intensityvalue">143</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n144">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip6Res500_RH_(Homo sapiens)</data>
@@ -1025,6 +1311,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_6</data>
 	<data key="dn_colorcode">220,66,220</data>
 	<data key="dn_intensityvalue">144</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n145">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip7Res500_RH_(Homo sapiens)</data>
@@ -1032,6 +1320,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_7</data>
 	<data key="dn_colorcode">220,67,220</data>
 	<data key="dn_intensityvalue">145</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n146">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip8Res500_RH_(Homo sapiens)</data>
@@ -1039,6 +1329,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_8</data>
 	<data key="dn_colorcode">220,68,220</data>
 	<data key="dn_intensityvalue">146</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n147">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip9Res500_RH_(Homo sapiens)</data>
@@ -1046,6 +1338,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_9</data>
 	<data key="dn_colorcode">220,69,220</data>
 	<data key="dn_intensityvalue">147</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n148">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip10Res500_RH_(Homo sapiens)</data>
@@ -1053,6 +1347,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_10</data>
 	<data key="dn_colorcode">220,70,220</data>
 	<data key="dn_intensityvalue">148</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n149">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip11Res500_RH_(Homo sapiens)</data>
@@ -1060,6 +1356,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_11</data>
 	<data key="dn_colorcode">220,71,220</data>
 	<data key="dn_intensityvalue">149</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n150">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip12Res500_RH_(Homo sapiens)</data>
@@ -1067,6 +1365,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_12</data>
 	<data key="dn_colorcode">220,72,220</data>
 	<data key="dn_intensityvalue">150</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n151">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip13Res500_RH_(Homo sapiens)</data>
@@ -1074,6 +1374,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_13</data>
 	<data key="dn_colorcode">220,73,220</data>
 	<data key="dn_intensityvalue">151</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n152">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip14Res500_RH_(Homo sapiens)</data>
@@ -1081,6 +1383,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_14</data>
 	<data key="dn_colorcode">220,74,220</data>
 	<data key="dn_intensityvalue">152</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n153">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun1Res500_RH_(Homo sapiens)</data>
@@ -1088,6 +1392,8 @@
 	<data key="dn_freesurfer_structname">precuneus_1</data>
 	<data key="dn_colorcode">160,140,180</data>
 	<data key="dn_intensityvalue">153</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n154">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun2Res500_RH_(Homo sapiens)</data>
@@ -1095,6 +1401,8 @@
 	<data key="dn_freesurfer_structname">precuneus_2</data>
 	<data key="dn_colorcode">160,142,180</data>
 	<data key="dn_intensityvalue">154</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n155">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun3Res500_RH_(Homo sapiens)</data>
@@ -1102,6 +1410,8 @@
 	<data key="dn_freesurfer_structname">precuneus_3</data>
 	<data key="dn_colorcode">160,143,180</data>
 	<data key="dn_intensityvalue">155</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n156">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun4Res500_RH_(Homo sapiens)</data>
@@ -1109,6 +1419,8 @@
 	<data key="dn_freesurfer_structname">precuneus_4</data>
 	<data key="dn_colorcode">160,144,180</data>
 	<data key="dn_intensityvalue">156</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n157">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun5Res500_RH_(Homo sapiens)</data>
@@ -1116,6 +1428,8 @@
 	<data key="dn_freesurfer_structname">precuneus_5</data>
 	<data key="dn_colorcode">160,145,180</data>
 	<data key="dn_intensityvalue">157</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n158">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun6Res500_RH_(Homo sapiens)</data>
@@ -1123,6 +1437,8 @@
 	<data key="dn_freesurfer_structname">precuneus_6</data>
 	<data key="dn_colorcode">160,146,180</data>
 	<data key="dn_intensityvalue">158</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n159">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun7Res500_RH_(Homo sapiens)</data>
@@ -1130,6 +1446,8 @@
 	<data key="dn_freesurfer_structname">precuneus_7</data>
 	<data key="dn_colorcode">160,147,180</data>
 	<data key="dn_intensityvalue">159</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n160">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun8Res500_RH_(Homo sapiens)</data>
@@ -1137,6 +1455,8 @@
 	<data key="dn_freesurfer_structname">precuneus_8</data>
 	<data key="dn_colorcode">160,148,180</data>
 	<data key="dn_intensityvalue">160</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n161">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun9Res500_RH_(Homo sapiens)</data>
@@ -1144,6 +1464,8 @@
 	<data key="dn_freesurfer_structname">precuneus_9</data>
 	<data key="dn_colorcode">160,149,180</data>
 	<data key="dn_intensityvalue">161</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n162">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun10Res500_RH_(Homo sapiens)</data>
@@ -1151,6 +1473,8 @@
 	<data key="dn_freesurfer_structname">precuneus_10</data>
 	<data key="dn_colorcode">160,150,180</data>
 	<data key="dn_intensityvalue">162</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n163">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun11Res500_RH_(Homo sapiens)</data>
@@ -1158,6 +1482,8 @@
 	<data key="dn_freesurfer_structname">precuneus_11</data>
 	<data key="dn_colorcode">160,151,180</data>
 	<data key="dn_intensityvalue">163</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n164">
 	<data key="dn_href">http://www.connectome.ch/wiki/cun1Res500_RH_(Homo sapiens)</data>
@@ -1165,6 +1491,8 @@
 	<data key="dn_freesurfer_structname">cuneus_1</data>
 	<data key="dn_colorcode">220,20,100</data>
 	<data key="dn_intensityvalue">164</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n165">
 	<data key="dn_href">http://www.connectome.ch/wiki/cun2Res500_RH_(Homo sapiens)</data>
@@ -1172,6 +1500,8 @@
 	<data key="dn_freesurfer_structname">cuneus_2</data>
 	<data key="dn_colorcode">220,22,100</data>
 	<data key="dn_intensityvalue">165</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n166">
 	<data key="dn_href">http://www.connectome.ch/wiki/cun3Res500_RH_(Homo sapiens)</data>
@@ -1179,6 +1509,8 @@
 	<data key="dn_freesurfer_structname">cuneus_3</data>
 	<data key="dn_colorcode">220,23,100</data>
 	<data key="dn_intensityvalue">166</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n167">
 	<data key="dn_href">http://www.connectome.ch/wiki/cun4Res500_RH_(Homo sapiens)</data>
@@ -1186,6 +1518,8 @@
 	<data key="dn_freesurfer_structname">cuneus_4</data>
 	<data key="dn_colorcode">220,24,100</data>
 	<data key="dn_intensityvalue">167</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n168">
 	<data key="dn_href">http://www.connectome.ch/wiki/cun5Res500_RH_(Homo sapiens)</data>
@@ -1193,6 +1527,8 @@
 	<data key="dn_freesurfer_structname">cuneus_5</data>
 	<data key="dn_colorcode">220,25,100</data>
 	<data key="dn_intensityvalue">168</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n169">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcal1Res500_RH_(Homo sapiens)</data>
@@ -1200,6 +1536,8 @@
 	<data key="dn_freesurfer_structname">pericalcarine_1</data>
 	<data key="dn_colorcode">120,100,60</data>
 	<data key="dn_intensityvalue">169</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n170">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcal2Res500_RH_(Homo sapiens)</data>
@@ -1207,6 +1545,8 @@
 	<data key="dn_freesurfer_structname">pericalcarine_2</data>
 	<data key="dn_colorcode">120,102,60</data>
 	<data key="dn_intensityvalue">170</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n171">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcal3Res500_RH_(Homo sapiens)</data>
@@ -1214,6 +1554,8 @@
 	<data key="dn_freesurfer_structname">pericalcarine_3</data>
 	<data key="dn_colorcode">120,103,60</data>
 	<data key="dn_intensityvalue">171</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n172">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcal4Res500_RH_(Homo sapiens)</data>
@@ -1221,6 +1563,8 @@
 	<data key="dn_freesurfer_structname">pericalcarine_4</data>
 	<data key="dn_colorcode">120,104,60</data>
 	<data key="dn_intensityvalue">172</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n173">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcal5Res500_RH_(Homo sapiens)</data>
@@ -1228,6 +1572,8 @@
 	<data key="dn_freesurfer_structname">pericalcarine_5</data>
 	<data key="dn_colorcode">120,105,60</data>
 	<data key="dn_intensityvalue">173</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n174">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc1Res500_RH_(Homo sapiens)</data>
@@ -1235,6 +1581,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_1</data>
 	<data key="dn_colorcode">20,30,140</data>
 	<data key="dn_intensityvalue">174</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n175">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc2Res500_RH_(Homo sapiens)</data>
@@ -1242,6 +1590,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_2</data>
 	<data key="dn_colorcode">20,32,140</data>
 	<data key="dn_intensityvalue">175</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n176">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc3Res500_RH_(Homo sapiens)</data>
@@ -1249,6 +1599,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_3</data>
 	<data key="dn_colorcode">20,33,140</data>
 	<data key="dn_intensityvalue">176</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n177">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc4Res500_RH_(Homo sapiens)</data>
@@ -1256,6 +1608,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_4</data>
 	<data key="dn_colorcode">20,34,140</data>
 	<data key="dn_intensityvalue">177</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n178">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc5Res500_RH_(Homo sapiens)</data>
@@ -1263,6 +1617,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_5</data>
 	<data key="dn_colorcode">20,35,140</data>
 	<data key="dn_intensityvalue">178</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n179">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc6Res500_RH_(Homo sapiens)</data>
@@ -1270,6 +1626,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_6</data>
 	<data key="dn_colorcode">20,36,140</data>
 	<data key="dn_intensityvalue">179</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n180">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc7Res500_RH_(Homo sapiens)</data>
@@ -1277,6 +1635,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_7</data>
 	<data key="dn_colorcode">20,37,140</data>
 	<data key="dn_intensityvalue">180</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n181">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc8Res500_RH_(Homo sapiens)</data>
@@ -1284,6 +1644,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_8</data>
 	<data key="dn_colorcode">20,38,140</data>
 	<data key="dn_intensityvalue">181</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n182">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc9Res500_RH_(Homo sapiens)</data>
@@ -1291,6 +1653,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_9</data>
 	<data key="dn_colorcode">20,39,140</data>
 	<data key="dn_intensityvalue">182</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n183">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin1Res500_RH_(Homo sapiens)</data>
@@ -1298,6 +1662,8 @@
 	<data key="dn_freesurfer_structname">lingual_1</data>
 	<data key="dn_colorcode">225,140,140</data>
 	<data key="dn_intensityvalue">183</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n184">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin2Res500_RH_(Homo sapiens)</data>
@@ -1305,6 +1671,8 @@
 	<data key="dn_freesurfer_structname">lingual_2</data>
 	<data key="dn_colorcode">225,142,140</data>
 	<data key="dn_intensityvalue">184</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n185">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin3Res500_RH_(Homo sapiens)</data>
@@ -1312,6 +1680,8 @@
 	<data key="dn_freesurfer_structname">lingual_3</data>
 	<data key="dn_colorcode">225,143,140</data>
 	<data key="dn_intensityvalue">185</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n186">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin4Res500_RH_(Homo sapiens)</data>
@@ -1319,6 +1689,8 @@
 	<data key="dn_freesurfer_structname">lingual_4</data>
 	<data key="dn_colorcode">225,144,140</data>
 	<data key="dn_intensityvalue">186</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n187">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin5Res500_RH_(Homo sapiens)</data>
@@ -1326,6 +1698,8 @@
 	<data key="dn_freesurfer_structname">lingual_5</data>
 	<data key="dn_colorcode">225,145,140</data>
 	<data key="dn_intensityvalue">187</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n188">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin6Res500_RH_(Homo sapiens)</data>
@@ -1333,6 +1707,8 @@
 	<data key="dn_freesurfer_structname">lingual_6</data>
 	<data key="dn_colorcode">225,146,140</data>
 	<data key="dn_intensityvalue">188</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n189">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin7Res500_RH_(Homo sapiens)</data>
@@ -1340,6 +1716,8 @@
 	<data key="dn_freesurfer_structname">lingual_7</data>
 	<data key="dn_colorcode">225,147,140</data>
 	<data key="dn_intensityvalue">189</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n190">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin8Res500_RH_(Homo sapiens)</data>
@@ -1347,6 +1725,8 @@
 	<data key="dn_freesurfer_structname">lingual_8</data>
 	<data key="dn_colorcode">225,148,140</data>
 	<data key="dn_intensityvalue">190</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n191">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi1Res500_RH_(Homo sapiens)</data>
@@ -1354,6 +1734,8 @@
 	<data key="dn_freesurfer_structname">fusiform_1</data>
 	<data key="dn_colorcode">180,220,140</data>
 	<data key="dn_intensityvalue">191</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n192">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi2Res500_RH_(Homo sapiens)</data>
@@ -1361,6 +1743,8 @@
 	<data key="dn_freesurfer_structname">fusiform_2</data>
 	<data key="dn_colorcode">182,220,140</data>
 	<data key="dn_intensityvalue">192</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n193">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi3Res500_RH_(Homo sapiens)</data>
@@ -1368,6 +1752,8 @@
 	<data key="dn_freesurfer_structname">fusiform_3</data>
 	<data key="dn_colorcode">183,220,140</data>
 	<data key="dn_intensityvalue">193</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n194">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi4Res500_RH_(Homo sapiens)</data>
@@ -1375,6 +1761,8 @@
 	<data key="dn_freesurfer_structname">fusiform_4</data>
 	<data key="dn_colorcode">184,220,140</data>
 	<data key="dn_intensityvalue">194</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n195">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi5Res500_RH_(Homo sapiens)</data>
@@ -1382,6 +1770,8 @@
 	<data key="dn_freesurfer_structname">fusiform_5</data>
 	<data key="dn_colorcode">185,220,140</data>
 	<data key="dn_intensityvalue">195</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n196">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi6Res500_RH_(Homo sapiens)</data>
@@ -1389,6 +1779,8 @@
 	<data key="dn_freesurfer_structname">fusiform_6</data>
 	<data key="dn_colorcode">186,220,140</data>
 	<data key="dn_intensityvalue">196</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n197">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi7Res500_RH_(Homo sapiens)</data>
@@ -1396,6 +1788,8 @@
 	<data key="dn_freesurfer_structname">fusiform_7</data>
 	<data key="dn_colorcode">187,220,140</data>
 	<data key="dn_intensityvalue">197</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n198">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi8Res500_RH_(Homo sapiens)</data>
@@ -1403,6 +1797,8 @@
 	<data key="dn_freesurfer_structname">fusiform_8</data>
 	<data key="dn_colorcode">188,220,140</data>
 	<data key="dn_intensityvalue">198</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n199">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi9Res500_RH_(Homo sapiens)</data>
@@ -1410,6 +1806,8 @@
 	<data key="dn_freesurfer_structname">fusiform_9</data>
 	<data key="dn_colorcode">189,220,140</data>
 	<data key="dn_intensityvalue">199</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n200">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi10Res500_RH_(Homo sapiens)</data>
@@ -1417,6 +1815,8 @@
 	<data key="dn_freesurfer_structname">fusiform_10</data>
 	<data key="dn_colorcode">190,220,140</data>
 	<data key="dn_intensityvalue">200</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n201">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi11Res500_RH_(Homo sapiens)</data>
@@ -1424,6 +1824,8 @@
 	<data key="dn_freesurfer_structname">fusiform_11</data>
 	<data key="dn_colorcode">191,220,140</data>
 	<data key="dn_intensityvalue">201</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n202">
 	<data key="dn_href">http://www.connectome.ch/wiki/para1Res500_RH_(Homo sapiens)</data>
@@ -1431,6 +1833,8 @@
 	<data key="dn_freesurfer_structname">parahippocampal_1</data>
 	<data key="dn_colorcode">20,220,60</data>
 	<data key="dn_intensityvalue">202</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n203">
 	<data key="dn_href">http://www.connectome.ch/wiki/para2Res500_RH_(Homo sapiens)</data>
@@ -1438,6 +1842,8 @@
 	<data key="dn_freesurfer_structname">parahippocampal_2</data>
 	<data key="dn_colorcode">22,220,60</data>
 	<data key="dn_intensityvalue">203</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n204">
 	<data key="dn_href">http://www.connectome.ch/wiki/para3Res500_RH_(Homo sapiens)</data>
@@ -1445,6 +1851,8 @@
 	<data key="dn_freesurfer_structname">parahippocampal_3</data>
 	<data key="dn_colorcode">23,220,60</data>
 	<data key="dn_intensityvalue">204</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n205">
 	<data key="dn_href">http://www.connectome.ch/wiki/ent1Res500_RH_(Homo sapiens)</data>
@@ -1452,6 +1860,8 @@
 	<data key="dn_freesurfer_structname">entorhinal_1</data>
 	<data key="dn_colorcode">220,20,10</data>
 	<data key="dn_intensityvalue">205</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n206">
 	<data key="dn_href">http://www.connectome.ch/wiki/tp1Res500_RH_(Homo sapiens)</data>
@@ -1459,6 +1869,8 @@
 	<data key="dn_freesurfer_structname">temporalpole_1</data>
 	<data key="dn_colorcode">70,70,70</data>
 	<data key="dn_intensityvalue">206</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n207">
 	<data key="dn_href">http://www.connectome.ch/wiki/it1Res500_RH_(Homo sapiens)</data>
@@ -1466,6 +1878,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_1</data>
 	<data key="dn_colorcode">180,40,120</data>
 	<data key="dn_intensityvalue">207</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n208">
 	<data key="dn_href">http://www.connectome.ch/wiki/it2Res500_RH_(Homo sapiens)</data>
@@ -1473,6 +1887,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_2</data>
 	<data key="dn_colorcode">180,42,120</data>
 	<data key="dn_intensityvalue">208</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n209">
 	<data key="dn_href">http://www.connectome.ch/wiki/it3Res500_RH_(Homo sapiens)</data>
@@ -1480,6 +1896,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_3</data>
 	<data key="dn_colorcode">180,43,120</data>
 	<data key="dn_intensityvalue">209</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n210">
 	<data key="dn_href">http://www.connectome.ch/wiki/it4Res500_RH_(Homo sapiens)</data>
@@ -1487,6 +1905,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_4</data>
 	<data key="dn_colorcode">180,44,120</data>
 	<data key="dn_intensityvalue">210</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n211">
 	<data key="dn_href">http://www.connectome.ch/wiki/it5Res500_RH_(Homo sapiens)</data>
@@ -1494,6 +1914,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_5</data>
 	<data key="dn_colorcode">180,45,120</data>
 	<data key="dn_intensityvalue">211</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n212">
 	<data key="dn_href">http://www.connectome.ch/wiki/it6Res500_RH_(Homo sapiens)</data>
@@ -1501,6 +1923,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_6</data>
 	<data key="dn_colorcode">180,46,120</data>
 	<data key="dn_intensityvalue">212</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n213">
 	<data key="dn_href">http://www.connectome.ch/wiki/it7Res500_RH_(Homo sapiens)</data>
@@ -1508,6 +1932,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_7</data>
 	<data key="dn_colorcode">180,47,120</data>
 	<data key="dn_intensityvalue">213</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n214">
 	<data key="dn_href">http://www.connectome.ch/wiki/it8Res500_RH_(Homo sapiens)</data>
@@ -1515,6 +1941,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_8</data>
 	<data key="dn_colorcode">180,48,120</data>
 	<data key="dn_intensityvalue">214</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n215">
 	<data key="dn_href">http://www.connectome.ch/wiki/it9Res500_RH_(Homo sapiens)</data>
@@ -1522,6 +1950,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_9</data>
 	<data key="dn_colorcode">180,49,120</data>
 	<data key="dn_intensityvalue">215</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n216">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt1Res500_RH_(Homo sapiens)</data>
@@ -1529,6 +1959,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_1</data>
 	<data key="dn_colorcode">160,100,50</data>
 	<data key="dn_intensityvalue">216</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n217">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt2Res500_RH_(Homo sapiens)</data>
@@ -1536,6 +1968,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_2</data>
 	<data key="dn_colorcode">160,102,50</data>
 	<data key="dn_intensityvalue">217</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n218">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt3Res500_RH_(Homo sapiens)</data>
@@ -1543,6 +1977,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_3</data>
 	<data key="dn_colorcode">160,103,50</data>
 	<data key="dn_intensityvalue">218</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n219">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt4Res500_RH_(Homo sapiens)</data>
@@ -1550,6 +1986,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_4</data>
 	<data key="dn_colorcode">160,104,50</data>
 	<data key="dn_intensityvalue">219</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n220">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt5Res500_RH_(Homo sapiens)</data>
@@ -1557,6 +1995,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_5</data>
 	<data key="dn_colorcode">160,105,50</data>
 	<data key="dn_intensityvalue">220</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n221">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt6Res500_RH_(Homo sapiens)</data>
@@ -1564,6 +2004,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_6</data>
 	<data key="dn_colorcode">160,106,50</data>
 	<data key="dn_intensityvalue">221</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n222">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt7Res500_RH_(Homo sapiens)</data>
@@ -1571,6 +2013,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_7</data>
 	<data key="dn_colorcode">160,107,50</data>
 	<data key="dn_intensityvalue">222</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n223">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt8Res500_RH_(Homo sapiens)</data>
@@ -1578,6 +2022,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_8</data>
 	<data key="dn_colorcode">160,108,50</data>
 	<data key="dn_intensityvalue">223</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n224">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt9Res500_RH_(Homo sapiens)</data>
@@ -1585,6 +2031,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_9</data>
 	<data key="dn_colorcode">160,109,50</data>
 	<data key="dn_intensityvalue">224</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n225">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt10Res500_RH_(Homo sapiens)</data>
@@ -1592,6 +2040,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_10</data>
 	<data key="dn_colorcode">160,110,50</data>
 	<data key="dn_intensityvalue">225</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n226">
 	<data key="dn_href">http://www.connectome.ch/wiki/bank1Res500_RH_(Homo sapiens)</data>
@@ -1599,6 +2049,8 @@
 	<data key="dn_freesurfer_structname">bankssts_1</data>
 	<data key="dn_colorcode">25,100,40</data>
 	<data key="dn_intensityvalue">226</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n227">
 	<data key="dn_href">http://www.connectome.ch/wiki/bank2Res500_RH_(Homo sapiens)</data>
@@ -1606,6 +2058,8 @@
 	<data key="dn_freesurfer_structname">bankssts_2</data>
 	<data key="dn_colorcode">25,102,40</data>
 	<data key="dn_intensityvalue">227</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n228">
 	<data key="dn_href">http://www.connectome.ch/wiki/bank3Res500_RH_(Homo sapiens)</data>
@@ -1613,6 +2067,8 @@
 	<data key="dn_freesurfer_structname">bankssts_3</data>
 	<data key="dn_colorcode">25,103,40</data>
 	<data key="dn_intensityvalue">228</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n229">
 	<data key="dn_href">http://www.connectome.ch/wiki/st1Res500_RH_(Homo sapiens)</data>
@@ -1620,6 +2076,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_1</data>
 	<data key="dn_colorcode">140,220,220</data>
 	<data key="dn_intensityvalue">229</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n230">
 	<data key="dn_href">http://www.connectome.ch/wiki/st2Res500_RH_(Homo sapiens)</data>
@@ -1627,6 +2085,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_2</data>
 	<data key="dn_colorcode">142,220,220</data>
 	<data key="dn_intensityvalue">230</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n231">
 	<data key="dn_href">http://www.connectome.ch/wiki/st3Res500_RH_(Homo sapiens)</data>
@@ -1634,6 +2094,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_3</data>
 	<data key="dn_colorcode">143,220,220</data>
 	<data key="dn_intensityvalue">231</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n232">
 	<data key="dn_href">http://www.connectome.ch/wiki/st4Res500_RH_(Homo sapiens)</data>
@@ -1641,6 +2103,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_4</data>
 	<data key="dn_colorcode">144,220,220</data>
 	<data key="dn_intensityvalue">232</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n233">
 	<data key="dn_href">http://www.connectome.ch/wiki/st5Res500_RH_(Homo sapiens)</data>
@@ -1648,6 +2112,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_5</data>
 	<data key="dn_colorcode">145,220,220</data>
 	<data key="dn_intensityvalue">233</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n234">
 	<data key="dn_href">http://www.connectome.ch/wiki/st6Res500_RH_(Homo sapiens)</data>
@@ -1655,6 +2121,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_6</data>
 	<data key="dn_colorcode">146,220,220</data>
 	<data key="dn_intensityvalue">234</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n235">
 	<data key="dn_href">http://www.connectome.ch/wiki/st7Res500_RH_(Homo sapiens)</data>
@@ -1662,6 +2130,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_7</data>
 	<data key="dn_colorcode">147,220,220</data>
 	<data key="dn_intensityvalue">235</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n236">
 	<data key="dn_href">http://www.connectome.ch/wiki/st8Res500_RH_(Homo sapiens)</data>
@@ -1669,6 +2139,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_8</data>
 	<data key="dn_colorcode">148,220,220</data>
 	<data key="dn_intensityvalue">236</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n237">
 	<data key="dn_href">http://www.connectome.ch/wiki/st9Res500_RH_(Homo sapiens)</data>
@@ -1676,6 +2148,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_9</data>
 	<data key="dn_colorcode">149,220,220</data>
 	<data key="dn_intensityvalue">237</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n238">
 	<data key="dn_href">http://www.connectome.ch/wiki/st10Res500_RH_(Homo sapiens)</data>
@@ -1683,6 +2157,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_10</data>
 	<data key="dn_colorcode">150,220,220</data>
 	<data key="dn_intensityvalue">238</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n239">
 	<data key="dn_href">http://www.connectome.ch/wiki/st11Res500_RH_(Homo sapiens)</data>
@@ -1690,6 +2166,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_11</data>
 	<data key="dn_colorcode">151,220,220</data>
 	<data key="dn_intensityvalue">239</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n240">
 	<data key="dn_href">http://www.connectome.ch/wiki/st12Res500_RH_(Homo sapiens)</data>
@@ -1697,6 +2175,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_12</data>
 	<data key="dn_colorcode">152,220,220</data>
 	<data key="dn_intensityvalue">240</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n241">
 	<data key="dn_href">http://www.connectome.ch/wiki/st13Res500_RH_(Homo sapiens)</data>
@@ -1704,6 +2184,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_13</data>
 	<data key="dn_colorcode">153,220,220</data>
 	<data key="dn_intensityvalue">241</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n242">
 	<data key="dn_href">http://www.connectome.ch/wiki/tt1Res500_RH_(Homo sapiens)</data>
@@ -1711,6 +2193,8 @@
 	<data key="dn_freesurfer_structname">transversetemporal_1</data>
 	<data key="dn_colorcode">150,150,200</data>
 	<data key="dn_intensityvalue">242</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">right</data>
 </node>
 <node id="n243">
 	<data key="dn_href">http://www.connectome.ch/wiki/thRes500_RH_(Homo sapiens)</data>
@@ -1718,6 +2202,9 @@
 	<data key="dn_freesurfer_structname">Right-Thalamus-Proper</data>
 	<data key="dn_colorcode">2,124,5</data>
 	<data key="dn_intensityvalue">243</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">right</data>
+	<data key="dn_fs_aseg_val">49</data>
 </node>
 <node id="n244">
 	<data key="dn_href">http://www.connectome.ch/wiki/canRes500_RH_(Homo sapiens)</data>
@@ -1725,6 +2212,9 @@
 	<data key="dn_freesurfer_structname">Right-Caudate</data>
 	<data key="dn_colorcode">100,172,222</data>
 	<data key="dn_intensityvalue">244</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">right</data>
+	<data key="dn_fs_aseg_val">50</data>
 </node>
 <node id="n245">
 	<data key="dn_href">http://www.connectome.ch/wiki/puRes500_RH_(Homo sapiens)</data>
@@ -1732,6 +2222,9 @@
 	<data key="dn_freesurfer_structname">Right-Putamen</data>
 	<data key="dn_colorcode">32,101,149</data>
 	<data key="dn_intensityvalue">245</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">right</data>
+	<data key="dn_fs_aseg_val">51</data>
 </node>
 <node id="n246">
 	<data key="dn_href">http://www.connectome.ch/wiki/gpRes500_RH_(Homo sapiens)</data>
@@ -1739,6 +2232,9 @@
 	<data key="dn_freesurfer_structname">Right-Pallidum</data>
 	<data key="dn_colorcode">146,210,255</data>
 	<data key="dn_intensityvalue">246</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">right</data>
+	<data key="dn_fs_aseg_val">52</data>
 </node>
 <node id="n247">
 	<data key="dn_href">http://www.connectome.ch/wiki/accRes500_RH_(Homo sapiens)</data>
@@ -1746,6 +2242,9 @@
 	<data key="dn_freesurfer_structname">Right-Accumbens-area</data>
 	<data key="dn_colorcode">255,43,78</data>
 	<data key="dn_intensityvalue">247</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">right</data>
+	<data key="dn_fs_aseg_val">58</data>
 </node>
 <node id="n248">
 	<data key="dn_href">http://www.connectome.ch/wiki/subthRes500_RH_(Homo sapiens)</data>
@@ -1753,6 +2252,9 @@
 	<data key="dn_freesurfer_structname">Right-Subthalamus</data>
 	<data key="dn_colorcode">231,159,21</data>
 	<data key="dn_intensityvalue">248</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">right</data>
+	<data key="dn_fs_aseg_val">60</data>
 </node>
 <node id="n249">
 	<data key="dn_href">http://www.connectome.ch/wiki/hippRes500_RH_(Homo sapiens)</data>
@@ -1760,6 +2262,9 @@
 	<data key="dn_freesurfer_structname">Right-Hippocampus</data>
 	<data key="dn_colorcode">150,246,255</data>
 	<data key="dn_intensityvalue">249</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">right</data>
+	<data key="dn_fs_aseg_val">53</data>
 </node>
 <node id="n250">
 	<data key="dn_href">http://www.connectome.ch/wiki/amgRes500_RH_(Homo sapiens)</data>
@@ -1767,6 +2272,11 @@
 	<data key="dn_freesurfer_structname">Right-Amygdala</data>
 	<data key="dn_colorcode">255,128,191</data>
 	<data key="dn_intensityvalue">250</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">right</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
+	<data key="dn_fs_aseg_val">54</data>
 </node>
 <node id="n251">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof1Res500_LH_(Homo sapiens)</data>
@@ -1774,6 +2284,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_1</data>
 	<data key="dn_colorcode">35,75,50</data>
 	<data key="dn_intensityvalue">251</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n252">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof2Res500_LH_(Homo sapiens)</data>
@@ -1781,6 +2293,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_2</data>
 	<data key="dn_colorcode">35,77,50</data>
 	<data key="dn_intensityvalue">252</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n253">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof3Res500_LH_(Homo sapiens)</data>
@@ -1788,6 +2302,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_3</data>
 	<data key="dn_colorcode">35,78,50</data>
 	<data key="dn_intensityvalue">253</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n254">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof4Res500_LH_(Homo sapiens)</data>
@@ -1795,6 +2311,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_4</data>
 	<data key="dn_colorcode">35,79,50</data>
 	<data key="dn_intensityvalue">254</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n255">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof5Res500_LH_(Homo sapiens)</data>
@@ -1802,6 +2320,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_5</data>
 	<data key="dn_colorcode">35,80,50</data>
 	<data key="dn_intensityvalue">255</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n256">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof6Res500_LH_(Homo sapiens)</data>
@@ -1809,6 +2329,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_6</data>
 	<data key="dn_colorcode">35,81,50</data>
 	<data key="dn_intensityvalue">256</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n257">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof7Res500_LH_(Homo sapiens)</data>
@@ -1816,6 +2338,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_7</data>
 	<data key="dn_colorcode">35,82,50</data>
 	<data key="dn_intensityvalue">257</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n258">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof8Res500_LH_(Homo sapiens)</data>
@@ -1823,6 +2347,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_8</data>
 	<data key="dn_colorcode">35,83,50</data>
 	<data key="dn_intensityvalue">258</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n259">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof9Res500_LH_(Homo sapiens)</data>
@@ -1830,6 +2356,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_9</data>
 	<data key="dn_colorcode">35,84,50</data>
 	<data key="dn_intensityvalue">259</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n260">
 	<data key="dn_href">http://www.connectome.ch/wiki/lof10Res500_LH_(Homo sapiens)</data>
@@ -1837,6 +2365,8 @@
 	<data key="dn_freesurfer_structname">lateralorbitofrontal_10</data>
 	<data key="dn_colorcode">35,85,50</data>
 	<data key="dn_intensityvalue">260</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n261">
 	<data key="dn_href">http://www.connectome.ch/wiki/po1Res500_LH_(Homo sapiens)</data>
@@ -1844,6 +2374,8 @@
 	<data key="dn_freesurfer_structname">parsorbitalis_1</data>
 	<data key="dn_colorcode">20,100,50</data>
 	<data key="dn_intensityvalue">261</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n262">
 	<data key="dn_href">http://www.connectome.ch/wiki/po2Res500_LH_(Homo sapiens)</data>
@@ -1851,6 +2383,8 @@
 	<data key="dn_freesurfer_structname">parsorbitalis_2</data>
 	<data key="dn_colorcode">20,102,50</data>
 	<data key="dn_intensityvalue">262</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n263">
 	<data key="dn_href">http://www.connectome.ch/wiki/po3Res500_LH_(Homo sapiens)</data>
@@ -1858,6 +2392,8 @@
 	<data key="dn_freesurfer_structname">parsorbitalis_3</data>
 	<data key="dn_colorcode">20,103,50</data>
 	<data key="dn_intensityvalue">263</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n264">
 	<data key="dn_href">http://www.connectome.ch/wiki/fp1Res500_LH_(Homo sapiens)</data>
@@ -1865,6 +2401,8 @@
 	<data key="dn_freesurfer_structname">frontalpole_1</data>
 	<data key="dn_colorcode">100,0,100</data>
 	<data key="dn_intensityvalue">264</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n265">
 	<data key="dn_href">http://www.connectome.ch/wiki/mof1Res500_LH_(Homo sapiens)</data>
@@ -1872,6 +2410,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal_1</data>
 	<data key="dn_colorcode">200,35,75</data>
 	<data key="dn_intensityvalue">265</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n266">
 	<data key="dn_href">http://www.connectome.ch/wiki/mof2Res500_LH_(Homo sapiens)</data>
@@ -1879,6 +2419,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal_2</data>
 	<data key="dn_colorcode">200,37,75</data>
 	<data key="dn_intensityvalue">266</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n267">
 	<data key="dn_href">http://www.connectome.ch/wiki/mof3Res500_LH_(Homo sapiens)</data>
@@ -1886,6 +2428,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal_3</data>
 	<data key="dn_colorcode">200,38,75</data>
 	<data key="dn_intensityvalue">267</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n268">
 	<data key="dn_href">http://www.connectome.ch/wiki/mof4Res500_LH_(Homo sapiens)</data>
@@ -1893,6 +2437,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal_4</data>
 	<data key="dn_colorcode">200,39,75</data>
 	<data key="dn_intensityvalue">268</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n269">
 	<data key="dn_href">http://www.connectome.ch/wiki/mof5Res500_LH_(Homo sapiens)</data>
@@ -1900,6 +2446,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal_5</data>
 	<data key="dn_colorcode">200,40,75</data>
 	<data key="dn_intensityvalue">269</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n270">
 	<data key="dn_href">http://www.connectome.ch/wiki/mof6Res500_LH_(Homo sapiens)</data>
@@ -1907,6 +2455,8 @@
 	<data key="dn_freesurfer_structname">medialorbitofrontal_6</data>
 	<data key="dn_colorcode">200,41,75</data>
 	<data key="dn_intensityvalue">270</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n271">
 	<data key="dn_href">http://www.connectome.ch/wiki/ptri1Res500_LH_(Homo sapiens)</data>
@@ -1914,6 +2464,8 @@
 	<data key="dn_freesurfer_structname">parstriangularis_1</data>
 	<data key="dn_colorcode">220,60,20</data>
 	<data key="dn_intensityvalue">271</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n272">
 	<data key="dn_href">http://www.connectome.ch/wiki/ptri2Res500_LH_(Homo sapiens)</data>
@@ -1921,6 +2473,8 @@
 	<data key="dn_freesurfer_structname">parstriangularis_2</data>
 	<data key="dn_colorcode">220,62,20</data>
 	<data key="dn_intensityvalue">272</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n273">
 	<data key="dn_href">http://www.connectome.ch/wiki/ptri3Res500_LH_(Homo sapiens)</data>
@@ -1928,6 +2482,8 @@
 	<data key="dn_freesurfer_structname">parstriangularis_3</data>
 	<data key="dn_colorcode">220,63,20</data>
 	<data key="dn_intensityvalue">273</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n274">
 	<data key="dn_href">http://www.connectome.ch/wiki/ptri4Res500_LH_(Homo sapiens)</data>
@@ -1935,6 +2491,8 @@
 	<data key="dn_freesurfer_structname">parsopercularis_1</data>
 	<data key="dn_colorcode">220,180,140</data>
 	<data key="dn_intensityvalue">274</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n275">
 	<data key="dn_href">http://www.connectome.ch/wiki/pop1Res500_LH_(Homo sapiens)</data>
@@ -1942,6 +2500,8 @@
 	<data key="dn_freesurfer_structname">parsopercularis_2</data>
 	<data key="dn_colorcode">220,182,140</data>
 	<data key="dn_intensityvalue">275</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n276">
 	<data key="dn_href">http://www.connectome.ch/wiki/pop2Res500_LH_(Homo sapiens)</data>
@@ -1949,6 +2509,8 @@
 	<data key="dn_freesurfer_structname">parsopercularis_3</data>
 	<data key="dn_colorcode">220,183,140</data>
 	<data key="dn_intensityvalue">276</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n277">
 	<data key="dn_href">http://www.connectome.ch/wiki/pop3Res500_LH_(Homo sapiens)</data>
@@ -1956,6 +2518,8 @@
 	<data key="dn_freesurfer_structname">parsopercularis_4</data>
 	<data key="dn_colorcode">220,184,140</data>
 	<data key="dn_intensityvalue">277</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n278">
 	<data key="dn_href">http://www.connectome.ch/wiki/pop4Res500_LH_(Homo sapiens)</data>
@@ -1963,6 +2527,8 @@
 	<data key="dn_freesurfer_structname">parsopercularis_5</data>
 	<data key="dn_colorcode">220,185,140</data>
 	<data key="dn_intensityvalue">278</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n279">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf1Res500_LH_(Homo sapiens)</data>
@@ -1970,6 +2536,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_1</data>
 	<data key="dn_colorcode">75,50,125</data>
 	<data key="dn_intensityvalue">279</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n280">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf2Res500_LH_(Homo sapiens)</data>
@@ -1977,6 +2545,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_2</data>
 	<data key="dn_colorcode">75,52,125</data>
 	<data key="dn_intensityvalue">280</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n281">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf3Res500_LH_(Homo sapiens)</data>
@@ -1984,6 +2554,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_3</data>
 	<data key="dn_colorcode">75,53,125</data>
 	<data key="dn_intensityvalue">281</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n282">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf4Res500_LH_(Homo sapiens)</data>
@@ -1991,6 +2563,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_4</data>
 	<data key="dn_colorcode">75,54,125</data>
 	<data key="dn_intensityvalue">282</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n283">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf5Res500_LH_(Homo sapiens)</data>
@@ -1998,6 +2572,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_5</data>
 	<data key="dn_colorcode">75,55,125</data>
 	<data key="dn_intensityvalue">283</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n284">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf6Res500_LH_(Homo sapiens)</data>
@@ -2005,6 +2581,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_6</data>
 	<data key="dn_colorcode">75,56,125</data>
 	<data key="dn_intensityvalue">284</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n285">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf7Res500_LH_(Homo sapiens)</data>
@@ -2012,6 +2590,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_7</data>
 	<data key="dn_colorcode">75,57,125</data>
 	<data key="dn_intensityvalue">285</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n286">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf8Res500_LH_(Homo sapiens)</data>
@@ -2019,6 +2599,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_8</data>
 	<data key="dn_colorcode">75,58,125</data>
 	<data key="dn_intensityvalue">286</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n287">
 	<data key="dn_href">http://www.connectome.ch/wiki/rmf9Res500_LH_(Homo sapiens)</data>
@@ -2026,6 +2608,8 @@
 	<data key="dn_freesurfer_structname">rostralmiddlefrontal_9</data>
 	<data key="dn_colorcode">75,59,125</data>
 	<data key="dn_intensityvalue">287</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n288">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf1Res500_LH_(Homo sapiens)</data>
@@ -2033,6 +2617,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_1</data>
 	<data key="dn_colorcode">20,220,160</data>
 	<data key="dn_intensityvalue">288</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n289">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf2Res500_LH_(Homo sapiens)</data>
@@ -2040,6 +2626,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_2</data>
 	<data key="dn_colorcode">22,220,160</data>
 	<data key="dn_intensityvalue">289</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n290">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf3Res500_LH_(Homo sapiens)</data>
@@ -2047,6 +2635,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_3</data>
 	<data key="dn_colorcode">23,220,160</data>
 	<data key="dn_intensityvalue">290</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n291">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf4Res500_LH_(Homo sapiens)</data>
@@ -2054,6 +2644,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_4</data>
 	<data key="dn_colorcode">24,220,160</data>
 	<data key="dn_intensityvalue">291</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n292">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf5Res500_LH_(Homo sapiens)</data>
@@ -2061,6 +2653,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_5</data>
 	<data key="dn_colorcode">25,220,160</data>
 	<data key="dn_intensityvalue">292</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n293">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf6Res500_LH_(Homo sapiens)</data>
@@ -2068,6 +2662,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_6</data>
 	<data key="dn_colorcode">26,220,160</data>
 	<data key="dn_intensityvalue">293</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n294">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf7Res500_LH_(Homo sapiens)</data>
@@ -2075,6 +2671,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_7</data>
 	<data key="dn_colorcode">27,220,160</data>
 	<data key="dn_intensityvalue">294</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n295">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf8Res500_LH_(Homo sapiens)</data>
@@ -2082,6 +2680,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_8</data>
 	<data key="dn_colorcode">28,220,160</data>
 	<data key="dn_intensityvalue">295</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n296">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf9Res500_LH_(Homo sapiens)</data>
@@ -2089,6 +2689,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_9</data>
 	<data key="dn_colorcode">29,220,160</data>
 	<data key="dn_intensityvalue">296</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n297">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf10Res500_LH_(Homo sapiens)</data>
@@ -2096,6 +2698,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_10</data>
 	<data key="dn_colorcode">30,220,160</data>
 	<data key="dn_intensityvalue">297</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n298">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf11Res500_LH_(Homo sapiens)</data>
@@ -2103,6 +2707,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_11</data>
 	<data key="dn_colorcode">31,220,160</data>
 	<data key="dn_intensityvalue">298</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n299">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf12Res500_LH_(Homo sapiens)</data>
@@ -2110,6 +2716,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_12</data>
 	<data key="dn_colorcode">32,220,160</data>
 	<data key="dn_intensityvalue">299</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n300">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf13Res500_LH_(Homo sapiens)</data>
@@ -2117,6 +2725,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_13</data>
 	<data key="dn_colorcode">33,220,160</data>
 	<data key="dn_intensityvalue">300</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n301">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf14Res500_LH_(Homo sapiens)</data>
@@ -2124,6 +2734,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_14</data>
 	<data key="dn_colorcode">34,220,160</data>
 	<data key="dn_intensityvalue">301</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n302">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf15Res500_LH_(Homo sapiens)</data>
@@ -2131,6 +2743,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_15</data>
 	<data key="dn_colorcode">35,220,160</data>
 	<data key="dn_intensityvalue">302</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n303">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf16Res500_LH_(Homo sapiens)</data>
@@ -2138,6 +2752,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_16</data>
 	<data key="dn_colorcode">36,220,160</data>
 	<data key="dn_intensityvalue">303</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n304">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf17Res500_LH_(Homo sapiens)</data>
@@ -2145,6 +2761,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_17</data>
 	<data key="dn_colorcode">37,220,160</data>
 	<data key="dn_intensityvalue">304</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n305">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf18Res500_LH_(Homo sapiens)</data>
@@ -2152,6 +2770,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_18</data>
 	<data key="dn_colorcode">38,220,160</data>
 	<data key="dn_intensityvalue">305</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n306">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf19Res500_LH_(Homo sapiens)</data>
@@ -2159,6 +2779,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_19</data>
 	<data key="dn_colorcode">39,220,160</data>
 	<data key="dn_intensityvalue">306</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n307">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf20Res500_LH_(Homo sapiens)</data>
@@ -2166,6 +2788,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_20</data>
 	<data key="dn_colorcode">40,220,160</data>
 	<data key="dn_intensityvalue">307</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n308">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf21Res500_LH_(Homo sapiens)</data>
@@ -2173,6 +2797,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_21</data>
 	<data key="dn_colorcode">41,220,160</data>
 	<data key="dn_intensityvalue">308</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n309">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf22Res500_LH_(Homo sapiens)</data>
@@ -2180,6 +2806,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_22</data>
 	<data key="dn_colorcode">42,220,160</data>
 	<data key="dn_intensityvalue">309</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n310">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf23Res500_LH_(Homo sapiens)</data>
@@ -2187,6 +2815,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_23</data>
 	<data key="dn_colorcode">43,220,160</data>
 	<data key="dn_intensityvalue">310</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n311">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf24Res500_LH_(Homo sapiens)</data>
@@ -2194,6 +2824,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_24</data>
 	<data key="dn_colorcode">44,220,160</data>
 	<data key="dn_intensityvalue">311</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n312">
 	<data key="dn_href">http://www.connectome.ch/wiki/sf25Res500_LH_(Homo sapiens)</data>
@@ -2201,6 +2833,8 @@
 	<data key="dn_freesurfer_structname">superiorfrontal_25</data>
 	<data key="dn_colorcode">45,220,160</data>
 	<data key="dn_intensityvalue">312</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n313">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmf1Res500_LH_(Homo sapiens)</data>
@@ -2208,6 +2842,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal_1</data>
 	<data key="dn_colorcode">100,25,0</data>
 	<data key="dn_intensityvalue">313</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n314">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmf2Res500_LH_(Homo sapiens)</data>
@@ -2215,6 +2851,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal_2</data>
 	<data key="dn_colorcode">100,27,0</data>
 	<data key="dn_intensityvalue">314</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n315">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmf3Res500_LH_(Homo sapiens)</data>
@@ -2222,6 +2860,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal_3</data>
 	<data key="dn_colorcode">100,28,0</data>
 	<data key="dn_intensityvalue">315</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n316">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmf4Res500_LH_(Homo sapiens)</data>
@@ -2229,6 +2869,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal_4</data>
 	<data key="dn_colorcode">100,29,0</data>
 	<data key="dn_intensityvalue">316</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n317">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmf5Res500_LH_(Homo sapiens)</data>
@@ -2236,6 +2878,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal_5</data>
 	<data key="dn_colorcode">100,30,0</data>
 	<data key="dn_intensityvalue">317</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n318">
 	<data key="dn_href">http://www.connectome.ch/wiki/cmf6Res500_LH_(Homo sapiens)</data>
@@ -2243,6 +2887,8 @@
 	<data key="dn_freesurfer_structname">caudalmiddlefrontal_6</data>
 	<data key="dn_colorcode">100,31,0</data>
 	<data key="dn_intensityvalue">318</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n319">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc1Res500_LH_(Homo sapiens)</data>
@@ -2250,6 +2896,8 @@
 	<data key="dn_freesurfer_structname">precentral_1</data>
 	<data key="dn_colorcode">60,20,220</data>
 	<data key="dn_intensityvalue">319</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n320">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc2Res500_LH_(Homo sapiens)</data>
@@ -2257,6 +2905,8 @@
 	<data key="dn_freesurfer_structname">precentral_2</data>
 	<data key="dn_colorcode">60,22,220</data>
 	<data key="dn_intensityvalue">320</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n321">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc3Res500_LH_(Homo sapiens)</data>
@@ -2264,6 +2914,8 @@
 	<data key="dn_freesurfer_structname">precentral_3</data>
 	<data key="dn_colorcode">60,23,220</data>
 	<data key="dn_intensityvalue">321</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n322">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc4Res500_LH_(Homo sapiens)</data>
@@ -2271,6 +2923,8 @@
 	<data key="dn_freesurfer_structname">precentral_4</data>
 	<data key="dn_colorcode">60,24,220</data>
 	<data key="dn_intensityvalue">322</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n323">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc5Res500_LH_(Homo sapiens)</data>
@@ -2278,6 +2932,8 @@
 	<data key="dn_freesurfer_structname">precentral_5</data>
 	<data key="dn_colorcode">60,25,220</data>
 	<data key="dn_intensityvalue">323</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n324">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc6Res500_LH_(Homo sapiens)</data>
@@ -2285,6 +2941,8 @@
 	<data key="dn_freesurfer_structname">precentral_6</data>
 	<data key="dn_colorcode">60,26,220</data>
 	<data key="dn_intensityvalue">324</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n325">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc7Res500_LH_(Homo sapiens)</data>
@@ -2292,6 +2950,8 @@
 	<data key="dn_freesurfer_structname">precentral_7</data>
 	<data key="dn_colorcode">60,27,220</data>
 	<data key="dn_intensityvalue">325</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n326">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc8Res500_LH_(Homo sapiens)</data>
@@ -2299,6 +2959,8 @@
 	<data key="dn_freesurfer_structname">precentral_8</data>
 	<data key="dn_colorcode">60,28,220</data>
 	<data key="dn_intensityvalue">326</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n327">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc9Res500_LH_(Homo sapiens)</data>
@@ -2306,6 +2968,8 @@
 	<data key="dn_freesurfer_structname">precentral_9</data>
 	<data key="dn_colorcode">60,29,220</data>
 	<data key="dn_intensityvalue">327</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n328">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc10Res500_LH_(Homo sapiens)</data>
@@ -2313,6 +2977,8 @@
 	<data key="dn_freesurfer_structname">precentral_10</data>
 	<data key="dn_colorcode">60,30,220</data>
 	<data key="dn_intensityvalue">328</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n329">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc11Res500_LH_(Homo sapiens)</data>
@@ -2320,6 +2986,8 @@
 	<data key="dn_freesurfer_structname">precentral_11</data>
 	<data key="dn_colorcode">60,31,220</data>
 	<data key="dn_intensityvalue">329</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n330">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc12Res500_LH_(Homo sapiens)</data>
@@ -2327,6 +2995,8 @@
 	<data key="dn_freesurfer_structname">precentral_12</data>
 	<data key="dn_colorcode">60,32,220</data>
 	<data key="dn_intensityvalue">330</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n331">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc13Res500_LH_(Homo sapiens)</data>
@@ -2334,6 +3004,8 @@
 	<data key="dn_freesurfer_structname">precentral_13</data>
 	<data key="dn_colorcode">60,33,220</data>
 	<data key="dn_intensityvalue">331</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n332">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc14Res500_LH_(Homo sapiens)</data>
@@ -2341,6 +3013,8 @@
 	<data key="dn_freesurfer_structname">precentral_14</data>
 	<data key="dn_colorcode">60,34,220</data>
 	<data key="dn_intensityvalue">332</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n333">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc15Res500_LH_(Homo sapiens)</data>
@@ -2348,6 +3022,8 @@
 	<data key="dn_freesurfer_structname">precentral_15</data>
 	<data key="dn_colorcode">60,35,220</data>
 	<data key="dn_intensityvalue">333</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n334">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc16Res500_LH_(Homo sapiens)</data>
@@ -2355,6 +3031,8 @@
 	<data key="dn_freesurfer_structname">precentral_16</data>
 	<data key="dn_colorcode">60,36,220</data>
 	<data key="dn_intensityvalue">334</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n335">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc17Res500_LH_(Homo sapiens)</data>
@@ -2362,6 +3040,8 @@
 	<data key="dn_freesurfer_structname">precentral_17</data>
 	<data key="dn_colorcode">60,37,220</data>
 	<data key="dn_intensityvalue">335</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n336">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc18Res500_LH_(Homo sapiens)</data>
@@ -2369,6 +3049,8 @@
 	<data key="dn_freesurfer_structname">precentral_18</data>
 	<data key="dn_colorcode">60,38,220</data>
 	<data key="dn_intensityvalue">336</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n337">
 	<data key="dn_href">http://www.connectome.ch/wiki/pac1Res500_LH_(Homo sapiens)</data>
@@ -2376,6 +3058,8 @@
 	<data key="dn_freesurfer_structname">paracentral_1</data>
 	<data key="dn_colorcode">60,220,60</data>
 	<data key="dn_intensityvalue">337</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n338">
 	<data key="dn_href">http://www.connectome.ch/wiki/pac2Res500_LH_(Homo sapiens)</data>
@@ -2383,6 +3067,8 @@
 	<data key="dn_freesurfer_structname">paracentral_2</data>
 	<data key="dn_colorcode">62,220,60</data>
 	<data key="dn_intensityvalue">338</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n339">
 	<data key="dn_href">http://www.connectome.ch/wiki/pac3Res500_LH_(Homo sapiens)</data>
@@ -2390,6 +3076,8 @@
 	<data key="dn_freesurfer_structname">paracentral_3</data>
 	<data key="dn_colorcode">63,220,60</data>
 	<data key="dn_intensityvalue">339</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n340">
 	<data key="dn_href">http://www.connectome.ch/wiki/pac4Res500_LH_(Homo sapiens)</data>
@@ -2397,6 +3085,8 @@
 	<data key="dn_freesurfer_structname">paracentral_4</data>
 	<data key="dn_colorcode">64,220,60</data>
 	<data key="dn_intensityvalue">340</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n341">
 	<data key="dn_href">http://www.connectome.ch/wiki/pac5Res500_LH_(Homo sapiens)</data>
@@ -2404,6 +3094,8 @@
 	<data key="dn_freesurfer_structname">paracentral_5</data>
 	<data key="dn_colorcode">65,220,60</data>
 	<data key="dn_intensityvalue">341</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n342">
 	<data key="dn_href">http://www.connectome.ch/wiki/racc1Res500_LH_(Homo sapiens)</data>
@@ -2411,6 +3103,8 @@
 	<data key="dn_freesurfer_structname">rostralanteriorcingulate_1</data>
 	<data key="dn_colorcode">80,20,140</data>
 	<data key="dn_intensityvalue">342</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n343">
 	<data key="dn_href">http://www.connectome.ch/wiki/racc2Res500_LH_(Homo sapiens)</data>
@@ -2418,6 +3112,8 @@
 	<data key="dn_freesurfer_structname">rostralanteriorcingulate_2</data>
 	<data key="dn_colorcode">80,22,140</data>
 	<data key="dn_intensityvalue">343</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n344">
 	<data key="dn_href">http://www.connectome.ch/wiki/cacc1Res500_LH_(Homo sapiens)</data>
@@ -2425,6 +3121,8 @@
 	<data key="dn_freesurfer_structname">caudalanteriorcingulate_1</data>
 	<data key="dn_colorcode">125,100,160</data>
 	<data key="dn_intensityvalue">344</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n345">
 	<data key="dn_href">http://www.connectome.ch/wiki/cacc2Res500_LH_(Homo sapiens)</data>
@@ -2432,6 +3130,8 @@
 	<data key="dn_freesurfer_structname">caudalanteriorcingulate_2</data>
 	<data key="dn_colorcode">125,102,160</data>
 	<data key="dn_intensityvalue">345</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n346">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc1Res500_LH_(Homo sapiens)</data>
@@ -2439,6 +3139,8 @@
 	<data key="dn_freesurfer_structname">posteriorcingulate_1</data>
 	<data key="dn_colorcode">220,180,220</data>
 	<data key="dn_intensityvalue">346</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n347">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc2Res500_LH_(Homo sapiens)</data>
@@ -2446,6 +3148,8 @@
 	<data key="dn_freesurfer_structname">posteriorcingulate_2</data>
 	<data key="dn_colorcode">220,182,220</data>
 	<data key="dn_intensityvalue">347</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n348">
 	<data key="dn_href">http://www.connectome.ch/wiki/pc3Res500_LH_(Homo sapiens)</data>
@@ -2453,6 +3157,8 @@
 	<data key="dn_freesurfer_structname">posteriorcingulate_3</data>
 	<data key="dn_colorcode">220,183,220</data>
 	<data key="dn_intensityvalue">348</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n349">
 	<data key="dn_href">http://www.connectome.ch/wiki/ic1Res500_LH_(Homo sapiens)</data>
@@ -2460,6 +3166,8 @@
 	<data key="dn_freesurfer_structname">isthmuscingulate_1</data>
 	<data key="dn_colorcode">140,20,140</data>
 	<data key="dn_intensityvalue">349</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n350">
 	<data key="dn_href">http://www.connectome.ch/wiki/ic2Res500_LH_(Homo sapiens)</data>
@@ -2467,6 +3175,8 @@
 	<data key="dn_freesurfer_structname">isthmuscingulate_2</data>
 	<data key="dn_colorcode">140,22,140</data>
 	<data key="dn_intensityvalue">350</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n351">
 	<data key="dn_href">http://www.connectome.ch/wiki/ic3Res500_LH_(Homo sapiens)</data>
@@ -2474,6 +3184,8 @@
 	<data key="dn_freesurfer_structname">isthmuscingulate_3</data>
 	<data key="dn_colorcode">140,23,140</data>
 	<data key="dn_intensityvalue">351</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n352">
 	<data key="dn_href">http://www.connectome.ch/wiki/ic4Res500_LH_(Homo sapiens)</data>
@@ -2481,6 +3193,8 @@
 	<data key="dn_freesurfer_structname">isthmuscingulate_4</data>
 	<data key="dn_colorcode">140,24,140</data>
 	<data key="dn_intensityvalue">352</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n353">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc1Res500_LH_(Homo sapiens)</data>
@@ -2488,6 +3202,8 @@
 	<data key="dn_freesurfer_structname">postcentral_1</data>
 	<data key="dn_colorcode">220,20,20</data>
 	<data key="dn_intensityvalue">353</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n354">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc2Res500_LH_(Homo sapiens)</data>
@@ -2495,6 +3211,8 @@
 	<data key="dn_freesurfer_structname">postcentral_2</data>
 	<data key="dn_colorcode">220,22,20</data>
 	<data key="dn_intensityvalue">354</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n355">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc3Res500_LH_(Homo sapiens)</data>
@@ -2502,6 +3220,8 @@
 	<data key="dn_freesurfer_structname">postcentral_3</data>
 	<data key="dn_colorcode">220,23,20</data>
 	<data key="dn_intensityvalue">355</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n356">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc4Res500_LH_(Homo sapiens)</data>
@@ -2509,6 +3229,8 @@
 	<data key="dn_freesurfer_structname">postcentral_4</data>
 	<data key="dn_colorcode">220,24,20</data>
 	<data key="dn_intensityvalue">356</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n357">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc5Res500_LH_(Homo sapiens)</data>
@@ -2516,6 +3238,8 @@
 	<data key="dn_freesurfer_structname">postcentral_5</data>
 	<data key="dn_colorcode">220,25,20</data>
 	<data key="dn_intensityvalue">357</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n358">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc6Res500_LH_(Homo sapiens)</data>
@@ -2523,6 +3247,8 @@
 	<data key="dn_freesurfer_structname">postcentral_6</data>
 	<data key="dn_colorcode">220,26,20</data>
 	<data key="dn_intensityvalue">358</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n359">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc7Res500_LH_(Homo sapiens)</data>
@@ -2530,6 +3256,8 @@
 	<data key="dn_freesurfer_structname">postcentral_7</data>
 	<data key="dn_colorcode">220,27,20</data>
 	<data key="dn_intensityvalue">359</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n360">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc8Res500_LH_(Homo sapiens)</data>
@@ -2537,6 +3265,8 @@
 	<data key="dn_freesurfer_structname">postcentral_8</data>
 	<data key="dn_colorcode">220,28,20</data>
 	<data key="dn_intensityvalue">360</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n361">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc9Res500_LH_(Homo sapiens)</data>
@@ -2544,6 +3274,8 @@
 	<data key="dn_freesurfer_structname">postcentral_9</data>
 	<data key="dn_colorcode">220,29,20</data>
 	<data key="dn_intensityvalue">361</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n362">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc10Res500_LH_(Homo sapiens)</data>
@@ -2551,6 +3283,8 @@
 	<data key="dn_freesurfer_structname">postcentral_10</data>
 	<data key="dn_colorcode">220,30,20</data>
 	<data key="dn_intensityvalue">362</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n363">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc11Res500_LH_(Homo sapiens)</data>
@@ -2558,6 +3292,8 @@
 	<data key="dn_freesurfer_structname">postcentral_11</data>
 	<data key="dn_colorcode">220,31,20</data>
 	<data key="dn_intensityvalue">363</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n364">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc12Res500_LH_(Homo sapiens)</data>
@@ -2565,6 +3301,8 @@
 	<data key="dn_freesurfer_structname">postcentral_12</data>
 	<data key="dn_colorcode">220,32,20</data>
 	<data key="dn_intensityvalue">364</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n365">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc13Res500_LH_(Homo sapiens)</data>
@@ -2572,6 +3310,8 @@
 	<data key="dn_freesurfer_structname">postcentral_13</data>
 	<data key="dn_colorcode">220,33,20</data>
 	<data key="dn_intensityvalue">365</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n366">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc14Res500_LH_(Homo sapiens)</data>
@@ -2579,6 +3319,8 @@
 	<data key="dn_freesurfer_structname">postcentral_14</data>
 	<data key="dn_colorcode">220,34,20</data>
 	<data key="dn_intensityvalue">366</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n367">
 	<data key="dn_href">http://www.connectome.ch/wiki/poc15Res500_LH_(Homo sapiens)</data>
@@ -2586,6 +3328,8 @@
 	<data key="dn_freesurfer_structname">postcentral_15</data>
 	<data key="dn_colorcode">220,35,20</data>
 	<data key="dn_intensityvalue">367</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n368">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm1Res500_LH_(Homo sapiens)</data>
@@ -2593,6 +3337,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_1</data>
 	<data key="dn_colorcode">80,160,20</data>
 	<data key="dn_intensityvalue">368</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n369">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm2Res500_LH_(Homo sapiens)</data>
@@ -2600,6 +3346,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_2</data>
 	<data key="dn_colorcode">82,160,20</data>
 	<data key="dn_intensityvalue">369</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n370">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm3Res500_LH_(Homo sapiens)</data>
@@ -2607,6 +3355,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_3</data>
 	<data key="dn_colorcode">83,160,20</data>
 	<data key="dn_intensityvalue">370</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n371">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm4Res500_LH_(Homo sapiens)</data>
@@ -2614,6 +3364,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_4</data>
 	<data key="dn_colorcode">84,160,20</data>
 	<data key="dn_intensityvalue">371</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n372">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm5Res500_LH_(Homo sapiens)</data>
@@ -2621,6 +3373,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_5</data>
 	<data key="dn_colorcode">85,160,20</data>
 	<data key="dn_intensityvalue">372</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n373">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm6Res500_LH_(Homo sapiens)</data>
@@ -2628,6 +3382,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_6</data>
 	<data key="dn_colorcode">86,160,20</data>
 	<data key="dn_intensityvalue">373</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n374">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm7Res500_LH_(Homo sapiens)</data>
@@ -2635,6 +3391,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_7</data>
 	<data key="dn_colorcode">87,160,20</data>
 	<data key="dn_intensityvalue">374</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n375">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm8Res500_LH_(Homo sapiens)</data>
@@ -2642,6 +3400,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_8</data>
 	<data key="dn_colorcode">88,160,20</data>
 	<data key="dn_intensityvalue">375</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n376">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm9Res500_LH_(Homo sapiens)</data>
@@ -2649,6 +3409,8 @@
 	<data key="dn_freesurfer_structname">supramarginal_9</data>
 	<data key="dn_colorcode">89,160,20</data>
 	<data key="dn_intensityvalue">376</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n377">
 	<data key="dn_href">http://www.connectome.ch/wiki/sm10Res500_LH_(Homo sapiens)</data>
@@ -2656,6 +3418,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_1</data>
 	<data key="dn_colorcode">20,180,140</data>
 	<data key="dn_intensityvalue">377</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n378">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp1Res500_LH_(Homo sapiens)</data>
@@ -2663,6 +3427,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_2</data>
 	<data key="dn_colorcode">22,180,140</data>
 	<data key="dn_intensityvalue">378</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n379">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp2Res500_LH_(Homo sapiens)</data>
@@ -2670,6 +3436,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_3</data>
 	<data key="dn_colorcode">23,180,140</data>
 	<data key="dn_intensityvalue">379</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n380">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp3Res500_LH_(Homo sapiens)</data>
@@ -2677,6 +3445,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_4</data>
 	<data key="dn_colorcode">24,180,140</data>
 	<data key="dn_intensityvalue">380</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n381">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp4Res500_LH_(Homo sapiens)</data>
@@ -2684,6 +3454,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_5</data>
 	<data key="dn_colorcode">25,180,140</data>
 	<data key="dn_intensityvalue">381</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n382">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp5Res500_LH_(Homo sapiens)</data>
@@ -2691,6 +3463,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_6</data>
 	<data key="dn_colorcode">26,180,140</data>
 	<data key="dn_intensityvalue">382</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n383">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp6Res500_LH_(Homo sapiens)</data>
@@ -2698,6 +3472,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_7</data>
 	<data key="dn_colorcode">27,180,140</data>
 	<data key="dn_intensityvalue">383</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n384">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp7Res500_LH_(Homo sapiens)</data>
@@ -2705,6 +3481,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_8</data>
 	<data key="dn_colorcode">28,180,140</data>
 	<data key="dn_intensityvalue">384</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n385">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp8Res500_LH_(Homo sapiens)</data>
@@ -2712,6 +3490,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_9</data>
 	<data key="dn_colorcode">29,180,140</data>
 	<data key="dn_intensityvalue">385</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n386">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp9Res500_LH_(Homo sapiens)</data>
@@ -2719,6 +3499,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_10</data>
 	<data key="dn_colorcode">30,180,140</data>
 	<data key="dn_intensityvalue">386</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n387">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp10Res500_LH_(Homo sapiens)</data>
@@ -2726,6 +3508,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_11</data>
 	<data key="dn_colorcode">31,180,140</data>
 	<data key="dn_intensityvalue">387</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n388">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp11Res500_LH_(Homo sapiens)</data>
@@ -2733,6 +3517,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_12</data>
 	<data key="dn_colorcode">32,180,140</data>
 	<data key="dn_intensityvalue">388</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n389">
 	<data key="dn_href">http://www.connectome.ch/wiki/sp12Res500_LH_(Homo sapiens)</data>
@@ -2740,6 +3526,8 @@
 	<data key="dn_freesurfer_structname">superiorparietal_13</data>
 	<data key="dn_colorcode">33,180,140</data>
 	<data key="dn_intensityvalue">389</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n390">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip1Res500_LH_(Homo sapiens)</data>
@@ -2747,6 +3535,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_1</data>
 	<data key="dn_colorcode">220,60,220</data>
 	<data key="dn_intensityvalue">390</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n391">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip2Res500_LH_(Homo sapiens)</data>
@@ -2754,6 +3544,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_2</data>
 	<data key="dn_colorcode">220,62,220</data>
 	<data key="dn_intensityvalue">391</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n392">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip3Res500_LH_(Homo sapiens)</data>
@@ -2761,6 +3553,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_3</data>
 	<data key="dn_colorcode">220,63,220</data>
 	<data key="dn_intensityvalue">392</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n393">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip4Res500_LH_(Homo sapiens)</data>
@@ -2768,6 +3562,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_4</data>
 	<data key="dn_colorcode">220,64,220</data>
 	<data key="dn_intensityvalue">393</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n394">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip5Res500_LH_(Homo sapiens)</data>
@@ -2775,6 +3571,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_5</data>
 	<data key="dn_colorcode">220,65,220</data>
 	<data key="dn_intensityvalue">394</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n395">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip6Res500_LH_(Homo sapiens)</data>
@@ -2782,6 +3580,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_6</data>
 	<data key="dn_colorcode">220,66,220</data>
 	<data key="dn_intensityvalue">395</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n396">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip7Res500_LH_(Homo sapiens)</data>
@@ -2789,6 +3589,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_7</data>
 	<data key="dn_colorcode">220,67,220</data>
 	<data key="dn_intensityvalue">396</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n397">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip8Res500_LH_(Homo sapiens)</data>
@@ -2796,6 +3598,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_8</data>
 	<data key="dn_colorcode">220,68,220</data>
 	<data key="dn_intensityvalue">397</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n398">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip9Res500_LH_(Homo sapiens)</data>
@@ -2803,6 +3607,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_9</data>
 	<data key="dn_colorcode">220,69,220</data>
 	<data key="dn_intensityvalue">398</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n399">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip10Res500_LH_(Homo sapiens)</data>
@@ -2810,6 +3616,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_10</data>
 	<data key="dn_colorcode">220,70,220</data>
 	<data key="dn_intensityvalue">399</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n400">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip11Res500_LH_(Homo sapiens)</data>
@@ -2817,6 +3625,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_11</data>
 	<data key="dn_colorcode">220,71,220</data>
 	<data key="dn_intensityvalue">400</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n401">
 	<data key="dn_href">http://www.connectome.ch/wiki/ip12Res500_LH_(Homo sapiens)</data>
@@ -2824,6 +3634,8 @@
 	<data key="dn_freesurfer_structname">inferiorparietal_12</data>
 	<data key="dn_colorcode">220,72,220</data>
 	<data key="dn_intensityvalue">401</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n402">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun1Res500_LH_(Homo sapiens)</data>
@@ -2831,6 +3643,8 @@
 	<data key="dn_freesurfer_structname">precuneus_1</data>
 	<data key="dn_colorcode">160,140,180</data>
 	<data key="dn_intensityvalue">402</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n403">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun2Res500_LH_(Homo sapiens)</data>
@@ -2838,6 +3652,8 @@
 	<data key="dn_freesurfer_structname">precuneus_2</data>
 	<data key="dn_colorcode">160,142,180</data>
 	<data key="dn_intensityvalue">403</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n404">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun3Res500_LH_(Homo sapiens)</data>
@@ -2845,6 +3661,8 @@
 	<data key="dn_freesurfer_structname">precuneus_3</data>
 	<data key="dn_colorcode">160,143,180</data>
 	<data key="dn_intensityvalue">404</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n405">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun4Res500_LH_(Homo sapiens)</data>
@@ -2852,6 +3670,8 @@
 	<data key="dn_freesurfer_structname">precuneus_4</data>
 	<data key="dn_colorcode">160,144,180</data>
 	<data key="dn_intensityvalue">405</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n406">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun5Res500_LH_(Homo sapiens)</data>
@@ -2859,6 +3679,8 @@
 	<data key="dn_freesurfer_structname">precuneus_5</data>
 	<data key="dn_colorcode">160,145,180</data>
 	<data key="dn_intensityvalue">406</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n407">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun6Res500_LH_(Homo sapiens)</data>
@@ -2866,6 +3688,8 @@
 	<data key="dn_freesurfer_structname">precuneus_6</data>
 	<data key="dn_colorcode">160,146,180</data>
 	<data key="dn_intensityvalue">407</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n408">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun7Res500_LH_(Homo sapiens)</data>
@@ -2873,6 +3697,8 @@
 	<data key="dn_freesurfer_structname">precuneus_7</data>
 	<data key="dn_colorcode">160,147,180</data>
 	<data key="dn_intensityvalue">408</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n409">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun8Res500_LH_(Homo sapiens)</data>
@@ -2880,6 +3706,8 @@
 	<data key="dn_freesurfer_structname">precuneus_8</data>
 	<data key="dn_colorcode">160,148,180</data>
 	<data key="dn_intensityvalue">409</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n410">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun9Res500_LH_(Homo sapiens)</data>
@@ -2887,6 +3715,8 @@
 	<data key="dn_freesurfer_structname">precuneus_9</data>
 	<data key="dn_colorcode">160,149,180</data>
 	<data key="dn_intensityvalue">410</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n411">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun10Res500_LH_(Homo sapiens)</data>
@@ -2894,6 +3724,8 @@
 	<data key="dn_freesurfer_structname">precuneus_10</data>
 	<data key="dn_colorcode">160,150,180</data>
 	<data key="dn_intensityvalue">411</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n412">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcun11Res500_LH_(Homo sapiens)</data>
@@ -2901,6 +3733,8 @@
 	<data key="dn_freesurfer_structname">precuneus_11</data>
 	<data key="dn_colorcode">160,151,180</data>
 	<data key="dn_intensityvalue">412</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n413">
 	<data key="dn_href">http://www.connectome.ch/wiki/cun1Res500_LH_(Homo sapiens)</data>
@@ -2908,6 +3742,8 @@
 	<data key="dn_freesurfer_structname">cuneus_1</data>
 	<data key="dn_colorcode">220,20,100</data>
 	<data key="dn_intensityvalue">413</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n414">
 	<data key="dn_href">http://www.connectome.ch/wiki/cun2Res500_LH_(Homo sapiens)</data>
@@ -2915,6 +3751,8 @@
 	<data key="dn_freesurfer_structname">cuneus_2</data>
 	<data key="dn_colorcode">220,22,100</data>
 	<data key="dn_intensityvalue">414</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n415">
 	<data key="dn_href">http://www.connectome.ch/wiki/cun3Res500_LH_(Homo sapiens)</data>
@@ -2922,6 +3760,8 @@
 	<data key="dn_freesurfer_structname">cuneus_3</data>
 	<data key="dn_colorcode">220,23,100</data>
 	<data key="dn_intensityvalue">415</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n416">
 	<data key="dn_href">http://www.connectome.ch/wiki/cun4Res500_LH_(Homo sapiens)</data>
@@ -2929,6 +3769,8 @@
 	<data key="dn_freesurfer_structname">cuneus_4</data>
 	<data key="dn_colorcode">220,24,100</data>
 	<data key="dn_intensityvalue">416</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n417">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcal1Res500_LH_(Homo sapiens)</data>
@@ -2936,6 +3778,8 @@
 	<data key="dn_freesurfer_structname">pericalcarine_1</data>
 	<data key="dn_colorcode">120,100,60</data>
 	<data key="dn_intensityvalue">417</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n418">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcal2Res500_LH_(Homo sapiens)</data>
@@ -2943,6 +3787,8 @@
 	<data key="dn_freesurfer_structname">pericalcarine_2</data>
 	<data key="dn_colorcode">120,102,60</data>
 	<data key="dn_intensityvalue">418</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n419">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcal3Res500_LH_(Homo sapiens)</data>
@@ -2950,6 +3796,8 @@
 	<data key="dn_freesurfer_structname">pericalcarine_3</data>
 	<data key="dn_colorcode">120,103,60</data>
 	<data key="dn_intensityvalue">419</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n420">
 	<data key="dn_href">http://www.connectome.ch/wiki/pcal4Res500_LH_(Homo sapiens)</data>
@@ -2957,6 +3805,8 @@
 	<data key="dn_freesurfer_structname">pericalcarine_4</data>
 	<data key="dn_colorcode">120,104,60</data>
 	<data key="dn_intensityvalue">420</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n421">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc1Res500_LH_(Homo sapiens)</data>
@@ -2964,6 +3814,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_1</data>
 	<data key="dn_colorcode">20,30,140</data>
 	<data key="dn_intensityvalue">421</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n422">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc2Res500_LH_(Homo sapiens)</data>
@@ -2971,6 +3823,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_2</data>
 	<data key="dn_colorcode">20,32,140</data>
 	<data key="dn_intensityvalue">422</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n423">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc3Res500_LH_(Homo sapiens)</data>
@@ -2978,6 +3832,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_3</data>
 	<data key="dn_colorcode">20,33,140</data>
 	<data key="dn_intensityvalue">423</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n424">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc4Res500_LH_(Homo sapiens)</data>
@@ -2985,6 +3841,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_4</data>
 	<data key="dn_colorcode">20,34,140</data>
 	<data key="dn_intensityvalue">424</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n425">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc5Res500_LH_(Homo sapiens)</data>
@@ -2992,6 +3850,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_5</data>
 	<data key="dn_colorcode">20,35,140</data>
 	<data key="dn_intensityvalue">425</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n426">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc6Res500_LH_(Homo sapiens)</data>
@@ -2999,6 +3859,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_6</data>
 	<data key="dn_colorcode">20,36,140</data>
 	<data key="dn_intensityvalue">426</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n427">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc7Res500_LH_(Homo sapiens)</data>
@@ -3006,6 +3868,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_7</data>
 	<data key="dn_colorcode">20,37,140</data>
 	<data key="dn_intensityvalue">427</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n428">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc8Res500_LH_(Homo sapiens)</data>
@@ -3013,6 +3877,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_8</data>
 	<data key="dn_colorcode">20,38,140</data>
 	<data key="dn_intensityvalue">428</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n429">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc9Res500_LH_(Homo sapiens)</data>
@@ -3020,6 +3886,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_9</data>
 	<data key="dn_colorcode">20,39,140</data>
 	<data key="dn_intensityvalue">429</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n430">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc10Res500_LH_(Homo sapiens)</data>
@@ -3027,6 +3895,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_10</data>
 	<data key="dn_colorcode">20,40,140</data>
 	<data key="dn_intensityvalue">430</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n431">
 	<data key="dn_href">http://www.connectome.ch/wiki/loc11Res500_LH_(Homo sapiens)</data>
@@ -3034,6 +3904,8 @@
 	<data key="dn_freesurfer_structname">lateraloccipital_11</data>
 	<data key="dn_colorcode">20,41,140</data>
 	<data key="dn_intensityvalue">431</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n432">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin1Res500_LH_(Homo sapiens)</data>
@@ -3041,6 +3913,8 @@
 	<data key="dn_freesurfer_structname">lingual_1</data>
 	<data key="dn_colorcode">225,140,140</data>
 	<data key="dn_intensityvalue">432</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n433">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin2Res500_LH_(Homo sapiens)</data>
@@ -3048,6 +3922,8 @@
 	<data key="dn_freesurfer_structname">lingual_2</data>
 	<data key="dn_colorcode">225,142,140</data>
 	<data key="dn_intensityvalue">433</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n434">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin3Res500_LH_(Homo sapiens)</data>
@@ -3055,6 +3931,8 @@
 	<data key="dn_freesurfer_structname">lingual_3</data>
 	<data key="dn_colorcode">225,143,140</data>
 	<data key="dn_intensityvalue">434</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n435">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin4Res500_LH_(Homo sapiens)</data>
@@ -3062,6 +3940,8 @@
 	<data key="dn_freesurfer_structname">lingual_4</data>
 	<data key="dn_colorcode">225,144,140</data>
 	<data key="dn_intensityvalue">435</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n436">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin5Res500_LH_(Homo sapiens)</data>
@@ -3069,6 +3949,8 @@
 	<data key="dn_freesurfer_structname">lingual_5</data>
 	<data key="dn_colorcode">225,145,140</data>
 	<data key="dn_intensityvalue">436</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n437">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin6Res500_LH_(Homo sapiens)</data>
@@ -3076,6 +3958,8 @@
 	<data key="dn_freesurfer_structname">lingual_6</data>
 	<data key="dn_colorcode">225,146,140</data>
 	<data key="dn_intensityvalue">437</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n438">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin7Res500_LH_(Homo sapiens)</data>
@@ -3083,6 +3967,8 @@
 	<data key="dn_freesurfer_structname">lingual_7</data>
 	<data key="dn_colorcode">225,147,140</data>
 	<data key="dn_intensityvalue">438</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n439">
 	<data key="dn_href">http://www.connectome.ch/wiki/lin8Res500_LH_(Homo sapiens)</data>
@@ -3090,6 +3976,8 @@
 	<data key="dn_freesurfer_structname">lingual_8</data>
 	<data key="dn_colorcode">225,148,140</data>
 	<data key="dn_intensityvalue">439</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n440">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi1Res500_LH_(Homo sapiens)</data>
@@ -3097,6 +3985,8 @@
 	<data key="dn_freesurfer_structname">fusiform_1</data>
 	<data key="dn_colorcode">180,220,140</data>
 	<data key="dn_intensityvalue">440</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n441">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi2Res500_LH_(Homo sapiens)</data>
@@ -3104,6 +3994,8 @@
 	<data key="dn_freesurfer_structname">fusiform_2</data>
 	<data key="dn_colorcode">182,220,140</data>
 	<data key="dn_intensityvalue">441</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n442">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi3Res500_LH_(Homo sapiens)</data>
@@ -3111,6 +4003,8 @@
 	<data key="dn_freesurfer_structname">fusiform_3</data>
 	<data key="dn_colorcode">183,220,140</data>
 	<data key="dn_intensityvalue">442</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n443">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi4Res500_LH_(Homo sapiens)</data>
@@ -3118,6 +4012,8 @@
 	<data key="dn_freesurfer_structname">fusiform_4</data>
 	<data key="dn_colorcode">184,220,140</data>
 	<data key="dn_intensityvalue">443</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n444">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi5Res500_LH_(Homo sapiens)</data>
@@ -3125,6 +4021,8 @@
 	<data key="dn_freesurfer_structname">fusiform_5</data>
 	<data key="dn_colorcode">185,220,140</data>
 	<data key="dn_intensityvalue">444</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n445">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi6Res500_LH_(Homo sapiens)</data>
@@ -3132,6 +4030,8 @@
 	<data key="dn_freesurfer_structname">fusiform_6</data>
 	<data key="dn_colorcode">186,220,140</data>
 	<data key="dn_intensityvalue">445</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n446">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi7Res500_LH_(Homo sapiens)</data>
@@ -3139,6 +4039,8 @@
 	<data key="dn_freesurfer_structname">fusiform_7</data>
 	<data key="dn_colorcode">187,220,140</data>
 	<data key="dn_intensityvalue">446</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n447">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi8Res500_LH_(Homo sapiens)</data>
@@ -3146,6 +4048,8 @@
 	<data key="dn_freesurfer_structname">fusiform_8</data>
 	<data key="dn_colorcode">188,220,140</data>
 	<data key="dn_intensityvalue">447</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n448">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi9Res500_LH_(Homo sapiens)</data>
@@ -3153,6 +4057,8 @@
 	<data key="dn_freesurfer_structname">fusiform_9</data>
 	<data key="dn_colorcode">189,220,140</data>
 	<data key="dn_intensityvalue">448</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n449">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi10Res500_LH_(Homo sapiens)</data>
@@ -3160,6 +4066,8 @@
 	<data key="dn_freesurfer_structname">fusiform_10</data>
 	<data key="dn_colorcode">190,220,140</data>
 	<data key="dn_intensityvalue">449</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n450">
 	<data key="dn_href">http://www.connectome.ch/wiki/fusi11Res500_LH_(Homo sapiens)</data>
@@ -3167,6 +4075,8 @@
 	<data key="dn_freesurfer_structname">fusiform_11</data>
 	<data key="dn_colorcode">191,220,140</data>
 	<data key="dn_intensityvalue">450</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n451">
 	<data key="dn_href">http://www.connectome.ch/wiki/para1Res500_LH_(Homo sapiens)</data>
@@ -3174,6 +4084,8 @@
 	<data key="dn_freesurfer_structname">parahippocampal_1</data>
 	<data key="dn_colorcode">20,220,60</data>
 	<data key="dn_intensityvalue">451</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n452">
 	<data key="dn_href">http://www.connectome.ch/wiki/para2Res500_LH_(Homo sapiens)</data>
@@ -3181,6 +4093,8 @@
 	<data key="dn_freesurfer_structname">parahippocampal_2</data>
 	<data key="dn_colorcode">22,220,60</data>
 	<data key="dn_intensityvalue">452</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n453">
 	<data key="dn_href">http://www.connectome.ch/wiki/para3Res500_LH_(Homo sapiens)</data>
@@ -3188,6 +4102,8 @@
 	<data key="dn_freesurfer_structname">parahippocampal_3</data>
 	<data key="dn_colorcode">23,220,60</data>
 	<data key="dn_intensityvalue">453</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n454">
 	<data key="dn_href">http://www.connectome.ch/wiki/ent1Res500_LH_(Homo sapiens)</data>
@@ -3195,6 +4111,8 @@
 	<data key="dn_freesurfer_structname">entorhinal_1</data>
 	<data key="dn_colorcode">220,20,10</data>
 	<data key="dn_intensityvalue">454</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n455">
 	<data key="dn_href">http://www.connectome.ch/wiki/tp1Res500_LH_(Homo sapiens)</data>
@@ -3202,6 +4120,8 @@
 	<data key="dn_freesurfer_structname">temporalpole_1</data>
 	<data key="dn_colorcode">70,70,70</data>
 	<data key="dn_intensityvalue">455</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n456">
 	<data key="dn_href">http://www.connectome.ch/wiki/tp2Res500_LH_(Homo sapiens)</data>
@@ -3209,6 +4129,8 @@
 	<data key="dn_freesurfer_structname">temporalpole_2</data>
 	<data key="dn_colorcode">72,70,70</data>
 	<data key="dn_intensityvalue">456</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n457">
 	<data key="dn_href">http://www.connectome.ch/wiki/it1Res500_LH_(Homo sapiens)</data>
@@ -3216,6 +4138,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_1</data>
 	<data key="dn_colorcode">180,40,120</data>
 	<data key="dn_intensityvalue">457</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n458">
 	<data key="dn_href">http://www.connectome.ch/wiki/it2Res500_LH_(Homo sapiens)</data>
@@ -3223,6 +4147,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_2</data>
 	<data key="dn_colorcode">180,42,120</data>
 	<data key="dn_intensityvalue">458</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n459">
 	<data key="dn_href">http://www.connectome.ch/wiki/it3Res500_LH_(Homo sapiens)</data>
@@ -3230,6 +4156,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_3</data>
 	<data key="dn_colorcode">180,43,120</data>
 	<data key="dn_intensityvalue">459</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n460">
 	<data key="dn_href">http://www.connectome.ch/wiki/it4Res500_LH_(Homo sapiens)</data>
@@ -3237,6 +4165,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_4</data>
 	<data key="dn_colorcode">180,44,120</data>
 	<data key="dn_intensityvalue">460</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n461">
 	<data key="dn_href">http://www.connectome.ch/wiki/it5Res500_LH_(Homo sapiens)</data>
@@ -3244,6 +4174,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_5</data>
 	<data key="dn_colorcode">180,45,120</data>
 	<data key="dn_intensityvalue">461</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n462">
 	<data key="dn_href">http://www.connectome.ch/wiki/it6Res500_LH_(Homo sapiens)</data>
@@ -3251,6 +4183,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_6</data>
 	<data key="dn_colorcode">180,46,120</data>
 	<data key="dn_intensityvalue">462</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n463">
 	<data key="dn_href">http://www.connectome.ch/wiki/it7Res500_LH_(Homo sapiens)</data>
@@ -3258,6 +4192,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_7</data>
 	<data key="dn_colorcode">180,47,120</data>
 	<data key="dn_intensityvalue">463</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n464">
 	<data key="dn_href">http://www.connectome.ch/wiki/it8Res500_LH_(Homo sapiens)</data>
@@ -3265,6 +4201,8 @@
 	<data key="dn_freesurfer_structname">inferiortemporal_8</data>
 	<data key="dn_colorcode">180,48,120</data>
 	<data key="dn_intensityvalue">464</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n465">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt1Res500_LH_(Homo sapiens)</data>
@@ -3272,6 +4210,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_1</data>
 	<data key="dn_colorcode">160,100,50</data>
 	<data key="dn_intensityvalue">465</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n466">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt2Res500_LH_(Homo sapiens)</data>
@@ -3279,6 +4219,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_2</data>
 	<data key="dn_colorcode">160,102,50</data>
 	<data key="dn_intensityvalue">466</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n467">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt3Res500_LH_(Homo sapiens)</data>
@@ -3286,6 +4228,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_3</data>
 	<data key="dn_colorcode">160,103,50</data>
 	<data key="dn_intensityvalue">467</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n468">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt4Res500_LH_(Homo sapiens)</data>
@@ -3293,6 +4237,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_4</data>
 	<data key="dn_colorcode">160,104,50</data>
 	<data key="dn_intensityvalue">468</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n469">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt5Res500_LH_(Homo sapiens)</data>
@@ -3300,6 +4246,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_5</data>
 	<data key="dn_colorcode">160,105,50</data>
 	<data key="dn_intensityvalue">469</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n470">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt6Res500_LH_(Homo sapiens)</data>
@@ -3307,6 +4255,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_6</data>
 	<data key="dn_colorcode">160,106,50</data>
 	<data key="dn_intensityvalue">470</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n471">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt7Res500_LH_(Homo sapiens)</data>
@@ -3314,6 +4264,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_7</data>
 	<data key="dn_colorcode">160,107,50</data>
 	<data key="dn_intensityvalue">471</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n472">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt8Res500_LH_(Homo sapiens)</data>
@@ -3321,6 +4273,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_8</data>
 	<data key="dn_colorcode">160,108,50</data>
 	<data key="dn_intensityvalue">472</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n473">
 	<data key="dn_href">http://www.connectome.ch/wiki/mt9Res500_LH_(Homo sapiens)</data>
@@ -3328,6 +4282,8 @@
 	<data key="dn_freesurfer_structname">middletemporal_9</data>
 	<data key="dn_colorcode">160,109,50</data>
 	<data key="dn_intensityvalue">473</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n474">
 	<data key="dn_href">http://www.connectome.ch/wiki/bank1Res500_LH_(Homo sapiens)</data>
@@ -3335,6 +4291,8 @@
 	<data key="dn_freesurfer_structname">bankssts_1</data>
 	<data key="dn_colorcode">25,100,40</data>
 	<data key="dn_intensityvalue">474</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n475">
 	<data key="dn_href">http://www.connectome.ch/wiki/bank2Res500_LH_(Homo sapiens)</data>
@@ -3342,6 +4300,8 @@
 	<data key="dn_freesurfer_structname">bankssts_2</data>
 	<data key="dn_colorcode">25,102,40</data>
 	<data key="dn_intensityvalue">475</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n476">
 	<data key="dn_href">http://www.connectome.ch/wiki/st1Res500_LH_(Homo sapiens)</data>
@@ -3349,6 +4309,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_1</data>
 	<data key="dn_colorcode">140,220,220</data>
 	<data key="dn_intensityvalue">476</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n477">
 	<data key="dn_href">http://www.connectome.ch/wiki/st2Res500_LH_(Homo sapiens)</data>
@@ -3356,6 +4318,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_2</data>
 	<data key="dn_colorcode">142,220,220</data>
 	<data key="dn_intensityvalue">477</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n478">
 	<data key="dn_href">http://www.connectome.ch/wiki/st3Res500_LH_(Homo sapiens)</data>
@@ -3363,6 +4327,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_3</data>
 	<data key="dn_colorcode">143,220,220</data>
 	<data key="dn_intensityvalue">478</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n479">
 	<data key="dn_href">http://www.connectome.ch/wiki/st4Res500_LH_(Homo sapiens)</data>
@@ -3370,6 +4336,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_4</data>
 	<data key="dn_colorcode">144,220,220</data>
 	<data key="dn_intensityvalue">479</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n480">
 	<data key="dn_href">http://www.connectome.ch/wiki/st5Res500_LH_(Homo sapiens)</data>
@@ -3377,6 +4345,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_5</data>
 	<data key="dn_colorcode">145,220,220</data>
 	<data key="dn_intensityvalue">480</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n481">
 	<data key="dn_href">http://www.connectome.ch/wiki/st6Res500_LH_(Homo sapiens)</data>
@@ -3384,6 +4354,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_6</data>
 	<data key="dn_colorcode">146,220,220</data>
 	<data key="dn_intensityvalue">481</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n482">
 	<data key="dn_href">http://www.connectome.ch/wiki/st7Res500_LH_(Homo sapiens)</data>
@@ -3391,6 +4363,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_7</data>
 	<data key="dn_colorcode">147,220,220</data>
 	<data key="dn_intensityvalue">482</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n483">
 	<data key="dn_href">http://www.connectome.ch/wiki/st8Res500_LH_(Homo sapiens)</data>
@@ -3398,6 +4372,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_8</data>
 	<data key="dn_colorcode">148,220,220</data>
 	<data key="dn_intensityvalue">483</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n484">
 	<data key="dn_href">http://www.connectome.ch/wiki/st9Res500_LH_(Homo sapiens)</data>
@@ -3405,6 +4381,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_9</data>
 	<data key="dn_colorcode">149,220,220</data>
 	<data key="dn_intensityvalue">484</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n485">
 	<data key="dn_href">http://www.connectome.ch/wiki/st10Res500_LH_(Homo sapiens)</data>
@@ -3412,6 +4390,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_10</data>
 	<data key="dn_colorcode">150,220,220</data>
 	<data key="dn_intensityvalue">485</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n486">
 	<data key="dn_href">http://www.connectome.ch/wiki/st11Res500_LH_(Homo sapiens)</data>
@@ -3419,6 +4399,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_11</data>
 	<data key="dn_colorcode">151,220,220</data>
 	<data key="dn_intensityvalue">486</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n487">
 	<data key="dn_href">http://www.connectome.ch/wiki/st12Res500_LH_(Homo sapiens)</data>
@@ -3426,6 +4408,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_12</data>
 	<data key="dn_colorcode">152,220,220</data>
 	<data key="dn_intensityvalue">487</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n488">
 	<data key="dn_href">http://www.connectome.ch/wiki/st13Res500_LH_(Homo sapiens)</data>
@@ -3433,6 +4417,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_13</data>
 	<data key="dn_colorcode">153,220,220</data>
 	<data key="dn_intensityvalue">488</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n489">
 	<data key="dn_href">http://www.connectome.ch/wiki/st14Res500_LH_(Homo sapiens)</data>
@@ -3440,6 +4426,8 @@
 	<data key="dn_freesurfer_structname">superiortemporal_14</data>
 	<data key="dn_colorcode">154,220,220</data>
 	<data key="dn_intensityvalue">489</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n490">
 	<data key="dn_href">http://www.connectome.ch/wiki/tt1Res500_LH_(Homo sapiens)</data>
@@ -3447,6 +4435,8 @@
 	<data key="dn_freesurfer_structname">transversetemporal_1</data>
 	<data key="dn_colorcode">150,150,200</data>
 	<data key="dn_intensityvalue">490</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n491">
 	<data key="dn_href">http://www.connectome.ch/wiki/tt2Res500_LH_(Homo sapiens)</data>
@@ -3454,6 +4444,8 @@
 	<data key="dn_freesurfer_structname">transversetemporal_2</data>
 	<data key="dn_colorcode">152,150,200</data>
 	<data key="dn_intensityvalue">491</data>
+	<data key="dn_region">cortical</data>
+	<data key="dn_hemisphere">left</data>
 </node>
 <node id="n492">
 	<data key="dn_href">http://www.connectome.ch/wiki/thRes500_LH_(Homo sapiens)</data>
@@ -3461,6 +4453,9 @@
 	<data key="dn_freesurfer_structname">Left-Thalamus-Proper</data>
 	<data key="dn_colorcode">2,124,5</data>
 	<data key="dn_intensityvalue">492</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">left</data>
+	<data key="dn_fs_aseg_val">10</data>
 </node>
 <node id="n493">
 	<data key="dn_href">http://www.connectome.ch/wiki/canRes500_LH_(Homo sapiens)</data>
@@ -3468,6 +4463,9 @@
 	<data key="dn_freesurfer_structname">Left-Caudate</data>
 	<data key="dn_colorcode">100,172,222</data>
 	<data key="dn_intensityvalue">493</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">left</data>
+	<data key="dn_fs_aseg_val">11</data>
 </node>
 <node id="n494">
 	<data key="dn_href">http://www.connectome.ch/wiki/puRes500_LH_(Homo sapiens)</data>
@@ -3475,6 +4473,9 @@
 	<data key="dn_freesurfer_structname">Left-Putamen</data>
 	<data key="dn_colorcode">32,101,149</data>
 	<data key="dn_intensityvalue">494</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">left</data>
+	<data key="dn_fs_aseg_val">12</data>
 </node>
 <node id="n495">
 	<data key="dn_href">http://www.connectome.ch/wiki/gpRes500_LH_(Homo sapiens)</data>
@@ -3482,6 +4483,9 @@
 	<data key="dn_freesurfer_structname">Left-Pallidum</data>
 	<data key="dn_colorcode">146,210,255</data>
 	<data key="dn_intensityvalue">495</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">left</data>
+	<data key="dn_fs_aseg_val">13</data>
 </node>
 <node id="n496">
 	<data key="dn_href">http://www.connectome.ch/wiki/accRes500_LH_(Homo sapiens)</data>
@@ -3489,6 +4493,9 @@
 	<data key="dn_freesurfer_structname">Left-Accumbens-area</data>
 	<data key="dn_colorcode">255,43,78</data>
 	<data key="dn_intensityvalue">496</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">left</data>
+	<data key="dn_fs_aseg_val">26</data>
 </node>
 <node id="n497">
 	<data key="dn_href">http://www.connectome.ch/wiki/subthRes500_LH_(Homo sapiens)</data>
@@ -3496,6 +4503,9 @@
 	<data key="dn_freesurfer_structname">Left-Subthalamus</data>
 	<data key="dn_colorcode">231,159,21</data>
 	<data key="dn_intensityvalue">497</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">left</data>
+	<data key="dn_fs_aseg_val">80</data>
 </node>
 <node id="n498">
 	<data key="dn_href">http://www.connectome.ch/wiki/hippRes500_LH_(Homo sapiens)</data>
@@ -3503,6 +4513,9 @@
 	<data key="dn_freesurfer_structname">Left-Hippocampus</data>
 	<data key="dn_colorcode">150,246,255</data>
 	<data key="dn_intensityvalue">498</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">left</data>
+	<data key="dn_fs_aseg_val">17</data>
 </node>
 <node id="n499">
 	<data key="dn_href">http://www.connectome.ch/wiki/amgRes500_LH_(Homo sapiens)</data>
@@ -3510,6 +4523,9 @@
 	<data key="dn_freesurfer_structname">Left-Amygdala</data>
 	<data key="dn_colorcode">255,128,191</data>
 	<data key="dn_intensityvalue">499</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">left</data>
+	<data key="dn_fs_aseg_val">18</data>
 </node>
 <node id="n500">
 	<data key="dn_href">http://www.connectome.ch/wiki/brstRes500_(Homo sapiens)</data>
@@ -3517,6 +4533,9 @@
 	<data key="dn_freesurfer_structname">Brain-Stem</data>
 	<data key="dn_colorcode">121,98,74</data>
 	<data key="dn_intensityvalue">500</data>
+	<data key="dn_region">subcortical</data>
+	<data key="dn_hemisphere">none</data>
+	<data key="dn_fs_aseg_val">16</data>
 </node>
 
 </graph>
