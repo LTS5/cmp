@@ -65,13 +65,13 @@ def fiber_tracking_dti():
     else:
         param = ''
 
-    dtk_cmd = 'dti_tracker %s %s -m %s %s' % (cmd, op.join(ten_out_path, 'dti_'),
+    dtk_cmd = 'dti_tracker %s %s -m %s %s' % (op.join(ten_out_path, 'dti_'),
                             # use the white matter mask after registration!
                             op.join(fibers_path, 'streamline.trk'), 
                             op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm_resamp2x2x2.nii'),
                             param )
     
-    runCmd( dtb_cmd, log )
+    runCmd( dtk_cmd, log )
         
     if not op.exists(op.join(fibers_path, 'streamline.trk')):
         log.error('No streamline.trk created')    
@@ -103,7 +103,8 @@ def run(conf):
         fiber_tracking_dti()
     
     log.info("Module took %s seconds to process." % (time()-start))
-    
-    msg = "Tractography module finished!\nIt took %s seconds." % int(time()-start)
-    send_email_notification(msg, gconf.emailnotify, log)  
+
+    if not len(gconf.emailnotify) == 0:
+        msg = "Tractography module finished!\nIt took %s seconds." % int(time()-start)
+        send_email_notification(msg, gconf.emailnotify, log)  
 

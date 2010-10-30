@@ -180,7 +180,7 @@ def cmat():
         log.info("========================")
         log.info("Read the fibers")
         fibFilename = op.join(gconf.get_cmt_fibers(), 'streamline.trk')
-        fib, hdr    = nibabel.trackvis.read(fibFilename, True)
+        fib, hdr    = nibabel.trackvis.read(fibFilename, False)
         log.info("done")
         log.info("========================")
         
