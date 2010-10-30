@@ -46,7 +46,32 @@ def fiber_tracking_dsi():
 
 
 def fiber_tracking_dti():
-    pass
+
+    log.info("Run STREAMLINE tractography")
+    log.info("===========================")
+    
+    fibers_path = gconf.get_cmt_fibers()
+    ten_out_path = gconf.get_cmt_rawdiff_reconout()
+    
+    # streamline tractography
+    if not gconf.streamline_param == '':
+        param = gconf.streamline_param
+    else:
+        param = ''
+
+    dtk_cmd = 'dti_tracker %s %s -m %s %s' % (cmd, op.join(ten_out_path, 'dti_'),
+                            # use the white matter mask after registration!
+                            op.join(fibers_path, 'streamline.trk'), 
+                            op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
+                            param )
+    
+    runCmd( dtb_cmd, log )
+        
+    if not op.exists(op.join(fibers_path, 'streamline.trk')):
+        log.error('No streamline.trk created')    
+    
+    log.info("[ DONE ]")
+    
 
 
 def run(conf):
