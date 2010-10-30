@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns">
 
-<key id="dn_href" for="node" attr.name="href" attr.type="string">
-	<desc>The link to a semantic framework to define the meaning of the node unambiguously</desc>
+<key id="dn_href" for="node" attr.name="dn_href" attr.type="string">
+  <desc>The link to a semantic framework to define the meaning of the node unambiguously</desc>
 </key>
-<key id="dn_label" for="node" attr.name="label" attr.type="string">
-	<desc>The node label</desc>
+<key id="dn_label" for="node" attr.name="dn_label" attr.type="string">
+  <desc>The node label</desc>
 </key>
-<key id="dn_freesurfer_structname" for="node" attr.name="fs_structname" attr.type="string">
-	<desc>Derived from the Freesurfer labeling</desc>
+<key id="dn_freesurfer_structname" for="node" attr.name="dn_freesurfer_structname" attr.type="string">
+  <desc>Derived from the Freesurfer labeling</desc>
 </key>
-<key id="dn_colorcode" for="node" attr.name="fs_colorcode" attr.type="string">
-	<desc>The color-code derived from the Freesurfer atlases (parcellations): R,G,B</desc>
+<key id="dn_colorcode" for="node" attr.name="dn_colorcode" attr.type="string">
+  <desc>The color-code derived from the Freesurfer atlases (parcellations): R,G,B</desc>
 </key>
-<key id="dn_intensityvalue" for="node" attr.name="fs_intensity" attr.type="string">
-	<desc>Refers to the intensity value in the volume files/surface labels corresponding to this node</desc>
+<key id="dn_intensityvalue" for="node" attr.name="dn_intensityvalue" attr.type="string">
+  <desc>Refers to the intensity value in the volume files/surface labels corresponding to this node</desc>
 </key>
 <key id="dn_region" for="node" attr.name="dn_region" attr.type="string">
   <desc>Region of the brain: cortical, subcortical</desc>
