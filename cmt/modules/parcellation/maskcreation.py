@@ -95,7 +95,6 @@ def create_roi():
     from networks. Iteratively create volume. """
     
     log.info("Create the ROIs:")
-
     fs_dir = gconf.get_fs()
     
     # load aseg volume
@@ -103,7 +102,8 @@ def create_roi():
     asegd = aseg.get_data()
     
     for parkey, parval in gconf.parcellation.items():
-        
+        log.info("Working on parcellation: " + parkey)
+	log.info("========================")
         pg = nx.read_graphml(parval['node_information_graphml'])
         
         # each node represents a brain region
@@ -120,7 +120,8 @@ def create_roi():
             if brv['dn_region'] == 'subcortical':
 
                 log.info("---------------------")
-                log.info("Work on %s brain region: %s" % (brv['dn_region'], brv['dn_freesurfer_structname']) )
+                log.info("Work on brain region: %s" % (brv['dn_region']) )
+		log.info("Freesurfer Struct Name: %s" %  brv['dn_freesurfer_structname'] )
                 log.info("---------------------")
 
                 # if it is subcortical, retrieve roi from aseg
@@ -128,9 +129,10 @@ def create_roi():
                 rois[idx] = int(brv['dn_intensityvalue'])
             
             elif brv['dn_region'] == 'cortical':
-
+		log.info(brv)
                 log.info("---------------------")
-                log.info("Work on %s brain region: %s" % (brv['dn_region'], brv['dn_freesurfer_structname']) )
+                log.info("Work on brain region: %s" % (brv['dn_region']) )
+		log.info("Freesurfer Struct Name: %s" %  brv['dn_freesurfer_structname'] )
                 log.info("---------------------")
 
                 labelpath = op.join(fs_dir, 'label', parval['fs_label_subdir_name'] % hemi)
