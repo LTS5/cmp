@@ -9,10 +9,16 @@ def convert_wm_mask():
     
     infile = op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm.nii')
     outfile = op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii')
+    resampout = op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm_resamp2x2x2.nii')
     
     fsl_cmd = 'fslmaths %s %s -odt char' % (infile, outfile) 
     runCmd( fsl_cmd, log )
     
+    # XXX: resample the white matter mask to b0 native space
+    # make it usable dti_tracker
+    mri_cmd = 'mri_convert -vs 2 2 2 %s %s ' % (infile, resampout)
+    runCmd( mri_cmd, log )
+        
     log.info("[ DONE ]")
     
 
@@ -62,7 +68,7 @@ def fiber_tracking_dti():
     dtk_cmd = 'dti_tracker %s %s -m %s %s' % (cmd, op.join(ten_out_path, 'dti_'),
                             # use the white matter mask after registration!
                             op.join(fibers_path, 'streamline.trk'), 
-                            op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
+                            op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm_resamp2x2x2.nii'),
                             param )
     
     runCmd( dtb_cmd, log )
