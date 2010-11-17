@@ -184,3 +184,40 @@ def run(conf):
         msg = "Diffusion module finished!\nIt took %s seconds." % int(time()-start)
         send_email_notification(msg, gconf.emailnotify, log)
           
+def declare_inputs(conf):
+    """Declare the inputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    nifti_dir = conf.get_nifti()
+    
+    if conf.diffusion_imaging_model == 'DSI' and \
+        conf.diffusion_imaging_stream == 'Lausanne2011':
+        conf.pipeline_status.AddStageInput(stage, nifti_dir, 'DSI.nii', 'dsi-nii')
+        
+    elif conf.diffusion_imaging_model == 'DTI' and \
+        conf.diffusion_imaging_stream == 'Lausanne2011':
+        conf.pipeline_status.AddStageInput(stage, nifti_dir, 'DTI.nii', 'dti-nii')
+        
+
+    
+def declare_outputs(conf):
+    """Declare the outputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    rawdiff_dir = conf.get_cmt_rawdiff()
+    odf_out_path = op.join(conf.get_cmt_rawdiff(), 'odf_0')
+    cmt_scalars_path = conf.get_cmt_scalars()
+    
+    if conf.diffusion_imaging_model == 'DSI' and \
+        conf.diffusion_imaging_stream == 'Lausanne2011':
+        conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DSI_resampled_2x2x2.nii', 'DSI_resampled_2x2x2-nii')
+        conf.pipeline_status.AddStageOutput(stage, odf_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
+        conf.pipeline_status.AddStageOutput(stage, cmt_scalars_path, 'dsi_gfa.nii', 'dsi_gfa-nii')      
+          
+    elif conf.diffusion_imaging_model == 'DTI' and \
+        conf.diffusion_imaging_stream == 'Lausanne2011':
+        conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DTI_resampled_2x2x2.nii', 'DTI_resampled_2x2x2-nii')
+        
+        # XXX: what does it reconstruct (filename?)
+                
+          

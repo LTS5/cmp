@@ -82,3 +82,36 @@ def run(conf):
     msg = "Tractography module finished!\nIt took %s seconds." % int(time()-start)
     send_email_notification(msg, gconf.emailnotify, log)  
 
+def declare_inputs(conf):
+    """Declare the inputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    odf_out_path = op.join(conf.get_cmt_rawdiff(), 'odf_0')
+    
+    conf.pipeline_status.AddStageInput(stage, conf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm.nii', 'fsmask_1mm-nii')
+
+
+    if conf.diffusion_imaging_model == 'DSI' and \
+        conf.diffusion_imaging_stream == 'Lausanne2011':
+        conf.pipeline_status.AddStageInput(stage, odf_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
+    elif gconf.diffusion_imaging_model == 'DTI' and \
+        gconf.diffusion_imaging_stream == 'Lausanne2011':
+        pass        
+        
+    
+def declare_outputs(conf):
+    """Declare the outputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    fibers_path = conf.get_cmt_fibers()
+        
+    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii', 'fsmask_1mm__8bit-nii')
+    
+    if conf.diffusion_imaging_model == 'DSI' and \
+       conf.diffusion_imaging_stream == 'Lausanne2011':
+        conf.pipeline_status.AddStageOutput(stage, fibers_path, 'streamline.trk', 'streamline-trk')
+    elif gconf.diffusion_imaging_model == 'DTI' and \
+        gconf.diffusion_imaging_stream == 'Lausanne2011':
+        pass
+              
+          

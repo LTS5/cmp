@@ -336,3 +336,22 @@ def run(conf):
 ################################################################################
 
 
+def declare_inputs(conf):
+    """Declare the inputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    
+    conf.pipeline_status.AddStageInput(stage, conf.get_cmt_fibers(), 'streamline.trk', 'streamline-trk')
+    
+    for r in conf.parcellation.keys():
+        conf.pipeline_status.AddStageInput(stage, op.join(conf.get_cmt_fsout(), 'registered', 'HR__registered-TO-b0', r), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % r)
+        
+def declare_outputs(conf):
+    """Declare the outputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+            
+    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_matrices(), 'cmat.pickle', 'cmat-pickle')
+    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_fibers(), 'endpoints.npy', 'endpoints-npy')
+    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_fibers(), 'lengths.npy', 'lengths-npy')        
+    

@@ -49,3 +49,19 @@ def run(conf):
     if not len(gconf.emailnotify) == 0:
         msg = "Statistics module finished!\nIt took %s seconds." % int(time()-start)
         send_email_notification(msg, gconf.emailnotify, log)
+        
+def declare_inputs(conf):
+    """Declare the inputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    
+    conf.pipeline_status.AddStageInput(stage, conf.get_cmt_fibers(), 'lengths.npy', 'lengths-npy')
+        
+        
+def declare_outputs(conf):
+    """Declare the outputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+            
+    conf.pipeline_status.AddStageOutput(stage, conf.get_stats(), 'fiberlength_histogram.png', 'fiberlength_histogram-png')
+    

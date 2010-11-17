@@ -7,6 +7,7 @@ import os.path as op, os
 import sys
 import datetime as dt
 from cmt.logme import getLog
+from cmt.pipeline import pipeline_status
 
 class PipelineConfiguration(traits.HasTraits):
        
@@ -97,6 +98,13 @@ class PipelineConfiguration(traits.HasTraits):
     dtk_home = traits.Directory(exists=False, desc="path to diffusion toolkit")
     dtk_matrices = traits.Directory(exists=False, desc="path to diffusion toolkit matrices")
 
+    # This file stores descriptions of the inputs/outputs to each stage of the
+    # CMT pipeline.  It can be queried using the PipelineStatus python object 
+    pipeline_status_file = traits.Str( "cmt.status" )
+    
+    # Pipeline status object
+    pipeline_status = pipeline_status.PipelineStatus()
+    
     def __init__(self, **kwargs):
         # NOTE: In python 2.6, object.__init__ no longer accepts input
         # arguments.  HasTraits does not define an __init__ and
@@ -399,3 +407,16 @@ class PipelineConfiguration(traits.HasTraits):
         else:
             raise('No binary files compiled for your platform!')
     
+    def init_pipeline_status(self):
+        """Create the 'cmt.status'.  The 'cmt.status' file contains information
+        about the inputs/outputs of each pipeline stage"""        
+        status_file = op.join(self.get_subj_dir(), self.pipeline_status_file)   
+        self.pipeline_status.Pipeline.name = "cmt"
+        self.pipeline_status.SaveToFile(status_file)
+
+        
+    def update_pipeline_status(self):
+        """Update the pipeline status on disk with the current status in memory"""
+        status_file = op.join(self.get_subj_dir(), self.pipeline_status_file)
+        self.pipeline_status.SaveToFile(status_file)
+        

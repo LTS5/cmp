@@ -1,0 +1,22 @@
+message StageInputOutput
+{
+	required string filePath = 1;
+    optional string name = 2;
+    required string rootDir = 3;    
+}
+
+message Stage
+{
+    required int32 num = 1;
+    required string name = 2;    
+
+    repeated StageInputOutput inputs = 3;
+    repeated StageInputOutput outputs = 4;
+}
+
+message Pipeline
+{
+    required string name = 1;
+    
+    repeated Stage stages = 2;
+}

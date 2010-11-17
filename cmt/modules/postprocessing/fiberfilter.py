@@ -67,4 +67,22 @@ def run(conf):
     if not len(gconf.emailnotify) == 0:
         msg = "Fiber filtering module finished!\nIt took %s seconds." % int(time()-start)
         send_email_notification(msg, gconf.emailnotify, log)  
+        
+def declare_inputs(conf):
+    """Declare the inputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    fibers_path = conf.get_cmt_fibers()
+    
+    conf.pipeline_status.AddStageInput(stage, fibers_path, 'streamline.trk', 'streamline-trk')
+        
+def declare_outputs(conf):
+    """Declare the outputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    fibers_path = conf.get_cmt_fibers()
+    
+    conf.pipeline_status.AddStageOutput(stage, fibers_path, 'streamline.trk', 'streamline-trk')
+            
+                      
 
