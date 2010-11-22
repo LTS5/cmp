@@ -28,8 +28,8 @@ def lin_regT12b0():
             param)
     runCmd(flirt_cmd, log)
     
-    if not op.exists(op.join(gconf.get_nifti(), 'T1-TO-b0.mat')):
-        msg = "An error occurred. Linear transformation file %s not generated." % op.join(gconf.get_nifti(), 'T1-TO-b0.mat')
+    if not op.exists(op.join(gconf.get_nifti_trafo(), 'T1-TO-b0.mat')):
+        msg = "An error occurred. Linear transformation file %s not generated." % op.join(gconf.get_nifti_trafo(), 'T1-TO-b0.mat')
         log.error(msg)
         raise Exception(msg)
 
