@@ -14,6 +14,7 @@ Required
 * NetworkX
 * NumPy
 * Traits / Traits GUI (getting rid of it?)
+* python-protobuf 2.3 (Google Protocol Buffers)
 
 Binary
 ------
