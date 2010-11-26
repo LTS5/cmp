@@ -93,8 +93,7 @@ class CMTGUI( PipelineConfiguration ):
             Item('subject_description',label="Description"),
             Item('subject_raw_glob_diffusion',label="Diffusion File Pattern"),
             Item('subject_raw_glob_T1',label="T1 File Pattern"),
-            Item('subject_raw_glob_T2',label="T2 File Pattern",
-                 enabled_when = "registration_mode == 'N'"),
+            Item('subject_raw_glob_T2',label="T2 File Pattern"),
             show_border = True
         ),
         label = "Subject"

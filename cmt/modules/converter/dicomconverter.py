@@ -26,10 +26,11 @@ def diff2nifti_dsi_unpack():
         # read data
         files = glob(op.join(dsi_dir, raw_glob))
         if len(files) == 0:
-            raise Exception('No files found for %s. Maybe change raw_glob variable for subject?' % op.join(dsi_dir, raw_glob) )
+            raise Exception('No files found for %s. Maybe change raw_glob variable for subject? (case-sensitive!)' % op.join(dsi_dir, raw_glob) )
 		
         first = sorted(files)[0]
-        diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DSI.nii'))            
+        diff_cmd = 'diff_unpack %s %s' % (first,
+                                 op.join(nifti_dir, 'DSI.nii'))            
         runCmd(diff_cmd, log)
         
         # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
