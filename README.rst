@@ -11,13 +11,16 @@ People
 
 Diffusion MRI Team LTS5
 ~~~~~~~~~~~~~~~~~~~~~~~
-
+* Jean-Philippe Thiran
+* Reto Meuli
 * Alessandro Daducci (daducci)
 * Stephan Gerhard (unidesigner)
 * Christophe Chênes (Cwis)
 * Patric Hagmann (pahagman)
 * Alia Lemkaddem (allem)
 * Elda Fischi
+* Leila Cammoun
+* Xavier Gigandet
 
 Collaboration Children's Hospital Boston
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -25,13 +28,6 @@ Collaboration Children's Hospital Boston
 * Ellen Grant
 * Daniel Ginsburg (danginsburg)
 * Rudolph Pienaar (rudolphpienaar)
-
-
-Former
-~~~~~~
-* Leila Cammoun
-* Xavier Gigandet
-
 
 -------
 License

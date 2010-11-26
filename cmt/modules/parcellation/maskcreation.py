@@ -67,7 +67,8 @@ def create_annot_label():
         log.info('-----------')
 
     # extract cc and unknown to add to tractography mask, we do not want this as a region of interest
-    # in FS 5.0, unknown and corpuscallosum are not available for the 35 scale, but for the other scales only, take the ones from _60
+    # in FS 5.0, unknown and corpuscallosum are not available for the 35 scale (why?),
+    # but for the other scales only, take the ones from _60
 	rhun = op.join(fs_label_dir, 'rh.unknown.label')
 	lhun = op.join(fs_label_dir, 'lh.unknown.label')
 	rhco = op.join(fs_label_dir, 'rh.corpuscallosum.label')
@@ -121,7 +122,7 @@ def create_roi():
 
                 log.info("---------------------")
                 log.info("Work on brain region: %s" % (brv['dn_region']) )
-		log.info("Freesurfer Struct Name: %s" %  brv['dn_freesurfer_structname'] )
+                log.info("Freesurfer Struct Name: %s" %  brv['dn_freesurfer_structname'] )
                 log.info("---------------------")
 
                 # if it is subcortical, retrieve roi from aseg
@@ -129,10 +130,10 @@ def create_roi():
                 rois[idx] = int(brv['dn_intensityvalue'])
             
             elif brv['dn_region'] == 'cortical':
-		log.info(brv)
+                log.info(brv)
                 log.info("---------------------")
                 log.info("Work on brain region: %s" % (brv['dn_region']) )
-		log.info("Freesurfer Struct Name: %s" %  brv['dn_freesurfer_structname'] )
+                log.info("Freesurfer Struct Name: %s" %  brv['dn_freesurfer_structname'] )
                 log.info("---------------------")
 
                 labelpath = op.join(fs_dir, 'label', parval['fs_label_subdir_name'] % hemi)

@@ -56,12 +56,12 @@ class CMTGUI( PipelineConfiguration ):
                     Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
                     Item('active_registration', label = 'Registration'),
                     Item('active_segmentation', label = 'Segmentation'),
-                    Item('active_maskcreation', label = 'Mask Creation'),
+                    Item('active_maskcreation', label = 'ROI/Mask Creation'),
 		            Item('active_reconstruction', label = 'Reconstruction'),
                     Item('active_tractography', label = 'Tractography'),
-                    Item('active_fiberfilter', label = 'Fiberfiltering'),
+                    Item('active_fiberfilter', label = 'Fiber Filtering'),
                     Item('active_connectome', label = 'Connectome Creation'),
-                    Item('active_statistics', label = 'Statistics'),
+                   # Item('active_statistics', label = 'Statistics'),
                     Item('active_cffconverter', label = 'CFF Converter'),
                     label="Execute"     
                     ),
@@ -210,17 +210,25 @@ info@connectomics.org
 
 Contributors
 ------------
-Development:
-* Stephan Gerhard 
-* Christophe Chenes
-
-Image Processing:
+* Jean-Philippe Thiran
+* Reto Meuli
 * Alessandro Daducci
-* Alia Lemkaddem
+* Stephan Gerhard
+* Christophe Chenes
 * Patric Hagmann
-        
-Testing:
+* Alia Lemkaddem
 * Elda Fischi
+* Leila Cammoun
+* Xavier Gigandet
+
+External Contributors
+---------------------
+
+Children's Hospital Boston:
+* Ellen Grant
+* Daniel Ginsburg
+* Rudolph Pienaar
+
 """
         print msg
     
@@ -258,7 +266,7 @@ Testing:
             msg = 'Selected gradient table %s does not exist!' % gradfile
             raise Exception(msg)
 
-	return gradfile
+        return gradfile
 	
     def _gradient_table_changed(self, value):
         if value == 'custom':

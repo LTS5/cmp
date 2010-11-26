@@ -32,8 +32,9 @@ def mapit(cobj):
     if cobj.active_connectome:
         cmt.connectionmatrix.run( cobj )
 
-    if cobj.active_statistics:
-        cmt.fiberstatistics.run( cobj )
+    # not computing statistics for now as part of the pipeline
+    #if cobj.active_statistics:
+    #    cmt.fiberstatistics.run( cobj )
         
     if cobj.active_cffconverter:
         cmt.cffconverter.run( cobj )
