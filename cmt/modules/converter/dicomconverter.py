@@ -7,7 +7,7 @@ import shutil
 from ...logme import *
 from cmt.util import reorient
 
-import nibabel.dicom.dicomreaders as dr
+import nibabel.nicom.dicomreaders as dr
 import nibabel as ni
 
 def diff2nifti_dsi_unpack():

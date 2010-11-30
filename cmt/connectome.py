@@ -1,6 +1,7 @@
 # Connectome Mapping Execution Engine
 
 import cmt
+from logme import *
 
 def mapit(cobj):
     
@@ -11,19 +12,19 @@ def mapit(cobj):
     # This needs to be done before starting processing so
     # that the stages in the pipeline are laid out before
     # processing begins
-    stages = [ cmt.dicomconverter,
-               cmt.registration,
-               cmt.freesurfer,
-               cmt.maskcreation,
-               cmt.apply_registration,
-               cmt.dtk,
-               cmt.tractography,
-               cmt.fiberfilter,
-               cmt.fiberstatistics,
-               cmt.connectionmatrix,
-               cmt.fiberstatistics,
-               cmt.cffconverter ]               
-    for stage in stages:
+    stages = [ (cmt.dicomconverter, cobj.active_dicomconverter),
+               (cmt.registration, cobj.active_registration),
+               (cmt.freesurfer, cobj.active_segmentation),        
+               (cmt.maskcreation, cobj.active_maskcreation),
+               (cmt.apply_registration, cobj.active_maskcreation),
+               (cmt.dtk, cobj.active_reconstruction),
+               (cmt.tractography, cobj.active_tractography),
+               (cmt.fiberfilter, cobj.active_fiberfilter),
+               (cmt.connectionmatrix, cobj.active_connectome),
+               (cmt.fiberstatistics, cobj.active_statistics),               
+               (cmt.cffconverter, cobj.active_cffconverter) ]
+    
+    for stage,stageEnabled in stages:
         cobj.pipeline_status.AddStage( stage.__name__ )
         if hasattr(stage,'declare_inputs'):
             stage.declare_inputs(cobj)
@@ -35,35 +36,31 @@ def mapit(cobj):
     cobj.update_pipeline_status()
                
     cmt.preprocessing.run( cobj )
-
-    if cobj.active_dicomconverter:
-        cmt.dicomconverter.run( cobj )
-        
-    if cobj.active_registration:
-        cmt.registration.run( cobj )
-        
-    if cobj.active_segmentation:
-        cmt.freesurfer.run( cobj )
-        
-    if cobj.active_maskcreation:
-        cmt.maskcreation.run( cobj )
-        cmt.apply_registration.run( cobj )
-        
-    if cobj.active_reconstruction:
-        cmt.dtk.run( cobj )
-        
-    if cobj.active_tractography:
-        cmt.tractography.run( cobj )
-        
-    if cobj.active_fiberfilter:
-        cmt.fiberfilter.run( cobj )
-
-    if cobj.active_connectome:
-        cmt.connectionmatrix.run( cobj )
-
-    if cobj.active_statistics:
-        cmt.fiberstatistics.run( cobj )
-        
-    if cobj.active_cffconverter:
-        cmt.cffconverter.run( cobj )
-   
+    
+    # Set the logger function for the PipelineStatus object
+    cobj.pipeline_status.SetLoggerFunctions(cobj.get_logger().error, cobj.get_logger().info)
+    
+    # Execute the pipeline
+    for stage, stageEnabled in stages:
+        if stageEnabled == True:        
+            curStageObj = cobj.pipeline_status.GetStage( stage.__name__ )
+                        
+            # Check if the inputs exist            
+            if curStageObj != None:            
+                if cobj.pipeline_status.CanRun( curStageObj ) == False:
+                    msg = "Required input file missing for stage: '%s'" % (stage.__name__)
+                    cobj.get_logger().error( msg )
+                    raise Exception( msg )
+                        
+            # Run the stage            
+            if hasattr(stage, 'run'):
+                stage.run( cobj )
+                
+            # Check if the stage ran properly
+            if curStageObj != None:
+                if cobj.pipeline_status.RanOK( curStageObj ) == False:
+                    msg = "Required output file not generated for stage: '%s'" % (stage.__name__)
+                    cobj.get_logger().error( msg )
+                    raise Exception( msg )
+                
+                

@@ -27,8 +27,19 @@ class PipelineStatus():
     def __init__(self, filename=None):
         """Constructor"""
         self.Pipeline = pipeline_pb2.Pipeline()
+        
+        # By default, use stdin/stderr for logging
+        self.logError = sys.stderr.write
+        self.logInfo = sys.stdin.write
         if filename != None:
             self.LoadFromFile(filename)
+            
+    def SetLoggerFunctions(self, logErrorFunc, logInfoFunc):
+        """Set the functions used to log errors and info, by
+        default if not set this will be sys.stderr.write and
+        sys.stdin.write"""
+        self.logError = logErrorFunc
+        self.logInfo = logInfoFunc
                                         
     def LoadFromFile(self, filename):
         """Save the current state of the pipeline to a file"""
@@ -37,7 +48,7 @@ class PipelineStatus():
             self.Pipeline.ParseFromString(f.read())
             f.close()
         except:
-            sys.stderr.write("Could not open file: " + filename)
+            self.logError("Could not open file: " + filename)
         
     def SaveToFile(self, filename):
         """Load the pipeline state from a file"""
@@ -46,7 +57,7 @@ class PipelineStatus():
             f.write(self.Pipeline.SerializeToString());
             f.close();
         except:
-            sys.stderr.write("Could not write file: " + filename)
+            self.logError("Could not write file: " + filename)
             
     def AddStage(self, name):
         """Add a new stage to the pipeline if it does not exist.  If it does already exist,
@@ -60,13 +71,25 @@ class PipelineStatus():
         newStage.name = name;        
         return newStage;
     
+    def AddType(self, tag, description):
+        """Add a new file type by tag and description"""
+        for type in self.Pipeline.types:
+            if type.tag == tag:
+                self.logError("Type already exists, can not add: '%s'" % (tag))
+                return type
+
+        type = self.Pipeline.types.add()
+        type.tag = tag
+        type.desc = description
+        return type        
+    
     def GetStage(self, name):
         """Get a stage by name"""
         for stage in self.Pipeline.stages:
             if stage.name == name:
                 return stage
 
-        sys.stderr.write('Pipeline does not contain stage %d' % (num))
+        self.logError('Pipeline does not contain stage %d' % (name))
         return None
     
     def CanRun(self, stage):
@@ -75,11 +98,9 @@ class PipelineStatus():
             filePath = op.join(curInput.rootDir, curInput.filePath)
             matchingFiles = glob.glob(filePath)
             if len(matchingFiles) >= 1:
-                if len(matchingFiles) > 1:
-                    print "WARNING: stage '%s' more than one file matching " % (stage.name, filePath) 
                 continue
             elif len(matchingFiles) == 0:
-                sys.stderr.write("Stage '%s' missing input, file not found: " % (stage.name, filePath))
+                self.logError("Stage '%s' missing input, file not found: %s" % (stage.name, filePath))
                 return False
         
         # If we get here, then all files were found    
@@ -88,32 +109,66 @@ class PipelineStatus():
     def RanOK(self, stage):
         """Determines if all stage outputs were produced"""        
         if len(stage.outputs) == 0:
-            sys.stderr.write("Stage %s has no outputs defined" % (stage.name))            
+            self.logError("Stage %s has no outputs defined" % (stage.name))            
             return False;
                 
         for curOutput in stage.outputs:
             filePath = op.join(curOutput.rootDir, curOutput.filePath)
             matchingFiles = glob.glob(filePath)
-            if len(matchingFiles) >= 1:
-                if len(matchingFiles) > 1:
-                    print "WARNING: stage '%s': more than one file matching " % (stage.name, filePath) 
+            if len(matchingFiles) >= 1:                
                 continue
             elif len(matchingFiles) == 0:                
-                sys.stderr.write("Stage %s did not complete, file not found: %s " % (stage.name, filePath))
+                self.logError("Stage '%s' did not complete, file not found: %s " % (stage.name, filePath))
                 return False
         
         # If we get here, then all files were found    
         return True
     
-    def AddStageInput(self, stage, rootDir, inputFilePath, inputName):
-        """Add new input to stage"""
+    def AddStageInput(self, stage, rootDir, inputFilePath, inputName=None, typeTag=None):
+        """Add new input to stage
+        
+        Inputs
+        ----------
+        stage:                 stage object to add new input to
+        rootDir:               root directory of stage input
+        inputFilePath:         path to file (or wildcard) from rootDir
+        inputName: [optional]  name of input, if not specified, will be inputFilePath
+        typeTag:   [optional]  type tag of input (referring to type declared with AddType), if not
+                               specified, no typeTag is set.
+    
+        Outputs
+        -------
+        stage:                 Newly created input
+    
+        """
         newInput = stage.inputs.add()
-        return self.__AddStageInputOutput(newInput, rootDir, inputFilePath, inputName)
+        
+        if inputName == None:
+            inputName = inputFilePath
             
-    def AddStageOutput(self, stage, rootDir, outputFilePath, outputName):
-        """Add new output to stage"""
+        return self.__AddStageInputOutput(newInput, rootDir, inputFilePath, inputName, typeTag)
+            
+    def AddStageOutput(self, stage, rootDir, outputFilePath, outputName=None, typeTag=None):
+        """Add new output to stage
+        
+        Inputs
+        ----------
+        stage:                 stage object to add new output to
+        rootDir:               root directory of stage output
+        inputFilePath:         path to file (or wildcard) from rootDir
+        inputName: [optional]  name of output, if not specified, will be outputFilePath
+        typeTag:   [optional]  type tag of output (referring to type declared with AddType), if not
+                               specified, no typeTag is set.
+    
+        Outputs
+        -------
+        stage:                 Newly created output
+    
+        """
         newOutput = stage.outputs.add()
-        return self.__AddStageInputOutput(newOutput, rootDir, outputFilePath, outputName)                
+        if outputName == None:
+            outputName = outputFilePath
+        return self.__AddStageInputOutput(newOutput, rootDir, outputFilePath, outputName, typeTag)                
     
     def AddStageInputFromObject(self, stage, inputOutputObject):
         """Copy input or output as an input to another stage"""
@@ -151,9 +206,11 @@ class PipelineStatus():
         return g                
         
     
-    def __AddStageInputOutput(self, inputOutput, rootDir, filePath, name):
+    def __AddStageInputOutput(self, inputOutput, rootDir, filePath, name, typeTag):
         """Used internally for adding stage input/output """
         inputOutput.filePath = filePath
         inputOutput.name = name;
         inputOutput.rootDir = rootDir
+        if typeTag != None:
+            inputOutput.typeTag = typeTag
         return inputOutput    
