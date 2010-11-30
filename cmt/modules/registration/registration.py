@@ -24,12 +24,12 @@ def lin_regT12b0():
             op.join(gconf.get_nifti(), 'T1.nii'),
             op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
             op.join(gconf.get_nifti(), 'T1-TO-b0.nii'),
-            op.join(gconf.get_nifti(), 'T1-TO-b0.mat'),
+            op.join(gconf.get_nifti_trafo(), 'T1-TO-b0.mat'),
             param)
     runCmd(flirt_cmd, log)
     
-    if not op.exists(op.join(gconf.get_nifti(), 'T1-TO-b0.mat')):
-        msg = "An error occurred. Linear transformation file %s not generated." % op.join(gconf.get_nifti(), 'T1-TO-b0.mat')
+    if not op.exists(op.join(gconf.get_nifti_trafo(), 'T1-TO-b0.mat')):
+        msg = "An error occurred. Linear transformation file %s not generated." % op.join(gconf.get_nifti_trafo(), 'T1-TO-b0.mat')
         log.error(msg)
         raise Exception(msg)
 
@@ -298,15 +298,16 @@ def declare_outputs(conf):
     
     stage = conf.pipeline_status.GetStage(__name__)
     nifti_dir = conf.get_nifti()
+    nifti_trafo_dir = conf.get_nifti_trafo()
 
     conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1-TO-b0.nii', 'T1-TO-B0-nii')
-    conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1-TO-b0.mat', 'T1-TO-B0-mat')
+    conf.pipeline_status.AddStageOutput(stage, nifti_trafo_dir, 'T1-TO-b0.mat', 'T1-TO-b0-mat')
     
     if conf.registration_mode == 'N':
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1-TO-T2.nii', 'T1-TO-T2-nii')
-        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1-TO-T2.mat', 'T1-TO-T2-mat')
+        conf.pipeline_status.AddStageOutput(stage, nifti_trafo_dir, 'T1-TO-T2.mat', 'T1-TO-T2-mat')
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2-TO-b0.nii', 'T2-TO-b0-nii')
-        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2-TO-b0.mat', 'T2-TO-b0-mat')
+        conf.pipeline_status.AddStageOutput(stage, nifti_trafo_dir, 'T2-TO-b0.mat', 'T2-TO-b0-mat')
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2-brain-mask.nii', 'T2-brain-mask-nii')
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'b0-brain-mask.nii', 'b0-brain-mask-nii')
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2-TO-b0_warped.nii', 'T2-TO-b0_warped-nii')

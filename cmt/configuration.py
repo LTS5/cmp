@@ -67,6 +67,7 @@ class PipelineConfiguration(traits.HasTraits):
     active_connectome = traits.Bool(True)
     active_statistics = traits.Bool(True)
     active_cffconverter = traits.Bool(True)
+    skip_completed_stages = traits.Bool(False)
 
     author = traits.Str()
     institution = traits.Str()

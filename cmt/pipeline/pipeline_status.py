@@ -100,7 +100,7 @@ class PipelineStatus():
             if len(matchingFiles) >= 1:
                 continue
             elif len(matchingFiles) == 0:
-                self.logError("Stage '%s' missing input, file not found: %s" % (stage.name, filePath))
+                self.logInfo("Stage '%s' missing input, file not found: %s" % (stage.name, filePath))
                 return False
         
         # If we get here, then all files were found    
@@ -109,7 +109,7 @@ class PipelineStatus():
     def RanOK(self, stage):
         """Determines if all stage outputs were produced"""        
         if len(stage.outputs) == 0:
-            self.logError("Stage %s has no outputs defined" % (stage.name))            
+            self.logInfo("Stage %s has no outputs defined" % (stage.name))            
             return False;
                 
         for curOutput in stage.outputs:
@@ -118,7 +118,7 @@ class PipelineStatus():
             if len(matchingFiles) >= 1:                
                 continue
             elif len(matchingFiles) == 0:                
-                self.logError("Stage '%s' did not complete, file not found: %s " % (stage.name, filePath))
+                self.logInfo("Stage '%s' did not complete, file not found: %s " % (stage.name, filePath))
                 return False
         
         # If we get here, then all files were found    

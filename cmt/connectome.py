@@ -51,9 +51,15 @@ def mapit(cobj):
                     msg = "Required input file missing for stage: '%s'" % (stage.__name__)
                     cobj.get_logger().error( msg )
                     raise Exception( msg )
+                # If stage was already completed and user asked to skip completed stages, skip
+                # this stage.
+                elif (cobj.skip_completed_stages == True and
+                      cobj.pipeline_status.RanOK( curStageObj ) == True):
+                    cobj.get_logger().info( "Skipping previously completed stage: '%s'" % ( stage.__name__) )
+                    continue
                         
             # Run the stage            
-            if hasattr(stage, 'run'):
+            if hasattr(stage, 'run'):                
                 stage.run( cobj )
                 
             # Check if the stage ran properly
