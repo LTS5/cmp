@@ -15,9 +15,11 @@ packages=["cmt",
           "cmt.modules.postprocessing",
           "cmt.modules.segmentation",
           "cmt.modules.reconstruction",
-          "cmt.modules.mask",
+          "cmt.modules.parcellation",
           "cmt.modules.registration",
-          "cmt.modules.tractography"]
+          "cmt.modules.tractography",
+          "cmt.modules.stats",
+          "cmt.modules.template_module"]
 
 package_data = {'cmt':
                 ['data/colortable_and_gcs/*.txt',
@@ -25,11 +27,7 @@ package_data = {'cmt':
                  'data/colortable_and_gcs/My_colortable_rnd/*.txt',
                  'data/colortable_and_gcs/My_colortable_rnd/colortable_rnd_500/*.txt',
                  'binary/linux2/bit32/*',
-                 'binary/linux2/bit64/*.*',
-#                 'matlab_related/*.*',
-#                 'matlab_related/nifti/*.*',
-#                 'matlab_related/tractography/*.*',
-#                 'one_label_script.sh'
+                 'binary/linux2/bit64/*.*'
                  ]}
 
 ################################################################################
