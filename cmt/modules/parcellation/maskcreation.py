@@ -104,13 +104,13 @@ def create_roi():
     
     for parkey, parval in gconf.parcellation.items():
         log.info("Working on parcellation: " + parkey)
-	log.info("========================")
+        log.info("========================")
         pg = nx.read_graphml(parval['node_information_graphml'])
         
         # each node represents a brain region
         # create a big 256^3 volume for storage of all ROIs
         rois = np.zeros( (256, 256, 256), dtype=np.int16 )
-
+        
         for brk, brv in pg.nodes_iter(data=True):
             
             if brv['dn_hemisphere'] == 'left':

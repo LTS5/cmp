@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,14 +12,15 @@
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
+        URL_ROOT:    '',
         VERSION:     '1.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Connectome Mapping Toolkit v1.0 documentation" href="index.html" />
     <link rel="next" title="Connectome Mapping Modules" href="mappingsteps.html" />
@@ -47,26 +50,112 @@
             
   <div class="section" id="installation-instruction">
 <h1>Installation Instruction<a class="headerlink" href="#installation-instruction" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<ul class="simple">
-</ul>
-<div class="section" id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Ubuntu dependencies</li>
-<li>Python dependencies</li>
-<li>Setting up the environment</li>
-<li>Enough disk space</li>
-</ul>
+<div class="section" id="step-by-step-guide-for-installation-on-ubuntu-debian">
+<h2>Step-by-Step Guide for Installation on Ubuntu/Debian<a class="headerlink" href="#step-by-step-guide-for-installation-on-ubuntu-debian" title="Permalink to this headline">¶</a></h2>
+<p>Install Diffusion Toolkit:</p>
+<div class="highlight-python"><pre>firefox http://trackvis.org/dtk/</pre>
+</div>
+<p>Install NeuroDebian. Add the NeuroDebian repository to your source list as described here:</p>
+<div class="highlight-python"><pre>firefox http://neuro.debian.net/</pre>
+</div>
+<p>Install FMRIB Software Library. Using the version in the NeuroDebian repository:</p>
+<div class="highlight-python"><pre>sudo aptitude fsl fslview fslview-doc</pre>
+</div>
+<p>Debian/Ubuntu dependencies:</p>
+<div class="highlight-python"><pre>sudo apt-get install libblitz0-dev libboost-all-dev gitcore python-dicom</pre>
+</div>
+<p>Install Freesurfer 5.0:</p>
+<div class="highlight-python"><pre>firefox http://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall</pre>
+</div>
+<p>Installing cmt for developers (clone the repository):</p>
+<div class="highlight-python"><pre>git clone git@github.com:LTS5/cmt.git</pre>
+</div>
+<p>Setting up the environment variables for Bash in <em>/home/username/.bashrc</em>:</p>
+<div class="highlight-python"><pre># FREESURFER configuration
+export FREESURFER_HOME="/usr/share/freesurfer"
+source "${FREESURFER_HOME}/SetUpFreeSurfer.sh"
+
+# FSL configuration
+export FSL_HOME="/usr/share/fsl"
+source "${FSL_HOME}/etc/fslconf/fsl.sh"
+export PATH="${FSL_HOME}/bin:${PATH}"
+
+# DIFFUSION TOOLKIT configuration
+export DTDIR="/usr/share/dtk"
+export DSI_PATH="${DTDIR}/matrices/"
+export PATH="${DTDIR}:${PATH}"
+
+# CMT Path
+export PYTHONPATH=/path/to/your/cmt/</pre>
+</div>
 </div>
 <div class="section" id="project-configuration-and-setup">
 <h2>Project configuration and setup<a class="headerlink" href="#project-configuration-and-setup" title="Permalink to this headline">¶</a></h2>
 <p>Steps to do before executing the pipeline</p>
-<ol class="arabic simple">
-<li>Create the folder structure of your project.</li>
-<li>Copy the DICOM / MPRAGE (T1, T2) images in the corresponding folders</li>
-<li>Run the Connectome Mapping Toolkit Configuration GUI</li>
+<ol class="arabic">
+<li><p class="first">Create the folder structure for your project.:</p>
+<div class="highlight-python"><pre>├── test_cmt
+│   ├── control001
+│   │   └── tp1
+│   │       ├── RAWDATA
+│   │       │   ├── DSI
+│   │       │   ├── T1
+│   │       │   └── T2</pre>
+</div>
+</li>
+<li><p class="first">Copy the DICOM / MPRAGE (T1, T2) images in the corresponding folders</p>
+</li>
+<li><p class="first">Run the Connectome Mapping Toolkit GUI from IPython:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">cmt</span><span class="o">,</span> <span class="nn">cmt.gui</span><span class="o">,</span> <span class="nn">cmt.connectome</span>
+<span class="n">cmtgui</span> <span class="o">=</span> <span class="n">cmt</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">CMTGUI</span><span class="p">()</span>
+<span class="n">cmtgui</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">After the first run of the e.g. the first module DICOM Converter, the folder structure should look like this:</p>
+<div class="highlight-python"><pre>├── test_cmt
+│   ├── control001
+│   │   └── tp1
+│   │       ├── CMT
+│   │       │   ├── fibers
+│   │       │   ├── fs_output
+│   │       │   ├── raw_diffusion
+│   │       │   └── scalars
+│   │       ├── FREESURFER
+│   │       │   └── mri
+│   │       ├── LOG
+│   │       ├── NIFTI
+│   │       ├── RAWDATA
+│   │       │   ├── DSI
+│   │       │   ├── T1
+│   │       │   └── T2
+│   │       └── STATS</pre>
+</div>
+</li>
 </ol>
+<p>All the files for your subject will be stored in this folder structure.</p>
+<p>You can store a &#8220;pickle&#8221; version of the configuration settings to a file and load it afterwards.
+You can also put the three Python command lines in a Python script, e.g. map_connectome.py and call it:</p>
+<div class="highlight-python"><pre>python map_connectome.py</pre>
+</div>
+<p>You can start to modify this script to loop over subjects and/or load the &#8220;pickle&#8221; file automatically, add:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cmtgui</span><span class="o">.</span><span class="n">load_state</span><span class="p">(</span><span class="s">&#39;/path/to/your/saved/pickle/state/cmt.pkl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can set the attributes of the cmtgui configuration object in the script and directly call the pipeline execution engine:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cmtgui</span><span class="o">.</span><span class="n">active_dicomconverter</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">cmtgui</span><span class="o">.</span><span class="n">project_name</span> <span class="o">=</span> <span class="s">&#39;...&#39;</span>
+<span class="n">cmtgui</span><span class="o">.</span><span class="n">project_dir</span> <span class="o">=</span> <span class="s">&#39;.../&#39;</span>
+<span class="n">cmtgui</span><span class="o">.</span><span class="n">subject_name</span> <span class="o">=</span> <span class="s">&#39;...&#39;</span>
+<span class="n">cmtgui</span><span class="o">.</span><span class="n">subject_timepoint</span> <span class="o">=</span> <span class="s">&#39;...&#39;</span>
+<span class="n">cmtgui</span><span class="o">.</span><span class="n">subject_workingdir</span> <span class="o">=</span> <span class="s">&#39;.../&#39;</span>
+<span class="n">cmt</span><span class="o">.</span><span class="n">connectome</span><span class="o">.</span><span class="n">mapit</span><span class="p">(</span><span class="n">cmtgui</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Comment the following line to stop invoking the GUI:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cmtgui</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -76,39 +165,39 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h3><a href="index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">Installation Instruction</a><ul>
-<li><a class="reference external" href="#dependencies">Dependencies</a></li>
-<li><a class="reference external" href="#project-configuration-and-setup">Project configuration and setup</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation Instruction</a><ul>
+<li><a class="reference internal" href="#step-by-step-guide-for-installation-on-ubuntu-debian">Step-by-Step Guide for Installation on Ubuntu/Debian</a></li>
+<li><a class="reference internal" href="#project-configuration-and-setup">Project configuration and setup</a></li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="index.html"
-                                  title="previous chapter">Connectome Mapping Toolkit documentation</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="mappingsteps.html"
-                                  title="next chapter">Connectome Mapping Modules</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/installation.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Connectome Mapping Toolkit documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mappingsteps.html"
+                        title="next chapter">Connectome Mapping Modules</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/installation.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -129,8 +218,8 @@
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2010, EPFL LTS5 Diffusion MRI Team.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.5.
+        &copy; Copyright 2010, EPFL LTS5 Diffusion MRI Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>
