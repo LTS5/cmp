@@ -15,7 +15,6 @@ packages=["cmt",
           "cmt.modules.postprocessing",
           "cmt.modules.segmentation",
           "cmt.modules.reconstruction",
-          "cmt.modules.mask",
           "cmt.modules.registration",
           "cmt.modules.tractography"]
 
@@ -49,6 +48,19 @@ if not 'extra_setuptools_args' in globals():
 
 def main(**extra_args):
     from distutils.core import setup
+    
+    # regenerate protoc
+    import subprocess
+    protofname = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'cmt', 'pipeline', 'pipeline.proto')
+    protoout = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'cmt', 'pipeline')
+    protopath = os.path.dirname(protofname)
+    cmd = 'protoc %s --proto_path=%s --python_out=%s' % (protofname, protopath, protoout)
+    print "Calling protoc to generate protobuf python file in current version:"
+    print cmd
+    process = subprocess.call( cmd, shell = True,
+                                  stdout = subprocess.PIPE,
+                                  stderr = subprocess.STDOUT )
+    print "protoc return code:", process
     
     setup(name='CMT',
           version='1.0',
