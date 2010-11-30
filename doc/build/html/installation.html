@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Installation Instruction &mdash; Connectome Mapping Toolkit v1.0 documentation</title>
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -41,7 +41,44 @@
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">Connectome Mapping Toolkit v1.0 documentation</a> &raquo;</li> 
       </ul>
-    </div>  
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation Instruction</a><ul>
+<li><a class="reference internal" href="#step-by-step-guide-for-installation-on-ubuntu-debian">Step-by-Step Guide for Installation on Ubuntu/Debian</a></li>
+<li><a class="reference internal" href="#project-configuration-and-setup">Project configuration and setup</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Connectome Mapping Toolkit documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mappingsteps.html"
+                        title="next chapter">Connectome Mapping Modules</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/installation.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -59,10 +96,10 @@
 <div class="highlight-python"><pre>firefox http://neuro.debian.net/</pre>
 </div>
 <p>Install FMRIB Software Library. Using the version in the NeuroDebian repository:</p>
-<div class="highlight-python"><pre>sudo aptitude fsl fslview fslview-doc</pre>
+<div class="highlight-python"><pre>sudo aptitude fsl fslview fslview-doc python-nibabel python-nibabel-doc</pre>
 </div>
 <p>Debian/Ubuntu dependencies:</p>
-<div class="highlight-python"><pre>sudo apt-get install libblitz0-dev libboost-all-dev gitcore python-dicom</pre>
+<div class="highlight-python"><pre>sudo apt-get install libblitz0-dev libboost-all-dev git-core python-dicom</pre>
 </div>
 <p>Install Freesurfer 5.0:</p>
 <div class="highlight-python"><pre>firefox http://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall</pre>
@@ -163,43 +200,6 @@ You can also put the three Python command lines in a Python script, e.g. map_con
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Installation Instruction</a><ul>
-<li><a class="reference internal" href="#step-by-step-guide-for-installation-on-ubuntu-debian">Step-by-Step Guide for Installation on Ubuntu/Debian</a></li>
-<li><a class="reference internal" href="#project-configuration-and-setup">Project configuration and setup</a></li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Connectome Mapping Toolkit documentation</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="mappingsteps.html"
-                        title="next chapter">Connectome Mapping Modules</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/installation.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" size="18" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
       <div class="clearer"></div>
     </div>
     <div class="related">
@@ -218,7 +218,7 @@ You can also put the three Python command lines in a Python script, e.g. map_con
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2010, EPFL LTS5 Diffusion MRI Team.
+        &copy; Copyright 2010, EPFL &amp; UNIL-CHUV.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>

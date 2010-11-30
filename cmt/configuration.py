@@ -106,7 +106,7 @@ class PipelineConfiguration(traits.HasTraits):
         # the default parcellation provided
         default_parcell = {'scale33' : {'number_of_regions' : 0,
                                         # contains name, url, color, freesurfer_label, etc. used for connection matrix
-                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution85'), 'resolution85.graphml'),
+                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution83'), 'resolution83.graphml'),
                                         # scalar node values on fsaverage? or atlas? 
                                         'surface_parcellation' : None,
                                         # scalar node values in fsaverage volume?
@@ -419,7 +419,7 @@ class PipelineConfiguration(traits.HasTraits):
         
         cmt_path = op.dirname(__file__)
         
-        allowed_default_parcel = ['resolution85', 'resolution150', 'resolution258', 'resolution500', 'resolution1015']
+        allowed_default_parcel = ['resolution83', 'resolution150', 'resolution258', 'resolution500', 'resolution1015']
         
         if parcellationname in allowed_default_parcel:
             return op.join(cmt_path, 'data', 'parcellation', 'lausanne2008', parcellationname)

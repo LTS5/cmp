@@ -15,11 +15,11 @@ Install NeuroDebian. Add the NeuroDebian repository to your source list as descr
 
 Install FMRIB Software Library. Using the version in the NeuroDebian repository::
 
-	sudo aptitude fsl fslview fslview-doc
+	sudo aptitude fsl fslview fslview-doc python-nibabel python-nibabel-doc
 
 Debian/Ubuntu dependencies::
 
-	sudo apt-get install libblitz0-dev libboost-all-dev gitcore python-dicom
+	sudo apt-get install libblitz0-dev libboost-all-dev git-core python-dicom
 
 Install Freesurfer 5.0::
 
