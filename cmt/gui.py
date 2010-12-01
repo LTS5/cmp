@@ -249,6 +249,10 @@ Children's Hospital Boston:
         # Pickle the list using the highest protocol available.
         sp.dump(self, output, -1)
         output.close()
+        
+    def show(self):
+        """ Shows the GUI """
+        self.configure_traits()
                     
 #    def _gradient_table_file_default(self):
 #    	return self.get_gradient_table_file()
