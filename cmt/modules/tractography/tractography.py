@@ -94,8 +94,8 @@ def declare_inputs(conf):
     if conf.diffusion_imaging_model == 'DSI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
         conf.pipeline_status.AddStageInput(stage, odf_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
-    elif gconf.diffusion_imaging_model == 'DTI' and \
-        gconf.diffusion_imaging_stream == 'Lausanne2011':
+    elif conf.diffusion_imaging_model == 'DTI' and \
+        conf.diffusion_imaging_stream == 'Lausanne2011':
         pass        
         
     
@@ -110,8 +110,8 @@ def declare_outputs(conf):
     if conf.diffusion_imaging_model == 'DSI' and \
        conf.diffusion_imaging_stream == 'Lausanne2011':
         conf.pipeline_status.AddStageOutput(stage, fibers_path, 'streamline.trk', 'streamline-trk')
-    elif gconf.diffusion_imaging_model == 'DTI' and \
-        gconf.diffusion_imaging_stream == 'Lausanne2011':
+    elif conf.diffusion_imaging_model == 'DTI' and \
+        conf.diffusion_imaging_stream == 'Lausanne2011':
         pass
               
           
