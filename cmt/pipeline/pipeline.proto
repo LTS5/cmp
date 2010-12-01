@@ -1,22 +1,52 @@
 message StageInputOutput
 {
+	// Exact name of file from root directory, or wildcard
 	required string filePath = 1;
-    optional string name = 2;
+	
+	// Name of input or output
+    required string name = 2;
+    
+    // Root directory of input or output
     required string rootDir = 3;    
+    
+    // Type tag - should refer to one of the types declared.  If 
+    // not specified, file is assumed to be of unknown type.    
+    optional string typeTag = 4;
 }
 
 message Stage
 {
+	// Stage number, should be a unique integer.  Filled in automatically
+	// by PipelineStatus python class
     required int32 num = 1;
+    
+    // Name of stage
     required string name = 2;    
 
+	// List of inputs to stage
     repeated StageInputOutput inputs = 3;
+    
+    // List of outputs to stage
     repeated StageInputOutput outputs = 4;
+}
+
+message Type
+{
+	// Tag by which type is referred to, for example "nii", "dcm", "surf"
+	required string tag = 1;
+	
+	// Description of type
+	required string desc = 2;		
 }
 
 message Pipeline
 {
+	// Name of Pipeline
     required string name = 1;
     
+    // List of stages in pipeline
     repeated Stage stages = 2;
+    
+    // List of file types generated/read by pipeline
+    repeated Type types = 3;
 }

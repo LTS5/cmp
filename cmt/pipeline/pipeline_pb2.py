@@ -10,7 +10,7 @@ from google.protobuf import descriptor_pb2
 DESCRIPTOR = descriptor.FileDescriptor(
   name='pipeline.proto',
   package='',
-  serialized_pb='\n\x0epipeline.proto\"C\n\x10StageInputOutput\x12\x10\n\x08\x66ilePath\x18\x01 \x02(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0f\n\x07rootDir\x18\x03 \x02(\t\"i\n\x05Stage\x12\x0b\n\x03num\x18\x01 \x02(\x05\x12\x0c\n\x04name\x18\x02 \x02(\t\x12!\n\x06inputs\x18\x03 \x03(\x0b\x32\x11.StageInputOutput\x12\"\n\x07outputs\x18\x04 \x03(\x0b\x32\x11.StageInputOutput\"0\n\x08Pipeline\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x16\n\x06stages\x18\x02 \x03(\x0b\x32\x06.Stage')
+  serialized_pb='\n\x0epipeline.proto\"T\n\x10StageInputOutput\x12\x10\n\x08\x66ilePath\x18\x01 \x02(\t\x12\x0c\n\x04name\x18\x02 \x02(\t\x12\x0f\n\x07rootDir\x18\x03 \x02(\t\x12\x0f\n\x07typeTag\x18\x04 \x01(\t\"i\n\x05Stage\x12\x0b\n\x03num\x18\x01 \x02(\x05\x12\x0c\n\x04name\x18\x02 \x02(\t\x12!\n\x06inputs\x18\x03 \x03(\x0b\x32\x11.StageInputOutput\x12\"\n\x07outputs\x18\x04 \x03(\x0b\x32\x11.StageInputOutput\"!\n\x04Type\x12\x0b\n\x03tag\x18\x01 \x02(\t\x12\x0c\n\x04\x64\x65sc\x18\x02 \x02(\t\"F\n\x08Pipeline\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x16\n\x06stages\x18\x02 \x03(\x0b\x32\x06.Stage\x12\x14\n\x05types\x18\x03 \x03(\x0b\x32\x05.Type')
 
 
 
@@ -31,7 +31,7 @@ _STAGEINPUTOUTPUT = descriptor.Descriptor(
       options=None),
     descriptor.FieldDescriptor(
       name='name', full_name='StageInputOutput.name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
+      number=2, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -39,6 +39,13 @@ _STAGEINPUTOUTPUT = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='rootDir', full_name='StageInputOutput.rootDir', index=2,
       number=3, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=unicode("", "utf-8"),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    descriptor.FieldDescriptor(
+      name='typeTag', full_name='StageInputOutput.typeTag', index=3,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -53,7 +60,7 @@ _STAGEINPUTOUTPUT = descriptor.Descriptor(
   is_extendable=False,
   extension_ranges=[],
   serialized_start=18,
-  serialized_end=85,
+  serialized_end=102,
 )
 
 
@@ -101,8 +108,43 @@ _STAGE = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=87,
-  serialized_end=192,
+  serialized_start=104,
+  serialized_end=209,
+)
+
+
+_TYPE = descriptor.Descriptor(
+  name='Type',
+  full_name='Type',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    descriptor.FieldDescriptor(
+      name='tag', full_name='Type.tag', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=unicode("", "utf-8"),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    descriptor.FieldDescriptor(
+      name='desc', full_name='Type.desc', index=1,
+      number=2, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=unicode("", "utf-8"),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  serialized_start=211,
+  serialized_end=244,
 )
 
 
@@ -127,6 +169,13 @@ _PIPELINE = descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    descriptor.FieldDescriptor(
+      name='types', full_name='Pipeline.types', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -136,14 +185,15 @@ _PIPELINE = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=194,
-  serialized_end=242,
+  serialized_start=246,
+  serialized_end=316,
 )
 
 
 _STAGE.fields_by_name['inputs'].message_type = _STAGEINPUTOUTPUT
 _STAGE.fields_by_name['outputs'].message_type = _STAGEINPUTOUTPUT
 _PIPELINE.fields_by_name['stages'].message_type = _STAGE
+_PIPELINE.fields_by_name['types'].message_type = _TYPE
 
 class StageInputOutput(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType
@@ -156,6 +206,12 @@ class Stage(message.Message):
   DESCRIPTOR = _STAGE
   
   # @@protoc_insertion_point(class_scope:Stage)
+
+class Type(message.Message):
+  __metaclass__ = reflection.GeneratedProtocolMessageType
+  DESCRIPTOR = _TYPE
+  
+  # @@protoc_insertion_point(class_scope:Type)
 
 class Pipeline(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType

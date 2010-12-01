@@ -155,7 +155,7 @@ class PipelineStatus():
         ----------
         stage:                 stage object to add new output to
         rootDir:               root directory of stage output
-        inputFilePath:         path to file (or wildcard) from rootDir
+        outputFilePath:        path to file (or wildcard) from rootDir
         inputName: [optional]  name of output, if not specified, will be outputFilePath
         typeTag:   [optional]  type tag of output (referring to type declared with AddType), if not
                                specified, no typeTag is set.
