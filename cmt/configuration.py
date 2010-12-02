@@ -1,11 +1,10 @@
-""" The configuration modules exposes a configuration class based on traits
-that is used to create the configuration for a project. Traits attribute are used
-to check if the pipeline supports the options """
+""" The configuration is based on traits and used to create the configuration for a project. """
 
 import enthought.traits.api as traits
 import os.path as op, os
 import sys
 import datetime as dt
+
 from cmt.logme import getLog
 from cmt.pipeline import pipeline_status
 from cmt.util import KeyValue
@@ -197,7 +196,6 @@ class PipelineConfiguration(traits.HasTraits):
         os.environ['FSLOUTPUTTYPE'] = self.fsloutputtype
         os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
                 
-    # XXX: what about deactivated modules?!
     def consistency_check(self):
         """ Provides a checking facility for configuration objects """
         
@@ -215,14 +213,6 @@ class PipelineConfiguration(traits.HasTraits):
             if not op.exists(p):
                 msg = 'Required software path for %s does not exists: %s' % (k, p)
                 raise Exception(msg)
-                
-        if self.diffusion_imaging_model == 'DSI':
-
-            if self.nr_of_gradient_directions is None:
-                raise Exception('Parameter "nr_of_gradient_directions" not set. Required for DSI.')
-                
-            if self.nr_of_sampling_directions is None:
-                raise Exception('Parameter "nr_of_sampling_directions" not set. Required for DSI.')
 
         if self.subject_workingdir == '':
             msg = 'No working directory defined for subject'
