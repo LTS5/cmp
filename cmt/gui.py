@@ -71,6 +71,11 @@ class CMTGUI( PipelineConfiguration ):
                     Item('generator', label='Generator', ),
                       label="Project Settings"
                     ),
+                    VGroup(
+                    Item('diffusion_imaging_model', label='Imaging Model'),
+                    Item('diffusion_imaging_stream', label='Imaging Stream'),
+                    show_border = False,
+                    ),
                     HGroup(
                         VGroup(
                         Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
@@ -191,8 +196,14 @@ class CMTGUI( PipelineConfiguration ):
         VGroup(
                Item('streamline_param', label="DTB_streamline Parameters"),
                show_border = True,
-               enabled_when = "active_tractography"   
+               visible_when = "diffusion_imaging_model == 'DSI'",   
             ),
+        VGroup(
+               Item('streamline_param_dti', label="dti_tracker Parameters"),
+               show_border = True,
+               visible_when = "diffusion_imaging_model == 'DTI'"   
+            ),
+        enabled_when = "active_tractography",
         visible_when = "active_tractography",
         label = "Tractography",                         
         )

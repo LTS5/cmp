@@ -60,8 +60,8 @@ def fiber_tracking_dti():
     ten_out_path = gconf.get_cmt_rawdiff_reconout()
     
     # streamline tractography
-    if not gconf.streamline_param == '':
-        param = gconf.streamline_param
+    if not gconf.streamline_param_dti == '':
+        param = gconf.streamline_param_dti
     else:
         param = ''
 

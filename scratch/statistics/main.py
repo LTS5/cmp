@@ -10,4 +10,5 @@ hist(a,100)
 g=nx.read_gpickle('matrices/cmat.pickle')
 G=g['scale33']['graph']
 ma=nx.to_numpy_matrix(G)
+figure()
 imshow(ma,vmin=ma.min(), vmax=ma.max(), interpolation='nearest')
