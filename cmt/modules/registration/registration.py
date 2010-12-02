@@ -268,7 +268,7 @@ def run(conf):
     globals()['log'] = gconf.get_logger() 
     start = time()
     
-    if gconf.registration_mode == 'N':
+    if gconf.registration_mode == 'Nonlinear':
         nlin_regT12b0()
     else:
         lin_regT12b0()
@@ -288,7 +288,7 @@ def declare_inputs(conf):
     conf.pipeline_status.AddStageInput(stage, nifti_dir, 'Diffusion_b0_resampled.nii', 'diffusion-resampled-nii')
     conf.pipeline_status.AddStageInput(stage, nifti_dir, 'T1.nii', 't1-nii')
     
-    if conf.registration_mode == 'N':
+    if conf.registration_mode == 'Nonlinear':
         conf.pipeline_status.AddStageInput(stage, nifti_dir, 'T2.nii', 't2-nii')
         
                 
@@ -303,7 +303,7 @@ def declare_outputs(conf):
     conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1-TO-b0.nii', 'T1-TO-B0-nii')
     conf.pipeline_status.AddStageOutput(stage, nifti_trafo_dir, 'T1-TO-b0.mat', 'T1-TO-b0-mat')
     
-    if conf.registration_mode == 'N':
+    if conf.registration_mode == 'Nonlinear':
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1-TO-T2.nii', 'T1-TO-T2-nii')
         conf.pipeline_status.AddStageOutput(stage, nifti_trafo_dir, 'T1-TO-T2.mat', 'T1-TO-T2-mat')
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2-TO-b0.nii', 'T2-TO-b0-nii')

@@ -66,7 +66,7 @@ class CMTGUI( PipelineConfiguration ):
                         Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
                         Item('active_registration', label = 'Registration'),
                         Item('active_segmentation', label = 'Segmentation'),
-                        Item('active_maskcreation', label = 'Mask Creation'),
+                        Item('active_parcellation', label = 'Parcellation'),
     		            Item('active_reconstruction', label = 'Reconstruction'),
                         Item('active_tractography', label = 'Tractography', tooltip = 'performs tractography'),
                         Item('active_fiberfilter', label = 'Fiber Filtering', tooltip = 'applies filtering operation to the fibers'),
@@ -74,11 +74,11 @@ class CMTGUI( PipelineConfiguration ):
                         # Item('active_statistics', label = 'Statistics'),
                         Item('active_cffconverter', label = 'CFF Converter', tooltip='converts processed files to a connectome file'),
                         Item('skip_completed_stages', label = 'Skip Previously Completed Stages:'),
-                        label="Execute"     
+                        label="Stages"     
                         ),
-                        VGroup(
-                        label="Status",
-                        )
+                        #VGroup(
+                        #label="Status",
+                        #)
                     ),
                     label = "Main",
                     show_border = False
@@ -121,14 +121,14 @@ class CMTGUI( PipelineConfiguration ):
                Item('registration_mode', label="Registration"),
                VGroup(
                       Item('lin_reg_param', label='FLIRT Parameters'),
-                      enabled_when = 'registration_mode == "L"',
+                      enabled_when = 'registration_mode == "Linear"',
                       label = "Linear Registration"
                       ),
                VGroup(
                       Item('nlin_reg_bet_T2_param', label="BET T2 Parameters"),
                       Item('nlin_reg_bet_b0_param', label="BET b0 Parameters"),
                       Item('nlin_reg_fnirt_param', label="FNIRT Parameters"),
-                      enabled_when = 'registration_mode == "N"',
+                      enabled_when = 'registration_mode == "Nonlinear"',
                       label = "Nonlinear Registration"
                ),
                show_border = True,
@@ -137,7 +137,24 @@ class CMTGUI( PipelineConfiguration ):
         visible_when = "active_registration",
         label = "Registration",                         
         )
-            
+
+    parcellation_group = Group(
+        VGroup(
+               Item('parcellation_scheme', label="Parcellation Scheme"),
+               VGroup(
+                      Item('custompar_nrroi', label="Number of ROI"),
+                      Item('custompar_nodeinfo', label="Node Information (GraphML)"),
+                      Item('custompar_volumeparcell', label="Volumetric parcellation"),
+                      enabled_when = 'parcellation_scheme == "custom"',
+                      label = "Custom Parcellation"
+               ),
+               show_border = True,
+               enabled_when = "active_registration"
+            ),
+        visible_when = "active_parcellation",
+        label = "Parcellation",                         
+        )
+    
     reconstruction_group = Group(
         VGroup(
                Item('nr_of_gradient_directions', label="Number of Gradient Directions"),
@@ -204,6 +221,7 @@ class CMTGUI( PipelineConfiguration ):
               metadata_group,
               subject_group,
               registration_group,
+              parcellation_group,
               reconstruction_group,
               tractography_group,
               fiberfilter_group,
@@ -235,6 +253,7 @@ Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland
 Contact
 -------
 info@connectomics.org
+http://www.connectomics.org/
 
 Contributors
 ------------

@@ -213,7 +213,7 @@ def run(conf):
     t12nifti_diff_unpack()
     reorient_t1(gconf.diffusion_imaging_model)
     
-    if gconf.registration_mode == 'N':
+    if gconf.registration_mode == 'Nonlinear':
         t22nifti_diff_unpack()
         reorient_t2(gconf.diffusion_imaging_model)
 
@@ -245,7 +245,7 @@ def declare_inputs(conf):
         
     conf.pipeline_status.AddStageInput(stage, t1_dir, raw_glob, 't1-dcm')
     
-    if conf.registration_mode == 'N':
+    if conf.registration_mode == 'Nonlinear':
         conf.pipeline_status.AddStageInput(stage, t2_dir, raw_glob, 't2-dcm')        
                 
     
@@ -279,7 +279,7 @@ def declare_outputs(conf):
     conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'Diffusion_b0_resampled.nii', 'diffusion-resampled-nii')        
     conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1.nii', 't1-nii')
     
-    if conf.registration_mode == 'N':
+    if conf.registration_mode == 'Nonlinear':
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2.nii', 't2-nii')
         
        

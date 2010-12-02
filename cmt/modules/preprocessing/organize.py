@@ -42,7 +42,7 @@ def create_folders():
         op.join(gconf.get_fs(), 'mri', 'orig')
         ]
 
-    if gconf.registration_mode == 'N':
+    if gconf.registration_mode == 'Nonlinear':
         paths.append(gconf.get_rawt2())
 
     for p in gconf.parcellation.keys():

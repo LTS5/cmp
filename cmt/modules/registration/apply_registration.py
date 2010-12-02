@@ -122,9 +122,9 @@ def run(conf):
     
     start = time()
     
-    if gconf.registration_mode == 'N':
+    if gconf.registration_mode == 'Nonlinear':
         apply_nlin_registration()
-    elif gconf.registration_mode == 'L':
+    elif gconf.registration_mode == 'Linear':
         apply_lin_registration()
     
     log.info("Module took %s seconds to process." % (time()-start))
@@ -142,10 +142,10 @@ def declare_inputs(conf):
     tracto_masks_path = conf.get_cmt_tracto_mask()
     
     
-    if conf.registration_mode == 'N':
+    if conf.registration_mode == 'Nonlinear':
         conf.pipeline_status.AddStageInput(stage, nifti_trafo_dir, 'T1-TO-T2.mat', 'T1-TO-T2-mat')
     
-    elif conf.registration_mode == 'L':
+    elif conf.registration_mode == 'Linear':
         conf.pipeline_status.AddStageInput(stage, nifti_trafo_dir, 'T1-TO-b0.mat', 'T1-TO-b0-mat')
         
     conf.pipeline_status.AddStageInput(stage, tracto_masks_path, 'fsmask_1mm.nii', 'fsmask_1mm-nii')        

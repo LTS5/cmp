@@ -20,8 +20,11 @@ class PipelineConfiguration(traits.HasTraits):
     project_metadata = traits.Dict(desc="project metadata to be stored in the connectome file")
     generator = traits.Enum( "cmt 1.0", ["cmt 1.0"] )
     
+    # parcellation scheme
+    parcellation_scheme = traits.Enum("Lausanne2008", ["Lausanne2008"], desc="used parcellation scheme")
+    
     # choose between 'L' (linear) and 'N' (non-linear)
-    registration_mode = traits.Enum("L", ["L", "N"], desc="registration mode: linear or non-linear")
+    registration_mode = traits.Enum("Linear", ["Linear", "Nonlinear"], desc="registration mode: linear or non-linear")
     
     # going to support qBall, HARDI
     diffusion_imaging_model = traits.Enum( "DSI", ["DSI", "DTI"])
@@ -69,7 +72,7 @@ class PipelineConfiguration(traits.HasTraits):
     active_dicomconverter = traits.Bool(True)
     active_registration = traits.Bool(True)
     active_segmentation = traits.Bool(True)
-    active_maskcreation = traits.Bool(True)
+    active_parcellation = traits.Bool(True)
     active_reconstruction = traits.Bool(True)
     active_tractography = traits.Bool(True)
     active_fiberfilter = traits.Bool(True)
@@ -89,6 +92,11 @@ class PipelineConfiguration(traits.HasTraits):
     url = traits.Str()
     description = traits.Str()
     
+    # parcellation
+    custompar_nrroi = traits.Int()
+    custompar_nodeinfo = traits.File()
+    custompar_volumeparcell = traits.File()
+    
     # fiber filtering
     apply_splinefilter = traits.Bool(True, desc='apply the spline filtering from diffusion toolkit')
     apply_fiberlengthcutoff = traits.Float(3.0, desc='cut fibers that are shorter in length than given length') 
@@ -105,7 +113,7 @@ class PipelineConfiguration(traits.HasTraits):
     
     # email notification, needs a local smtp server
     # sudo apt-get install postfix
-    emailnotify = traits.ListStr([], desc='the email address to send to')
+    emailnotify = traits.ListStr([], desc='the email address to send stage completion status message')
     
     freesurfer_home = traits.Directory(exists=False, desc="path to Freesurfer")
     fsl_home = traits.Directory(exists=False, desc="path to FSL")
