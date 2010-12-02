@@ -393,4 +393,31 @@ def run(conf):
     if not len(gconf.emailnotify) == 0:
         msg = "Mask creation module finished!\nIt took %s seconds." % int(time()-start)
         send_email_notification(msg, gconf.emailnotify, log)  
+        
+def declare_inputs(conf):
+    """Declare the inputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)    
+    fs_dir = conf.get_fs()    
 
+    hemispheres = [ 'rh', 'lh' ]
+    for hemi in hemispheres:
+        conf.pipeline_status.AddStageInput(stage, op.join(fs_dir, 'surf'), '%s.sphere.reg' % (hemi), '%s.sphere.reg' % (hemi))
+    
+    conf.pipeline_status.AddStageInput(stage, op.join(fs_dir, 'mri'), 'aseg.mgz', 'aseg-mgz')
+
+    
+def declare_outputs(conf):
+    """Declare the outputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    reg_path = conf.get_cmt_tracto_mask()
+    
+    conf.pipeline_status.AddStageOutput(stage, reg_path, 'aseg.nii', 'aseg-nii')
+    conf.pipeline_status.AddStageOutput(stage, reg_path, 'ribbon.nii', 'ribbon-nii')    
+    conf.pipeline_status.AddStageOutput(stage, reg_path, 'fsmask_1mm.nii', 'fsmask_1mm-nii')
+    conf.pipeline_status.AddStageOutput(stage, reg_path, 'cc_unknown.nii', 'cc_unknown-nii')
+        
+    for p in conf.parcellation.keys():
+        conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % (p))
+                

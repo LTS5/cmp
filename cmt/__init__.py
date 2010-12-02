@@ -37,3 +37,5 @@ import modules.stats.fiber_statistics as fiberstatistics
 # CFF CONVERTER
 import modules.converter.cffconverter as cffconverter
 
+# Pipeline Status
+import pipeline.pipeline_status as pipeline_status

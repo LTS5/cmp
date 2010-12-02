@@ -152,3 +152,26 @@ def run(conf):
         msg = "Freesurfer module finished!\nIt took %s seconds." % int(time()-start)
         send_email_notification(msg, gconf.emailnotify, log)
           
+def declare_inputs(conf):
+    """Declare the inputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    nifti_dir = conf.get_nifti()    
+
+    conf.pipeline_status.AddStageInput(stage, nifti_dir, 'T1.nii', 't1-nii')
+    
+def declare_outputs(conf):
+    """Declare the outputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    nifti_dir = conf.get_nifti()
+    fs_dir = conf.get_fs()
+
+    # Freesurfer outputs a lot of files, declaring some key outputs here that are used
+    # by subsequent stages.  Others could be added...
+    hemispheres = [ 'rh', 'lh' ]
+    for hemi in hemispheres:
+        conf.pipeline_status.AddStageOutput(stage, op.join(fs_dir, 'surf'), '%s.sphere.reg' % (hemi), '%s.sphere-reg' % (hemi))
+        
+    conf.pipeline_status.AddStageOutput(stage, op.join(fs_dir, 'mri'), 'aseg.mgz', 'aseg-mgz')
+            

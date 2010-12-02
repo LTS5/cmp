@@ -132,4 +132,36 @@ def run(conf):
     if not len(gconf.emailnotify) == 0:
         msg = "Apply registration module finished!\nIt took %s seconds." % int(time()-start)
         send_email_notification(msg, gconf.emailnotify, log)  
+        
+        
+def declare_inputs(conf):
+    """Declare the inputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    nifti_trafo_dir = conf.get_nifti_trafo()    
+    tracto_masks_path = conf.get_cmt_tracto_mask()
+    
+    
+    if conf.registration_mode == 'N':
+        conf.pipeline_status.AddStageInput(stage, nifti_trafo_dir, 'T1-TO-T2.mat', 'T1-TO-T2-mat')
+    
+    elif conf.registration_mode == 'L':
+        conf.pipeline_status.AddStageInput(stage, nifti_trafo_dir, 'T1-TO-b0.mat', 'T1-TO-b0-mat')
+        
+    conf.pipeline_status.AddStageInput(stage, tracto_masks_path, 'fsmask_1mm.nii', 'fsmask_1mm-nii')        
+    for p in conf.parcellation.keys():
+        conf.pipeline_status.AddStageInput(stage, op.join(tracto_masks_path, p), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % (p))    
+
+    
+def declare_outputs(conf):
+    """Declare the outputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    tracto_masks_path_out = conf.get_cmt_tracto_mask_tob0()
+            
+    conf.pipeline_status.AddStageOutput(stage, tracto_masks_path_out, 'fsmask_1mm.nii', 'fsmask_1mm-nii')            
+    for p in conf.parcellation.keys():
+        conf.pipeline_status.AddStageOutput(stage, op.join(tracto_masks_path_out, p), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % (p))
+                
+        
     

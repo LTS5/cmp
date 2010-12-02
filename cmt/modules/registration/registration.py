@@ -278,4 +278,38 @@ def run(conf):
     if not len(gconf.emailnotify) == 0:
         msg = "Registration module finished!\nIt took %s seconds." % int(time()-start)
         send_email_notification(msg, gconf.emailnotify, log)
-          
+        
+def declare_inputs(conf):
+    """Declare the inputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    nifti_dir = conf.get_nifti()
+
+    conf.pipeline_status.AddStageInput(stage, nifti_dir, 'Diffusion_b0_resampled.nii', 'diffusion-resampled-nii')
+    conf.pipeline_status.AddStageInput(stage, nifti_dir, 'T1.nii', 't1-nii')
+    
+    if conf.registration_mode == 'N':
+        conf.pipeline_status.AddStageInput(stage, nifti_dir, 'T2.nii', 't2-nii')
+        
+                
+    
+def declare_outputs(conf):
+    """Declare the outputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+    nifti_dir = conf.get_nifti()
+    nifti_trafo_dir = conf.get_nifti_trafo()
+
+    conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1-TO-b0.nii', 'T1-TO-B0-nii')
+    conf.pipeline_status.AddStageOutput(stage, nifti_trafo_dir, 'T1-TO-b0.mat', 'T1-TO-b0-mat')
+    
+    if conf.registration_mode == 'N':
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1-TO-T2.nii', 'T1-TO-T2-nii')
+        conf.pipeline_status.AddStageOutput(stage, nifti_trafo_dir, 'T1-TO-T2.mat', 'T1-TO-T2-mat')
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2-TO-b0.nii', 'T2-TO-b0-nii')
+        conf.pipeline_status.AddStageOutput(stage, nifti_trafo_dir, 'T2-TO-b0.mat', 'T2-TO-b0-mat')
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2-brain-mask.nii', 'T2-brain-mask-nii')
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'b0-brain-mask.nii', 'b0-brain-mask-nii')
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2-TO-b0_warped.nii', 'T2-TO-b0_warped-nii')
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1-TO-b0_warped.nii', 'T1-TO-b0_warped-nii')
+

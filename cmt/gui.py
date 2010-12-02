@@ -46,24 +46,24 @@ class CMTGUI( PipelineConfiguration ):
                     Item('generator', label='Generator', ),
                       label="Project Settings"
                     ),
-                    VGroup(
-                    Item('diffusion_imaging_model', label='Imaging Model'),
-                    Item('diffusion_imaging_stream', label='Stream Type'),
-                    label = 'Imaging Stream',
-                    show_border = False,                
-                    ),
-                    VGroup(
-                    Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
-                    Item('active_registration', label = 'Registration'),
-                    Item('active_segmentation', label = 'Segmentation'),
-                    Item('active_maskcreation', label = 'ROI/Mask Creation'),
-		            Item('active_reconstruction', label = 'Reconstruction'),
-                    Item('active_tractography', label = 'Tractography'),
-                    Item('active_fiberfilter', label = 'Fiber Filtering'),
-                    Item('active_connectome', label = 'Connectome Creation'),
-                   # Item('active_statistics', label = 'Statistics'),
-                    Item('active_cffconverter', label = 'CFF Converter'),
-                    label="Execute"     
+                    HGroup(
+                        VGroup(
+                        Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
+                        Item('active_registration', label = 'Registration'),
+                        Item('active_segmentation', label = 'Segmentation'),
+                        Item('active_maskcreation', label = 'Mask Creation'),
+    		            Item('active_reconstruction', label = 'Reconstruction'),
+                        Item('active_tractography', label = 'Tractography'),
+                        Item('active_fiberfilter', label = 'Fiberfiltering'),
+                        Item('active_connectome', label = 'Connectome Creation'),
+                        Item('active_statistics', label = 'Statistics'),
+                        Item('active_cffconverter', label = 'CFF Converter'),
+                        Item('skip_completed_stages', label = 'Skip Previously Completed Stages.'),
+                        label="Execute"     
+                        ),
+                        VGroup(
+                        label="Status",
+                        )
                     ),
                     label = "Main",
                     show_border = False

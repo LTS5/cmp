@@ -222,4 +222,64 @@ def run(conf):
     if not len(gconf.emailnotify) == 0:
         msg = "DICOM Converter module finished!\nIt took %s seconds." % int(time()-start)
         send_email_notification(msg, gconf.emailnotify, log)    
+        
+def declare_inputs(conf):
+    """Declare the inputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
 
+    raw_dir = op.join(conf.get_rawdata())        
+    nifti_dir = op.join(conf.get_nifti())
+    dsi_dir = op.join(raw_dir, 'DSI')
+    raw_glob = conf.get_rawglob('diffusion')
+    diffme = conf.get_diffusion_metadata()
+    dti_dir = op.join(raw_dir, 'DTI')
+    t1_dir = op.join(raw_dir, 'T1')
+    t2_dir = op.join(raw_dir, 'T2')
+        
+    if conf.diffusion_imaging_model == 'DSI':
+        conf.pipeline_status.AddStageInput(stage, dsi_dir, raw_glob, 'dsi-dcm')        
+                
+    elif conf.diffusion_imaging_model == 'DTI':
+        conf.pipeline_status.AddStageInput(stage, dti_dir, raw_glob, 'dti-dcm')
+        
+    conf.pipeline_status.AddStageInput(stage, t1_dir, raw_glob, 't1-dcm')
+    
+    if conf.registration_mode == 'N':
+        conf.pipeline_status.AddStageInput(stage, t2_dir, raw_glob, 't2-dcm')        
+                
+    
+def declare_outputs(conf):
+    """Declare the outputs to the stage to the PipelineStatus object"""
+    
+    stage = conf.pipeline_status.GetStage(__name__)
+
+    raw_dir = op.join(conf.get_rawdata())        
+    nifti_dir = op.join(conf.get_nifti())
+    dsi_dir = op.join(raw_dir, 'DSI')
+    raw_glob = conf.get_rawglob('diffusion')
+    diffme = conf.get_diffusion_metadata()
+    dti_dir = op.join(raw_dir, 'DTI')
+    
+    if conf.diffusion_imaging_model == 'DSI':
+        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_affine.txt', 'affine')
+        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_bvals.txt', 'bvals')
+        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_bvects.txt', 'bvects')
+        conf.pipeline_status.AddStageOutput(stage, diffme, 'gradient_table.txt', 'gradient_table')
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'DSI.nii', 'dsi-nii')
+        
+        
+    elif conf.diffusion_imaging_model == 'DTI':
+        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_affine.txt', 'affine')
+        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_bvals.txt', 'bvals')
+        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_bvects.txt', 'bvects')
+        conf.pipeline_status.AddStageOutput(stage, diffme, 'gradient_table.txt', 'gradient_table')
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'DTI.nii', 'dti-nii')
+
+    conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'Diffusion_b0_resampled.nii', 'diffusion-resampled-nii')        
+    conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1.nii', 't1-nii')
+    
+    if conf.registration_mode == 'N':
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2.nii', 't2-nii')
+        
+       
