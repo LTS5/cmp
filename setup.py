@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Connectome Mapping Toolkit
+"""Connectome Mapping Pipeline
 """
 from glob import glob
 import os
@@ -61,9 +61,9 @@ def main(**extra_args):
                                   stderr = subprocess.STDOUT )
     print "protoc return code:", process
     
-    setup(name='CMT',
+    setup(name='CMP',
           version='1.0',
-          description='Connectome Mapping Toolkit',
+          description='Connectome Mapping Pipeline',
           author='EPFL LTS5 Diffusion Group',
           author_email='info@connectomics.org',
           url='http://www.connectomics.org/',

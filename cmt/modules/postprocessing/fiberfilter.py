@@ -60,7 +60,8 @@ def run(conf):
     globals()['log'] = gconf.get_logger() 
     start = time()
     
-    spline_filtering()
+    if gconf.apply_splinefilter:
+        spline_filtering()
     
     log.info("Module took %s seconds to process." % (time()-start))
     

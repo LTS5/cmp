@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Connectome Mapping Toolkit documentation build configuration file, created by
+# Connectome Mapping Pipeline documentation build configuration file, created by
 # sphinx-quickstart on Wed Sep  1 13:43:40 2010.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -158,7 +158,7 @@ html_static_path = ['cmtstatic']
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'ConnectomeMappingToolkitdoc'
+htmlhelp_basename = 'ConnectomeMappingPipelinedoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -172,7 +172,7 @@ htmlhelp_basename = 'ConnectomeMappingToolkitdoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'ConnectomeMappingToolkit.tex', u'Connectome Mapping Toolkit Documentation',
+  ('index', 'ConnectomeMappingToolkit.tex', u'Connectome Mapping Pipeline Documentation',
    u'EPFL LTS5 Diffusion MRI Team', 'manual'),
 ]
 

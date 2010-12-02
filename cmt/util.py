@@ -2,7 +2,12 @@ import os, os.path as op
 import shutil
 import subprocess
 from logme import *
-
+from enthought.traits.api import HasStrictTraits, Str
+    
+class KeyValue(HasStrictTraits):
+    key = Str
+    value = Str
+    
 def mymove(src, dst, log, copy = False):
     """ Custom move function with target checking and logging """
     

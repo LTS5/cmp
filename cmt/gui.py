@@ -1,16 +1,20 @@
-""" Defines the graphical user interface to the Connectome Mapping Toolkit
+""" Defines the graphical user interface to the Connectome Mapping Pipeline
 """
+import os.path    
+import threading
 
 from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
                  Bool, File, Button, Enum
     
 from enthought.traits.ui.api import View, Item, HGroup, Handler, \
-                    message, spring, Group, VGroup
-                    
-import threading
+                    message, spring, Group, VGroup, TableEditor
+
+from enthought.traits.ui.table_column \
+    import ObjectColumn
+    
 from cmt.configuration import PipelineConfiguration
 import cmt.connectome
-import os.path
+from cmt.util import KeyValue
 
 class CMTThread( threading.Thread ):
 
@@ -23,6 +27,17 @@ class CMTThread( threading.Thread ):
         cmt.connectome.mapit(self.gconf)
         print "Ended CMT Thread."
         
+table_editor = TableEditor(
+    columns     = [ ObjectColumn( name = 'key',  width = 0.2 ),
+                    ObjectColumn( name = 'value',   width = 0.6 ), ],
+    editable    = True,
+    deletable   = True,
+    sortable    = True,
+    sort_model  = True,
+    auto_size   = False,
+    row_factory = KeyValue
+)
+
 
 class CMTGUI( PipelineConfiguration ):
     """ The Graphical User Interface for the CMT
@@ -53,12 +68,12 @@ class CMTGUI( PipelineConfiguration ):
                         Item('active_segmentation', label = 'Segmentation'),
                         Item('active_maskcreation', label = 'Mask Creation'),
     		            Item('active_reconstruction', label = 'Reconstruction'),
-                        Item('active_tractography', label = 'Tractography'),
-                        Item('active_fiberfilter', label = 'Fiberfiltering'),
-                        Item('active_connectome', label = 'Connectome Creation'),
-                        Item('active_statistics', label = 'Statistics'),
-                        Item('active_cffconverter', label = 'CFF Converter'),
-                        Item('skip_completed_stages', label = 'Skip Previously Completed Stages.'),
+                        Item('active_tractography', label = 'Tractography', tooltip = 'performs tractography'),
+                        Item('active_fiberfilter', label = 'Fiber Filtering', tooltip = 'applies filtering operation to the fibers'),
+                        Item('active_connectome', label = 'Connectome Creation', tooltip= 'creates the connectivity matrices'),
+                        # Item('active_statistics', label = 'Statistics'),
+                        Item('active_cffconverter', label = 'CFF Converter', tooltip='converts processed files to a connectome file'),
+                        Item('skip_completed_stages', label = 'Skip Previously Completed Stages:'),
                         label="Execute"     
                         ),
                         VGroup(
@@ -90,10 +105,12 @@ class CMTGUI( PipelineConfiguration ):
             Item('subject_name',label="Name"),
             Item('subject_timepoint',label="Timepoint"),
             Item('subject_workingdir',label="Working Directory"),
-            Item('subject_description',label="Description"),
             Item('subject_raw_glob_diffusion',label="Diffusion File Pattern"),
             Item('subject_raw_glob_T1',label="T1 File Pattern"),
             Item('subject_raw_glob_T2',label="T2 File Pattern"),
+            Item( 'subject_metadata',
+                  label  = 'Metadata',
+                  editor = table_editor ),
             show_border = True
         ),
         label = "Subject"
@@ -153,6 +170,17 @@ class CMTGUI( PipelineConfiguration ):
         label = "Tractography",                         
         )
     
+    fiberfilter_group = Group(
+        VGroup(
+               Item('apply_splinefilter', label="Apply spline filter"),
+               Item('apply_fiberlengthcutoff', label="Apply fiber length cutoff (mm)"),
+               show_border = True,
+               enabled_when = "active_fiberfilter"   
+            ),
+        visible_when = "active_fiberfilter",
+        label = "Fiber Filtering",                         
+        )
+    
     configuration_group = Group(
         VGroup(
                Item('emailnotify', label='E-Mail Notification'),
@@ -178,6 +206,7 @@ class CMTGUI( PipelineConfiguration ):
               registration_group,
               reconstruction_group,
               tractography_group,
+              fiberfilter_group,
               configuration_group,
               orientation= 'horizontal',
               layout='tabbed'
@@ -193,11 +222,11 @@ class CMTGUI( PipelineConfiguration ):
             ),
         ),
         resizable = True,
-        title     = 'Connectome Mapping Toolkit',
+        title     = 'Connectome Mapping Pipeline',
     )
     
     def _about_fired(self):
-        msg = """Connectome Mapping Toolkit
+        msg = """Connectome Mapping Pipeline
 Version 1.0
 
 Copyright (C) 2010, Ecole Polytechnique Federale de Lausanne (EPFL) and

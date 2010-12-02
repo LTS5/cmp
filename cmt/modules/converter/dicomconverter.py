@@ -33,7 +33,7 @@ def diff2nifti_dsi_unpack():
                                  op.join(nifti_dir, 'DSI.nii'))            
         runCmd(diff_cmd, log)
         
-        # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
+        # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
         data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, raw_glob)
         del data
         import numpy as np
@@ -90,7 +90,7 @@ def diff2nifti_dti_unpack():
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii'))            
         runCmd(diff_cmd, log)
         
-        # extract bvals, bvects, affine from dsi and store them as .txt in 2__NIFTI
+        # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
         data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, raw_glob)
         del data
         import numpy as np

@@ -22,7 +22,7 @@ def mapit(cobj):
                (cmt.tractography, cobj.active_tractography),
                (cmt.fiberfilter, cobj.active_fiberfilter),
                (cmt.connectionmatrix, cobj.active_connectome),
-               (cmt.fiberstatistics, cobj.active_statistics),               
+              # (cmt.fiberstatistics, cobj.active_statistics),               
                (cmt.cffconverter, cobj.active_cffconverter) ]
     
     for stage,stageEnabled in stages:

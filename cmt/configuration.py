@@ -8,6 +8,7 @@ import sys
 import datetime as dt
 from cmt.logme import getLog
 from cmt.pipeline import pipeline_status
+from cmt.util import KeyValue
 
 class PipelineConfiguration(traits.HasTraits):
        
@@ -40,8 +41,10 @@ class PipelineConfiguration(traits.HasTraits):
     max_b0_val = traits.Int(1000)
     dti_recon_param = traits.Str('')
                
+    # tractography
     streamline_param = traits.Str('--angle 60 --rSeed 4')
     
+    # registration
     lin_reg_param = traits.Str('-usesqform -nosearch -dof 6 -cost mutualinfo')
     nlin_reg_bet_T2_param = traits.Str('-f 0.35 -g 0.15')
     nlin_reg_bet_b0_param = traits.Str('-f 0.2 -g 0.2')
@@ -51,11 +54,17 @@ class PipelineConfiguration(traits.HasTraits):
     subject_name = traits.Str(  )
     subject_timepoint = traits.Str( )
     subject_workingdir = traits.Directory()
-    subject_description = traits.Str( "" )
     subject_raw_glob_diffusion = traits.Str( "*.ima" )
     subject_raw_glob_T1 = traits.Str( "*.ima" )
     subject_raw_glob_T2 = traits.Str( "*.ima" )
     subject_logger = None
+    subject_metadata = [KeyValue(key='description', value=''),
+                        KeyValue(key='', value=''),
+                        KeyValue(key='', value=''),
+                        KeyValue(key='', value=''),
+                        KeyValue(key='', value=''),
+                        KeyValue(key='', value=''),]
+    
     
     active_dicomconverter = traits.Bool(True)
     active_registration = traits.Bool(True)
@@ -69,16 +78,20 @@ class PipelineConfiguration(traits.HasTraits):
     active_cffconverter = traits.Bool(True)
     skip_completed_stages = traits.Bool(False)
 
+    # metadata
     author = traits.Str()
     institution = traits.Str()
-    creationdate = traits.Str()
-    modificationdate = traits.Str()
-    species = traits.Str()
+    creationdate = traits.Date()
+    modificationdate = traits.Date()
+    species = traits.Str('Homo sapiens')
     legalnotice = traits.Str()
     reference = traits.Str()
     url = traits.Str()
     description = traits.Str()
-                  
+    
+    # fiber filtering
+    apply_splinefilter = traits.Bool(True, desc='apply the spline filtering from diffusion toolkit')
+    apply_fiberlengthcutoff = traits.Float(3.0, desc='cut fibers that are shorter in length than given length') 
                         
     # do you want to do manual whit matter mask correction?
     wm_handling = traits.Enum(1, [1,2,3], desc="in what state should the freesurfer step be processed")

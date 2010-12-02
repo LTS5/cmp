@@ -7,7 +7,7 @@ from ...logme import *
 
 def copy_orig_to_fs():
     
-    log.info("Copying '2__NIFTI/T1.nii' dataset to 'FREESURFER/mri/orig/001.mgz'...")
+    log.info("Copying 'NIFTI/T1.nii' dataset to 'FREESURFER/mri/orig/001.mgz'...")
 
     fs_4subj_mri = op.join(gconf.get_fs(), 'mri', 'orig')
 
