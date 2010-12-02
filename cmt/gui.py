@@ -197,7 +197,19 @@ class CMTGUI( PipelineConfiguration ):
         visible_when = "active_fiberfilter",
         label = "Fiber Filtering",                         
         )
-    
+
+    cffconverter_group = Group(
+        VGroup(
+               Item('cff_fullnetworkpickle', label="Full Network"),
+               Item('cff_filteredfibers', label="Tractography"),
+               Item('cff_roisegmentation', label="Parcellation Volumes"),
+               Item('cff_surfaces', label="Individual surfaces", tooltip = 'stores individually genertated surfaces'),
+               show_border = True,
+            ),
+        visible_when = "active_cffconverter",
+        label = "CFF Converter",                         
+        )                    
+
     configuration_group = Group(
         VGroup(
                Item('emailnotify', label='E-Mail Notification'),
@@ -225,6 +237,7 @@ class CMTGUI( PipelineConfiguration ):
               reconstruction_group,
               tractography_group,
               fiberfilter_group,
+              cffconverter_group,
               configuration_group,
               orientation= 'horizontal',
               layout='tabbed'
