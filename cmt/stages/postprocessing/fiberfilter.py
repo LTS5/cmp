@@ -27,12 +27,6 @@ def filter_fibers():
     log.info("Fiber Filtering")
     log.info("===============")
 
-    try:
-        import dipy
-    except ImportError:
-        log.info("Can not run filter fibers because DiPy is missing")
-        return
-
     intrk = op.join(gconf.get_cmt_fibers(), 'streamline.trk')
     outtrk = op.join(gconf.get_cmt_fibers(), 'streamline_beforefilter.trk')
     

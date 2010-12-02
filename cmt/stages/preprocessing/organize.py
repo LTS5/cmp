@@ -90,6 +90,9 @@ def run(conf):
     log.info("Preprocessing")
     log.info("=============")
 
+    log.error("Blubb")
+    log.debug("dd")
+
     log_system_setup()
     create_folders()
     set_env_vars()

@@ -16,6 +16,14 @@ from cmt.configuration import PipelineConfiguration
 import cmt.connectome
 from cmt.util import KeyValue
 
+# check if connectomeviewer including compiled dipy is available
+# if so, we can use more fast options in the pipeline
+try:
+    dipy_here = True
+    import cviewer.libs.dipy.core.track_performance
+except ImportError:
+    dipy_here = False
+
 class CMTThread( threading.Thread ):
 
     def __init__(self, gconf): 
@@ -48,6 +56,8 @@ class CMTGUI( PipelineConfiguration ):
         # arguments.  HasTraits does not define an __init__ and
         # therefore these args were being ignored.
         super(CMTGUI, self).__init__(**kwargs)
+        
+        self.can_use_dipy = dipy_here
         
     about = Button
     run = Button
@@ -190,7 +200,8 @@ class CMTGUI( PipelineConfiguration ):
     fiberfilter_group = Group(
         VGroup(
                Item('apply_splinefilter', label="Apply spline filter"),
-               Item('apply_fiberlengthcutoff', label="Apply fiber length cutoff (mm)"),
+               Item('apply_fiberlength', label="Apply cutoff filter", enabled_when = 'can_use_dipy'),
+               Item('fiber_cutoff', label='Cutoff length (mm)', enabled_when = 'apply_fiberlength and can_use_dipy'),
                show_border = True,
                enabled_when = "active_fiberfilter"   
             ),
@@ -201,9 +212,12 @@ class CMTGUI( PipelineConfiguration ):
     cffconverter_group = Group(
         VGroup(
                Item('cff_fullnetworkpickle', label="Full Network"),
+               Item('cff_rawdiffusion', label="Raw Diffusion Data"),
+               Item('cff_rawT1', label="Raw T1 data"),
+               Item('cff_rawT2', label="Raw T2 data"),
                Item('cff_filteredfibers', label="Tractography"),
                Item('cff_roisegmentation', label="Parcellation Volumes"),
-               Item('cff_surfaces', label="Individual surfaces", tooltip = 'stores individually genertated surfaces'),
+               Item('cff_surfaces', label="Individual surfaces", tooltip = 'stores individually generated surfaces'),
                show_border = True,
             ),
         visible_when = "active_cffconverter",
