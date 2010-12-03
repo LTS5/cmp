@@ -75,6 +75,7 @@ class CMTGUI( PipelineConfiguration ):
                     Item('diffusion_imaging_model', label='Imaging Model'),
                     Item('diffusion_imaging_stream', label='Imaging Stream'),
                     show_border = False,
+                      label="Imaging Stream"
                     ),
                     HGroup(
                         VGroup(

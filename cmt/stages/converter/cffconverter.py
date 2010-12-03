@@ -21,6 +21,7 @@ def convert_cmat2cff(cmat_fname, cff_fname):
     cmat = nx.read_gpickle(cmat_fname)
         
     # first, simply create connectome file for networks
+    # use the default. graphml, see for correct node labels (integers) to match
     # import cfflib
     # tutorial steps from cfflib for creation, using cmat
     # number of fibers
