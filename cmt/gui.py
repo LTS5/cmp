@@ -16,14 +16,6 @@ from cmt.configuration import PipelineConfiguration
 import cmt.connectome
 from cmt.util import KeyValue
 
-# check if connectomeviewer including compiled dipy is available
-# if so, we can use more fast options in the pipeline
-try:
-    dipy_here = True
-    import cviewer.libs.dipy.core.track_performance
-except ImportError:
-    dipy_here = False
-
 class CMTThread( threading.Thread ):
 
     def __init__(self, gconf): 
@@ -56,8 +48,6 @@ class CMTGUI( PipelineConfiguration ):
         # arguments.  HasTraits does not define an __init__ and
         # therefore these args were being ignored.
         super(CMTGUI, self).__init__(**kwargs)
-        
-        self.can_use_dipy = dipy_here
         
     about = Button
     run = Button

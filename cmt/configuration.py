@@ -8,7 +8,14 @@ import datetime as dt
 from cmt.logme import getLog
 from cmt.pipeline import pipeline_status
 from cmt.util import KeyValue
-
+# check if connectomeviewer including compiled dipy is available
+# if so, we can use more fast options in the pipeline
+try:
+    dipy_here = True
+    import cviewer.libs.dipy.core.track_performance
+except ImportError:
+    dipy_here = False
+    
 class PipelineConfiguration(traits.HasTraits):
        
     # project settings
@@ -187,7 +194,9 @@ class PipelineConfiguration(traits.HasTraits):
                            }
         
         self.parcellation = default_parcell
-        
+
+        self.can_use_dipy = dipy_here
+                
         # no email notify
         self.emailnotify = []
         
