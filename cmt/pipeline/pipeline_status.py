@@ -30,7 +30,7 @@ class PipelineStatus():
         
         # By default, use stdin/stderr for logging
         self.logError = sys.stderr.write
-        self.logInfo = sys.stdin.write
+        self.logInfo = sys.stdout.write
         if filename != None:
             self.LoadFromFile(filename)
             
@@ -83,13 +83,35 @@ class PipelineStatus():
         type.desc = description
         return type        
     
-    def GetStage(self, name):
-        """Get a stage by name"""
-        for stage in self.Pipeline.stages:
-            if stage.name == name:
-                return stage
+    def GetStage(self, name=None, num=None):
+        """Get a stage by name or number.  If both
+           name and number are given, it will search
+           first for name, and then for number"""
+           
+        if name != None:           
+            for stage in self.Pipeline.stages:
+                if stage.name == name:
+                    return stage
+       
+        if num != None:
+            for stage in self.Pipeline.stages:
+                if stage.num == num:
+                    return stage         
 
-        self.logError('Pipeline does not contain stage %d' % (name))
+        if name != None:
+            self.logError('Pipeline does not contain stage %s' % (name))
+        if num != None:
+            self.logError('Pipeline does not contain stage %d' % (num))
+            
+        return None
+    
+    def GetStageInput(self, stage, name):
+        """Get input to a stage by name"""        
+        for input in stage.inputs:
+            if input.name == name:
+                return input
+            
+        self.logError('Stage does not contain input %s' % (name))            
         return None
     
     def CanRun(self, stage):

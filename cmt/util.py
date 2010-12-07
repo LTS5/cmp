@@ -85,6 +85,9 @@ def reorient(src, ref, log):
         
             fsl_cmd = 'fslorient -swaporient "%s"' % tmpsrc
             runCmd( fsl_cmd, log )
+        else:
+            # If conventions match, just use the original source
+            tmpsrc = src
             
     tmp2 = op.join(op.dirname(src), 'tmp.nii')
     

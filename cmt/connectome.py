@@ -3,10 +3,7 @@
 import cmt
 from logme import *
 
-def mapit(cobj):
-    
-    cobj.consistency_check()
-
+def setup_pipeline_status(cobj):
     cobj.init_pipeline_status()
     
     # Add all of the stages to the pipeline status file
@@ -34,9 +31,17 @@ def mapit(cobj):
     
     # Save pipeline to disk    
     cobj.update_pipeline_status()
-               
-    cmt.preprocessing.run( cobj )
     
+    return stages
+
+def mapit(cobj):
+    
+    cobj.consistency_check()
+    
+    stages = setup_pipeline_status(cobj)
+
+    cmt.preprocessing.run( cobj )
+        
     # Set the logger function for the PipelineStatus object
     cobj.pipeline_status.SetLoggerFunctions(cobj.get_logger().error, cobj.get_logger().info)
     
