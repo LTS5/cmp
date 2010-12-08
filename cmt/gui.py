@@ -54,6 +54,15 @@ class CMTGUI( PipelineConfiguration ):
     save = Button
     load = Button
 
+    inspect_registration = Button
+    inspect_segmentation = Button
+    inspect_whitemattermask = Button
+    inspect_parcellation = Button
+    inspect_reconstruction = Button
+    inspect_tractography = Button
+    inspect_fiberfilter = Button
+    inspect_connectomefile = Button
+  
     main_group = Group(
                     VGroup(
                     Item('project_name', label='Project Name:', tooltip = 'Please enter a name for your project'),
@@ -82,6 +91,16 @@ class CMTGUI( PipelineConfiguration ):
                         Item('skip_completed_stages', label = 'Skip Previously Completed Stages:'),
                         label="Stages"     
                         ),
+                        VGroup(
+                        Item('inspect_registration', label = 'Registration', show_label = False),
+                        Item('inspect_segmentation', label = 'Segmentation', show_label = False),
+                        Item('inspect_whitemattermask', label = 'White Matter Mask', show_label = False),
+                        Item('inspect_parcellation', label = 'Parcellation', show_label = False),
+                        Item('inspect_reconstruction', label = 'Reconstruction', show_label = False),
+                        Item('inspect_tractography', label = 'Tractography', show_label = False),
+                        Item('inspect_fiberfilter', label = 'Filtered Fibers', show_label = False),
+                        Item('inspect_connectomefile', label = 'Connectome File', show_label = False),
+                        label="Inspector")
                         #VGroup(
                         #label="Status",
                         #)
@@ -265,7 +284,7 @@ class CMTGUI( PipelineConfiguration ):
                 Item( 'save', label = 'Save', show_label = False),
                 Item( 'load', label = 'Load', show_label = False),
                 spring,
-                Item( 'run', label = 'Run!', show_label = False),
+                Item( 'run', label = 'Map Connectome!', show_label = False),
             ),
         ),
         resizable = True,
@@ -288,13 +307,13 @@ Contributors
 ------------
 * Jean-Philippe Thiran
 * Reto Meuli
-* Alessandro Daducci
 * Stephan Gerhard
-* Christophe Chenes
+* Alessandro Daducci
+* Leila Cammoun
 * Patric Hagmann
 * Alia Lemkaddem
 * Elda Fischi
-* Leila Cammoun
+* Christophe Chenes
 * Xavier Gigandet
 
 External Contributors
@@ -309,7 +328,7 @@ Children's Hospital Boston:
         print msg
     
     def load_state(self, cmtconfigfile):
-        """ Load CMT Configuration state directly.
+        """ Load CMP Configuration state directly.
         Useful if you do not want to invoke the GUI"""
         import enthought.sweet_pickle as sp        
         output = open(cmtconfigfile, 'rb')
@@ -318,9 +337,8 @@ Children's Hospital Boston:
         output.close()
 
     def save_state(self, cmtconfigfile):
-        """ Save CMT Configuration state directly.
+        """ Save CMP Configuration state directly.
         Useful if you do not want to invoke the GUI"""
-        import pickle
         import enthought.sweet_pickle as sp
         output = open(cmtconfigfile, 'wb')
         # Pickle the list using the highest protocol available.
@@ -328,7 +346,7 @@ Children's Hospital Boston:
         output.close()
         
     def show(self):
-        """ Shows the GUI """
+        """ Show the GUI """
         self.configure_traits()
                     
 #    def _gradient_table_file_default(self):
@@ -385,7 +403,7 @@ Children's Hospital Boston:
         import os.path
         from enthought.pyface.api import FileDialog, OK
         
-        wildcard = "CMT Configuration State (*.pkl)|*.pkl|" \
+        wildcard = "CMP Configuration State (*.pkl)|*.pkl|" \
                         "All files (*.*)|*.*"
         dlg = FileDialog(wildcard=wildcard,title="Filename to store configuration state",\
                          resizeable=False, \
@@ -393,7 +411,3 @@ Children's Hospital Boston:
         
         if dlg.open() == OK:
             self.save_state(dlg.path)
-
-if __name__ == '__main__':
-    a = CMTGUI()
-    a.configure_traits()

@@ -24,7 +24,7 @@ class PipelineConfiguration(traits.HasTraits):
         
     # project metadata (for connectome file)
     project_metadata = traits.Dict(desc="project metadata to be stored in the connectome file")
-    generator = traits.Enum( "cmt 1.0", ["cmt 1.0"] )
+    generator = traits.Enum( "cmp 1.0", ["cmp 1.0"] )
     
     # parcellation scheme
     parcellation_scheme = traits.Enum("Lausanne2008", ["Lausanne2008"], desc="used parcellation scheme")
