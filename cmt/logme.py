@@ -102,8 +102,10 @@ def runCmd( cmd, log ):
           _localLog.debug( "Return Value: %s"%( process.returncode, ) )
 
   finally:
-
-      os.unlink( "out_fifo" )
+      try:
+          os.unlink( "out_fifo" )
+      except:
+          _localLog.warning( "Failed to unlink 'out_fifo'.")
 
 def send_email_notification(message, to, log, host = 'localhost'):
     

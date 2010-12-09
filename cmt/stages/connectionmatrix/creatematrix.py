@@ -330,7 +330,7 @@ def declare_inputs(conf):
     conf.pipeline_status.AddStageInput(stage, conf.get_cmt_fibers(), 'streamline.trk', 'streamline-trk')
     
     for r in conf.parcellation.keys():
-        conf.pipeline_status.AddStageInput(stage, op.join(conf.get_cmt_fsout(), 'registered', 'HR__registered-TO-b0', r), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % r)
+        conf.pipeline_status.AddStageInput(stage, op.join(conf.get_cmt_tracto_mask_tob0(), r), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % r)
         
 def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""
