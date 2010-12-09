@@ -4,35 +4,20 @@ from glob import glob
 import numpy as np
 import nibabel
 import networkx as nx
+from ...logme import *
 
 def load_endpoints_from_trk(fib, hdr):
-    """ 
-    Function
-    ----------
-    Get the endpoints and the length from each fibers
+    """ Get the endpoints from each fibers
         
-    Inputs
+    Parameters
     ----------
     fib: the fibers data
     hdr: the header of the fibers.trk
     
-    Outputs
-    ----------
+    Returns
+    -------
     endpoints: matrix of size [#fibers, 2, 3] containing for each fiber the
                index of its first and last point
-    length   : array of size [#fibers] containing the length (euclidian) of each fiber
-    
-    Date
-    ----------
-    2010-08-20
-    
-    Major modifications
-    ----------
-    2010-10-11
-    
-    Authors
-    ----------
-    Christophe Chenes, Stephan Gerhard
     """
 
     log.info("========================")
@@ -41,7 +26,6 @@ def load_endpoints_from_trk(fib, hdr):
     # Init
     n         = len(fib)
     endpoints = np.zeros( (n, 2, 3) )
-    length    = np.zeros( (n) )
     pc        = -1
 
     # Computation for each fiber
@@ -60,14 +44,6 @@ def load_endpoints_from_trk(fib, hdr):
         # store endpoint
         endpoints[i,1,:] = f[-1,:]
         
-        # calculate length: euclidian distance over the points
-        l = 0.0
-        for j in xrange(1, f.shape[0]):
-            a = f[j-1,:]
-            b = f[j,:]
-            l += np.linalg.norm(a-b)
-        length[i] = l	  
-            
         # Translate from mm to index
         endpoints[i,0,0] = int( endpoints[i,0,0] / float(hdr['voxel_size'][0]))
         endpoints[i,0,1] = int( endpoints[i,0,1] / float(hdr['voxel_size'][1]))
@@ -77,7 +53,7 @@ def load_endpoints_from_trk(fib, hdr):
         endpoints[i,1,2] = int( endpoints[i,1,2] / float(hdr['voxel_size'][2]))
 		
     # Return the matrices  
-    return endpoints, length  
+    return endpoints  
 	
     log.info("done")
     log.info("========================")
@@ -143,58 +119,32 @@ def compute_scalars(fib, hdr):
     log.info("========================")
 
 def cmat(): 
-    """ 
-    Function
-    ----------
-    Create the connection matrix for each resolution using fibers and ROIs.
+    """ Create the connection matrix for each resolution using fibers and ROIs.
         
-    Inputs
+    Parameters
     ----------
     fib: the fibers data
     hdr: the header of the fibers.trk
     
-    Output
-    ----------
+    Returns
+    -------
     cmat.dat: the connection matrix
-    
-    Date
-    ----------
-    2010-09-10
-    
-    Major modifications:
-    ----------
-    2010-10-11
-    
-    Authors
-    ----------
-    Christophe Chenes, Stephan Gerhard 
+
     """
           	
-    # Get the endpoints for each fibers
-    log.info("========================")
-    log.info("Get endpoints")
+    # create the endpoints for each fibers
     en_fname  = op.join(gconf.get_cmt_fibers(), 'endpoints.npy')
     ep_fname  = op.join(gconf.get_cmt_fibers(), 'lengths.npy')
-    if not os.path.isfile(en_fname) or not os.path.isfile(ep_fname):
-        # only read the fibers when we need it for endpoint calculations
-        log.info("========================")
-        log.info("Read the fibers")
-        fibFilename = op.join(gconf.get_cmt_fibers(), 'streamline.trk')
-        fib, hdr    = nibabel.trackvis.read(fibFilename, False)
-        log.info("done")
-        log.info("========================")
-        
-        log.info('\tcomputing endpoints')
-        endpoints, epLen = load_endpoints_from_trk(fib, hdr)
-        log.info('\tsaving endpoints')
-        np.save(en_fname, endpoints)
-        np.save(ep_fname, epLen)
-    else:
-        log.info('\tloading endpoints')
-        endpoints = np.load(en_fname)
-        epLen     = np.load(ep_fname)
-    log.info("done")
-    log.info("========================")
+    intrk = op.join(gconf.get_cmt_fibers(), 'streamline_filtered.trk')
+
+    fib, hdr    = nibabel.trackvis.read(intrk, False)
+    log.info('\tcomputing endpoints')
+    endpoints = load_endpoints_from_trk(fib, hdr)
+    log.info('\tsaving endpoints')
+    np.save(en_fname, endpoints)
+
+    # load fiber lengths array
+    epLen     = np.load(ep_fname)
 	
 	# Get the scalars informations
 #    log.info("========================")
@@ -211,10 +161,6 @@ def cmat():
 #        scalars = nx.read_gpickle(sc_fname)
 #    log.info("done")
 #    log.info("========================")
-	
-    # Load the mat_mask 
-    # TODO one mat_mask per resolution ?
-    matMask = np.load(gconf.get_matMask4subject('lausanne2008', 'resolution83'))
 	
     # For each resolution
     log.info("========================")
@@ -287,47 +233,33 @@ def cmat():
     log.info("========================")						
 
 def run(conf):
-    """ 
-    Run the connection matrix module
-        
+    """ Run the connection matrix module
+    
     Parameters
     ----------
     conf : PipelineConfiguration object
-      
-    Functions
-    ----------
-    cmat: create the connection matrix
-        
-    Date
-    ----------
-    2010-09-10
     
-    Authors
-    ----------
-    Christophe Chenes, Stephan Gerhard 
-       
     """
-        
     # setting the global configuration variable
     globals()['gconf'] = conf
-    start              = time()
-    globals()['log']   = conf.get_logger()
-    
-    log.info("########################")
-    log.info("Connection matrix module")
+    globals()['log'] = gconf.get_logger() 
+    start = time()
     
     cmat()
+            
+    log.info("Module took %s seconds to process." % (time()-start))
+    
+    if not len(gconf.emailnotify) == 0:
+        msg = "Fiber filtering module finished!\nIt took %s seconds." % int(time()-start)
+        send_email_notification(msg, gconf.emailnotify, log)  
         
-    log.info("Connection matrix module took %s seconds to process" % (time()-start))
-    log.info("########################")
-
 
 def declare_inputs(conf):
     """Declare the inputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
     
-    conf.pipeline_status.AddStageInput(stage, conf.get_cmt_fibers(), 'streamline.trk', 'streamline-trk')
+    conf.pipeline_status.AddStageInput(stage, conf.get_cmt_fibers(), 'streamline_filtered.trk', 'streamline-trk')
     
     for r in conf.parcellation.keys():
         conf.pipeline_status.AddStageInput(stage, op.join(conf.get_cmt_fsout(), 'registered', 'HR__registered-TO-b0', r), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % r)
@@ -338,6 +270,5 @@ def declare_outputs(conf):
     stage = conf.pipeline_status.GetStage(__name__)
             
     conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_matrices(), 'cmat.pickle', 'cmat-pickle')
-    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_fibers(), 'endpoints.npy', 'endpoints-npy')
-    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_fibers(), 'lengths.npy', 'lengths-npy')        
+    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_fibers(), 'endpoints.npy', 'endpoints-npy')       
     

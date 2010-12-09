@@ -112,7 +112,7 @@ def send_email_notification(message, to, log, host = 'localhost'):
     fromaddr = 'info@connectomics.org'
     receivers = to
     
-    msg = ("From: %s\r\nTo: %s\r\nSubject: CMT - Notification\r\n\r\n"
+    msg = ("From: %s\r\nTo: %s\r\nSubject: CMP - Notification\r\n\r\n"
        % (fromaddr, ", ".join(receivers)))
         
     try:

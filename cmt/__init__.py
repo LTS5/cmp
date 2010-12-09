@@ -39,3 +39,6 @@ import stages.converter.cffconverter as cffconverter
 
 # Pipeline Status
 import pipeline.pipeline_status as pipeline_status
+
+# others
+import configuration, connectome

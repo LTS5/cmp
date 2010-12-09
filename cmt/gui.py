@@ -11,9 +11,9 @@ from enthought.traits.ui.api import View, Item, HGroup, Handler, \
 
 from enthought.traits.ui.table_column \
     import ObjectColumn
-    
+
+import cmt    
 from cmt.configuration import PipelineConfiguration
-import cmt.connectome
 from cmt.util import KeyValue
 
 class CMTThread( threading.Thread ):
@@ -221,8 +221,8 @@ class CMTGUI( PipelineConfiguration ):
     fiberfilter_group = Group(
         VGroup(
                Item('apply_splinefilter', label="Apply spline filter"),
-               Item('apply_fiberlength', label="Apply cutoff filter", enabled_when = 'can_use_dipy'),
-               Item('fiber_cutoff', label='Cutoff length (mm)', enabled_when = 'apply_fiberlength and can_use_dipy'),
+               Item('apply_fiberlength', label="Apply cutoff filter"),
+               Item('fiber_cutoff', label='Cutoff length (mm)', enabled_when = 'apply_fiberlength'),
                show_border = True,
                enabled_when = "active_fiberfilter"   
             ),
@@ -251,7 +251,6 @@ class CMTGUI( PipelineConfiguration ):
                Item('wm_handling', label='White Matter Mask Handling', tooltip = """1: run through the freesurfer step without stopping
 2: prepare whitematter mask for correction (store it in subject dir/NIFTI
 3: rerun freesurfer part with corrected white matter mask"""),
-               Item('inspect_registration',label="Inspect Registration", tooltip = 'Stop execution and inspect the results of the registration with FSLView'),
                Item('freesurfer_home',label="Freesurfer Home"),
                Item('fsl_home',label="FSL Home"),
                Item('dtk_home',label="DTK Home"),
@@ -376,8 +375,13 @@ Children's Hospital Boston:
             msg = 'Selected gradient table %s does not exist!' % self.gradient_table_file
             raise Exception(msg)
     
+    def _inspect_registration_fired(self):
+        cmt.registration.inspect(self)
+    
     def _run_fired(self):
         # execute the pipeline thread
+        # store the pickle
+        self.save_state(os.path.join(self.get_log(), self.get_logname(suffix = '.pkl')) )
         cmtthread = CMTThread(self)
         cmtthread.start()
 
@@ -385,7 +389,7 @@ Children's Hospital Boston:
         import enthought.sweet_pickle as sp
         from enthought.pyface.api import FileDialog, OK
         
-        wildcard = "CMT Configuration State (*.pkl)|*.pkl|" \
+        wildcard = "CMP Configuration State (*.pkl)|*.pkl|" \
                         "All files (*.*)|*.*"
         dlg = FileDialog(wildcard=wildcard,title="Select a configuration state to load",\
                          resizeable=False, \
