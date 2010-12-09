@@ -32,7 +32,6 @@ def compute_length_array(trkfile=None, streams=None, savefname = 'lengths.npy'):
             log.error(msg)
             raise Exception(msg)
     else:
-        log.info("Compute length array for fibers already loaded.")
         n_fibers = len(streams)
         
     leng = np.zeros(n_fibers, dtype = np.float)
@@ -66,8 +65,7 @@ def filter_fibers(applied_spline=False):
     le = compute_length_array(intrk, savefname = 'lengths_beforecutfiltered.npy')
     
     # cut the fibers smaller than value
-    cut = gconf.fiber_cutoff
-    reducedidx = np.where(le>30.0)[0]
+    reducedidx = np.where(le>gconf.fiber_cutoff)[0]
     
     # load trackfile (downside, needs everything in memory)
     fibold, hdrold = tv.read(intrk)
@@ -99,6 +97,9 @@ def filter_fibers(applied_spline=False):
     
 def inspect(gconf):
     """ Inspect the results of this stage """
+    log = gconf.get_logger()
+    trkcmd = 'trackvis %s' % op.join(gconf.get_cmt_fibers(), 'streamline_filtered.trk')
+    runCmd( trkcmd, log )
     
 def run(conf):
     """ Run the fiber filtering

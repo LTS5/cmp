@@ -151,7 +151,7 @@ class PipelineConfiguration(traits.HasTraits):
         super(PipelineConfiguration, self).__init__(**kwargs)
 
         # the default parcellation provided
-        default_parcell = {'scale33' : {'number_of_regions' : 0,
+        default_parcell = {'scale33' : {'number_of_regions' : 83,
                                         # contains name, url, color, freesurfer_label, etc. used for connection matrix
                                         'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution83'), 'resolution83.graphml'),
                                         # scalar node values on fsaverage? or atlas? 
@@ -163,28 +163,28 @@ class PipelineConfiguration(traits.HasTraits):
                                         # should we subtract the cortical rois for the white matter mask?
                                         'subtract_from_wm_mask' : 1,
                                         },
-                            'scale60' : {'number_of_regions' : 0,
+                            'scale60' : {'number_of_regions' : 150,
                                         'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution150'), 'resolution150.graphml'), 
                                         'surface_parcellation' : None,
                                         'volume_parcellation' : None,
                                         'fs_label_subdir_name' : 'regenerated_%s_60',
                                         'subtract_from_wm_mask' : 0,
                                         },
-                            'scale125' : {'number_of_regions' : 0,
+                            'scale125' : {'number_of_regions' : 258,
                                         'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution258'), 'resolution258.graphml'), 
                                         'surface_parcellation' : None,
                                         'volume_parcellation' : None,
                                         'fs_label_subdir_name' : 'regenerated_%s_125',
                                         'subtract_from_wm_mask' : 0,
                                         },
-                            'scale250' : {'number_of_regions' : 0,
+                            'scale250' : {'number_of_regions' : 500,
                                         'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution500'), 'resolution500.graphml'), 
                                         'surface_parcellation' : None,
                                         'volume_parcellation' : None,
                                         'fs_label_subdir_name' : 'regenerated_%s_250',
                                         'subtract_from_wm_mask' : 0,
                                         },
-                            'scale500' : {'number_of_regions' : 0,
+                            'scale500' : {'number_of_regions' : 1015,
                                         'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution1015'), 'resolution1015.graphml'), 
                                         'surface_parcellation' : None,
                                         'volume_parcellation' : None,
@@ -332,6 +332,10 @@ class PipelineConfiguration(traits.HasTraits):
     def get_stats(self):
         """ Return statistic output path """
         return op.join(self.get_subj_dir(), 'STATS')
+    
+    def get_cffdir(self):
+        """ Returns path to store connectome file """
+        return op.join(self.get_cmt(), 'cff')
     
     def get_nifti(self):
         """ Returns the subject root folder path for nifti files """

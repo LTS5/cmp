@@ -377,7 +377,13 @@ Children's Hospital Boston:
     
     def _inspect_registration_fired(self):
         cmt.registration.inspect(self)
-    
+
+    def _inspect_tractography_fired(self):
+        cmt.tractography.inspect(self)
+        
+    def _inspect_fiberfilter_fired(self):
+        cmt.fiberfilter.inspect(self)
+            
     def _run_fired(self):
         # execute the pipeline thread
         # store the pickle
