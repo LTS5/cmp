@@ -4,35 +4,20 @@ from glob import glob
 import numpy as np
 import nibabel
 import networkx as nx
+from ...logme import *
 
 def load_endpoints_from_trk(fib, hdr):
-    """ 
-    Function
-    ----------
-    Get the endpoints and the length from each fibers
+    """ Get the endpoints from each fibers
         
-    Inputs
+    Parameters
     ----------
     fib: the fibers data
     hdr: the header of the fibers.trk
     
-    Outputs
-    ----------
+    Returns
+    -------
     endpoints: matrix of size [#fibers, 2, 3] containing for each fiber the
                index of its first and last point
-    length   : array of size [#fibers] containing the length (euclidian) of each fiber
-    
-    Date
-    ----------
-    2010-08-20
-    
-    Major modifications
-    ----------
-    2010-10-11
-    
-    Authors
-    ----------
-    Christophe Chenes, Stephan Gerhard
     """
 
     log.info("========================")
@@ -41,7 +26,6 @@ def load_endpoints_from_trk(fib, hdr):
     # Init
     n         = len(fib)
     endpoints = np.zeros( (n, 2, 3) )
-    length    = np.zeros( (n) )
     pc        = -1
 
     # Computation for each fiber
@@ -51,7 +35,7 @@ def load_endpoints_from_trk(fib, hdr):
         pcN = int(round( float(100*i)/n ))
         if pcN > pc and pcN%1 == 0:	
             pc = pcN
-            print '\t\t%4.0f%%' % (pc)
+            log.info('%4.0f%%' % (pc))
 
         f = fi[0]
     
@@ -60,14 +44,6 @@ def load_endpoints_from_trk(fib, hdr):
         # store endpoint
         endpoints[i,1,:] = f[-1,:]
         
-        # calculate length: euclidian distance over the points
-        l = 0.0
-        for j in xrange(1, f.shape[0]):
-            a = f[j-1,:]
-            b = f[j,:]
-            l += np.linalg.norm(a-b)
-        length[i] = l	  
-            
         # Translate from mm to index
         endpoints[i,0,0] = int( endpoints[i,0,0] / float(hdr['voxel_size'][0]))
         endpoints[i,0,1] = int( endpoints[i,0,1] / float(hdr['voxel_size'][1]))
@@ -77,11 +53,10 @@ def load_endpoints_from_trk(fib, hdr):
         endpoints[i,1,2] = int( endpoints[i,1,2] / float(hdr['voxel_size'][2]))
 		
     # Return the matrices  
-    return endpoints, length  
+    return endpoints  
 	
     log.info("done")
     log.info("========================")
-    print '\n###################################################################\n'
 
 def compute_scalars(fib, hdr):
     """ 
@@ -143,58 +118,32 @@ def compute_scalars(fib, hdr):
     log.info("========================")
 
 def cmat(): 
-    """ 
-    Function
-    ----------
-    Create the connection matrix for each resolution using fibers and ROIs.
+    """ Create the connection matrix for each resolution using fibers and ROIs.
         
-    Inputs
+    Parameters
     ----------
     fib: the fibers data
     hdr: the header of the fibers.trk
     
-    Output
-    ----------
+    Returns
+    -------
     cmat.dat: the connection matrix
-    
-    Date
-    ----------
-    2010-09-10
-    
-    Major modifications:
-    ----------
-    2010-10-11
-    
-    Authors
-    ----------
-    Christophe Chenes, Stephan Gerhard 
+
     """
           	
-    # Get the endpoints for each fibers
-    log.info("========================")
-    log.info("Get endpoints")
+    # create the endpoints for each fibers
     en_fname  = op.join(gconf.get_cmt_fibers(), 'endpoints.npy')
     ep_fname  = op.join(gconf.get_cmt_fibers(), 'lengths.npy')
-    if not os.path.isfile(en_fname) or not os.path.isfile(ep_fname):
-        # only read the fibers when we need it for endpoint calculations
-        log.info("========================")
-        log.info("Read the fibers")
-        fibFilename = op.join(gconf.get_cmt_fibers(), 'streamline.trk')
-        fib, hdr    = nibabel.trackvis.read(fibFilename, False)
-        log.info("done")
-        log.info("========================")
-        
-        log.info('\tcomputing endpoints')
-        endpoints, epLen = load_endpoints_from_trk(fib, hdr)
-        log.info('\tsaving endpoints')
-        np.save(en_fname, endpoints)
-        np.save(ep_fname, epLen)
-    else:
-        log.info('\tloading endpoints')
-        endpoints = np.load(en_fname)
-        epLen     = np.load(ep_fname)
-    log.info("done")
-    log.info("========================")
+    intrk = op.join(gconf.get_cmt_fibers(), 'streamline_filtered.trk')
+
+    fib, hdr    = nibabel.trackvis.read(intrk, False)
+    log.info('Computing endpoints')
+    endpoints = load_endpoints_from_trk(fib, hdr)
+    log.info('Saving endpoints')
+    np.save(en_fname, endpoints)
+
+    # load fiber lengths array
+    epLen     = np.load(ep_fname)
 	
 	# Get the scalars informations
 #    log.info("========================")
@@ -212,67 +161,58 @@ def cmat():
 #    log.info("done")
 #    log.info("========================")
 	
-    # Load the mat_mask 
-    # TODO one mat_mask per resolution ?
-    matMask = np.load(gconf.get_matMask4subject('lausanne2008', 'resolution83'))
-	
     # For each resolution
     log.info("========================")
     log.info("Resolution treatment")
     resolution = gconf.parcellation.keys()
-    cmat = {} 
+    cmat = {}
     for r in resolution:
-        log.info("\tresolution = "+r)
+        log.info("Resolution = "+r)
       
         # Open the corresponding ROI
-        log.info("\tOpen the corresponding ROI")
+        log.info("Open the corresponding ROI")
         roi_fname = op.join(gconf.get_cmt_tracto_mask_tob0(), r, 'ROI_HR_th.nii')
         roi       = nibabel.load(roi_fname)
         roiData   = roi.get_data()
       
         # Create the matrix
-        log.info("\tCreate the connection matrix")
-        nROIs = roiData.max()
+        nROIs = gconf.parcellation[r]['number_of_regions']
+        log.info("Create the connection matrix (%s rois)" % nROIs)
         G     = nx.Graph()
-        G.add_nodes_from( range(1, nROIs+1) )
+        G.add_nodes_from( range(1, int(nROIs)+1) )
         dis = 0
         
         # For each endpoints
-        log.info("\tFill the connection matrix")
+        log.info("Fill the connection matrix")
         for i in range(endpoints.shape[0]):
     
             # ROI start => ROI end
-            startROI = roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]]
-            endROI   = roiData[endpoints[i, 1, 0], endpoints[i, 1, 1], endpoints[i, 1, 2]]
+            startROI = int(roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]])
+            endROI   = int(roiData[endpoints[i, 1, 0], endpoints[i, 1, 1], endpoints[i, 1, 2]])
             
             # Filter
             if startROI == 0 or endROI == 0:
                 dis += 1
                 continue
-                
+            
+            if startROI > nROIs or endROI > nROIs:
+                log.debug("Start or endpoint of fiber terminate in a voxel which is labeled higher")
+                log.debug("than is expected by the parcellation node information.")
+                log.debug("Start ROI: %i, End ROI: %i" % (startROI, endROI))
+                log.debug("This needs investigation!")
+                continue
+            
             # Add edge to graph
-            # TODO Find an automatic way for the scalars informations
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
-                G.edge[startROI][endROI]['fiblength'].append(epLen[i])   
-#                G.edge[startROI][endROI]['gfa'].append(scalars['gfa'][i])          
+                G.edge[startROI][endROI]['fiblength'].append(epLen[i])          
             else:
                 G.add_edge(startROI, endROI, fiblist   = [i])
-                G.add_edge(startROI, endROI, fiblength = [epLen[i]])   
-#                G.add_edge(startROI, endROI, gfa = [scalars['gfa'][i]])   
-        
-        # Add the number of fiber per edge
-        for ed in G.edges_iter(data=True):
-            G.edge[ed[0]][ed[1]]['weight'] = len(ed[2]['fiblist'])   
-        
-        # XXX: skip filtering with mask for now as the ordering of the ROIs might not be the same!
-        # Filter with mat_mask
-#        for i in range (1,matMask.shape[0]+1):
-#            for j in range (i,matMask.shape[0]+1):
-#                if G.has_edge(i,j) and matMask[i-1,j-1] == 0:
-#                    print 'remove edge ['+str(i)+']['+str(j)+']'
-#                    G.remove_edge(i,j)
-                        
+                G.add_edge(startROI, endROI, fiblength = [epLen[i]])
+                
+        log.error("Found %i fibers that start or terminate in a voxel which is not labeled. (zero value)" % dis)
+  
+                                
         # Add all in the current resolution
         cmat.update({r: {'filename': roi_fname, 'graph': G}})  
         
@@ -287,50 +227,36 @@ def cmat():
     log.info("========================")						
 
 def run(conf):
-    """ 
-    Run the connection matrix module
-        
+    """ Run the connection matrix module
+    
     Parameters
     ----------
     conf : PipelineConfiguration object
-      
-    Functions
-    ----------
-    cmat: create the connection matrix
-        
-    Date
-    ----------
-    2010-09-10
     
-    Authors
-    ----------
-    Christophe Chenes, Stephan Gerhard 
-       
     """
-        
     # setting the global configuration variable
     globals()['gconf'] = conf
-    start              = time()
-    globals()['log']   = conf.get_logger()
-    
-    log.info("########################")
-    log.info("Connection matrix module")
+    globals()['log'] = gconf.get_logger() 
+    start = time()
     
     cmat()
+            
+    log.info("Module took %s seconds to process." % (time()-start))
+    
+    if not len(gconf.emailnotify) == 0:
+        msg = "Fiber filtering module finished!\nIt took %s seconds." % int(time()-start)
+        send_email_notification(msg, gconf.emailnotify, log)  
         
-    log.info("Connection matrix module took %s seconds to process" % (time()-start))
-    log.info("########################")
-
 
 def declare_inputs(conf):
     """Declare the inputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
     
-    conf.pipeline_status.AddStageInput(stage, conf.get_cmt_fibers(), 'streamline.trk', 'streamline-trk')
+    conf.pipeline_status.AddStageInput(stage, conf.get_cmt_fibers(), 'streamline_filtered.trk', 'streamline-trk')
     
     for r in conf.parcellation.keys():
-        conf.pipeline_status.AddStageInput(stage, op.join(conf.get_cmt_fsout(), 'registered', 'HR__registered-TO-b0', r), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % r)
+        conf.pipeline_status.AddStageInput(stage, op.join(conf.get_cmt_tracto_mask_tob0(), r), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % r)
         
 def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""
@@ -338,6 +264,5 @@ def declare_outputs(conf):
     stage = conf.pipeline_status.GetStage(__name__)
             
     conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_matrices(), 'cmat.pickle', 'cmat-pickle')
-    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_fibers(), 'endpoints.npy', 'endpoints-npy')
-    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_fibers(), 'lengths.npy', 'lengths-npy')        
+    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_fibers(), 'endpoints.npy', 'endpoints-npy')       
     

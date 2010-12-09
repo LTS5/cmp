@@ -78,7 +78,11 @@ def fiber_tracking_dti():
     
     log.info("[ DONE ]")
     
-
+def inspect(gconf):
+    """ Inspect the results of this stage """
+    log = gconf.get_logger()
+    trkcmd = 'trackvis %s' % op.join(gconf.get_cmt_fibers(), 'streamline.trk')
+    runCmd( trkcmd, log )
 
 def run(conf):
     """ Run the tractography step

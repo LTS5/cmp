@@ -39,6 +39,7 @@ def create_folders():
         gconf.get_nifti_wm_correction(),
         gconf.get_cmt_rawdiff_resampled(),
         gconf.get_cmt_rawdiff_reconout(),
+        gconf.get_cffdir(),
         op.join(gconf.get_fs(), 'mri', 'orig')
         ]
 
@@ -89,9 +90,6 @@ def run(conf):
     
     log.info("Preprocessing")
     log.info("=============")
-
-    log.error("Blubb")
-    log.debug("dd")
 
     log_system_setup()
     create_folders()

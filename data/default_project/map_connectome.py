@@ -1,5 +1,5 @@
-import cmt, cmt.gui, cmt.connectome
-cmtgui = cmt.gui.CMTGUI()
+from cmt.gui import CMTGUI
+cmtgui = CMTGUI()
 
 cmtgui.project_name = ''
 cmtgui.project_dir = ''
@@ -7,5 +7,5 @@ cmtgui.subject_name = ''
 cmtgui.subject_timepoint = ''
 cmtgui.subject_workingdir = ''
 
-cmtgui.configure_traits()
+cmtgui.show()
 #cmt.connectome.mapit(cmtgui)

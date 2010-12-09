@@ -70,9 +70,9 @@ Steps to do before executing the pipeline
 
 #. Run the Connectome Mapping Toolkit GUI from IPython::
 
-	import cmt, cmt.gui, cmt.connectome
-	cmtgui = cmt.gui.CMTGUI()
-	cmtgui.configure_traits()
+  from cmt.gui import CMTGUI
+  cmtgui = CMTGUI()
+  cmtgui.show()
 
 #. After the first run of the e.g. the first module DICOM Converter, the folder structure should look like this::
 
@@ -117,4 +117,4 @@ You can set the attributes of the cmtgui configuration object in the script and 
 
 Comment the following line to stop invoking the GUI::
 
-	cmtgui.configure_traits()
+	cmtgui.show()

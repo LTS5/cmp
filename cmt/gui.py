@@ -11,18 +11,10 @@ from enthought.traits.ui.api import View, Item, HGroup, Handler, \
 
 from enthought.traits.ui.table_column \
     import ObjectColumn
-    
-from cmt.configuration import PipelineConfiguration
-import cmt.connectome
-from cmt.util import KeyValue
 
-# check if connectomeviewer including compiled dipy is available
-# if so, we can use more fast options in the pipeline
-try:
-    dipy_here = True
-    import cviewer.libs.dipy.core.track_performance
-except ImportError:
-    dipy_here = False
+import cmt    
+from cmt.configuration import PipelineConfiguration
+from cmt.util import KeyValue
 
 class CMTThread( threading.Thread ):
 
@@ -34,6 +26,7 @@ class CMTThread( threading.Thread ):
         print "Starting CMT Thread..."
         cmt.connectome.mapit(self.gconf)
         print "Ended CMT Thread."
+        # release
         
 table_editor = TableEditor(
     columns     = [ ObjectColumn( name = 'key',  width = 0.2 ),
@@ -57,13 +50,20 @@ class CMTGUI( PipelineConfiguration ):
         # therefore these args were being ignored.
         super(CMTGUI, self).__init__(**kwargs)
         
-        self.can_use_dipy = dipy_here
-        
     about = Button
     run = Button
     save = Button
     load = Button
 
+    inspect_registration = Button
+    inspect_segmentation = Button
+    inspect_whitemattermask = Button
+    inspect_parcellation = Button
+    inspect_reconstruction = Button
+    inspect_tractography = Button
+    inspect_fiberfilter = Button
+    inspect_connectomefile = Button
+  
     main_group = Group(
                     VGroup(
                     Item('project_name', label='Project Name:', tooltip = 'Please enter a name for your project'),
@@ -92,6 +92,16 @@ class CMTGUI( PipelineConfiguration ):
                         Item('skip_completed_stages', label = 'Skip Previously Completed Stages:'),
                         label="Stages"     
                         ),
+                        VGroup(
+                        Item('inspect_registration', label = 'Registration', show_label = False),
+                        Item('inspect_segmentation', label = 'Segmentation', show_label = False),
+                        Item('inspect_whitemattermask', label = 'White Matter Mask', show_label = False),
+                        Item('inspect_parcellation', label = 'Parcellation', show_label = False),
+                        Item('inspect_reconstruction', label = 'Reconstruction', show_label = False),
+                        Item('inspect_tractography', label = 'Tractography', show_label = False),
+                        Item('inspect_fiberfilter', label = 'Filtered Fibers', show_label = False),
+                        Item('inspect_connectomefile', label = 'Connectome File', show_label = False),
+                        label="Inspector")
                         #VGroup(
                         #label="Status",
                         #)
@@ -212,8 +222,8 @@ class CMTGUI( PipelineConfiguration ):
     fiberfilter_group = Group(
         VGroup(
                Item('apply_splinefilter', label="Apply spline filter"),
-               Item('apply_fiberlength', label="Apply cutoff filter", enabled_when = 'can_use_dipy'),
-               Item('fiber_cutoff', label='Cutoff length (mm)', enabled_when = 'apply_fiberlength and can_use_dipy'),
+               Item('apply_fiberlength', label="Apply cutoff filter"),
+               Item('fiber_cutoff', label='Cutoff length (mm)', enabled_when = 'apply_fiberlength'),
                show_border = True,
                enabled_when = "active_fiberfilter"   
             ),
@@ -242,7 +252,6 @@ class CMTGUI( PipelineConfiguration ):
                Item('wm_handling', label='White Matter Mask Handling', tooltip = """1: run through the freesurfer step without stopping
 2: prepare whitematter mask for correction (store it in subject dir/NIFTI
 3: rerun freesurfer part with corrected white matter mask"""),
-               Item('inspect_registration',label="Inspect Registration", tooltip = 'Stop execution and inspect the results of the registration with FSLView'),
                Item('freesurfer_home',label="Freesurfer Home"),
                Item('fsl_home',label="FSL Home"),
                Item('dtk_home',label="DTK Home"),
@@ -275,7 +284,7 @@ class CMTGUI( PipelineConfiguration ):
                 Item( 'save', label = 'Save', show_label = False),
                 Item( 'load', label = 'Load', show_label = False),
                 spring,
-                Item( 'run', label = 'Run!', show_label = False),
+                Item( 'run', label = 'Map Connectome!', show_label = False),
             ),
         ),
         resizable = True,
@@ -298,13 +307,13 @@ Contributors
 ------------
 * Jean-Philippe Thiran
 * Reto Meuli
-* Alessandro Daducci
 * Stephan Gerhard
-* Christophe Chenes
+* Alessandro Daducci
+* Leila Cammoun
 * Patric Hagmann
 * Alia Lemkaddem
 * Elda Fischi
-* Leila Cammoun
+* Christophe Chenes
 * Xavier Gigandet
 
 External Contributors
@@ -319,7 +328,7 @@ Children's Hospital Boston:
         print msg
     
     def load_state(self, cmtconfigfile):
-        """ Load CMT Configuration state directly.
+        """ Load CMP Configuration state directly.
         Useful if you do not want to invoke the GUI"""
         import enthought.sweet_pickle as sp        
         output = open(cmtconfigfile, 'rb')
@@ -328,9 +337,8 @@ Children's Hospital Boston:
         output.close()
 
     def save_state(self, cmtconfigfile):
-        """ Save CMT Configuration state directly.
+        """ Save CMP Configuration state directly.
         Useful if you do not want to invoke the GUI"""
-        import pickle
         import enthought.sweet_pickle as sp
         output = open(cmtconfigfile, 'wb')
         # Pickle the list using the highest protocol available.
@@ -338,7 +346,7 @@ Children's Hospital Boston:
         output.close()
         
     def show(self):
-        """ Shows the GUI """
+        """ Show the GUI """
         self.configure_traits()
                     
 #    def _gradient_table_file_default(self):
@@ -368,8 +376,19 @@ Children's Hospital Boston:
             msg = 'Selected gradient table %s does not exist!' % self.gradient_table_file
             raise Exception(msg)
     
+    def _inspect_registration_fired(self):
+        cmt.registration.inspect(self)
+
+    def _inspect_tractography_fired(self):
+        cmt.tractography.inspect(self)
+        
+    def _inspect_fiberfilter_fired(self):
+        cmt.fiberfilter.inspect(self)
+            
     def _run_fired(self):
         # execute the pipeline thread
+        # store the pickle
+        self.save_state(os.path.join(self.get_log(), self.get_logname(suffix = '.pkl')) )
         cmtthread = CMTThread(self)
         cmtthread.start()
 
@@ -377,7 +396,7 @@ Children's Hospital Boston:
         import enthought.sweet_pickle as sp
         from enthought.pyface.api import FileDialog, OK
         
-        wildcard = "CMT Configuration State (*.pkl)|*.pkl|" \
+        wildcard = "CMP Configuration State (*.pkl)|*.pkl|" \
                         "All files (*.*)|*.*"
         dlg = FileDialog(wildcard=wildcard,title="Select a configuration state to load",\
                          resizeable=False, \
@@ -395,7 +414,7 @@ Children's Hospital Boston:
         import os.path
         from enthought.pyface.api import FileDialog, OK
         
-        wildcard = "CMT Configuration State (*.pkl)|*.pkl|" \
+        wildcard = "CMP Configuration State (*.pkl)|*.pkl|" \
                         "All files (*.*)|*.*"
         dlg = FileDialog(wildcard=wildcard,title="Filename to store configuration state",\
                          resizeable=False, \
@@ -403,7 +422,3 @@ Children's Hospital Boston:
         
         if dlg.open() == OK:
             self.save_state(dlg.path)
-
-if __name__ == '__main__':
-    a = CMTGUI()
-    a.configure_traits()
