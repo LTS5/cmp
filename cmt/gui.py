@@ -26,6 +26,7 @@ class CMTThread( threading.Thread ):
         print "Starting CMT Thread..."
         cmt.connectome.mapit(self.gconf)
         print "Ended CMT Thread."
+        # release
         
 table_editor = TableEditor(
     columns     = [ ObjectColumn( name = 'key',  width = 0.2 ),
