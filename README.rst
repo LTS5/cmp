@@ -1,8 +1,8 @@
 ==========================
-Connectome Mapping Toolkit
+Connectome Mapping Pipeline
 ==========================
 
-Connectome Mapping Toolkit implements a full diffusion MRI processing pipeline,
+Connectome Mapping Pipeline implements a full diffusion MRI processing pipeline,
 from raw DSI/T1/T2 data to multi-resolution connection matrices. 
 
 ------
