@@ -1,7 +1,7 @@
 """ Defines the graphical user interface to the Connectome Mapping Pipeline
 """
 import os.path    
-import threading
+#import threading
 
 from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
                  Bool, File, Button, Enum
@@ -16,17 +16,17 @@ import cmp
 from cmp.configuration import PipelineConfiguration
 from cmp.util import KeyValue
 
-class CMPThread( threading.Thread ):
-
-    def __init__(self, gconf): 
-        threading.Thread.__init__(self) 
-        self.gconf = gconf 
- 
-    def run(self): 
-        print "Starting CMP Thread..."
-        cmp.connectome.mapit(self.gconf)
-        print "Ended CMP Thread."
-        # release
+#class CMPThread( threading.Thread ):
+#
+#    def __init__(self, gconf): 
+#        threading.Thread.__init__(self) 
+#        self.gconf = gconf 
+# 
+#    def run(self): 
+#        print "Starting CMP Thread..."
+#        cmp.connectome.mapit(self.gconf)
+#        print "Ended CMP Thread."
+#        # release
         
 table_editor = TableEditor(
     columns     = [ ObjectColumn( name = 'key',  width = 0.2 ),
@@ -342,10 +342,14 @@ Children's Hospital Boston:
         # check if path available
         if not os.path.exists(os.path.dirname(cmpconfigfile)):
             os.makedirs(os.path.dirname(cmpconfigfile))
+            
         import enthought.sweet_pickle as sp
         output = open(cmpconfigfile, 'wb')
         # Pickle the list using the highest protocol available.
-        sp.dump(self, output, -1)
+        # copy object first
+        tmpconf = CMPGUI()
+        tmpconf.copy_traits(self)
+        sp.dump(tempconf, output, -1)
         output.close()
         
     def show(self):
