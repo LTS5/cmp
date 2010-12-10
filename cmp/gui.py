@@ -349,7 +349,7 @@ Children's Hospital Boston:
         # copy object first
         tmpconf = CMPGUI()
         tmpconf.copy_traits(self)
-        sp.dump(tempconf, output, -1)
+        sp.dump(tmpconf, output, -1)
         output.close()
         
     def show(self):
