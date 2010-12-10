@@ -12,8 +12,8 @@ def apply_nlin_registration():
     log.info("==============================================================================")
     log.info("(i.e. fsmask_1mm.*, scale33/ROI_HR_th.* etc)")
 
-    tracto_masks_path = gconf.get_cmt_tracto_mask()
-    tracto_masks_path_out = gconf.get_cmt_tracto_mask_tob0()
+    tracto_masks_path = gconf.get_cmp_tracto_mask()
+    tracto_masks_path_out = gconf.get_cmp_tracto_mask_tob0()
     
     if not op.exists(tracto_masks_path):
         msg = "Path does not exists but it should after the mask creation module: %s" % tracto_masks_path
@@ -37,14 +37,14 @@ def apply_nlin_registration():
     
     for infile in warp_files:
         log.info("Warp file: %s" % infile)
-        applywarp_cmt = 'applywarp --in="%s" --premat="%s" --ref="%s" --warp="%s" --out="%s" --interp=nn' % \
+        applywarp_cmp = 'applywarp --in="%s" --premat="%s" --ref="%s" --warp="%s" --out="%s" --interp=nn' % \
                         (op.join(tracto_masks_path, infile),
                          out_mat,
                          op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
                          op.join(gconf.get_nifti(), 'T2-TO-b0_warp.nii'),
                          op.join(tracto_masks_path_out, infile)
                          )
-        runCmd (applywarp_cmt, log )
+        runCmd (applywarp_cmp, log )
         
         if not op.exists(op.join(tracto_masks_path_out, infile)):
             msg = "An error occurred. File %s not generated." % op.join(tracto_masks_path_out, infile)
@@ -63,8 +63,8 @@ def apply_lin_registration():
     log.info("===========================================================================")
     log.info("(i.e. fsmask_1mm.*, scale33/ROI_HR_th.* etc)")
 
-    tracto_masks_path = gconf.get_cmt_tracto_mask()
-    tracto_masks_path_out = gconf.get_cmt_tracto_mask_tob0()
+    tracto_masks_path = gconf.get_cmp_tracto_mask()
+    tracto_masks_path_out = gconf.get_cmp_tracto_mask_tob0()
     
     if not op.exists(tracto_masks_path):
         msg = "Path does not exists but it should after the mask creation module: %s" % tracto_masks_path
@@ -139,7 +139,7 @@ def declare_inputs(conf):
     
     stage = conf.pipeline_status.GetStage(__name__)
     nifti_trafo_dir = conf.get_nifti_trafo()    
-    tracto_masks_path = conf.get_cmt_tracto_mask()
+    tracto_masks_path = conf.get_cmp_tracto_mask()
     
     
     if conf.registration_mode == 'Nonlinear':
@@ -157,7 +157,7 @@ def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
-    tracto_masks_path_out = conf.get_cmt_tracto_mask_tob0()
+    tracto_masks_path_out = conf.get_cmp_tracto_mask_tob0()
             
     conf.pipeline_status.AddStageOutput(stage, tracto_masks_path_out, 'fsmask_1mm.nii', 'fsmask_1mm-nii')            
     for p in conf.parcellation.keys():

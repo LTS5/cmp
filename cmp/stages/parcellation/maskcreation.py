@@ -9,7 +9,7 @@ from ...logme import *
 import nibabel as ni
 import networkx as nx
 import numpy as np
-from cmt.util import mymove
+from cmp.util import mymove
 
 def create_annot_label():
 
@@ -171,8 +171,8 @@ def create_wm_mask():
     log.info("Create white matter mask")
     
     fs_dir = gconf.get_fs()
-    fs_cmd_dir = gconf.get_cmt_fsout()
-    reg_path = gconf.get_cmt_tracto_mask()
+    fs_cmd_dir = gconf.get_cmp_fsout()
+    reg_path = gconf.get_cmp_tracto_mask()
     
     # load ribbon as basis for white matter mask
     fsmask = ni.load(op.join(fs_dir, 'mri', 'ribbon.nii'))
@@ -331,8 +331,8 @@ def create_wm_mask():
 def crop_and_move_datasets():
     
     fs_dir = gconf.get_fs()
-    fs_cmd_dir = gconf.get_cmt_fsout()
-    reg_path = gconf.get_cmt_tracto_mask()
+    fs_cmd_dir = gconf.get_cmp_fsout()
+    reg_path = gconf.get_cmp_tracto_mask()
     
     log.info("Cropping and moving datasets to %s" % reg_path)
     
@@ -411,7 +411,7 @@ def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
-    reg_path = conf.get_cmt_tracto_mask()
+    reg_path = conf.get_cmp_tracto_mask()
     
     conf.pipeline_status.AddStageOutput(stage, reg_path, 'aseg.nii', 'aseg-nii')
     conf.pipeline_status.AddStageOutput(stage, reg_path, 'ribbon.nii', 'ribbon-nii')    

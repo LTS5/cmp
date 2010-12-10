@@ -5,7 +5,7 @@ import networkx as nx
 ver = 'small'
 
 # load reduced .trk file with 10 fibers only
-# fib, hdr = ni.trackvis.read('/home/cmt/data/test_project_one/testsubject1/tp1/4__CMT/fibers/%s-streamline_spline.trk' % ver)
+# fib, hdr = ni.trackvis.read('/home/cmp/data/test_project_one/testsubject1/tp1/4__CMP/fibers/%s-streamline_spline.trk' % ver)
 fib, hdr = ni.trackvis.read('%s/streamline.trk'% ver)
 
 # number of fibers

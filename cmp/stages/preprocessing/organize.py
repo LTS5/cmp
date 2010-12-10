@@ -25,20 +25,20 @@ def create_folders():
     paths = [
         gconf.get_nifti(),
         gconf.get_fs(),
-        gconf.get_cmt_tracto_mask(),
-        gconf.get_cmt_tracto_mask_tob0(),
-        gconf.get_cmt_fibers(),  
+        gconf.get_cmp_tracto_mask(),
+        gconf.get_cmp_tracto_mask_tob0(),
+        gconf.get_cmp_fibers(),  
         gconf.get_log(),
         gconf.get_stats(),
         gconf.get_rawt1(),
         gconf.get_raw_diffusion(),
-        gconf.get_cmt_scalars(),
-        gconf.get_cmt_matrices(),
+        gconf.get_cmp_scalars(),
+        gconf.get_cmp_matrices(),
         gconf.get_nifti_trafo(),
         gconf.get_diffusion_metadata(),
         gconf.get_nifti_wm_correction(),
-        gconf.get_cmt_rawdiff_resampled(),
-        gconf.get_cmt_rawdiff_reconout(),
+        gconf.get_cmp_rawdiff_resampled(),
+        gconf.get_cmp_rawdiff_reconout(),
         gconf.get_cffdir(),
         op.join(gconf.get_fs(), 'mri', 'orig')
         ]
@@ -47,10 +47,10 @@ def create_folders():
         paths.append(gconf.get_rawt2())
 
     for p in gconf.parcellation.keys():
-        paths.append(op.join(gconf.get_cmt_tracto_mask(), p))
+        paths.append(op.join(gconf.get_cmp_tracto_mask(), p))
         
     for p in gconf.parcellation.keys():
-        paths.append(op.join(gconf.get_cmt_tracto_mask_tob0(), p))
+        paths.append(op.join(gconf.get_cmp_tracto_mask_tob0(), p))
 
     for p in paths:
         if not op.exists(p):
@@ -67,7 +67,7 @@ def set_env_vars():
     
 def log_paths():
     
-    log.info("CMT path configuration:")
+    log.info("CMP path configuration:")
 
     log.info(gconf.freesurfer_home)
     log.info(gconf.fsl_home)

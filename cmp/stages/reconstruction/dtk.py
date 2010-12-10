@@ -4,7 +4,7 @@ from time import time
 from ...logme import *
 from glob import glob
 import subprocess
-from cmt.util import mymove
+from cmp.util import mymove
 
 def resample_dsi():
 
@@ -13,8 +13,8 @@ def resample_dsi():
 
     input_dsi_file = op.join(gconf.get_nifti(), 'DSI.nii')
     # XXX: this output file is never generated!
-    output_dsi_file = op.join(gconf.get_cmt_rawdiff(), 'DSI_resampled_2x2x2.nii')
-    res_dsi_dir = gconf.get_cmt_rawdiff_resampled()
+    output_dsi_file = op.join(gconf.get_cmp_rawdiff(), 'DSI_resampled_2x2x2.nii')
+    res_dsi_dir = gconf.get_cmp_rawdiff_resampled()
     
     if not op.exists(input_dsi_file):
         log.error("File does not exists: %s" % input_dsi_file)
@@ -46,8 +46,8 @@ def resample_dti():
 
     input_dsi_file = op.join(gconf.get_nifti(), 'DTI.nii')
     # XXX: this output file is never generated!
-    output_dsi_file = op.join(gconf.get_cmt_rawdiff(), 'DTI_resampled_2x2x2.nii')
-    res_dsi_dir = gconf.get_cmt_rawdiff_resampled()
+    output_dsi_file = op.join(gconf.get_cmp_rawdiff(), 'DTI_resampled_2x2x2.nii')
+    res_dsi_dir = gconf.get_cmp_rawdiff_resampled()
     
     if not op.exists(input_dsi_file):
         log.error("File does not exists: %s" % input_dsi_file)
@@ -76,8 +76,8 @@ def compute_dts():
     log.info("Compute diffusion tensor field")
     log.info("==============================")
     
-    input_file = op.join(gconf.get_cmt_rawdiff(), 'DTI_resampled_2x2x2.nii')
-    dti_out_path = gconf.get_cmt_rawdiff_reconout()
+    input_file = op.join(gconf.get_cmp_rawdiff(), 'DTI_resampled_2x2x2.nii')
+    dti_out_path = gconf.get_cmp_rawdiff_reconout()
     
     if not op.exists(input_file):
         msg = "No input file available: %s" % input_file
@@ -110,8 +110,8 @@ def compute_odfs():
     log.info("Compute the ODFs field")
     log.info("=========================")
     
-    first_input_file = op.join(gconf.get_cmt_rawdiff(), '2x2x2', 'MR0000.nii')
-    odf_out_path = gconf.get_cmt_rawdiff_reconout()
+    first_input_file = op.join(gconf.get_cmp_rawdiff(), '2x2x2', 'MR0000.nii')
+    odf_out_path = gconf.get_cmp_rawdiff_reconout()
     
     if not op.exists(first_input_file):
         msg = "No input file available: %s" % first_input_file
@@ -140,7 +140,7 @@ def compute_odfs():
     # calculate GFA map
 
     # XXX: this will be replaced by Python code, to compute different scalar fields
-    cmd = op.join(gconf.get_cmt_binary_path(), 'DTB_gfa')
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_gfa')
     dta_cmd = '%s --dsi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'))
     runCmd( dta_cmd, log )
 
@@ -149,7 +149,7 @@ def compute_odfs():
     else:
         # copy dsi_gfa.nii to scalar folder for processing with connectionmatrix
         src = op.join(odf_out_path, "dsi_gfa.nii")
-        dst = op.join(gconf.get_cmt_scalars(), 'dsi_gfa.nii')
+        dst = op.join(gconf.get_cmp_scalars(), 'dsi_gfa.nii')
         mymove( src, dst, log )
     
     log.info("[ DONE ]")
@@ -203,15 +203,15 @@ def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
-    rawdiff_dir = conf.get_cmt_rawdiff()
-    odf_out_path = op.join(conf.get_cmt_rawdiff(), 'odf_0')
-    cmt_scalars_path = conf.get_cmt_scalars()
+    rawdiff_dir = conf.get_cmp_rawdiff()
+    odf_out_path = op.join(conf.get_cmp_rawdiff(), 'odf_0')
+    cmp_scalars_path = conf.get_cmp_scalars()
     
     if conf.diffusion_imaging_model == 'DSI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
         conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DSI_resampled_2x2x2.nii', 'DSI_resampled_2x2x2-nii')
         conf.pipeline_status.AddStageOutput(stage, odf_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
-        conf.pipeline_status.AddStageOutput(stage, cmt_scalars_path, 'dsi_gfa.nii', 'dsi_gfa-nii')      
+        conf.pipeline_status.AddStageOutput(stage, cmp_scalars_path, 'dsi_gfa.nii', 'dsi_gfa-nii')      
           
     elif conf.diffusion_imaging_model == 'DTI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':

@@ -13,7 +13,7 @@ def fiberlength_histogram():
         return
     
     # get fiber length array
-    fiblen = np.load(op.join(gconf.get_cmt_fibers(), 'lengths.npy'))
+    fiblen = np.load(op.join(gconf.get_cmp_fibers(), 'lengths.npy'))
     
     # the histogram of the data
     n, bins, patches = plt.hist(fiblen, facecolor='green', alpha=0.75)
@@ -55,7 +55,7 @@ def declare_inputs(conf):
     
     stage = conf.pipeline_status.GetStage(__name__)
     
-    conf.pipeline_status.AddStageInput(stage, conf.get_cmt_fibers(), 'lengths.npy', 'lengths-npy')
+    conf.pipeline_status.AddStageInput(stage, conf.get_cmp_fibers(), 'lengths.npy', 'lengths-npy')
         
         
 def declare_outputs(conf):

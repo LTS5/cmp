@@ -23,7 +23,5 @@ Boost, Blitz, libnifti
 Optional
 --------
 * NiPype
-* Twisted / Loggingserver
-* DiPy for fiber clustering module / downsampling?
 * Matplotlib for histogram plotting
 * TrackVis for tractography result inspection

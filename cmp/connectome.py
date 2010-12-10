@@ -1,6 +1,6 @@
 # Connectome Mapping Execution Engine
 
-import cmt
+import cmp
 from logme import *
 
 def setup_pipeline_status(cobj):
@@ -10,17 +10,17 @@ def setup_pipeline_status(cobj):
     # This needs to be done before starting processing so
     # that the stages in the pipeline are laid out before
     # processing begins
-    stages = [ (cmt.dicomconverter, cobj.active_dicomconverter),
-               (cmt.registration, cobj.active_registration),
-               (cmt.freesurfer, cobj.active_segmentation),        
-               (cmt.maskcreation, cobj.active_parcellation),
-               (cmt.apply_registration, cobj.active_parcellation),
-               (cmt.dtk, cobj.active_reconstruction),
-               (cmt.tractography, cobj.active_tractography),
-               (cmt.fiberfilter, cobj.active_fiberfilter),
-               (cmt.connectionmatrix, cobj.active_connectome),
-              # (cmt.fiberstatistics, cobj.active_statistics),               
-               (cmt.cffconverter, cobj.active_cffconverter) ]
+    stages = [ (cmp.dicomconverter, cobj.active_dicomconverter),
+               (cmp.registration, cobj.active_registration),
+               (cmp.freesurfer, cobj.active_segmentation),        
+               (cmp.maskcreation, cobj.active_parcellation),
+               (cmp.apply_registration, cobj.active_parcellation),
+               (cmp.dtk, cobj.active_reconstruction),
+               (cmp.tractography, cobj.active_tractography),
+               (cmp.fiberfilter, cobj.active_fiberfilter),
+               (cmp.connectionmatrix, cobj.active_connectome),
+              # (cmp.fiberstatistics, cobj.active_statistics),               
+               (cmp.cffconverter, cobj.active_cffconverter) ]
     
     for stage,stageEnabled in stages:
         cobj.pipeline_status.AddStage( stage.__name__ )
@@ -40,7 +40,7 @@ def mapit(cobj):
     
     stages = setup_pipeline_status(cobj)
 
-    cmt.preprocessing.run( cobj )
+    cmp.preprocessing.run( cobj )
         
     # Set the logger function for the PipelineStatus object
     cobj.pipeline_status.SetLoggerFunctions(cobj.get_logger().error, cobj.get_logger().info)

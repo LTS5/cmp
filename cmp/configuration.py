@@ -5,9 +5,9 @@ import os.path as op, os
 import sys
 import datetime as dt
 
-from cmt.logme import getLog
-from cmt.pipeline import pipeline_status
-from cmt.util import KeyValue
+from cmp.logme import getLog
+from cmp.pipeline import pipeline_status
+from cmp.util import KeyValue
 # check if connectomeviewer including compiled dipy is available
 # if so, we can use more fast options in the pipeline
 try:
@@ -138,8 +138,8 @@ class PipelineConfiguration(traits.HasTraits):
     dtk_matrices = traits.Directory(exists=False, desc="path to diffusion toolkit matrices")
 
     # This file stores descriptions of the inputs/outputs to each stage of the
-    # CMT pipeline.  It can be queried using the PipelineStatus python object 
-    pipeline_status_file = traits.Str( "cmt.status" )
+    # CMP pipeline.  It can be queried using the PipelineStatus python object 
+    pipeline_status_file = traits.Str( "cmp.status" )
     
     # Pipeline status object
     pipeline_status = pipeline_status.PipelineStatus()
@@ -201,7 +201,7 @@ class PipelineConfiguration(traits.HasTraits):
         self.emailnotify = []
         
         # default gradient table for DTI
-        self.gradient_table_file = self.get_cmt_gradient_table('siemens_64')
+        self.gradient_table_file = self.get_cmp_gradient_table('siemens_64')
         
         # try to discover paths from environment variables
         try:
@@ -254,8 +254,8 @@ class PipelineConfiguration(traits.HasTraits):
                     raise Exception(msg)
         
         
-    def get_cmt_home(self):
-        """ Return the cmt home path """
+    def get_cmp_home(self):
+        """ Return the cmp home path """
         return op.dirname(__file__)
         
     def get_rawdata(self):
@@ -335,7 +335,7 @@ class PipelineConfiguration(traits.HasTraits):
     
     def get_cffdir(self):
         """ Returns path to store connectome file """
-        return op.join(self.get_cmt(), 'cff')
+        return op.join(self.get_cmp(), 'cff')
     
     def get_nifti(self):
         """ Returns the subject root folder path for nifti files """
@@ -353,58 +353,58 @@ class PipelineConfiguration(traits.HasTraits):
         """ Returns the path to the subjects wm_correction path """
         return op.join(self.get_nifti(), 'wm_correction')
         
-    def get_cmt(self):
-        return op.join(self.get_subj_dir(), 'CMT')
+    def get_cmp(self):
+        return op.join(self.get_subj_dir(), 'CMP')
 
-    def get_cmt_rawdiff(self, ):
-        return op.join(self.get_cmt(), 'raw_diffusion')
+    def get_cmp_rawdiff(self, ):
+        return op.join(self.get_cmp(), 'raw_diffusion')
 
-    def get_cmt_rawdiff_reconout(self):
+    def get_cmp_rawdiff_reconout(self):
         """ Returns the output path for diffusion reconstruction without prefix"""
         if self.diffusion_imaging_model == 'DSI':
-            return op.join(self.get_cmt(), 'raw_diffusion', 'odf_0')
+            return op.join(self.get_cmp(), 'raw_diffusion', 'odf_0')
         elif self.diffusion_imaging_model == 'DTI':
-            return op.join(self.get_cmt(), 'raw_diffusion', 'dti_0')
+            return op.join(self.get_cmp(), 'raw_diffusion', 'dti_0')
 
-    def get_cmt_rawdiff_resampled(self):
-        return op.join(self.get_cmt_rawdiff(), '2x2x2')
+    def get_cmp_rawdiff_resampled(self):
+        return op.join(self.get_cmp_rawdiff(), '2x2x2')
         
-    def get_cmt_fsout(self):
-        return op.join(self.get_cmt(), 'fs_output')
+    def get_cmp_fsout(self):
+        return op.join(self.get_cmp(), 'fs_output')
     
-    def get_cmt_fibers(self):
-        return op.join(self.get_cmt(), 'fibers')
+    def get_cmp_fibers(self):
+        return op.join(self.get_cmp(), 'fibers')
 
-    def get_cmt_scalars(self):
-        return op.join(self.get_cmt(), 'scalars')
+    def get_cmp_scalars(self):
+        return op.join(self.get_cmp(), 'scalars')
         
-    def get_cmt_matrices(self):
-        return op.join(self.get_cmt_fibers(), 'matrices')  
+    def get_cmp_matrices(self):
+        return op.join(self.get_cmp_fibers(), 'matrices')  
     
-    def get_cmt_tracto_mask(self):
-        return op.join(self.get_cmt_fsout(), 'HR')
+    def get_cmp_tracto_mask(self):
+        return op.join(self.get_cmp_fsout(), 'HR')
     
-    def get_cmt_tracto_mask_tob0(self):
-        return op.join(self.get_cmt_fsout(), 'HR__registered-TO-b0')
+    def get_cmp_tracto_mask_tob0(self):
+        return op.join(self.get_cmp_fsout(), 'HR__registered-TO-b0')
           
     def get_custom_gradient_table(self):
         """ Returns the absolute path to the custom gradient table
         with optional b-values in the 4th row """
         return op.join(self.get_diffusion_metadata(), 'gradient_table.txt')
     
-    def get_cmt_gradient_table(self, name):
-        """ Return default gradient tables shipped with CMT. These are mainly derived from
+    def get_cmp_gradient_table(self, name):
+        """ Return default gradient tables shipped with CMP. These are mainly derived from
         Diffusion Toolkit """
-        cmt_path = op.dirname(__file__)
-        return op.join(cmt_path, 'data', 'diffusion', 'gradient_tables', name + '.txt')
+        cmp_path = op.dirname(__file__)
+        return op.join(cmp_path, 'data', 'diffusion', 'gradient_tables', name + '.txt')
     
     def get_dtb_streamline_vecs_file(self):
         """ Returns the odf directions file used for DTB_streamline """
-        cmt_path = op.dirname(__file__)
-        return op.join(cmt_path, 'data', 'diffusion', 'odf_directions', '181_vecs.dat')
+        cmp_path = op.dirname(__file__)
+        return op.join(cmp_path, 'data', 'diffusion', 'odf_directions', '181_vecs.dat')
     
     # XXX
-    def get_cmt_scalarfields(self):
+    def get_cmp_scalarfields(self):
         """ Returns a list with tuples with the scalar field name and the
         absolute path to its nifti file """
         
@@ -412,7 +412,7 @@ class PipelineConfiguration(traits.HasTraits):
         
         if self.diffusion_imaging_model == 'DSI':
             # add gfa per default
-            ret.append( ('gfa', op.join(self.get_cmt_scalars(), 'dsi_gfa.nii')))
+            ret.append( ('gfa', op.join(self.get_cmp_scalars(), 'dsi_gfa.nii')))
             # XXX: add adc per default
             
         elif  self.diffusion_imaging_model == 'DTI':
@@ -453,29 +453,29 @@ class PipelineConfiguration(traits.HasTraits):
         """ Return the absolute path to the lausanne parcellation atlas
         for the resolution name """
         
-        cmt_path = op.dirname(__file__)
+        cmp_path = op.dirname(__file__)
         
         provided_atlases = ['myatlas_33_rh.gcs','myatlasP1_16_rh.gcs','myatlasP17_28_rh.gcs','myatlasP29_35_rh.gcs',
                             'myatlas_60_rh.gcs','myatlas_125_rh.gcs','myatlas_250_rh.gcs','myatlas_33_lh.gcs','myatlasP1_16_lh.gcs',
                             'myatlasP17_28_lh.gcs','myatlasP29_35_lh.gcs','myatlas_60_lh.gcs','myatlas_125_lh.gcs','myatlas_250_lh.gcs']
         
         if name in provided_atlases:
-            return op.join(cmt_path, 'data', 'colortable_and_gcs', 'my_atlas_gcs', name)
+            return op.join(cmp_path, 'data', 'colortable_and_gcs', 'my_atlas_gcs', name)
     
         
     def get_lausanne_parcellation_path(self, parcellationname):
         
-        cmt_path = op.dirname(__file__)
+        cmp_path = op.dirname(__file__)
         
         allowed_default_parcel = ['resolution83', 'resolution150', 'resolution258', 'resolution500', 'resolution1015']
         
         if parcellationname in allowed_default_parcel:
-            return op.join(cmt_path, 'data', 'parcellation', 'lausanne2008', parcellationname)
+            return op.join(cmp_path, 'data', 'parcellation', 'lausanne2008', parcellationname)
         else:
             log.error("Not a valid default parcellation name for the lausanne2008 parcellation scheme")
         
         
-    def get_cmt_binary_path(self):
+    def get_cmp_binary_path(self):
         """ Returns the path to the binary files for the current platform
         and architecture """
         
@@ -490,10 +490,10 @@ class PipelineConfiguration(traits.HasTraits):
             raise('No binary files compiled for your platform!')
     
     def init_pipeline_status(self):
-        """Create the 'cmt.status'.  The 'cmt.status' file contains information
+        """Create the 'cmp.status'.  The 'cmp.status' file contains information
         about the inputs/outputs of each pipeline stage"""        
         status_file = op.join(self.get_subj_dir(), self.pipeline_status_file)   
-        self.pipeline_status.Pipeline.name = "cmt"
+        self.pipeline_status.Pipeline.name = "cmp"
         self.pipeline_status.SaveToFile(status_file)
 
         

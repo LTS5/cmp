@@ -5,7 +5,7 @@ import subprocess
 import sys
 from ...logme import *
 import shutil 
-from cmt.util import mymove
+from cmp.util import mymove
 
 def lin_regT12b0():
     log.info("T1 -> b0: Linear registration")
@@ -49,13 +49,13 @@ def nlin_regT12b0():
     ##############
     log.info('[1.1] linear register "T1" onto "T2"')
     
-    fli_cmt = 'flirt -in "%s" -ref "%s" -nosearch -dof 6 -cost mutualinfo -out "%s" -omat "%s"' % (
+    fli_cmp = 'flirt -in "%s" -ref "%s" -nosearch -dof 6 -cost mutualinfo -out "%s" -omat "%s"' % (
             op.join(nifti_dir, "T1.nii"),
             op.join(nifti_dir, "T2.nii"),
             op.join(nifti_dir, "T1-TO-T2.nii"),
             op.join(gconf.get_nifti_trafo(), "T1-TO-T2.mat"),
             )
-    runCmd( fli_cmt, log )
+    runCmd( fli_cmp, log )
     
     if not op.exists(op.join(gconf.get_nifti_trafo(), "T1-TO-T2.mat")):
         log.error("T1-TO-T2.mat Problem with FLIRT. Unable to find linear transformation 'T1-TO-T2.mat'.")        
@@ -63,13 +63,13 @@ def nlin_regT12b0():
     ##############
     log.info('[1.2] -> linear register "T2" onto "b0_resampled"')
     
-    fli_cmt = 'flirt -in "%s" -ref "%s" -nosearch -dof 12 -cost normmi -out "%s" -omat "%s"' % (
+    fli_cmp = 'flirt -in "%s" -ref "%s" -nosearch -dof 12 -cost normmi -out "%s" -omat "%s"' % (
             op.join(nifti_dir, "T2.nii"),
             op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
             op.join(nifti_dir, "T2-TO-b0.nii"),
             op.join(gconf.get_nifti_trafo(), "T2-TO-b0.mat"),
             )
-    runCmd( fli_cmt, log )
+    runCmd( fli_cmp, log )
     
     if not op.exists(op.join(nifti_dir, "T2-TO-b0.nii")):
         log.error("T2-TO-b0.nii" "Problem with FLIRT. Unable to find linear transformation 'T2-TO-b0.mat'.")
@@ -77,18 +77,18 @@ def nlin_regT12b0():
     ##############
     log.info('[1.3] -> apply the linear registration "T1" --> "b0" (for comparison)')
     
-    con_cmt = 'convert_xfm -concat "%s" "%s" -omat "%s"' % (op.join(gconf.get_nifti_trafo(), "T2-TO-b0.mat"),
+    con_cmp = 'convert_xfm -concat "%s" "%s" -omat "%s"' % (op.join(gconf.get_nifti_trafo(), "T2-TO-b0.mat"),
                                                             op.join(gconf.get_nifti_trafo(), "T1-TO-T2.mat"),
                                                             op.join(gconf.get_nifti_trafo(), "T1-TO-b0.mat"))
-    runCmd( con_cmt, log )
+    runCmd( con_cmp, log )
     
-    fli_cmt = 'flirt -in "%s" -ref "%s" -applyxfm -init "%s" -out "%s" -interp sinc' % (
+    fli_cmp = 'flirt -in "%s" -ref "%s" -applyxfm -init "%s" -out "%s" -interp sinc' % (
             op.join(nifti_dir, "T1.nii"),
             op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
             op.join(gconf.get_nifti_trafo(), "T1-TO-b0.mat"),
             op.join(nifti_dir, "T1-TO-b0.nii"),
             )
-    runCmd( fli_cmt, log )
+    runCmd( fli_cmp, log )
     
     if not op.exists(op.join(nifti_dir, "T1-TO-b0.nii")):
         log.error("T1-TO-b0.nii Problem with FLIRT. Unable to find linear transformation 'T1-TO-b0.mat'.")
