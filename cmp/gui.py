@@ -392,8 +392,9 @@ Children's Hospital Boston:
         # execute the pipeline thread
         # store the pickle
         self.save_state(os.path.join(self.get_log(), self.get_logname(suffix = '.pkl')) )
-        cmpthread = CMPThread(self)
-        cmpthread.start()
+        cmp.connectome.mapit(self)
+        #cmpthread = CMPThread(self)
+        #cmpthread.start()
 
     def _load_fired(self):
         import enthought.sweet_pickle as sp
