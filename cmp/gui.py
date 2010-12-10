@@ -233,12 +233,13 @@ class CMPGUI( PipelineConfiguration ):
 
     cffconverter_group = Group(
         VGroup(
-               Item('cff_fullnetworkpickle', label="Full Network"),
+               Item('cff_fullnetworkpickle', label="All connectomes"),
+               Item('cff_cmatpickle', label='cmat.pickle'),
+               Item('cff_filteredfibers', label="Tractography"),
+               Item('cff_roisegmentation', label="Parcellation Volumes"),
                Item('cff_rawdiffusion', label="Raw Diffusion Data"),
                Item('cff_rawT1', label="Raw T1 data"),
                Item('cff_rawT2', label="Raw T2 data"),
-               Item('cff_filteredfibers', label="Tractography"),
-               Item('cff_roisegmentation', label="Parcellation Volumes"),
                Item('cff_surfaces', label="Individual surfaces", tooltip = 'stores individually generated surfaces'),
                show_border = True,
             ),

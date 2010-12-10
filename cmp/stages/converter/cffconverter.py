@@ -12,12 +12,18 @@ try:
 except ImportError:
     print "Please install cfflib to use the connectome file format converter"
 
-def add_cmat2connectome(connectome):
+def add_fibers2connectome(connectome):
+    log.info("Adding filtered fibers to connectome...")
+    trkfile = op.join(gconf.get_cmp_fibers(), 'streamline_filtered.trk')
+    # XXX: add tractography, wait for cfflib adder method
+    
+
+def add_cmat2connectome(connectome, addcmatpickle = False):
     log.info("Loading cmat.pickle....")
     cmat = nx.read_gpickle(op.join(gconf.get_cmp_matrices(), 'cmat.pickle'))
     resolution = gconf.parcellation.keys()
     for r in resolution:
-        log.info("Working on resolution: %s" % r)
+        log.info("Adding connectome for resolution: %s" % r)
         # retrieve the graph
         g = cmat[r]['graph']
         # the graph to use for storage
@@ -36,34 +42,16 @@ def add_cmat2connectome(connectome):
         cnet = cf.CNetwork(name = 'Network: %s' % r)
         cnet.set_with_nxgraph('connectome_%s' % r, gs)
         #cnet.set_metadata({'segmentation_volume_filename':cmat[r]['graph']})
-        
+        #XXX: add resolution etc.
         connectome.add_connectome_network(cnet)
+        log.info("Done.")
         
-
-def convert_cmat2cff(cmat_fname, cff_fname):
-    """ Converts a given cmat file produced by the pipeline into
-    a connectome file
-    
-    Parameters
-    ----------
-    cmat_fname : string
-        The input filename of the graph pickle. Ending .pickle
-    cff_fname : string
-        Absolute path to the output filename of the cff
-    """
-    
-    cmat = nx.read_gpickle(cmat_fname)
-        
-    # first, simply create connectome file for networks
-    # use the default. graphml, see for correct node labels (integers) to match
-    # import cfflib
-    # tutorial steps from cfflib for creation, using cmat
-    # number of fibers
-    # average length
-    print "Convert to a connectome file"
-
-    # loop over resolutions and store number of fibers in graphml
-
+    if addcmatpickle:
+        log.info("Adding cmat.pickle to connectome...")
+        cnet = cf.CNetwork(name = 'cmat.pickle')
+        cnet.set_with_nxgraph('connectome_cmat', cmat)
+        connectome.add_connectome_network(cnet)       
+        log.info("Done.")
 
 def convert2cff():
     
@@ -91,11 +79,12 @@ def convert2cff():
     # XXX: depending on what was checked
     if gconf.cff_fullnetworkpickle:
         # adding networks
-        add_cmat2connectome(c)
+        add_cmat2connectome(c, addcmatpickle = gconf.cff_cmatpickle)
+        
+    if gconf.cff_filteredfibers:
+        add_fibers2connectome(c)
         
     cf.save_to_cff(c,outputcff)
-    
-# XXX: inputs: need cmat.pickle
     
 def run(conf):
     """ Run the CFF Converter module
