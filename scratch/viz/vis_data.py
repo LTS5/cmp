@@ -15,7 +15,7 @@ n = 85
 endpoints = np.load('%s/endpoints.npy'% ver)
 fiblen = np.load('%s/fiblen.npy'% ver)
 G = nx.read_gpickle('%s/connectionmatrix.pickle'% ver)
-#fib0, hdr = ni.trackvis.read('/home/cmt/data/test_project_one/testsubject1/tp1/4__CMT/fibers/%s-streamline_spline.trk' % ver)
+#fib0, hdr = ni.trackvis.read('/home/cmp/data/test_project_one/testsubject1/tp1/4__CMP/fibers/%s-streamline_spline.trk' % ver)
 fib0, hdr = ni.trackvis.read('%s/streamline.trk'% ver)
 
 # copy tracks, here can decimate fibers!

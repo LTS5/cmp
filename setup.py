@@ -7,21 +7,21 @@ import os
 import sys
 if os.path.exists('MANIFEST'): os.remove('MANIFEST')
 
-packages=["cmt",
-          "cmt.stages",
-          "cmt.stages.connectionmatrix",
-          "cmt.stages.converter",
-          "cmt.stages.preprocessing",
-          "cmt.stages.postprocessing",
-          "cmt.stages.segmentation",
-          "cmt.stages.reconstruction",
-          "cmt.stages.parcellation",
-          "cmt.stages.registration",
-          "cmt.stages.tractography",
-          "cmt.stages.stats",
-          "cmt.stages.template_module"]
+packages=["cmp",
+          "cmp.stages",
+          "cmp.stages.connectionmatrix",
+          "cmp.stages.converter",
+          "cmp.stages.preprocessing",
+          "cmp.stages.postprocessing",
+          "cmp.stages.segmentation",
+          "cmp.stages.reconstruction",
+          "cmp.stages.parcellation",
+          "cmp.stages.registration",
+          "cmp.stages.tractography",
+          "cmp.stages.stats",
+          "cmp.stages.template_module"]
 
-package_data = {'cmt':
+package_data = {'cmp':
                 ['data/colortable_and_gcs/*.txt',
                  'data/colortable_and_gcs/my_atlas_gcs/*.gcs',
                  'data/colortable_and_gcs/My_colortable_rnd/*.txt',
@@ -52,8 +52,8 @@ def main(**extra_args):
     
     # regenerate protoc
     import subprocess
-    protofname = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'cmt', 'pipeline', 'pipeline.proto')
-    protoout = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'cmt', 'pipeline')
+    protofname = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'cmp', 'pipeline', 'pipeline.proto')
+    protoout = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'cmp', 'pipeline')
     protopath = os.path.dirname(protofname)
     cmd = 'protoc %s --proto_path=%s --python_out=%s' % (protofname, protopath, protoout)
     print "Calling protoc to generate protobuf python file in current version:"

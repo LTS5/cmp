@@ -17,7 +17,7 @@
 #    Children's Hospital Boston, 2010
 #
 
-import cmt,cmt.connectome,cmt.configuration,cmt.pipeline,cmt.logme
+import cmp,cmp.connectome,cmp.configuration,cmp.pipeline,cmp.logme
 import sys
 import os
 import shutil, glob
@@ -79,7 +79,7 @@ def parseCommandLine(conf):
     return options
     
 def prepForExecution(conf, options):
-    """Prepare the files for execution of the cmt pipeline"""
+    """Prepare the files for execution of the cmp pipeline"""
     
     # Must specify the T1 and DTI input directories
     if options.t1Dir == None:
@@ -89,7 +89,7 @@ def prepForExecution(conf, options):
         sys.exit('You must specify --dtiDir')        
         
     # First, setup the pipeline status so we can determine the inputs
-    cmt.connectome.setup_pipeline_status(conf)
+    cmp.connectome.setup_pipeline_status(conf)
     
     # Get the first stage by number
     stage = conf.pipeline_status.GetStage(num=1)
@@ -117,7 +117,7 @@ def main():
     """Main entrypoint for program"""
     
     # Create configuration object
-    conf = cmt.configuration.PipelineConfiguration()
+    conf = cmp.configuration.PipelineConfiguration()
     
     # Default Options
     conf.freesurfer_home = os.environ['FREESURFER_HOME']
@@ -133,7 +133,7 @@ def main():
     
     # XXX: These are hardcoded for now until I figure out how they
     #      should be set
-    conf.project_dir = '/chb/arch/python/cmt'
+    conf.project_dir = '/chb/arch/python/cmp'
     
     # Setup and parse command-line options
     options = parseCommandLine(conf)
@@ -143,10 +143,10 @@ def main():
     
     # Before running, reset the pipeline status because it will 
     # get created in mapit()
-    conf.pipeline_status = cmt.pipeline_status.PipelineStatus()
+    conf.pipeline_status = cmp.pipeline_status.PipelineStatus()
         
-    # Execute the 'cmt' pipeline!
-    cmt.connectome.mapit(conf)
+    # Execute the 'cmp' pipeline!
+    cmp.connectome.mapit(conf)
         
 if __name__ == '__main__':
     main()    

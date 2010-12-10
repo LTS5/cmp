@@ -25,7 +25,7 @@ face = a.darrays[1].data
 #m=Session()
 # http://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation
 
-#m.run("[v,l,c] = read_annotation('/home/stephan/Dev/PyWorkspace/cmt/scratch/atlas_creation/cmt/rh.myaparc_33.annot');")
+#m.run("[v,l,c] = read_annotation('/home/stephan/Dev/PyWorkspace/cmp/scratch/atlas_creation/cmp/rh.myaparc_33.annot');")
 
 # data init
 verts = np.array( [ [0,1,1], [2,3,2], [2,1,2], [2,5,4], [5,4,3] ] )

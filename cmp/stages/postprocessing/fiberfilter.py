@@ -1,7 +1,7 @@
 import os, os.path as op
 from time import time
 from ...logme import *
-import cmt.util as util
+import cmp.util as util
 import numpy as np
 import nibabel.trackvis as tv
     
@@ -9,15 +9,15 @@ def spline_filtering():
     log.info("Spline filtering the fibers")
     log.info("===========================")
 
-    src = op.join(gconf.get_cmt_fibers(), 'streamline.trk') 
-    ren = op.join(gconf.get_cmt_fibers(), 'streamline_splinefiltered.trk')
+    src = op.join(gconf.get_cmp_fibers(), 'streamline.trk') 
+    ren = op.join(gconf.get_cmp_fibers(), 'streamline_splinefiltered.trk')
     
     sp_cmd = 'spline_filter %s 1 %s' % (src, ren)    
     runCmd( sp_cmd, log )
     
     le = compute_length_array(ren)
     
-#    os.rename(op.join(gconf.get_cmt_fibers(), "tmp.trk"), op.join(gconf.get_cmt_fibers(), "streamline.trk"))
+#    os.rename(op.join(gconf.get_cmp_fibers(), "tmp.trk"), op.join(gconf.get_cmp_fibers(), "streamline.trk"))
     
     log.info("[ DONE ]")
     
@@ -39,7 +39,7 @@ def compute_length_array(trkfile=None, streams=None, savefname = 'lengths.npy'):
         leng[i] = util.length(fib[0])
     
     # store length array
-    lefname = op.join(gconf.get_cmt_fibers(), savefname)
+    lefname = op.join(gconf.get_cmp_fibers(), savefname)
     np.save(lefname, leng)
     log.info("Store lengths array to: %s" % lefname)
     
@@ -53,13 +53,13 @@ def filter_fibers(applied_spline=False):
     log.info("Was spline filtering applied? %s" % applied_spline)
     
     if applied_spline:
-        intrk = op.join(gconf.get_cmt_fibers(), 'streamline_splinefiltered.trk')
+        intrk = op.join(gconf.get_cmp_fibers(), 'streamline_splinefiltered.trk')
     else:
-        intrk = op.join(gconf.get_cmt_fibers(), 'streamline.trk')
+        intrk = op.join(gconf.get_cmp_fibers(), 'streamline.trk')
         
     log.info("Input file for fiber cutting is: %s" % intrk)
     
-    outtrk = op.join(gconf.get_cmt_fibers(), 'streamline_cutfiltered.trk')
+    outtrk = op.join(gconf.get_cmp_fibers(), 'streamline_cutfiltered.trk')
     
     # compute length array
     le = compute_length_array(intrk, savefname = 'lengths_beforecutfiltered.npy')
@@ -98,7 +98,7 @@ def filter_fibers(applied_spline=False):
 def inspect(gconf):
     """ Inspect the results of this stage """
     log = gconf.get_logger()
-    trkcmd = 'trackvis %s' % op.join(gconf.get_cmt_fibers(), 'streamline_filtered.trk')
+    trkcmd = 'trackvis %s' % op.join(gconf.get_cmp_fibers(), 'streamline_filtered.trk')
     runCmd( trkcmd, log )
     
 def run(conf):
@@ -118,16 +118,16 @@ def run(conf):
         spline_filtering()
         if gconf.apply_fiberlength:
             filter_fibers(applied_spline=True)
-            util.myrename(op.join(gconf.get_cmt_fibers(), 'streamline_cutfiltered.trk'),
-                          op.join(gconf.get_cmt_fibers(), 'streamline_filtered.trk'), log)            
+            util.myrename(op.join(gconf.get_cmp_fibers(), 'streamline_cutfiltered.trk'),
+                          op.join(gconf.get_cmp_fibers(), 'streamline_filtered.trk'), log)            
         else:
-            util.myrename(op.join(gconf.get_cmt_fibers(), 'streamline_splinefiltered.trk'),
-                          op.join(gconf.get_cmt_fibers(), 'streamline_filtered.trk'), log)
+            util.myrename(op.join(gconf.get_cmp_fibers(), 'streamline_splinefiltered.trk'),
+                          op.join(gconf.get_cmp_fibers(), 'streamline_filtered.trk'), log)
     else:
         if gconf.apply_fiberlength:
             filter_fibers(applied_spline=False)
-            util.myrename(op.join(gconf.get_cmt_fibers(), 'streamline_cutfiltered.trk'),
-                          op.join(gconf.get_cmt_fibers(), 'streamline_filtered.trk'), log)    
+            util.myrename(op.join(gconf.get_cmp_fibers(), 'streamline_cutfiltered.trk'),
+                          op.join(gconf.get_cmp_fibers(), 'streamline_filtered.trk'), log)    
             
     log.info("Module took %s seconds to process." % (time()-start))
     
@@ -139,7 +139,7 @@ def declare_inputs(conf):
     """Declare the inputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
-    fibers_path = conf.get_cmt_fibers()
+    fibers_path = conf.get_cmp_fibers()
     
     conf.pipeline_status.AddStageInput(stage, fibers_path, 'streamline.trk', 'streamline-trk')
         
@@ -147,9 +147,9 @@ def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
-    fibers_path = conf.get_cmt_fibers()
+    fibers_path = conf.get_cmp_fibers()
     
     conf.pipeline_status.AddStageOutput(stage, fibers_path, 'streamline_filtered.trk', 'streamline-trk')
-    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_fibers(), 'lengths.npy', 'lengths-npy') 
+    conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fibers(), 'lengths.npy', 'lengths-npy') 
                       
 

@@ -14,7 +14,7 @@ except ImportError:
 
 def add_cmat2connectome(connectome):
     log.info("Loading cmat.pickle....")
-    cmat = nx.read_gpickle(op.join(gconf.get_cmt_matrices(), 'cmat.pickle'))
+    cmat = nx.read_gpickle(op.join(gconf.get_cmp_matrices(), 'cmat.pickle'))
     resolution = gconf.parcellation.keys()
     for r in resolution:
         log.info("Working on resolution: %s" % r)
@@ -126,7 +126,7 @@ def declare_inputs(conf):
     
     stage = conf.pipeline_status.GetStage(__name__)
     
-    conf.pipeline_status.AddStageInput(stage, conf.get_cmt_matrices(), 'cmat.pickle', 'cmat-pickle')
+    conf.pipeline_status.AddStageInput(stage, conf.get_cmp_matrices(), 'cmat.pickle', 'cmat-pickle')
         
     
 def declare_outputs(conf):

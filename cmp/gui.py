@@ -12,20 +12,20 @@ from enthought.traits.ui.api import View, Item, HGroup, Handler, \
 from enthought.traits.ui.table_column \
     import ObjectColumn
 
-import cmt    
-from cmt.configuration import PipelineConfiguration
-from cmt.util import KeyValue
+import cmp    
+from cmp.configuration import PipelineConfiguration
+from cmp.util import KeyValue
 
-class CMTThread( threading.Thread ):
+class CMPThread( threading.Thread ):
 
     def __init__(self, gconf): 
         threading.Thread.__init__(self) 
         self.gconf = gconf 
  
     def run(self): 
-        print "Starting CMT Thread..."
-        cmt.connectome.mapit(self.gconf)
-        print "Ended CMT Thread."
+        print "Starting CMP Thread..."
+        cmp.connectome.mapit(self.gconf)
+        print "Ended CMP Thread."
         # release
         
 table_editor = TableEditor(
@@ -40,15 +40,15 @@ table_editor = TableEditor(
 )
 
 
-class CMTGUI( PipelineConfiguration ):
-    """ The Graphical User Interface for the CMT
+class CMPGUI( PipelineConfiguration ):
+    """ The Graphical User Interface for the CMP
     """
     
     def __init__(self, **kwargs):
         # NOTE: In python 2.6, object.__init__ no longer accepts input
         # arguments.  HasTraits does not define an __init__ and
         # therefore these args were being ignored.
-        super(CMTGUI, self).__init__(**kwargs)
+        super(CMPGUI, self).__init__(**kwargs)
         
     about = Button
     run = Button
@@ -327,20 +327,23 @@ Children's Hospital Boston:
 """
         print msg
     
-    def load_state(self, cmtconfigfile):
+    def load_state(self, cmpconfigfile):
         """ Load CMP Configuration state directly.
         Useful if you do not want to invoke the GUI"""
         import enthought.sweet_pickle as sp        
-        output = open(cmtconfigfile, 'rb')
+        output = open(cmpconfigfile, 'rb')
         data = sp.load(output)
         self.__setstate__(data.__getstate__())
         output.close()
 
-    def save_state(self, cmtconfigfile):
+    def save_state(self, cmpconfigfile):
         """ Save CMP Configuration state directly.
         Useful if you do not want to invoke the GUI"""
+        # check if path available
+        if not os.path.exists(os.path.dirname(cmpconfigfile)):
+            os.makedirs(os.path.dirname(cmpconfigfile))
         import enthought.sweet_pickle as sp
-        output = open(cmtconfigfile, 'wb')
+        output = open(cmpconfigfile, 'wb')
         # Pickle the list using the highest protocol available.
         sp.dump(self, output, -1)
         output.close()
@@ -358,7 +361,7 @@ Children's Hospital Boston:
         if self.gradient_table == 'custom':
             gradfile = self.get_custom_gradient_table()
         else:
-            gradfile = self.get_cmt_gradient_table(self.gradient_table)
+            gradfile = self.get_cmp_gradient_table(self.gradient_table)
 
         if not os.path.exists(gradfile):
             msg = 'Selected gradient table %s does not exist!' % gradfile
@@ -370,27 +373,27 @@ Children's Hospital Boston:
         if value == 'custom':
             self.gradient_table_file = self.get_custom_gradient_table()
         else:
-            self.gradient_table_file = self.get_cmt_gradient_table(value)
+            self.gradient_table_file = self.get_cmp_gradient_table(value)
             
         if not os.path.exists(self.gradient_table_file):
             msg = 'Selected gradient table %s does not exist!' % self.gradient_table_file
             raise Exception(msg)
     
     def _inspect_registration_fired(self):
-        cmt.registration.inspect(self)
+        cmp.registration.inspect(self)
 
     def _inspect_tractography_fired(self):
-        cmt.tractography.inspect(self)
+        cmp.tractography.inspect(self)
         
     def _inspect_fiberfilter_fired(self):
-        cmt.fiberfilter.inspect(self)
+        cmp.fiberfilter.inspect(self)
             
     def _run_fired(self):
         # execute the pipeline thread
         # store the pickle
         self.save_state(os.path.join(self.get_log(), self.get_logname(suffix = '.pkl')) )
-        cmtthread = CMTThread(self)
-        cmtthread.start()
+        cmpthread = CMPThread(self)
+        cmpthread.start()
 
     def _load_fired(self):
         import enthought.sweet_pickle as sp

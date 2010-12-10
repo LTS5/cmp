@@ -7,9 +7,9 @@ def convert_wm_mask():
     log.info("Convert WM MASK to 8 bit/pixel")
     log.info("==============================")
     
-    infile = op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm.nii')
-    outfile = op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii')
-    resampout = op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm_resamp2x2x2.nii')
+    infile = op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm.nii')
+    outfile = op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii')
+    resampout = op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm_resamp2x2x2.nii')
     
     fsl_cmd = 'fslmaths %s %s -odt char' % (infile, outfile) 
     runCmd( fsl_cmd, log )
@@ -27,8 +27,8 @@ def fiber_tracking_dsi():
     log.info("Run STREAMLINE tractography")
     log.info("===========================")
     
-    fibers_path = gconf.get_cmt_fibers()
-    odf_out_path = gconf.get_cmt_rawdiff_reconout()
+    fibers_path = gconf.get_cmp_fibers()
+    odf_out_path = gconf.get_cmp_rawdiff_reconout()
     
     # streamline tractography
     if not gconf.streamline_param == '':
@@ -36,10 +36,10 @@ def fiber_tracking_dsi():
     else:
         param = '--angle 40 --rSeed 4'
 
-    cmd = op.join(gconf.get_cmt_binary_path(), 'DTB_streamline')
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_streamline')
     dtb_cmd = '%s --odf %s --wm %s --odfdir %s --out %s %s' % (cmd, op.join(odf_out_path, 'dsi_'),
                             # use the white matter mask after registration!
-                            op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
+                            op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
                             gconf.get_dtb_streamline_vecs_file(),
                             op.join(fibers_path, 'streamline'), param )
     
@@ -56,8 +56,8 @@ def fiber_tracking_dti():
     log.info("Run STREAMLINE tractography")
     log.info("===========================")
     
-    fibers_path = gconf.get_cmt_fibers()
-    ten_out_path = gconf.get_cmt_rawdiff_reconout()
+    fibers_path = gconf.get_cmp_fibers()
+    ten_out_path = gconf.get_cmp_rawdiff_reconout()
     
     # streamline tractography
     if not gconf.streamline_param_dti == '':
@@ -68,7 +68,7 @@ def fiber_tracking_dti():
     dtk_cmd = 'dti_tracker %s %s -m %s %s' % (op.join(ten_out_path, 'dti_'),
                             # use the white matter mask after registration!
                             op.join(fibers_path, 'streamline.trk'), 
-                            op.join(gconf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm_resamp2x2x2.nii'),
+                            op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm_resamp2x2x2.nii'),
                             param )
     
     runCmd( dtk_cmd, log )
@@ -81,7 +81,7 @@ def fiber_tracking_dti():
 def inspect(gconf):
     """ Inspect the results of this stage """
     log = gconf.get_logger()
-    trkcmd = 'trackvis %s' % op.join(gconf.get_cmt_fibers(), 'streamline.trk')
+    trkcmd = 'trackvis %s' % op.join(gconf.get_cmp_fibers(), 'streamline.trk')
     runCmd( trkcmd, log )
 
 def run(conf):
@@ -116,9 +116,9 @@ def declare_inputs(conf):
     """Declare the inputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
-    odf_out_path = op.join(conf.get_cmt_rawdiff(), 'odf_0')
+    odf_out_path = op.join(conf.get_cmp_rawdiff(), 'odf_0')
     
-    conf.pipeline_status.AddStageInput(stage, conf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm.nii', 'fsmask_1mm-nii')
+    conf.pipeline_status.AddStageInput(stage, conf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm.nii', 'fsmask_1mm-nii')
 
 
     if conf.diffusion_imaging_model == 'DSI' and \
@@ -133,9 +133,9 @@ def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
-    fibers_path = conf.get_cmt_fibers()
+    fibers_path = conf.get_cmp_fibers()
         
-    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii', 'fsmask_1mm__8bit-nii')
+    conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii', 'fsmask_1mm__8bit-nii')
     
     if conf.diffusion_imaging_model == 'DSI' and \
        conf.diffusion_imaging_stream == 'Lausanne2011':

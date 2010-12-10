@@ -1,11 +1,11 @@
-from cmt.gui import CMTGUI
-cmtgui = CMTGUI()
+from cmp.gui import CMPGUI
+cmpgui = CMPGUI()
 
-cmtgui.project_name = ''
-cmtgui.project_dir = ''
-cmtgui.subject_name = ''
-cmtgui.subject_timepoint = ''
-cmtgui.subject_workingdir = ''
+cmpgui.project_name = ''
+cmpgui.project_dir = ''
+cmpgui.subject_name = ''
+cmpgui.subject_timepoint = ''
+cmpgui.subject_workingdir = ''
 
-cmtgui.show()
-#cmt.connectome.mapit(cmtgui)
+cmpgui.show()
+#cmp.connectome.mapit(cmpgui)

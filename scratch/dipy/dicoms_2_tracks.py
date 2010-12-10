@@ -9,9 +9,9 @@ import dipy.core.dti as dt
 import dipy.core.track_propagation as tp
 from dipy.viz import fos
 
-# dname ='/home/stephan/Dev/PyWorkspace/cmt/data/test_project_one/testsubject1/tp1/1__RAWDATA/DSI'
+# dname ='/home/stephan/Dev/PyWorkspace/cmp/data/test_project_one/testsubject1/tp1/1__RAWDATA/DSI'
 
-dname ='/home/stephan/Dev/PyWorkspace/cmt/data/test_project/control001/tp1/1__RAWDATA/DSI'
+dname ='/home/stephan/Dev/PyWorkspace/cmp/data/test_project/control001/tp1/1__RAWDATA/DSI'
 
 #The datasets need to have isotropic voxel size.
 

@@ -89,7 +89,7 @@ def compute_scalars(fib, hdr):
     log.info("Compute scalars")
         
     scalars      = {}
-    scalarFields = np.array(gconf.get_cmt_scalarfields())
+    scalarFields = np.array(gconf.get_cmp_scalarfields())
     pc           = -1
     for s in range(0, scalarFields.shape[0]):
         scalarFile = nibabel.load(scalarFields[s, 1])
@@ -132,9 +132,9 @@ def cmat():
     """
           	
     # create the endpoints for each fibers
-    en_fname  = op.join(gconf.get_cmt_fibers(), 'endpoints.npy')
-    ep_fname  = op.join(gconf.get_cmt_fibers(), 'lengths.npy')
-    intrk = op.join(gconf.get_cmt_fibers(), 'streamline_filtered.trk')
+    en_fname  = op.join(gconf.get_cmp_fibers(), 'endpoints.npy')
+    ep_fname  = op.join(gconf.get_cmp_fibers(), 'lengths.npy')
+    intrk = op.join(gconf.get_cmp_fibers(), 'streamline_filtered.trk')
 
     fib, hdr    = nibabel.trackvis.read(intrk, False)
     log.info('Computing endpoints')
@@ -148,8 +148,8 @@ def cmat():
 	# Get the scalars informations
 #    log.info("========================")
 #    log.info("Get scalars info")
-#    scalarInfo = np.array(gconf.get_cmt_scalarfields(sid))
-#    sc_fname = op.join( gconf.get_cmt_matrices(), 'scalars.pickle' )
+#    scalarInfo = np.array(gconf.get_cmp_scalarfields(sid))
+#    sc_fname = op.join( gconf.get_cmp_matrices(), 'scalars.pickle' )
 #    if not os.path.isfile(sc_fname):
 #        log.info('\tcomputing scalars')
 #        scalars = compute_scalars(fib, hdr)
@@ -171,7 +171,7 @@ def cmat():
       
         # Open the corresponding ROI
         log.info("Open the corresponding ROI")
-        roi_fname = op.join(gconf.get_cmt_tracto_mask_tob0(), r, 'ROI_HR_th.nii')
+        roi_fname = op.join(gconf.get_cmp_tracto_mask_tob0(), r, 'ROI_HR_th.nii')
         roi       = nibabel.load(roi_fname)
         roiData   = roi.get_data()
       
@@ -222,7 +222,7 @@ def cmat():
     # Save the connection matrix
     log.info("========================")
     log.info("Save the connection matrix")
-    nx.write_gpickle(cmat, op.join(gconf.get_cmt_matrices(), 'cmat.pickle'))
+    nx.write_gpickle(cmat, op.join(gconf.get_cmp_matrices(), 'cmat.pickle'))
     log.info("done")
     log.info("========================")						
 
@@ -253,16 +253,16 @@ def declare_inputs(conf):
     
     stage = conf.pipeline_status.GetStage(__name__)
     
-    conf.pipeline_status.AddStageInput(stage, conf.get_cmt_fibers(), 'streamline_filtered.trk', 'streamline-trk')
+    conf.pipeline_status.AddStageInput(stage, conf.get_cmp_fibers(), 'streamline_filtered.trk', 'streamline-trk')
     
     for r in conf.parcellation.keys():
-        conf.pipeline_status.AddStageInput(stage, op.join(conf.get_cmt_tracto_mask_tob0(), r), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % r)
+        conf.pipeline_status.AddStageInput(stage, op.join(conf.get_cmp_tracto_mask_tob0(), r), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % r)
         
 def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
             
-    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_matrices(), 'cmat.pickle', 'cmat-pickle')
-    conf.pipeline_status.AddStageOutput(stage, conf.get_cmt_fibers(), 'endpoints.npy', 'endpoints-npy')       
+    conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_matrices(), 'cmat.pickle', 'cmat-pickle')
+    conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fibers(), 'endpoints.npy', 'endpoints-npy')       
     

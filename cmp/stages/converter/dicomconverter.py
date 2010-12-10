@@ -5,7 +5,7 @@ import sys
 from time import time
 import shutil
 from ...logme import *
-from cmt.util import reorient
+from cmp.util import reorient
 
 import nibabel.nicom.dicomreaders as dr
 import nibabel as ni
