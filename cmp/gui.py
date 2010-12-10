@@ -339,6 +339,9 @@ Children's Hospital Boston:
     def save_state(self, cmpconfigfile):
         """ Save CMP Configuration state directly.
         Useful if you do not want to invoke the GUI"""
+        # check if path available
+        if not os.path.exists(os.path.dirname(cmpconfigfile)):
+            os.makedirs(os.path.dirname(cmpconfigfile))
         import enthought.sweet_pickle as sp
         output = open(cmpconfigfile, 'wb')
         # Pickle the list using the highest protocol available.

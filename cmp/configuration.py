@@ -77,15 +77,15 @@ class PipelineConfiguration(traits.HasTraits):
     
     
     active_dicomconverter = traits.Bool(True)
-    active_registration = traits.Bool(True)
-    active_segmentation = traits.Bool(True)
-    active_parcellation = traits.Bool(True)
-    active_reconstruction = traits.Bool(True)
-    active_tractography = traits.Bool(True)
-    active_fiberfilter = traits.Bool(True)
-    active_connectome = traits.Bool(True)
-    active_statistics = traits.Bool(True)
-    active_cffconverter = traits.Bool(True)
+    active_registration = traits.Bool(False)
+    active_segmentation = traits.Bool(False)
+    active_parcellation = traits.Bool(False)
+    active_reconstruction = traits.Bool(False)
+    active_tractography = traits.Bool(False)
+    active_fiberfilter = traits.Bool(False)
+    active_connectome = traits.Bool(False)
+    active_statistics = traits.Bool(False)
+    active_cffconverter = traits.Bool(False)
     skip_completed_stages = traits.Bool(False)
 
     # metadata
@@ -252,7 +252,6 @@ class PipelineConfiguration(traits.HasTraits):
                 if not op.exists(wt1):
                     msg = 'Structural MRI subdirectory %s T1 does not exist in RAWDATA' % wt1
                     raise Exception(msg)
-        
         
     def get_cmp_home(self):
         """ Return the cmp home path """
