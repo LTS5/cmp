@@ -1,7 +1,7 @@
 """ Defines the graphical user interface to the Connectome Mapping Pipeline
 """
 import os.path    
-import threading
+#import threading
 
 from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
                  Bool, File, Button, Enum
@@ -16,17 +16,17 @@ import cmp
 from cmp.configuration import PipelineConfiguration
 from cmp.util import KeyValue
 
-class CMPThread( threading.Thread ):
-
-    def __init__(self, gconf): 
-        threading.Thread.__init__(self) 
-        self.gconf = gconf 
- 
-    def run(self): 
-        print "Starting CMP Thread..."
-        cmp.connectome.mapit(self.gconf)
-        print "Ended CMP Thread."
-        # release
+#class CMPThread( threading.Thread ):
+#
+#    def __init__(self, gconf): 
+#        threading.Thread.__init__(self) 
+#        self.gconf = gconf 
+# 
+#    def run(self): 
+#        print "Starting CMP Thread..."
+#        cmp.connectome.mapit(self.gconf)
+#        print "Ended CMP Thread."
+#        # release
         
 table_editor = TableEditor(
     columns     = [ ObjectColumn( name = 'key',  width = 0.2 ),
@@ -233,12 +233,13 @@ class CMPGUI( PipelineConfiguration ):
 
     cffconverter_group = Group(
         VGroup(
-               Item('cff_fullnetworkpickle', label="Full Network"),
+               Item('cff_fullnetworkpickle', label="All connectomes"),
+               Item('cff_cmatpickle', label='cmat.pickle'),
+               Item('cff_filteredfibers', label="Tractography"),
+               Item('cff_roisegmentation', label="Parcellation Volumes"),
                Item('cff_rawdiffusion', label="Raw Diffusion Data"),
                Item('cff_rawT1', label="Raw T1 data"),
                Item('cff_rawT2', label="Raw T2 data"),
-               Item('cff_filteredfibers', label="Tractography"),
-               Item('cff_roisegmentation', label="Parcellation Volumes"),
                Item('cff_surfaces', label="Individual surfaces", tooltip = 'stores individually generated surfaces'),
                show_border = True,
             ),
@@ -338,14 +339,26 @@ Children's Hospital Boston:
 
     def save_state(self, cmpconfigfile):
         """ Save CMP Configuration state directly.
-        Useful if you do not want to invoke the GUI"""
+        Useful if you do not want to invoke the GUI
+        
+        Parameters
+        ----------
+        cmpconfigfile : string
+            Absolute path and filename to store the CMP configuration
+            pickled object
+        
+        """
         # check if path available
         if not os.path.exists(os.path.dirname(cmpconfigfile)):
-            os.makedirs(os.path.dirname(cmpconfigfile))
+            os.makedirs(os.path.abspath(os.path.dirname(cmpconfigfile)))
+            
         import enthought.sweet_pickle as sp
         output = open(cmpconfigfile, 'wb')
         # Pickle the list using the highest protocol available.
-        sp.dump(self, output, -1)
+        # copy object first
+        tmpconf = CMPGUI()
+        tmpconf.copy_traits(self)
+        sp.dump(tmpconf, output, -1)
         output.close()
         
     def show(self):
@@ -392,8 +405,9 @@ Children's Hospital Boston:
         # execute the pipeline thread
         # store the pickle
         self.save_state(os.path.join(self.get_log(), self.get_logname(suffix = '.pkl')) )
-        cmpthread = CMPThread(self)
-        cmpthread.start()
+        cmp.connectome.mapit(self)
+        #cmpthread = CMPThread(self)
+        #cmpthread.start()
 
     def _load_fired(self):
         import enthought.sweet_pickle as sp

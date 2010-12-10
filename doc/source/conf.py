@@ -37,7 +37,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Connectome Mapping Toolkit'
+project = u'Connectome Mapping Pipeline'
 copyright = u'2010, EPFL & UNIL-CHUV'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -172,7 +172,7 @@ htmlhelp_basename = 'ConnectomeMappingPipelinedoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'ConnectomeMappingToolkit.tex', u'Connectome Mapping Pipeline Documentation',
+  ('index', 'ConnectomeMappingPipeline.tex', u'Connectome Mapping Pipeline Documentation',
    u'EPFL LTS5 Diffusion MRI Team', 'manual'),
 ]
 

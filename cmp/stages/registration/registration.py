@@ -235,7 +235,7 @@ def inspect(gconf):
         runCmd( fsl_view_cmd, log )
 
         log.info("Check FNIRT result. T1 registration to b0 and to b0_warped")        
-        fsl_view_cmd = 'fslview "%s" -l Copper "%s" "%s"' % (op.join(nifti_dir, "Diffusion_b0_resampled.nii"),
+        fsl_view_cmd = 'fslview "%s" -l Copper "%s" "%s"' % (op.join(gconf.get_nifti(), "Diffusion_b0_resampled.nii"),
                                                                     op.join(gconf.get_nifti(), "T1-TO-b0.nii"),
                                                                     op.join(gconf.get_nifti(), "T1-TO-b0_warped.nii") )
         runCmd( fsl_view_cmd, log )
