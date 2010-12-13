@@ -17,13 +17,15 @@
 #
 import pipeline_pb2
 import sys
+import os
 import os.path as op
+import pickle
 import networkx as nx
 import glob
 
 class PipelineStatus():
     """Interface to Pipeline protocol buffer"""
-    
+           
     def __init__(self, filename=None):
         """Constructor"""
         self.Pipeline = pipeline_pb2.Pipeline()
@@ -127,9 +129,28 @@ class PipelineStatus():
         
         # If we get here, then all files were found    
         return True
-    
-    def RanOK(self, stage):
-        """Determines if all stage outputs were produced"""        
+            
+    def RanOK(self, stage, storeTimestamp=False, checkTimestamp=False, timestampRootFile=''):
+        """Determines if all stage outputs were produced
+        
+        Inputs
+        ----------
+        stage:                 stage object to check         
+        storeTimestamp:        if True, store timestamps for the inputs
+                               that can be used to determine if a stage needs to be re-run
+                               because the inputs have changed (default: False)
+        checkTimestamp:        if True and the outputs exist, checks to see
+                               if the input files match the previously stored timestamps.
+                               This can be used to re-execute a stage if the
+                               input contents have changed (default: False)
+        timestampRootFile:     root path for storage of timestamp files.  If this
+                               is for example, '/cmt.status', then the function
+                               will read and/or write  /.cmt.status.N.timestamp (where N is
+                               the stage number).                                 
+        Outputs
+        -------
+        ranOK:                 boolean of whether stage ran succesfully
+        """        
         if len(stage.outputs) == 0:
             self.logInfo("Stage %s has no outputs defined" % (stage.name))            
             return False;
@@ -137,13 +158,51 @@ class PipelineStatus():
         for curOutput in stage.outputs:
             filePath = op.join(curOutput.rootDir, curOutput.filePath)
             matchingFiles = glob.glob(filePath)
-            if len(matchingFiles) >= 1:                
+            if len(matchingFiles) >= 1:
                 continue
             elif len(matchingFiles) == 0:                
                 self.logInfo("Stage '%s' did not complete, file not found: %s " % (stage.name, filePath))
                 return False
+            
+
+        # If we are going to check or store timestamps, iterate over the input files
+        # and grab their timestamps
+        if checkTimestamp == True or storeTimestamp == True:
+            timestampFileName = op.join(op.dirname(timestampRootFile), '.%s.%d.timestamp' % 
+                                        (op.basename(timestampRootFile), stage.num))
+            timestampList = []
+            for curInput in stage.inputs:
+                filePath = op.join(curInput.rootDir, curInput.filePath)
+                matchingFiles = glob.glob(filePath)
+                if len(matchingFiles) >= 1:
+                    for curFile in matchingFiles:
+                        statInfo = os.lstat(curFile)
+                        timestampList.append(statInfo.st_mtime)                        
+            
+        # If checkTimestamp is true, check to see if the stored timestamps match the
+        # computed timestamps.  If not, need to re-run.            
+        if checkTimestamp == True:
+            try:
+                f = open(timestampFileName, 'rb')
+                storedTimestampList = pickle.load(f)
+                f.close()
+                if timestampList != storedTimestampList:                
+                    self.logInfo("Input files changed according to timestamp: '%s'" % (stage.name))
+                    return False
+            except:
+                self.logInfo("Timestamp file does not exist, stage needs to be re-run: '%s'" % (stage.name))
+                return False
         
-        # If we get here, then all files were found    
+        # If storeTimestamp is true, then store out the collected timestamps to a file
+        if storeTimestamp == True:                                                            
+            try:                
+                f = open(timestampFileName, 'wb')
+                pickle.dump(timestampList,f)
+                f.close()
+            except:
+                self.logError("Could not write timestamps to '%s'" % (timestampFileName))                      
+        
+                    
         return True
     
     def AddStageInput(self, stage, rootDir, inputFilePath, inputName=None, typeTag=None):

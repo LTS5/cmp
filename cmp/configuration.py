@@ -489,6 +489,10 @@ class PipelineConfiguration(traits.HasTraits):
         else:
             raise('No binary files compiled for your platform!')
     
+    def get_pipeline_status_file(self):
+        """Returns the absolute path of the pipeline status file"""
+        return op.join(self.get_subj_dir(), self.pipeline_status_file)
+    
     def init_pipeline_status(self):
         """Create the 'cmp.status'.  The 'cmp.status' file contains information
         about the inputs/outputs of each pipeline stage"""        
