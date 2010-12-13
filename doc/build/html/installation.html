@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Installation Instruction &mdash; Connectome Mapping Toolkit v1.0 documentation</title>
+    <title>Installation Instruction &mdash; Connectome Mapping Pipeline v1.0 documentation</title>
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Connectome Mapping Toolkit v1.0 documentation" href="index.html" />
+    <link rel="top" title="Connectome Mapping Pipeline v1.0 documentation" href="index.html" />
     <link rel="next" title="Connectome Mapping Modules" href="mappingsteps.html" />
     <link rel="prev" title="Connectome Mapping Toolkit documentation" href="index.html" /> 
   </head>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="index.html" title="Connectome Mapping Toolkit documentation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Connectome Mapping Toolkit v1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Connectome Mapping Pipeline v1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -49,6 +49,7 @@
 <li><a class="reference internal" href="#">Installation Instruction</a><ul>
 <li><a class="reference internal" href="#step-by-step-guide-for-installation-on-ubuntu-debian">Step-by-Step Guide for Installation on Ubuntu/Debian</a></li>
 <li><a class="reference internal" href="#project-configuration-and-setup">Project configuration and setup</a></li>
+<li><a class="reference internal" href="#starting-the-pipeline-without-gui">Starting the pipeline without GUI</a></li>
 </ul>
 </li>
 </ul>
@@ -92,22 +93,29 @@
 <p>Install Diffusion Toolkit:</p>
 <div class="highlight-python"><pre>firefox http://trackvis.org/dtk/</pre>
 </div>
+<p>Install Freesurfer 5.0:</p>
+<div class="highlight-python"><pre>firefox http://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall</pre>
+</div>
 <p>Install NeuroDebian. Add the NeuroDebian repository to your source list as described here:</p>
 <div class="highlight-python"><pre>firefox http://neuro.debian.net/</pre>
+</div>
+<p>Upgrade your package index and update:</p>
+<div class="highlight-python"><pre>sudo apt-get update</pre>
 </div>
 <p>Install FMRIB Software Library. Using the version in the NeuroDebian repository:</p>
 <div class="highlight-python"><pre>sudo aptitude fsl fslview fslview-doc python-nibabel python-nibabel-doc</pre>
 </div>
-<p>Debian/Ubuntu dependencies:</p>
+<p>Install Debian/Ubuntu dependencies:</p>
 <div class="highlight-python"><pre>sudo apt-get install libblitz0-dev libboost-all-dev git-core python-dicom</pre>
 </div>
-<p>Install Freesurfer 5.0:</p>
-<div class="highlight-python"><pre>firefox http://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall</pre>
+<p>Clone the cmp repository:</p>
+<div class="highlight-python"><pre>git clone git@github.com:LTS5/cmp.git</pre>
 </div>
-<p>Installing cmt for developers (clone the repository):</p>
-<div class="highlight-python"><pre>git clone git@github.com:LTS5/cmt.git</pre>
+<p>In another folder, clone the cfflib repository:</p>
+<div class="highlight-python"><pre>git clone git@github.com:unidesigner/cfflib.git</pre>
 </div>
-<p>Setting up the environment variables for Bash in <em>/home/username/.bashrc</em>:</p>
+<p>You should have setup the environment variables for Bash in <em>/home/username/.bashrc</em> for
+Freesurfer, FSL and Diffusion Toolkit already. They should look something like this:</p>
 <div class="highlight-python"><pre># FREESURFER configuration
 export FREESURFER_HOME="/usr/share/freesurfer"
 source "${FREESURFER_HOME}/SetUpFreeSurfer.sh"
@@ -120,18 +128,31 @@ export PATH="${FSL_HOME}/bin:${PATH}"
 # DIFFUSION TOOLKIT configuration
 export DTDIR="/usr/share/dtk"
 export DSI_PATH="${DTDIR}/matrices/"
-export PATH="${DTDIR}:${PATH}"
-
-# CMT Path
-export PYTHONPATH=/path/to/your/cmt/</pre>
+export PATH="${DTDIR}:${PATH}"</pre>
 </div>
+<p>You will have to add the cmp and cfflib to your Python path. Also add to the <em>.bashrc</em>:</p>
+<div class="highlight-python"><pre># CMP Path
+export PYTHONPATH="${PYTHONPATH}:/path/to/your/cmp/cmp:/path/tocfflib/cfflib"
+# an example if you cloned inside your homefolder in subfolder dev
+# export PYTHONPATH="${PYTHONPATH}:/home/myuser/dev/cmp/cmp:/myuser/dev/cfflib/cfflib"</pre>
+</div>
+<p>You shoud now test if you can properly import cmp and cfflib. Start an IPython Shell:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ipython</span>
+</pre></div>
+</div>
+<p>And try the two following commands:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">cmp</span>
+<span class="kn">import</span> <span class="nn">cfflib</span>
+</pre></div>
+</div>
+<p>They should import without an error. Now you are ready to start to create your folder structure.</p>
 </div>
 <div class="section" id="project-configuration-and-setup">
 <h2>Project configuration and setup<a class="headerlink" href="#project-configuration-and-setup" title="Permalink to this headline">¶</a></h2>
 <p>Steps to do before executing the pipeline</p>
 <ol class="arabic">
 <li><p class="first">Create the folder structure for your project.:</p>
-<div class="highlight-python"><pre>├── test_cmt
+<div class="highlight-python"><pre>├── test_cmp
 │   ├── control001
 │   │   └── tp1
 │   │       ├── RAWDATA
@@ -142,15 +163,16 @@ export PYTHONPATH=/path/to/your/cmt/</pre>
 </li>
 <li><p class="first">Copy the DICOM / MPRAGE (T1, T2) images in the corresponding folders</p>
 </li>
-<li><p class="first">Run the Connectome Mapping Toolkit GUI from IPython:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">cmt</span><span class="o">,</span> <span class="nn">cmt.gui</span><span class="o">,</span> <span class="nn">cmt.connectome</span>
-<span class="n">cmtgui</span> <span class="o">=</span> <span class="n">cmt</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">CMTGUI</span><span class="p">()</span>
-<span class="n">cmtgui</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
-</pre></div>
-</div>
+<li><p class="first">Run the Connectome Mapping Pipeline GUI from IPython:</p>
 </li>
+</ol>
+<blockquote>
+from cmp.gui import CMPGUI
+cmpgui = CMPGUI()
+cmpgui.show()</blockquote>
+<ol class="arabic">
 <li><p class="first">After the first run of the e.g. the first module DICOM Converter, the folder structure should look like this:</p>
-<div class="highlight-python"><pre>├── test_cmt
+<div class="highlight-python"><pre>├── test_cmp
 │   ├── control001
 │   │   └── tp1
 │   │       ├── CMT
@@ -171,26 +193,28 @@ export PYTHONPATH=/path/to/your/cmt/</pre>
 </li>
 </ol>
 <p>All the files for your subject will be stored in this folder structure.</p>
-<p>You can store a &#8220;pickle&#8221; version of the configuration settings to a file and load it afterwards.
-You can also put the three Python command lines in a Python script, e.g. map_connectome.py and call it:</p>
-<div class="highlight-python"><pre>python map_connectome.py</pre>
+<p>In the GUI, now you should setup all the parameters for your your single subject and hit <em>Map connectome!</em>.</p>
+<p>If you have to restart the GUI later and do not want to enter everything again, you can look in the LOG folder,
+there are so-called pickle files with ending .pkl and you can load with the <em>Load</em> button in the GUI to restore your configuration state.</p>
+<p>If you run into any problems, do not hesitate to send an email with the error description to info AT connectomics DOT org.</p>
 </div>
+<div class="section" id="starting-the-pipeline-without-gui">
+<h2>Starting the pipeline without GUI<a class="headerlink" href="#starting-the-pipeline-without-gui" title="Permalink to this headline">¶</a></h2>
+<p>You can start the pipeline also from IPython or in a script. You can find an map_connectome.py example file
+in the cloned cmp repository in /data/default_project/map_connectome.py.</p>
 <p>You can start to modify this script to loop over subjects and/or load the &#8220;pickle&#8221; file automatically, add:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cmtgui</span><span class="o">.</span><span class="n">load_state</span><span class="p">(</span><span class="s">&#39;/path/to/your/saved/pickle/state/cmt.pkl&#39;</span><span class="p">)</span>
-</pre></div>
+<div class="highlight-python"><pre>from cmp.gui import CMPGUI
+cmpgui = CMPGUI()
+      cmpgui.load_state('/path/to/your/pickle/state/LOG/cmt.pkl')</pre>
 </div>
 <p>You can set the attributes of the cmtgui configuration object in the script and directly call the pipeline execution engine:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cmtgui</span><span class="o">.</span><span class="n">active_dicomconverter</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">cmtgui</span><span class="o">.</span><span class="n">project_name</span> <span class="o">=</span> <span class="s">&#39;...&#39;</span>
-<span class="n">cmtgui</span><span class="o">.</span><span class="n">project_dir</span> <span class="o">=</span> <span class="s">&#39;.../&#39;</span>
-<span class="n">cmtgui</span><span class="o">.</span><span class="n">subject_name</span> <span class="o">=</span> <span class="s">&#39;...&#39;</span>
-<span class="n">cmtgui</span><span class="o">.</span><span class="n">subject_timepoint</span> <span class="o">=</span> <span class="s">&#39;...&#39;</span>
-<span class="n">cmtgui</span><span class="o">.</span><span class="n">subject_workingdir</span> <span class="o">=</span> <span class="s">&#39;.../&#39;</span>
-<span class="n">cmt</span><span class="o">.</span><span class="n">connectome</span><span class="o">.</span><span class="n">mapit</span><span class="p">(</span><span class="n">cmtgui</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Comment the following line to stop invoking the GUI:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cmtgui</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cmpgui</span><span class="o">.</span><span class="n">active_dicomconverter</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">cmpgui</span><span class="o">.</span><span class="n">project_name</span> <span class="o">=</span> <span class="s">&#39;...&#39;</span>
+<span class="n">cmpgui</span><span class="o">.</span><span class="n">project_dir</span> <span class="o">=</span> <span class="s">&#39;.../&#39;</span>
+<span class="n">cmpgui</span><span class="o">.</span><span class="n">subject_name</span> <span class="o">=</span> <span class="s">&#39;...&#39;</span>
+<span class="n">cmpgui</span><span class="o">.</span><span class="n">subject_timepoint</span> <span class="o">=</span> <span class="s">&#39;...&#39;</span>
+<span class="n">cmpgui</span><span class="o">.</span><span class="n">subject_workingdir</span> <span class="o">=</span> <span class="s">&#39;.../&#39;</span>
+<span class="nb">cmp</span><span class="o">.</span><span class="n">connectome</span><span class="o">.</span><span class="n">mapit</span><span class="p">(</span><span class="n">cmpgui</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -214,12 +238,12 @@ You can also put the three Python command lines in a Python script, e.g. map_con
         <li class="right" >
           <a href="index.html" title="Connectome Mapping Toolkit documentation"
              >previous</a> |</li>
-        <li><a href="index.html">Connectome Mapping Toolkit v1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Connectome Mapping Pipeline v1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2010, EPFL &amp; UNIL-CHUV.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>
 </html>

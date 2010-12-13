@@ -93,9 +93,9 @@ Steps to do before executing the pipeline
 
 #. Run the Connectome Mapping Pipeline GUI from IPython::
 
-  from cmp.gui import CMPGUI
-  cmpgui = CMPGUI()
-  cmpgui.show()
+    from cmp.gui import CMPGUI
+    cmpgui = CMPGUI()
+    cmpgui.show()
 
 #. After the first run of the e.g. the first module DICOM Converter, the folder structure should look like this::
 
