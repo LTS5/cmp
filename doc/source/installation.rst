@@ -35,7 +35,7 @@ Clone the cmp repository::
 
 In another folder, clone the cfflib repository::
 
-  git clone git@github.com:unidesigner/cfflib.git
+  git clone git://github.com/unidesigner/cfflib.git
 
 You should have setup the environment variables for Bash in */home/username/.bashrc* for
 Freesurfer, FSL and Diffusion Toolkit already. They should look something like this::
