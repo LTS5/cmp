@@ -159,3 +159,5 @@ def length(xyz, along=False):
     if along:
         return np.cumsum(dists)
     return np.sum(dists)
+
+dicomconverter_desc = "DICOM Converter: \nDescription..."

@@ -94,13 +94,13 @@ class CMPGUI( PipelineConfiguration ):
                         ),
                         VGroup(
                         Item('inspect_registration', label = 'Registration', show_label = False),
-                        Item('inspect_segmentation', label = 'Segmentation', show_label = False),
-                        Item('inspect_whitemattermask', label = 'White Matter Mask', show_label = False),
-                        Item('inspect_parcellation', label = 'Parcellation', show_label = False),
-                        Item('inspect_reconstruction', label = 'Reconstruction', show_label = False),
+                        #Item('inspect_segmentation', label = 'Segmentation', show_label = False),
+                        #Item('inspect_whitemattermask', label = 'White Matter Mask', show_label = False),
+                        #Item('inspect_parcellation', label = 'Parcellation', show_label = False),
+                        #Item('inspect_reconstruction', label = 'Reconstruction', show_label = False),
                         Item('inspect_tractography', label = 'Tractography', show_label = False),
                         Item('inspect_fiberfilter', label = 'Filtered Fibers', show_label = False),
-                        Item('inspect_connectomefile', label = 'Connectome File', show_label = False),
+                        #Item('inspect_connectomefile', label = 'Connectome File', show_label = False),
                         label="Inspector")
                         #VGroup(
                         #label="Status",
@@ -263,30 +263,35 @@ class CMPGUI( PipelineConfiguration ):
         )
         
     view = View(
-        VGroup(
-            HGroup(
-              main_group,
-              metadata_group,
-              subject_group,
-              registration_group,
-              parcellation_group,
-              reconstruction_group,
-              tractography_group,
-              fiberfilter_group,
-              cffconverter_group,
-              configuration_group,
-              orientation= 'horizontal',
-              layout='tabbed'
-            ),
-            spring,
-            HGroup( 
-                #Item( 'validate_form', label = 'Validate Form', show_label = False),
-                Item( 'about', label = 'About', show_label = False),
-                Item( 'save', label = 'Save', show_label = False),
-                Item( 'load', label = 'Load', show_label = False),
+        HGroup(
+            VGroup(
+                HGroup(
+                  main_group,
+                  metadata_group,
+                  subject_group,
+                  registration_group,
+                  parcellation_group,
+                  reconstruction_group,
+                  tractography_group,
+                  fiberfilter_group,
+                  cffconverter_group,
+                  configuration_group,
+                  orientation= 'horizontal',
+                  layout='tabbed'
+                ),
                 spring,
-                Item( 'run', label = 'Map Connectome!', show_label = False),
+                HGroup( 
+                    #Item( 'validate_form', label = 'Validate Form', show_label = False),
+                    Item( 'about', label = 'About', show_label = False),
+                    Item( 'save', label = 'Save', show_label = False),
+                    Item( 'load', label = 'Load', show_label = False),
+                    spring,
+                    Item( 'run', label = 'Map Connectome!', show_label = False),
+                ),
             ),
+            VGroup(
+                   Item('stagedescription', style = 'readonly', show_label = False)
+                   )
         ),
         resizable = True,
         title     = 'Connectome Mapping Pipeline',
