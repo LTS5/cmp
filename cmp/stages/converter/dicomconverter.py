@@ -32,19 +32,21 @@ def diff2nifti_dsi_unpack():
         diff_cmd = 'diff_unpack %s %s' % (first,
                                  op.join(nifti_dir, 'DSI.nii'))            
         runCmd(diff_cmd, log)
-        
-        # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
-        data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, raw_glob)
-        del data
-        import numpy as np
-        np.savetxt(op.join(diffme, 'dsi_affine.txt'), affine, delimiter=',')
-        np.savetxt(op.join(diffme, 'dsi_bvals.txt'), bval, delimiter=',')
-        np.savetxt(op.join(diffme, 'dsi_bvects.txt'), bvect, delimiter=',')
-
-        arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
-        arr[:,:3] = bvect
-        arr[:,3] = bval
-        np.savetxt(op.join(diffme, 'gradient_table.txt'), arr, delimiter=',')
+        try:
+            # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
+            data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, raw_glob)
+            del data
+            import numpy as np
+            np.savetxt(op.join(diffme, 'dsi_affine.txt'), affine, delimiter=',')
+            np.savetxt(op.join(diffme, 'dsi_bvals.txt'), bval, delimiter=',')
+            np.savetxt(op.join(diffme, 'dsi_bvects.txt'), bvect, delimiter=',')
+    
+            arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
+            arr[:,:3] = bvect
+            arr[:,3] = bval
+            np.savetxt(op.join(diffme, 'gradient_table.txt'), arr, delimiter=',')
+        except:
+            pass
         
 
 def dsi_resamp():
@@ -90,19 +92,21 @@ def diff2nifti_dti_unpack():
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii'))            
         runCmd(diff_cmd, log)
         
-        # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
-        data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, raw_glob)
-        del data
-        import numpy as np
-        np.savetxt(op.join(diffme, 'dti_affine.txt'), affine, delimiter=',')
-        np.savetxt(op.join(diffme, 'dti_bvals.txt'), bval, delimiter=',')
-        np.savetxt(op.join(diffme, 'dti_bvects.txt'), bvect, delimiter=',')
-        
-        arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
-        arr[:,:3] = bvect
-        arr[:,3] = bval
-        np.savetxt(op.join(diffme, 'gradient_table.txt'), arr, delimiter=',')
-
+        try:
+            # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
+            data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, raw_glob)
+            del data
+            import numpy as np
+            np.savetxt(op.join(diffme, 'dti_affine.txt'), affine, delimiter=',')
+            np.savetxt(op.join(diffme, 'dti_bvals.txt'), bval, delimiter=',')
+            np.savetxt(op.join(diffme, 'dti_bvects.txt'), bvect, delimiter=',')
+            
+            arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
+            arr[:,:3] = bvect
+            arr[:,3] = bval
+            np.savetxt(op.join(diffme, 'gradient_table.txt'), arr, delimiter=',')
+        except:
+            pass
 
 
 def dti_resamp():
@@ -262,18 +266,20 @@ def declare_outputs(conf):
     dti_dir = op.join(raw_dir, 'DTI')
     
     if conf.diffusion_imaging_model == 'DSI':
-        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_affine.txt', 'affine')
-        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_bvals.txt', 'bvals')
-        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_bvects.txt', 'bvects')
-        conf.pipeline_status.AddStageOutput(stage, diffme, 'gradient_table.txt', 'gradient_table')
+        # not required output in case nibabel dicom reader can not handle DICOMs
+#        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_affine.txt', 'affine')
+#        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_bvals.txt', 'bvals')
+#        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_bvects.txt', 'bvects')
+#        conf.pipeline_status.AddStageOutput(stage, diffme, 'gradient_table.txt', 'gradient_table')
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'DSI.nii', 'dsi-nii')
         
         
     elif conf.diffusion_imaging_model == 'DTI':
-        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_affine.txt', 'affine')
-        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_bvals.txt', 'bvals')
-        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_bvects.txt', 'bvects')
-        conf.pipeline_status.AddStageOutput(stage, diffme, 'gradient_table.txt', 'gradient_table')
+        # not required output in case nibabel dicom reader can not handle DICOMs
+#        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_affine.txt', 'affine')
+#        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_bvals.txt', 'bvals')
+#        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_bvects.txt', 'bvects')
+#        conf.pipeline_status.AddStageOutput(stage, diffme, 'gradient_table.txt', 'gradient_table')
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'DTI.nii', 'dti-nii')
 
     conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'Diffusion_b0_resampled.nii', 'diffusion-resampled-nii')        
