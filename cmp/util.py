@@ -103,8 +103,10 @@ def reorient(src, ref, log):
         return
     
     shutil.move(tmp2, src)
+    log.info("File %s written" % src)
     
-    log.info("File %s written" % src)    
+    os.remove(tmpsrc)
+    log.info("Remove temporary file %s" % tmpsrc)   
 
 def DTB_viewer():
     """ Run the DTB Viewer """
