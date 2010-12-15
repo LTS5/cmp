@@ -94,7 +94,7 @@ class CMPGUI( PipelineConfiguration ):
                         ),
                         VGroup(
                         Item('inspect_registration', label = 'Registration', show_label = False),
-                        #Item('inspect_segmentation', label = 'Segmentation', show_label = False),
+                        Item('inspect_segmentation', label = 'Segmentation', show_label = False),
                         #Item('inspect_whitemattermask', label = 'White Matter Mask', show_label = False),
                         #Item('inspect_parcellation', label = 'Parcellation', show_label = False),
                         #Item('inspect_reconstruction', label = 'Reconstruction', show_label = False),
@@ -277,7 +277,8 @@ class CMPGUI( PipelineConfiguration ):
                   cffconverter_group,
                   configuration_group,
                   orientation= 'horizontal',
-                  layout='tabbed'
+                  layout='tabbed',
+                  #springy=True
                 ),
                 spring,
                 HGroup( 
@@ -405,7 +406,10 @@ Children's Hospital Boston:
         
     def _inspect_fiberfilter_fired(self):
         cmp.fiberfilter.inspect(self)
-            
+
+    def _inspect_segmentation_fired(self):
+        cmp.freesurfer.inspect(self)
+               
     def _run_fired(self):
         # execute the pipeline thread
         # store the pickle

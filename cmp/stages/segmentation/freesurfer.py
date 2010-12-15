@@ -1,4 +1,5 @@
 import os, os.path as op
+from os import environ
 from glob import glob
 import subprocess
 from time import time
@@ -29,9 +30,7 @@ def recon_all():
     log.info("Running the whole FREESURFER pipeline")
     log.info("=====================================")
 
-    from os import environ
-    env = environ
-    env['SUBJECTS_DIR'] = gconf.get_subj_dir()
+    environ['SUBJECTS_DIR'] = gconf.get_subj_dir()
     
     log.info("Starting recon-all ...")
     fs_cmd = 'recon-all -s %s -all -no-isrunning' % 'FREESURFER'
@@ -95,9 +94,7 @@ def run_fs_on_corrected_wm():
     log.info("Running FREESURFER on the corrected 'wm.mgz' file")
     log.info("=================================================")
         
-    from os import environ
-    env = environ
-    env['SUBJECTS_DIR'] = gconf.get_subj_dir()
+    environ['SUBJECTS_DIR'] = gconf.get_subj_dir()
     
     fs_cmd = 'recon-all -s %s -autorecon2-wm -autorecon3 -no-isrunning' % 'FREESURFER'
     runCmd( fs_cmd, log )
@@ -118,6 +115,18 @@ def cleanup_symlinks():
         if op.exists(pa):
             # remove the symlinks
             os.remove(pa)
+
+def inspect(gconf):
+    """ Inspect the results of this stage """
+    log = gconf.get_logger()
+    # updating the environment
+    environ['SUBJECTS_DIR'] = gconf.get_subj_dir()
+
+    fscmd = 'tkmedit FREESURFER brainmask.mgz -aux T1.mgz -surfs'
+    runCmd( fscmd, log )
+
+    fscmd = 'tkmedit FREESURFER norm.mgz -segmentation aseg.mgz %s/FreeSurferColorLUT.txt' % gconf.freesurfer_home
+    runCmd( fscmd, log )
 
 def run(conf):
     """ Run the freesurfer step
