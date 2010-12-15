@@ -6,13 +6,13 @@ import nibabel
 import networkx as nx
 from ...logme import *
 
-def load_endpoints_from_trk(fib, hdr):
+def load_endpoints_from_trk(fib, voxelSize):
     """ Get the endpoints from each fibers
         
     Parameters
     ----------
     fib: the fibers data
-    hdr: the header of the fibers.trk
+    voxelSize: 3-tuple containing the voxel size of the ROI image
     
     Returns
     -------
@@ -45,12 +45,12 @@ def load_endpoints_from_trk(fib, hdr):
         endpoints[i,1,:] = f[-1,:]
         
         # Translate from mm to index
-        endpoints[i,0,0] = int( endpoints[i,0,0] / float(hdr['voxel_size'][0]))
-        endpoints[i,0,1] = int( endpoints[i,0,1] / float(hdr['voxel_size'][1]))
-        endpoints[i,0,2] = int( endpoints[i,0,2] / float(hdr['voxel_size'][2]))
-        endpoints[i,1,0] = int( endpoints[i,1,0] / float(hdr['voxel_size'][0]))
-        endpoints[i,1,1] = int( endpoints[i,1,1] / float(hdr['voxel_size'][1]))
-        endpoints[i,1,2] = int( endpoints[i,1,2] / float(hdr['voxel_size'][2]))
+        endpoints[i,0,0] = int( endpoints[i,0,0] / float(voxelSize[0]))
+        endpoints[i,0,1] = int( endpoints[i,0,1] / float(voxelSize[1]))
+        endpoints[i,0,2] = int( endpoints[i,0,2] / float(voxelSize[2]))
+        endpoints[i,1,0] = int( endpoints[i,1,0] / float(voxelSize[0]))
+        endpoints[i,1,1] = int( endpoints[i,1,1] / float(voxelSize[1]))
+        endpoints[i,1,2] = int( endpoints[i,1,2] / float(voxelSize[2]))
 		
     # Return the matrices  
     return endpoints  
@@ -94,6 +94,8 @@ def compute_scalars(fib, hdr):
     for s in range(0, scalarFields.shape[0]):
         scalarFile = nibabel.load(scalarFields[s, 1])
         scalarData = scalarFile.get_data()
+        scalarVoxelSize = scalarFile.get_header().get_zooms()
+        
         scalarInfo = []
         for i,fi in enumerate(fib):
         
@@ -106,9 +108,9 @@ def compute_scalars(fib, hdr):
             crtFiber  = fi[0]
             crtScalar = np.zeros((crtFiber.shape[0]))
             for j in range(0, crtFiber.shape[0]):
-                x = int( crtFiber[j,0] / float(hdr['voxel_size'][0]))
-                y = int( crtFiber[j,1] / float(hdr['voxel_size'][0]))
-                z = int( crtFiber[j,2] / float(hdr['voxel_size'][0]))
+                x = int( crtFiber[j,0] / float(scalarVoxelSize[0]))
+                y = int( crtFiber[j,1] / float(scalarVoxelSize[1]))
+                z = int( crtFiber[j,2] / float(scalarVoxelSize[2]))
                 crtScalar[j] = scalarData[x, y, z]
             scalarInfo.append(crtScalar)
         scalars.update({scalarFields[s, 0]: scalarInfo})
@@ -137,8 +139,21 @@ def cmat():
     intrk = op.join(gconf.get_cmp_fibers(), 'streamline_filtered.trk')
 
     fib, hdr    = nibabel.trackvis.read(intrk, False)
+    
+    # Previously, load_endpoints_from_trk() used the voxel size stored
+    # in the track hdr to transform the endpoints to ROI voxel space.
+    # This only works if the ROI voxel size is the same as the DSI/DTI
+    # voxel size.  In the case of DTI, it is not.  
+    # We do, however, assume that all of the ROI images have the same
+    # voxel size, so this code just loads the first one to determine
+    # what it should be
+    firstROIFile = op.join(gconf.get_cmp_tracto_mask_tob0(), 
+                           gconf.parcellation.keys()[0],
+                           'ROI_HR_th.nii')
+    firstROI = nibabel.load(firstROIFile)
+    roiVoxelSize = firstROI.get_header().get_zooms()
     log.info('Computing endpoints')
-    endpoints = load_endpoints_from_trk(fib, hdr)
+    endpoints = load_endpoints_from_trk(fib, roiVoxelSize)
     log.info('Saving endpoints')
     np.save(en_fname, endpoints)
 

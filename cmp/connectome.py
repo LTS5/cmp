@@ -59,7 +59,9 @@ def mapit(cobj):
                 # If stage was already completed and user asked to skip completed stages, skip
                 # this stage.
                 elif (cobj.skip_completed_stages == True and
-                      cobj.pipeline_status.RanOK( curStageObj ) == True):
+                      cobj.pipeline_status.RanOK( curStageObj, 
+                                                  checkTimestamp=True,
+                                                  timestampRootFile=cobj.get_pipeline_status_file() ) == True):
                     cobj.get_logger().info( "Skipping previously completed stage: '%s'" % ( stage.__name__) )
                     continue
                         
@@ -69,9 +71,10 @@ def mapit(cobj):
                 
             # Check if the stage ran properly
             if curStageObj != None:
-                if cobj.pipeline_status.RanOK( curStageObj ) == False:
+                if cobj.pipeline_status.RanOK( stage=curStageObj, 
+                                               storeTimestamp=True, 
+                                               timestampRootFile=cobj.get_pipeline_status_file() ) == False:
                     msg = "Required output file not generated for stage: '%s'" % (stage.__name__)
                     cobj.get_logger().error( msg )
                     raise Exception( msg )
-                
                 
