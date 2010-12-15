@@ -392,7 +392,7 @@ def run(conf):
 
     if not len(gconf.emailnotify) == 0:
         msg = "Mask creation module finished!\nIt took %s seconds." % int(time()-start)
-        send_email_notification(msg, gconf.emailnotify, log)  
+        send_email_notification(msg, gconf, log)  
         
 def declare_inputs(conf):
     """Declare the inputs to the stage to the PipelineStatus object"""

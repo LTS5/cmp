@@ -107,16 +107,20 @@ def runCmd( cmd, log ):
       except:
           _localLog.warning( "Failed to unlink 'out_fifo'.")
 
-def send_email_notification(message, to, log, host = 'localhost'):
+def send_email_notification(message, gconf, log, host = 'localhost'):
     
     import smtplib
     
     fromaddr = 'info@connectomics.org'
-    receivers = to
+    receivers = gconf.emailnotify
     
     msg = ("From: %s\r\nTo: %s\r\nSubject: CMP - Notification\r\n\r\n"
        % (fromaddr, ", ".join(receivers)))
-        
+    
+    # add subject information
+    message += "\nProject: %s\nSubject: %s\nTimepoint: %s\nWorkingdir: %s" % (gconf.project_name, \
+            gconf.subject_name, gconf.subject_timepoint, gconf.subject_workingdir)
+    
     try:
         smtpObj = smtplib.SMTP(host)
         smtpObj.sendmail(fromaddr, receivers, message)         

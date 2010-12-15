@@ -31,4 +31,4 @@ def run(conf):
     
     if not len(gconf.emailnotify) == 0:
         msg = "NONAME module finished!\nIt took %s seconds." % int(time()-start)
-        send_email_notification(msg, gconf.emailnotify, log)
+        send_email_notification(msg, gconf, log)
