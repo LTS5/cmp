@@ -8,15 +8,15 @@ from ...logme import *
 
 def copy_orig_to_fs():
     
-    log.info("Copying 'NIFTI/T1.nii' dataset to 'FREESURFER/mri/orig/001.mgz'...")
+    log.info("Copying 'NIFTI/T1.nii.gz' dataset to 'FREESURFER/mri/orig/001.mgz'...")
 
     fs_4subj_mri = op.join(gconf.get_fs(), 'mri', 'orig')
 
-    if not op.exists(op.join(gconf.get_nifti(), 'T1.nii')):
-        log.error("File T1.nii does not exists in subject directory")
+    if not op.exists(op.join(gconf.get_nifti(), 'T1.nii.gz')):
+        log.error("File T1.nii.gz does not exists in subject directory")
         
     mri_cmd = 'mri_convert %s %s' % ( 
-                             op.join(gconf.get_nifti(), 'T1.nii'),
+                             op.join(gconf.get_nifti(), 'T1.nii.gz'),
                              op.join(gconf.get_fs(), 'mri', 'orig', '001.mgz') )
     runCmd(mri_cmd, log)
             
@@ -52,21 +52,21 @@ def before_wm_corr():
     
     mri_cmd = 'mri_convert %s %s' % ( 
                              op.join(gconf.get_fs(), 'mri', 'T1.mgz'),
-                             op.join(wm_exchange_folder, 'T1.nii') )
+                             op.join(wm_exchange_folder, 'T1.nii.gz') )
     runCmd( mri_cmd, log )
     
     mri_cmd = 'mri_convert %s %s' % ( 
                              op.join(gconf.get_fs(), 'mri', 'wm.mgz'),
-                             op.join(wm_exchange_folder, 'wm.nii') )
+                             op.join(wm_exchange_folder, 'wm.nii.gz') )
     runCmd( mri_cmd, log )
     
-    log.info("You can now correct the white matter mask stored in %s " % op.join(wm_exchange_folder, 'wm.nii'))
-    log.info("After correction, store it in the same folder with the name wm_corrected.nii")    
+    log.info("You can now correct the white matter mask stored in %s " % op.join(wm_exchange_folder, 'wm.nii.gz'))
+    log.info("After correction, store it in the same folder with the name wm_corrected.nii.gz")    
         
-    if not op.exists(op.join(wm_exchange_folder, 'T1.nii')):
+    if not op.exists(op.join(wm_exchange_folder, 'T1.nii.gz')):
         log.error("Unable to convert the file '/mri/T1.mgz' for subject!")
 
-    if not op.exists(op.join(wm_exchange_folder, 'wm.nii')):
+    if not op.exists(op.join(wm_exchange_folder, 'wm.nii.gz')):
         log.error("Unable to convert the file '/mri/wm.mgz' for subject!")
 
     log.info("[ DONE ]")
@@ -77,16 +77,16 @@ def after_wm_corr():
     
     wm_exchange_folder = gconf.get_nifti_wm_correction()
     
-    if not op.exists(op.join(wm_exchange_folder, 'wm_corrected.nii')):
-        log.error('Need to provide a corrected white matter mask wm_corrected.nii in %s' % wm_exchange_folder)
+    if not op.exists(op.join(wm_exchange_folder, 'wm_corrected.nii.gz')):
+        log.error('Need to provide a corrected white matter mask wm_corrected.nii.gz in %s' % wm_exchange_folder)
     
     mri_cmd = 'mri_convert -odt uchar %s %s' % (
-                             op.join(wm_exchange_folder, 'wm_corrected.nii'),
+                             op.join(wm_exchange_folder, 'wm_corrected.nii.gz'),
                              op.join(gconf.get_fs(), 'mri', 'wm.mgz') ) 
     runCmd( mri_cmd, log )
     
     if not op.exists(op.join(gconf.get_fs(), 'mri', 'wm.mgz')):
-        log.error("Unable to convert wm_corrected.nii to the file '/mri/wm.mgz' for this subject!")
+        log.error("Unable to convert wm_corrected.nii.gz to the file '/mri/wm.mgz' for this subject!")
 
     log.info("[ DONE ]")
 
@@ -167,7 +167,7 @@ def declare_inputs(conf):
     stage = conf.pipeline_status.GetStage(__name__)
     nifti_dir = conf.get_nifti()    
 
-    conf.pipeline_status.AddStageInput(stage, nifti_dir, 'T1.nii', 't1-nii')
+    conf.pipeline_status.AddStageInput(stage, nifti_dir, 'T1.nii.gz', 't1-nii-gz')
     
 def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""

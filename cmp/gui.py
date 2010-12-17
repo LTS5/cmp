@@ -61,6 +61,7 @@ class CMPGUI( PipelineConfiguration ):
     inspect_parcellation = Button
     inspect_reconstruction = Button
     inspect_tractography = Button
+    inspect_tractography_filtered = Button
     inspect_fiberfilter = Button
     inspect_connectomefile = Button
   
@@ -98,7 +99,8 @@ class CMPGUI( PipelineConfiguration ):
                         #Item('inspect_whitemattermask', label = 'White Matter Mask', show_label = False),
                         #Item('inspect_parcellation', label = 'Parcellation', show_label = False),
                         #Item('inspect_reconstruction', label = 'Reconstruction', show_label = False),
-                        Item('inspect_tractography', label = 'Tractography', show_label = False),
+                        Item('inspect_tractography', label = 'Tractography Orig', show_label = False),
+                        Item('inspect_tractography_filtered', label = 'Tractography Filtered', show_label = False),
                         Item('inspect_fiberfilter', label = 'Filtered Fibers', show_label = False),
                         #Item('inspect_connectomefile', label = 'Connectome File', show_label = False),
                         label="Inspector")
@@ -403,6 +405,9 @@ Children's Hospital Boston:
 
     def _inspect_tractography_fired(self):
         cmp.tractography.inspect(self)
+        
+    def _inspect_tractography_filtered_fired(self):
+        cmp.tractography.inspect(self, filtered = True)
         
     def _inspect_fiberfilter_fired(self):
         cmp.fiberfilter.inspect(self)

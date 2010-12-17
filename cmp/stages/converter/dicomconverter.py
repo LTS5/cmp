@@ -19,9 +19,9 @@ def diff2nifti_dsi_unpack():
     diffme = gconf.get_diffusion_metadata()
 
     log.info("Convert DSI ...")
-    # check if .nii / .nii.gz is already available
-    if op.exists(op.join(dsi_dir, 'DSI.nii')):
-        shutil.copy(op.join(dsi_dir, 'DSI.nii'), op.join(nifti_dir, 'DSI.nii'))
+    # check if .nii.gz / .nii.gz is already available
+    if op.exists(op.join(dsi_dir, 'DSI.nii.gz')):
+        shutil.copy(op.join(dsi_dir, 'DSI.nii.gz'), op.join(nifti_dir, 'DSI.nii.gz'))
     else:
         # read data
         files = glob(op.join(dsi_dir, raw_glob))
@@ -30,7 +30,7 @@ def diff2nifti_dsi_unpack():
 		
         first = sorted(files)[0]
         diff_cmd = 'diff_unpack %s %s' % (first,
-                                 op.join(nifti_dir, 'DSI.nii'))            
+                                 op.join(nifti_dir, 'DSI.nii.gz'))            
         runCmd(diff_cmd, log)
         try:
             # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
@@ -56,7 +56,7 @@ def dsi_resamp():
     log.info("Resampling 'DSI' to 1x1x1 mm^3...")
     
     # extract only first image with nibabel
-    img = ni.load(op.join(nifti_dir, 'DSI.nii'))
+    img = ni.load(op.join(nifti_dir, 'DSI.nii.gz'))
     data = img.get_data()
     hdr = img.get_header()
     aff = img.get_affine()
@@ -66,11 +66,11 @@ def dsi_resamp():
     # first slice
     data = data[:,:,:,0]
     
-    ni.save(ni.Nifti1Image(data, aff, hdr), op.join(nifti_dir, 'DSI_first.nii'))
+    ni.save(ni.Nifti1Image(data, aff, hdr), op.join(nifti_dir, 'DSI_first.nii.gz'))
     
     mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (
-                           op.join(nifti_dir, 'DSI_first.nii'),
-                           op.join(nifti_dir, 'Diffusion_b0_resampled.nii'))
+                           op.join(nifti_dir, 'DSI_first.nii.gz'),
+                           op.join(nifti_dir, 'Diffusion_b0_resampled.nii.gz'))
     
     runCmd(mri_cmd, log)
 
@@ -83,13 +83,13 @@ def diff2nifti_dti_unpack():
     raw_glob = gconf.get_rawglob('diffusion')
 
     log.info("Convert DTI ...") 
-    # check if .nii / .nii.gz is already available
-    if op.exists(op.join(dti_dir, 'DTI.nii')):
-        shutil.copy(op.join(dti_dir, 'DTI.nii'), op.join(nifti_dir, 'DTI.nii'))
+    # check if .nii.gz / .nii.gz is already available
+    if op.exists(op.join(dti_dir, 'DTI.nii.gz')):
+        shutil.copy(op.join(dti_dir, 'DTI.nii.gz'), op.join(nifti_dir, 'DTI.nii.gz'))
     else:
         # read data
         first = sorted(glob(op.join(dti_dir, raw_glob)))[0]
-        diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii'))            
+        diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii.gz'))            
         runCmd(diff_cmd, log)
         
         try:
@@ -116,7 +116,7 @@ def dti_resamp():
     log.info("Resampling 'DTI' to 1x1x1 mm^3...")
     
     # extract only first image with nibabel
-    img = ni.load(op.join(nifti_dir, 'DTI.nii'))
+    img = ni.load(op.join(nifti_dir, 'DTI.nii.gz'))
     data = img.get_data()
     hdr = img.get_header()
     aff = img.get_affine()
@@ -126,11 +126,11 @@ def dti_resamp():
     # first slice
     data = data[:,:,:,0]
     
-    ni.save(ni.Nifti1Image(data, aff, hdr), op.join(nifti_dir, 'DTI_first.nii'))
+    ni.save(ni.Nifti1Image(data, aff, hdr), op.join(nifti_dir, 'DTI_first.nii.gz'))
     
     mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (
-                           op.join(nifti_dir, 'DTI_first.nii'),
-                           op.join(nifti_dir, 'Diffusion_b0_resampled.nii'))
+                           op.join(nifti_dir, 'DTI_first.nii.gz'),
+                           op.join(nifti_dir, 'Diffusion_b0_resampled.nii.gz'))
     
     runCmd(mri_cmd, log)
     
@@ -141,15 +141,15 @@ def t12nifti_diff_unpack():
     
     log.info("Converting 'T1'...")
     t1_dir = op.join(raw_dir, 'T1')
-    if op.exists(op.join(t1_dir, 'T1.nii')):
-        log.info("T1.nii already exists. No unpacking.")
-        shutil.copy(op.join(t1_dir, 'T1.nii'), op.join(nifti_dir, 'T1.nii'))
+    if op.exists(op.join(t1_dir, 'T1.nii.gz')):
+        log.info("T1.nii.gz already exists. No unpacking.")
+        shutil.copy(op.join(t1_dir, 'T1.nii.gz'), op.join(nifti_dir, 'T1.nii.gz'))
     else:
         raw_glob = gconf.get_rawglob('T1')
         first = sorted(glob(op.join(t1_dir, raw_glob)))[0]
-        diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T1.nii'))
+        diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T1.nii.gz'))
         runCmd(diff_cmd, log)
-        log.info("Dataset 'T1.nii' succesfully created!")
+        log.info("Dataset 'T1.nii.gz' succesfully created!")
         
 def t22nifti_diff_unpack():
     
@@ -158,16 +158,16 @@ def t22nifti_diff_unpack():
     
     log.info("Converting 'T2'...")
     t2_dir = op.join(raw_dir, 'T2')
-    # check if .nii / .nii.gz is already available
-    if op.exists(op.join(t2_dir, 'T2.nii')):
-        log.info("T2.nii already exists. No unpacking.")
-        shutil.copy(op.join(t2_dir, 'T2.nii'), op.join(nifti_dir, 'T2.nii'))
+    # check if .nii.gz / .nii.gz is already available
+    if op.exists(op.join(t2_dir, 'T2.nii.gz')):
+        log.info("T2.nii.gz already exists. No unpacking.")
+        shutil.copy(op.join(t2_dir, 'T2.nii.gz'), op.join(nifti_dir, 'T2.nii.gz'))
     else:
         raw_glob = gconf.get_rawglob('T2')
         first = sorted(glob(op.join(t2_dir, raw_glob)))[0]
-        diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T2.nii'))
+        diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T2.nii.gz'))
         runCmd (diff_cmd, log)        
-        log.info("Dataset 'T2.nii' successfully created!")
+        log.info("Dataset 'T2.nii.gz' successfully created!")
 
     log.info("[ DONE ]")
     
@@ -175,17 +175,17 @@ def t22nifti_diff_unpack():
 def reorient_t1(model):
     nifti_dir = op.join(gconf.get_nifti())
     if model == 'DSI':
-        reorient(op.join(nifti_dir, 'T1.nii'), op.join(nifti_dir, 'DSI.nii'), log)
+        reorient(op.join(nifti_dir, 'T1.nii.gz'), op.join(nifti_dir, 'DSI.nii.gz'), log)
     elif model == 'DTI':
-        reorient(op.join(nifti_dir, 'T1.nii'), op.join(nifti_dir, 'DTI.nii'), log)
+        reorient(op.join(nifti_dir, 'T1.nii.gz'), op.join(nifti_dir, 'DTI.nii.gz'), log)
 
 def reorient_t2(model):
     nifti_dir = op.join(gconf.get_nifti())
     if model == 'DSI':
-        reorient(op.join(nifti_dir, 'T2.nii'), op.join(nifti_dir, 'DSI.nii'), log)
+        reorient(op.join(nifti_dir, 'T2.nii.gz'), op.join(nifti_dir, 'DSI.nii.gz'), log)
         
     elif model == 'DTI':
-        reorient(op.join(nifti_dir, 'T2.nii'), op.join(nifti_dir, 'DTI.nii'), log)
+        reorient(op.join(nifti_dir, 'T2.nii.gz'), op.join(nifti_dir, 'DTI.nii.gz'), log)
     
     
 def run(conf):
@@ -271,7 +271,7 @@ def declare_outputs(conf):
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_bvals.txt', 'bvals')
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_bvects.txt', 'bvects')
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'gradient_table.txt', 'gradient_table')
-        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'DSI.nii', 'dsi-nii')
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'DSI.nii.gz', 'dsi-nii-gz')
         
         
     elif conf.diffusion_imaging_model == 'DTI':
@@ -280,12 +280,12 @@ def declare_outputs(conf):
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_bvals.txt', 'bvals')
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_bvects.txt', 'bvects')
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'gradient_table.txt', 'gradient_table')
-        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'DTI.nii', 'dti-nii')
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'DTI.nii.gz', 'dti-nii-gz')
 
-    conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'Diffusion_b0_resampled.nii', 'diffusion-resampled-nii')        
-    conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1.nii', 't1-nii')
+    conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'Diffusion_b0_resampled.nii.gz', 'diffusion-resampled-nii-gz')        
+    conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1.nii.gz', 't1-nii-gz')
     
     if conf.registration_mode == 'Nonlinear':
-        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2.nii', 't2-nii')
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2.nii.gz', 't2-nii-gz')
         
        

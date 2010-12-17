@@ -90,7 +90,7 @@ def reorient(src, ref, log):
             # If conventions match, just use the original source
             tmpsrc = src
             
-    tmp2 = op.join(op.dirname(src), 'tmp.nii')
+    tmp2 = op.join(op.dirname(src), 'tmp.nii.gz')
     
     if ref_orient == 'LPS':
         fsl_cmd = 'fslswapdim "%s" RL AP IS "%s"' % (tmpsrc, tmp2)

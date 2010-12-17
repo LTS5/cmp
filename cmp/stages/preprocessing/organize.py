@@ -63,7 +63,8 @@ def create_folders():
      
 def set_env_vars():
     
-    os.environ['FSLOUTPUTTYPE'] = 'NIFTI'
+    os.environ['FSLOUTPUTTYPE'] = 'NIFTI_GZ'
+    os.environ['FSF_OUTPUT_FORMAT'] = 'nii.gz'
     
 def log_paths():
     

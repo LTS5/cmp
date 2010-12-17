@@ -11,9 +11,9 @@ def resample_dsi():
     log.info("Resample the DSI dataset to 2x2x2 mm^3")
     log.info("======================================")
 
-    input_dsi_file = op.join(gconf.get_nifti(), 'DSI.nii')
+    input_dsi_file = op.join(gconf.get_nifti(), 'DSI.nii.gz')
     # XXX: this output file is never generated!
-    output_dsi_file = op.join(gconf.get_cmp_rawdiff(), 'DSI_resampled_2x2x2.nii')
+    output_dsi_file = op.join(gconf.get_cmp_rawdiff(), 'DSI_resampled_2x2x2.nii.gz')
     res_dsi_dir = gconf.get_cmp_rawdiff_resampled()
     
     if not op.exists(input_dsi_file):
@@ -24,15 +24,15 @@ def resample_dsi():
     split_cmd = 'fslsplit %s %s -t' % (input_dsi_file, op.join(res_dsi_dir, 'MR'))
     runCmd( split_cmd, log )
     
-    files = glob( op.join(res_dsi_dir, 'MR*.nii'))
+    files = glob( op.join(res_dsi_dir, 'MR*.nii.gz'))
     for file in sorted(files):        
-        tmp_file = op.join(res_dsi_dir, 'tmp.nii')
+        tmp_file = op.join(res_dsi_dir, 'tmp.nii.gz')
         mri_cmd = 'mri_convert -vs 2 2 2 %s %s ' % (file, tmp_file)
         runCmd( mri_cmd, log )
         fsl_cmd = 'fslmaths %s %s -odt short' % (tmp_file, file)
         runCmd( fsl_cmd, log )        
 
-    fslmerge_cmd = 'fslmerge -a %s %s' % (output_dsi_file,  op.join(res_dsi_dir, 'MR0000.nii'))
+    fslmerge_cmd = 'fslmerge -a %s %s' % (output_dsi_file,  op.join(res_dsi_dir, 'MR0000.nii.gz'))
     runCmd( fslmerge_cmd, log )
 
     log.info(" [DONE] ")
@@ -44,9 +44,9 @@ def resample_dti():
     log.info("Resample the DTI dataset to 2x2x2 mm^3")
     log.info("======================================")
 
-    input_dsi_file = op.join(gconf.get_nifti(), 'DTI.nii')
+    input_dsi_file = op.join(gconf.get_nifti(), 'DTI.nii.gz')
     # XXX: this output file is never generated!
-    output_dsi_file = op.join(gconf.get_cmp_rawdiff(), 'DTI_resampled_2x2x2.nii')
+    output_dsi_file = op.join(gconf.get_cmp_rawdiff(), 'DTI_resampled_2x2x2.nii.gz')
     res_dsi_dir = gconf.get_cmp_rawdiff_resampled()
     
     if not op.exists(input_dsi_file):
@@ -57,15 +57,15 @@ def resample_dti():
     split_cmd = 'fslsplit %s %s -t' % (input_dsi_file, op.join(res_dsi_dir, 'MR'))
     runCmd( split_cmd, log )
     
-    files = glob( op.join(res_dsi_dir, 'MR*.nii'))
+    files = glob( op.join(res_dsi_dir, 'MR*.nii.gz'))
     for file in sorted(files):        
-        tmp_file = op.join(res_dsi_dir, 'tmp.nii')
+        tmp_file = op.join(res_dsi_dir, 'tmp.nii.gz')
         mri_cmd = 'mri_convert -vs 2 2 2 %s %s ' % (file, tmp_file)
         runCmd( mri_cmd, log )
         fsl_cmd = 'fslmaths %s %s -odt short' % (tmp_file, file)
         runCmd( fsl_cmd, log )        
     
-    fslmerge_cmd = 'fslmerge -a %s %s' % (output_dsi_file,  op.join(res_dsi_dir, 'MR*.nii'))
+    fslmerge_cmd = 'fslmerge -a %s %s' % (output_dsi_file,  op.join(res_dsi_dir, 'MR*.nii.gz'))
     runCmd( fslmerge_cmd, log )
 
     log.info(" [DONE] ")
@@ -76,7 +76,7 @@ def compute_dts():
     log.info("Compute diffusion tensor field")
     log.info("==============================")
     
-    input_file = op.join(gconf.get_cmp_rawdiff(), 'DTI_resampled_2x2x2.nii')
+    input_file = op.join(gconf.get_cmp_rawdiff(), 'DTI_resampled_2x2x2.nii.gz')
     dti_out_path = gconf.get_cmp_rawdiff_reconout()
     
     if not op.exists(input_file):
@@ -93,7 +93,7 @@ def compute_dts():
         # param = '--number_of_b0 1 --gradient_matrix %s 1'
         # others? -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
          
-    dti_cmd = 'dti_recon %s %s -b0 %s -b %s %s' % (input_file,  
+    dti_cmd = 'dti_recon %s %s -b0 %s -b %s %s -ot nii.gz' % (input_file,  
                              op.join(dti_out_path, "dti_"),
 			     gconf.nr_of_b0,
 			     gconf.max_b0_val,
@@ -102,7 +102,7 @@ def compute_dts():
     runCmd (dti_cmd, log )
 
     # XXX: what does it reconstruct (filename?)
-    #if not op.exists(op.join(odf_out_path, "dsi_odf.nii")):
+    #if not op.exists(op.join(odf_out_path, "dsi_odf.nii.gz")):
     #    log.error("Unable to reconstruct ODF!")
         
 def compute_odfs():    
@@ -110,7 +110,7 @@ def compute_odfs():
     log.info("Compute the ODFs field")
     log.info("=========================")
     
-    first_input_file = op.join(gconf.get_cmp_rawdiff(), '2x2x2', 'MR0000.nii')
+    first_input_file = op.join(gconf.get_cmp_rawdiff(), '2x2x2', 'MR0000.nii.gz')
     odf_out_path = gconf.get_cmp_rawdiff_reconout()
     
     if not op.exists(first_input_file):
@@ -124,9 +124,9 @@ def compute_odfs():
     if not gconf.odf_recon_param == '':
         param = gconf.odf_recon_param
     else:
-        param = '-b0 1 -dsi -p 4 -sn 0 -ot nii'
+        param = '-b0 1 -dsi -p 4 -sn 0'
 
-    odf_cmd = 'odf_recon %s %s %s %s -mat %s -s 0 %s' % (first_input_file, 
+    odf_cmd = 'odf_recon %s %s %s %s -mat %s -s 0 %s -ot nii.gz' % (first_input_file, 
                              str(gconf.nr_of_gradient_directions),
                              str(gconf.nr_of_sampling_directions), 
                              op.join(odf_out_path, "dsi_"),
@@ -134,7 +134,7 @@ def compute_odfs():
                              param )
     runCmd (odf_cmd, log )
     
-    if not op.exists(op.join(odf_out_path, "dsi_odf.nii")):
+    if not op.exists(op.join(odf_out_path, "dsi_odf.nii.gz")):
         log.error("Unable to reconstruct ODF!")
         
     # calculate GFA map
@@ -144,12 +144,12 @@ def compute_odfs():
     dta_cmd = '%s --dsi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'))
     runCmd( dta_cmd, log )
 
-    if not op.exists(op.join(odf_out_path, "dsi_gfa.nii")):
+    if not op.exists(op.join(odf_out_path, "dsi_gfa.nii.gz")):
         log.error("Unable to calculate GFA map!")
     else:
-        # copy dsi_gfa.nii to scalar folder for processing with connectionmatrix
-        src = op.join(odf_out_path, "dsi_gfa.nii")
-        dst = op.join(gconf.get_cmp_scalars(), 'dsi_gfa.nii')
+        # copy dsi_gfa.nii.gz to scalar folder for processing with connectionmatrix
+        src = op.join(odf_out_path, "dsi_gfa.nii.gz")
+        dst = op.join(gconf.get_cmp_scalars(), 'dsi_gfa.nii.gz')
         mymove( src, dst, log )
     
     log.info("[ DONE ]")
@@ -191,11 +191,11 @@ def declare_inputs(conf):
     
     if conf.diffusion_imaging_model == 'DSI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
-        conf.pipeline_status.AddStageInput(stage, nifti_dir, 'DSI.nii', 'dsi-nii')
+        conf.pipeline_status.AddStageInput(stage, nifti_dir, 'DSI.nii.gz', 'dsi-nii-gz')
         
     elif conf.diffusion_imaging_model == 'DTI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
-        conf.pipeline_status.AddStageInput(stage, nifti_dir, 'DTI.nii', 'dti-nii')
+        conf.pipeline_status.AddStageInput(stage, nifti_dir, 'DTI.nii.gz', 'dti-nii-gz')
         
 
     
@@ -209,13 +209,13 @@ def declare_outputs(conf):
     
     if conf.diffusion_imaging_model == 'DSI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
-        conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DSI_resampled_2x2x2.nii', 'DSI_resampled_2x2x2-nii')
-        conf.pipeline_status.AddStageOutput(stage, odf_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
-        conf.pipeline_status.AddStageOutput(stage, cmp_scalars_path, 'dsi_gfa.nii', 'dsi_gfa-nii')      
+        conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DSI_resampled_2x2x2.nii.gz', 'DSI_resampled_2x2x2-nii-gz')
+        conf.pipeline_status.AddStageOutput(stage, odf_out_path, 'dsi_odf.nii.gz', 'dsi_odf-nii-gz')
+        conf.pipeline_status.AddStageOutput(stage, cmp_scalars_path, 'dsi_gfa.nii.gz', 'dsi_gfa-nii-gz')      
           
     elif conf.diffusion_imaging_model == 'DTI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
-        conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DTI_resampled_2x2x2.nii', 'DTI_resampled_2x2x2-nii')
+        conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DTI_resampled_2x2x2.nii.gz', 'DTI_resampled_2x2x2-nii-gz')
         
         # XXX: what does it reconstruct (filename?)
                 

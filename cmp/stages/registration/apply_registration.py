@@ -31,17 +31,17 @@ def apply_nlin_registration():
 
     log.info("Apply non-linear registration...")
     # warp fsmask_1mm and parcellations    
-    warp_files = ['fsmask_1mm.nii']
+    warp_files = ['fsmask_1mm.nii.gz']
     for park in gconf.parcellation.keys():
-        warp_files.append(op.join(park, 'ROI_HR_th.nii'))
+        warp_files.append(op.join(park, 'ROI_HR_th.nii.gz'))
     
     for infile in warp_files:
         log.info("Warp file: %s" % infile)
         applywarp_cmp = 'applywarp --in="%s" --premat="%s" --ref="%s" --warp="%s" --out="%s" --interp=nn' % \
                         (op.join(tracto_masks_path, infile),
                          out_mat,
-                         op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
-                         op.join(gconf.get_nifti(), 'T2-TO-b0_warp.nii'),
+                         op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii.gz'),
+                         op.join(gconf.get_nifti(), 'T2-TO-b0_warp.nii.gz'),
                          op.join(tracto_masks_path_out, infile)
                          )
         runCmd (applywarp_cmp, log )
@@ -82,16 +82,16 @@ def apply_lin_registration():
 
     # warp fsmask_1mm and parcellations
     
-    warp_files = ['fsmask_1mm.nii']
+    warp_files = ['fsmask_1mm.nii.gz']
     for park in gconf.parcellation.keys():
-        warp_files.append(op.join(park, 'ROI_HR_th.nii'))
+        warp_files.append(op.join(park, 'ROI_HR_th.nii.gz'))
     
     for infile in warp_files:
         log.info("Warp file: %s" % infile)
         flirt_cmd = 'flirt -applyxfm -init %s -in %s -ref %s -out %s -interp nearestneighbour' % (
                     out_mat,
                     op.join(tracto_masks_path, infile),
-                    op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii'),
+                    op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii.gz'),
                     op.join(tracto_masks_path_out, infile)
                     )
         
@@ -148,9 +148,9 @@ def declare_inputs(conf):
     elif conf.registration_mode == 'Linear':
         conf.pipeline_status.AddStageInput(stage, nifti_trafo_dir, 'T1-TO-b0.mat', 'T1-TO-b0-mat')
         
-    conf.pipeline_status.AddStageInput(stage, tracto_masks_path, 'fsmask_1mm.nii', 'fsmask_1mm-nii')        
+    conf.pipeline_status.AddStageInput(stage, tracto_masks_path, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')        
     for p in conf.parcellation.keys():
-        conf.pipeline_status.AddStageInput(stage, op.join(tracto_masks_path, p), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % (p))    
+        conf.pipeline_status.AddStageInput(stage, op.join(tracto_masks_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))    
 
     
 def declare_outputs(conf):
@@ -159,9 +159,9 @@ def declare_outputs(conf):
     stage = conf.pipeline_status.GetStage(__name__)
     tracto_masks_path_out = conf.get_cmp_tracto_mask_tob0()
             
-    conf.pipeline_status.AddStageOutput(stage, tracto_masks_path_out, 'fsmask_1mm.nii', 'fsmask_1mm-nii')            
+    conf.pipeline_status.AddStageOutput(stage, tracto_masks_path_out, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')            
     for p in conf.parcellation.keys():
-        conf.pipeline_status.AddStageOutput(stage, op.join(tracto_masks_path_out, p), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % (p))
+        conf.pipeline_status.AddStageOutput(stage, op.join(tracto_masks_path_out, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
                 
         
     

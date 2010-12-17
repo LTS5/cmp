@@ -78,28 +78,28 @@ def create_annot_label():
     shutil.copy(op.join(fs_label_dir, 'regenerated_rh_60', 'rh.corpuscallosum.label'), rhco)
     shutil.copy(op.join(fs_label_dir, 'regenerated_lh_60', 'lh.corpuscallosum.label'), lhco)
 
-    mri_cmd = """mri_label2vol --label "%s" --label "%s" --label "%s" --label "%s" --temp "%s" --o  "%s" --identity """ % (rhun, lhun, rhco, lhco, op.join(fs_dir, 'mri', 'orig.mgz'), op.join(fs_dir, 'label', 'cc_unknown.nii') )
+    mri_cmd = """mri_label2vol --label "%s" --label "%s" --label "%s" --label "%s" --temp "%s" --o  "%s" --identity """ % (rhun, lhun, rhco, lhco, op.join(fs_dir, 'mri', 'orig.mgz'), op.join(fs_dir, 'label', 'cc_unknown.nii.gz') )
     runCmd( mri_cmd, log )
 
     runCmd( 'mris_volmask "FREESURFER"', log)
 
-    mri_cmd = 'mri_convert -i "%s/mri/ribbon.mgz" -o "%s/mri/ribbon.nii"' % (fs_dir, fs_dir)
+    mri_cmd = 'mri_convert -i "%s/mri/ribbon.mgz" -o "%s/mri/ribbon.nii.gz"' % (fs_dir, fs_dir)
     runCmd( mri_cmd, log )
         
-    mri_cmd = 'mri_convert -i "%s/mri/aseg.mgz" -o "%s/mri/aseg.nii"' % (fs_dir, fs_dir)
+    mri_cmd = 'mri_convert -i "%s/mri/aseg.mgz" -o "%s/mri/aseg.nii.gz"' % (fs_dir, fs_dir)
     runCmd( mri_cmd, log )
 
     log.info("[ DONE ]")  
 
 def create_roi():
-    """ Creates the ROI_%s.nii files using the given parcellation information
+    """ Creates the ROI_%s.nii.gz files using the given parcellation information
     from networks. Iteratively create volume. """
     
     log.info("Create the ROIs:")
     fs_dir = gconf.get_fs()
     
     # load aseg volume
-    aseg = ni.load(op.join(fs_dir, 'mri', 'aseg.nii'))
+    aseg = ni.load(op.join(fs_dir, 'mri', 'aseg.nii.gz'))
     asegd = aseg.get_data()
     
     for parkey, parval in gconf.parcellation.items():
@@ -145,10 +145,10 @@ def create_roi():
                 # store it in temporary file to be overwritten for each region
 
                 mri_cmd = 'mri_label2vol --label "%s" --temp "%s" --o "%s" --identity' % (op.join(labelpath, fname),
-                        op.join(fs_dir, 'mri', 'orig.mgz'), op.join(labelpath, 'tmp.nii'))
+                        op.join(fs_dir, 'mri', 'orig.mgz'), op.join(labelpath, 'tmp.nii.gz'))
                 runCmd( mri_cmd, log )
                 
-                tmp = ni.load(op.join(labelpath, 'tmp.nii'))
+                tmp = ni.load(op.join(labelpath, 'tmp.nii.gz'))
                 tmpd = tmp.get_data()
 
                 # find voxel and set them to intensityvalue in rois
@@ -156,8 +156,8 @@ def create_roi():
                 rois[idx] = int(brv['dn_intensityvalue'])
                 
                         
-        # store volume eg in ROI_scale33.nii
-        out_roi = op.join(fs_dir, 'label', 'ROI_%s.nii' % parkey)
+        # store volume eg in ROI_scale33.nii.gz
+        out_roi = op.join(fs_dir, 'label', 'ROI_%s.nii.gz' % parkey)
         
         log.info("Save output image to %s" % out_roi)
         img = ni.Nifti1Image(rois, aseg.get_affine(), aseg.get_header())
@@ -175,7 +175,7 @@ def create_wm_mask():
     reg_path = gconf.get_cmp_tracto_mask()
     
     # load ribbon as basis for white matter mask
-    fsmask = ni.load(op.join(fs_dir, 'mri', 'ribbon.nii'))
+    fsmask = ni.load(op.join(fs_dir, 'mri', 'ribbon.nii.gz'))
     fsmaskd = fsmask.get_data()
 
     wmmask = np.zeros( fsmask.get_data().shape )
@@ -190,7 +190,7 @@ def create_wm_mask():
     wmmask[idx_rh] = 1
     
     # remove subcortical nuclei from white matter mask
-    aseg = ni.load(op.join(fs_dir, 'mri', 'aseg.nii'))
+    aseg = ni.load(op.join(fs_dir, 'mri', 'aseg.nii.gz'))
     asegd = aseg.get_data()
 
     try:
@@ -280,8 +280,8 @@ def create_wm_mask():
     wmmask[idx] = 0
     log.info("Removing lateral ventricles and eroded grey nuclei and brainstem from white matter mask")
     
-    # ADD voxels from 'cc_unknown.nii' dataset
-    ccun = ni.load(op.join(fs_dir, 'label', 'cc_unknown.nii'))
+    # ADD voxels from 'cc_unknown.nii.gz' dataset
+    ccun = ni.load(op.join(fs_dir, 'label', 'cc_unknown.nii.gz'))
     ccund = ccun.get_data()
     idx = np.where(ccund != 0)
     log.info("Add corpus callosum and unknown to wm mask")
@@ -305,8 +305,8 @@ def create_wm_mask():
         else:
             continue
 
-        log.info("Loading %s to subtract cortical ROIs from white matter mask" % ('ROI_%s.nii' % parkey) )
-        roi = ni.load(op.join(gconf.get_fs(), 'label', 'ROI_%s.nii' % parkey))
+        log.info("Loading %s to subtract cortical ROIs from white matter mask" % ('ROI_%s.nii.gz' % parkey) )
+        roi = ni.load(op.join(gconf.get_fs(), 'label', 'ROI_%s.nii.gz' % parkey))
         roid = roi.get_data()
         
         assert roid.shape[0] == wmmask.shape[0]
@@ -323,7 +323,7 @@ def create_wm_mask():
                 wmmask[idx] = 0
     
     # output white matter mask. crop and move it afterwards
-    wm_out = op.join(fs_dir, 'mri', 'fsmask_1mm.nii')
+    wm_out = op.join(fs_dir, 'mri', 'fsmask_1mm.nii.gz')
     img = ni.Nifti1Image(wmmask, fsmask.get_affine(), fsmask.get_header() )
     log.info("Save white matter mask: %s" % wm_out)
     ni.save(img, wm_out)
@@ -338,14 +338,14 @@ def crop_and_move_datasets():
     
     # datasets to crop and move: (from, to)
     ds = [
-          (op.join(fs_dir, 'mri', 'aseg.nii'), op.join(reg_path, 'aseg.nii') ),
-          (op.join(fs_dir, 'mri', 'ribbon.nii'), op.join(reg_path, 'ribbon.nii') ),
-          (op.join(fs_dir, 'mri', 'fsmask_1mm.nii'), op.join(reg_path, 'fsmask_1mm.nii') ),
-          (op.join(fs_dir, 'label', 'cc_unknown.nii'), op.join(reg_path, 'cc_unknown.nii') )
+          (op.join(fs_dir, 'mri', 'aseg.nii.gz'), op.join(reg_path, 'aseg.nii.gz') ),
+          (op.join(fs_dir, 'mri', 'ribbon.nii.gz'), op.join(reg_path, 'ribbon.nii.gz') ),
+          (op.join(fs_dir, 'mri', 'fsmask_1mm.nii.gz'), op.join(reg_path, 'fsmask_1mm.nii.gz') ),
+          (op.join(fs_dir, 'label', 'cc_unknown.nii.gz'), op.join(reg_path, 'cc_unknown.nii.gz') )
           ]
     
     for p in gconf.parcellation.keys():
-        ds.append( (op.join(fs_dir, 'label', 'ROI_%s.nii' % p), op.join(reg_path, p, 'ROI_HR_th.nii')) )
+        ds.append( (op.join(fs_dir, 'label', 'ROI_%s.nii.gz' % p), op.join(reg_path, p, 'ROI_HR_th.nii.gz')) )
     
     orig = op.join(fs_dir, 'mri', 'orig', '001.mgz')
         
@@ -376,7 +376,7 @@ def run(conf):
     globals()['log'] = gconf.get_logger() 
     start = time()
     
-    log.info("ROI_HR_th.nii / fsmask_1mm.nii CREATION")
+    log.info("ROI_HR_th.nii.gz / fsmask_1mm.nii.gz CREATION")
     log.info("=======================================")
     
     from os import environ
@@ -413,11 +413,11 @@ def declare_outputs(conf):
     stage = conf.pipeline_status.GetStage(__name__)
     reg_path = conf.get_cmp_tracto_mask()
     
-    conf.pipeline_status.AddStageOutput(stage, reg_path, 'aseg.nii', 'aseg-nii')
-    conf.pipeline_status.AddStageOutput(stage, reg_path, 'ribbon.nii', 'ribbon-nii')    
-    conf.pipeline_status.AddStageOutput(stage, reg_path, 'fsmask_1mm.nii', 'fsmask_1mm-nii')
-    conf.pipeline_status.AddStageOutput(stage, reg_path, 'cc_unknown.nii', 'cc_unknown-nii')
+    conf.pipeline_status.AddStageOutput(stage, reg_path, 'aseg.nii.gz', 'aseg-nii-gz')
+    conf.pipeline_status.AddStageOutput(stage, reg_path, 'ribbon.nii.gz', 'ribbon-nii-gz')    
+    conf.pipeline_status.AddStageOutput(stage, reg_path, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
+    conf.pipeline_status.AddStageOutput(stage, reg_path, 'cc_unknown.nii.gz', 'cc_unknown-nii-gz')
         
     for p in conf.parcellation.keys():
-        conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % (p))
+        conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
                 

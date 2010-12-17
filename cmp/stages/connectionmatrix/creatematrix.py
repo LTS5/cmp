@@ -149,7 +149,7 @@ def cmat():
     # what it should be
     firstROIFile = op.join(gconf.get_cmp_tracto_mask_tob0(), 
                            gconf.parcellation.keys()[0],
-                           'ROI_HR_th.nii')
+                           'ROI_HR_th.nii.gz')
     firstROI = nibabel.load(firstROIFile)
     roiVoxelSize = firstROI.get_header().get_zooms()
     log.info('Computing endpoints')
@@ -186,7 +186,7 @@ def cmat():
       
         # Open the corresponding ROI
         log.info("Open the corresponding ROI")
-        roi_fname = op.join(gconf.get_cmp_tracto_mask_tob0(), r, 'ROI_HR_th.nii')
+        roi_fname = op.join(gconf.get_cmp_tracto_mask_tob0(), r, 'ROI_HR_th.nii.gz')
         roi       = nibabel.load(roi_fname)
         roiData   = roi.get_data()
       
@@ -271,7 +271,7 @@ def declare_inputs(conf):
     conf.pipeline_status.AddStageInput(stage, conf.get_cmp_fibers(), 'streamline_filtered.trk', 'streamline-trk')
     
     for r in conf.parcellation.keys():
-        conf.pipeline_status.AddStageInput(stage, op.join(conf.get_cmp_tracto_mask_tob0(), r), 'ROI_HR_th.nii', 'ROI_HR_th_%s-nii' % r)
+        conf.pipeline_status.AddStageInput(stage, op.join(conf.get_cmp_tracto_mask_tob0(), r), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % r)
         
 def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""

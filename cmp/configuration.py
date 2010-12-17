@@ -415,7 +415,7 @@ class PipelineConfiguration(traits.HasTraits):
         
         if self.diffusion_imaging_model == 'DSI':
             # add gfa per default
-            ret.append( ('gfa', op.join(self.get_cmp_scalars(), 'dsi_gfa.nii')))
+            ret.append( ('gfa', op.join(self.get_cmp_scalars(), 'dsi_gfa.nii.gz')))
             # XXX: add adc per default
             
         elif  self.diffusion_imaging_model == 'DTI':

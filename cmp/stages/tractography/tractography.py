@@ -7,9 +7,9 @@ def convert_wm_mask():
     log.info("Convert WM MASK to 8 bit/pixel")
     log.info("==============================")
     
-    infile = op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm.nii')
-    outfile = op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii')
-    resampout = op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm_resamp2x2x2.nii')
+    infile = op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm.nii.gz')
+    outfile = op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii.gz')
+    resampout = op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm_resamp2x2x2.nii.gz')
     
     fsl_cmd = 'fslmaths %s %s -odt char' % (infile, outfile) 
     runCmd( fsl_cmd, log )
@@ -39,7 +39,7 @@ def fiber_tracking_dsi():
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_streamline')
     dtb_cmd = '%s --odf %s --wm %s --odfdir %s --out %s %s' % (cmd, op.join(odf_out_path, 'dsi_'),
                             # use the white matter mask after registration!
-                            op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
+                            op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii.gz'),
                             gconf.get_dtb_streamline_vecs_file(),
                             op.join(fibers_path, 'streamline'), param )
     
@@ -68,7 +68,7 @@ def fiber_tracking_dti():
     dtk_cmd = 'dti_tracker %s %s -m %s %s' % (op.join(ten_out_path, 'dti_'),
                             # use the white matter mask after registration!
                             op.join(fibers_path, 'streamline.trk'), 
-                            op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm_resamp2x2x2.nii'),
+                            op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm_resamp2x2x2.nii.gz'),
                             param )
     
     runCmd( dtk_cmd, log )
@@ -78,11 +78,16 @@ def fiber_tracking_dti():
     
     log.info("[ DONE ]")
     
-def inspect(gconf):
+def inspect(gconf, filtered = False):
     """ Inspect the results of this stage """
-    log = gconf.get_logger()
-    trkcmd = 'trackvis %s' % op.join(gconf.get_cmp_fibers(), 'streamline.trk')
-    runCmd( trkcmd, log )
+    if filtered:
+        log = gconf.get_logger()
+        trkcmd = 'trackvis %s' % op.join(gconf.get_cmp_fibers(), 'streamline_filtered.trk')
+        runCmd( trkcmd, log )
+    else:
+        log = gconf.get_logger()
+        trkcmd = 'trackvis %s' % op.join(gconf.get_cmp_fibers(), 'streamline.trk')
+        runCmd( trkcmd, log )
 
 def run(conf):
     """ Run the tractography step
@@ -118,12 +123,12 @@ def declare_inputs(conf):
     stage = conf.pipeline_status.GetStage(__name__)
     odf_out_path = op.join(conf.get_cmp_rawdiff(), 'odf_0')
     
-    conf.pipeline_status.AddStageInput(stage, conf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm.nii', 'fsmask_1mm-nii')
+    conf.pipeline_status.AddStageInput(stage, conf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
 
 
     if conf.diffusion_imaging_model == 'DSI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
-        conf.pipeline_status.AddStageInput(stage, odf_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
+        conf.pipeline_status.AddStageInput(stage, odf_out_path, 'dsi_odf.nii.gz', 'dsi_odf-nii-gz')
     elif conf.diffusion_imaging_model == 'DTI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
         pass        
@@ -135,7 +140,7 @@ def declare_outputs(conf):
     stage = conf.pipeline_status.GetStage(__name__)
     fibers_path = conf.get_cmp_fibers()
         
-    conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii', 'fsmask_1mm__8bit-nii')
+    conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii.gz', 'fsmask_1mm__8bit-nii-gz')
     
     if conf.diffusion_imaging_model == 'DSI' and \
        conf.diffusion_imaging_stream == 'Lausanne2011':
