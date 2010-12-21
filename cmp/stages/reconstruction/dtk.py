@@ -93,7 +93,7 @@ def compute_dts():
         # param = '--number_of_b0 1 --gradient_matrix %s 1'
         # others? -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii.gz
          
-    dti_cmd = 'dti_recon %s %s -b0 %s -b %s %s -ot nii.gz' % (input_file,  
+    dti_cmd = 'dti_recon %s %s -b0 %s -b %s %s -ot nii' % (input_file,  
                              op.join(dti_out_path, "dti_"),
 			     gconf.nr_of_b0,
 			     gconf.max_b0_val,
@@ -126,7 +126,7 @@ def compute_odfs():
     else:
         param = '-b0 1 -dsi -p 4 -sn 0'
 
-    odf_cmd = 'odf_recon %s %s %s %s -mat %s -s 0 %s -ot nii.gz' % (first_input_file, 
+    odf_cmd = 'odf_recon %s %s %s %s -mat %s -s 0 %s -ot nii' % (first_input_file, 
                              str(gconf.nr_of_gradient_directions),
                              str(gconf.nr_of_sampling_directions), 
                              op.join(odf_out_path, "dsi_"),
@@ -134,7 +134,7 @@ def compute_odfs():
                              param )
     runCmd (odf_cmd, log )
     
-    if not op.exists(op.join(odf_out_path, "dsi_odf.nii.gz")):
+    if not op.exists(op.join(odf_out_path, "dsi_odf.nii")):
         log.error("Unable to reconstruct ODF!")
         
     # calculate GFA map
@@ -144,12 +144,12 @@ def compute_odfs():
     dta_cmd = '%s --dsi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'))
     runCmd( dta_cmd, log )
 
-    if not op.exists(op.join(odf_out_path, "dsi_gfa.nii.gz")):
+    if not op.exists(op.join(odf_out_path, "dsi_gfa.nii")):
         log.error("Unable to calculate GFA map!")
     else:
         # copy dsi_gfa.nii.gz to scalar folder for processing with connectionmatrix
-        src = op.join(odf_out_path, "dsi_gfa.nii.gz")
-        dst = op.join(gconf.get_cmp_scalars(), 'dsi_gfa.nii.gz')
+        src = op.join(odf_out_path, "dsi_gfa.nii")
+        dst = op.join(gconf.get_cmp_scalars(), 'dsi_gfa.nii')
         mymove( src, dst, log )
     
     log.info("[ DONE ]")
@@ -204,19 +204,20 @@ def declare_outputs(conf):
     
     stage = conf.pipeline_status.GetStage(__name__)
     rawdiff_dir = conf.get_cmp_rawdiff()
-    odf_out_path = op.join(conf.get_cmp_rawdiff(), 'odf_0')
+    diffusion_out_path = gconf.get_cmp_rawdiff_reconout()
+    
     cmp_scalars_path = conf.get_cmp_scalars()
     
     if conf.diffusion_imaging_model == 'DSI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
         conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DSI_resampled_2x2x2.nii.gz', 'DSI_resampled_2x2x2-nii-gz')
-        conf.pipeline_status.AddStageOutput(stage, odf_out_path, 'dsi_odf.nii.gz', 'dsi_odf-nii-gz')
-        conf.pipeline_status.AddStageOutput(stage, cmp_scalars_path, 'dsi_gfa.nii.gz', 'dsi_gfa-nii-gz')      
+        conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
+        conf.pipeline_status.AddStageOutput(stage, cmp_scalars_path, 'dsi_gfa.nii', 'dsi_gfa-nii')      
           
     elif conf.diffusion_imaging_model == 'DTI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
         conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DTI_resampled_2x2x2.nii.gz', 'DTI_resampled_2x2x2-nii-gz')
+        conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dti_tensor.nii', 'dti_tensor-nii')
         
-        # XXX: what does it reconstruct (filename?)
                 
           

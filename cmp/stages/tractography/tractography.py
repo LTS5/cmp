@@ -37,13 +37,14 @@ def decompress_odf_nifti():
     log.info("Decompress Nifti files")
     log.info("======================")
     
-    odf_out_path = gconf.get_cmp_rawdiff_reconout()
-    fi = glob(op.join(odf_out_path, '*.nii.gz'))
-    
-    for f in fi:
-        decompress(f)
-        # remove .nii.gz
-        os.remove(f)
+    # need not decompress dtk output for now, store it
+    # output as .nii
+#    odf_out_path = gconf.get_cmp_rawdiff_reconout()
+#    fi = glob(op.join(odf_out_path, '*.nii.gz'))
+#    for f in fi:
+#        decompress(f)
+#        # remove .nii.gz
+#        os.remove(f)
 
     # do not remove mask nii.gz
     mask = op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii.gz')
@@ -150,17 +151,16 @@ def declare_inputs(conf):
     """Declare the inputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
-    odf_out_path = op.join(conf.get_cmp_rawdiff(), 'odf_0')
+    diffusion_out_path = gconf.get_cmp_rawdiff_reconout()
     
     conf.pipeline_status.AddStageInput(stage, conf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
 
-
     if conf.diffusion_imaging_model == 'DSI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
-        conf.pipeline_status.AddStageInput(stage, odf_out_path, 'dsi_odf.nii.gz', 'dsi_odf-nii-gz')
+        conf.pipeline_status.AddStageInput(stage, diffusion_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
     elif conf.diffusion_imaging_model == 'DTI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
-        pass        
+        conf.pipeline_status.AddStageInput(stage, diffusion_out_path, 'dti_tensor.nii', 'dti_tensor-nii')      
         
     
 def declare_outputs(conf):
@@ -176,6 +176,6 @@ def declare_outputs(conf):
         conf.pipeline_status.AddStageOutput(stage, fibers_path, 'streamline.trk', 'streamline-trk')
     elif conf.diffusion_imaging_model == 'DTI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
-        pass
+        conf.pipeline_status.AddStageOutput(stage, fibers_path, 'streamline.trk', 'streamline-trk')
               
           
