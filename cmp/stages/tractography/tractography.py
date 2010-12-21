@@ -134,7 +134,7 @@ def run(conf):
     
     if gconf.diffusion_imaging_model == 'DSI' and \
         gconf.diffusion_imaging_stream == 'Lausanne2011':
-        decompress_odf_nifti
+        decompress_odf_nifti()
         fiber_tracking_dsi()
     elif gconf.diffusion_imaging_model == 'DTI' and \
         gconf.diffusion_imaging_stream == 'Lausanne2011':
