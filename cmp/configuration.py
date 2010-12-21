@@ -228,6 +228,14 @@ class PipelineConfiguration(traits.HasTraits):
             msg = 'You have to set a project name!'
             raise Exception(msg)
         
+        # check metadata
+        if self.author == '':
+            raise Exception('You need to enter author for metadata!')
+        if self.institution == '':
+            raise Exception('You need to enter institution for metadata!')        
+        if self.legalnotice == '':
+            raise Exception('You need to enter license/legal notice of your data!')
+        
         # check if software paths exists
         pas = {'configuration.freesurfer_home' : self.freesurfer_home,
                'configuration.fsl_home' : self.fsl_home,
