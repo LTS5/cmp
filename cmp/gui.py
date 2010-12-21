@@ -414,7 +414,38 @@ Children's Hospital Boston:
 
     def _inspect_segmentation_fired(self):
         cmp.freesurfer.inspect(self)
-               
+
+    def _active_dicomconverter_changed(self, value):
+        self.stagedescription = """DICOM Converter\n==========\n\n
+What is this module about?"""
+        
+    def _active_registration_changed(self, value):
+        self.stagedescription = "Registration\n"
+
+    def _active_segmentation_changed(self, value):
+        self.stagedescription = "Segmentation\n============"
+
+    def _active_parcellation_changed(self, value):
+        self.stagedescription = "Parcellation\n============"
+
+    def _active_reconstruction_changed(self, value):
+        self.stagedescription = "Reconstruction\n============"
+
+    def _active_tractography_changed(self, value):
+        self.stagedescription = "Tractography\n============"
+
+    def _active_fiberfilter_changed(self, value):
+        self.stagedescription = "Fiber Filtering\n============"
+
+    def _active_connectome_changed(self, value):
+        self.stagedescription = "Connectome Creation\n============"
+        
+    def _active_cffconverter_changed(self, value):
+        self.stagedescription = "CFF Converter\n============"
+        
+    def _skip_completed_stages_changed(self, value):
+        self.stagedescription = "Skip completed stages\n============"
+
     def _run_fired(self):
         # execute the pipeline thread
         # store the pickle
