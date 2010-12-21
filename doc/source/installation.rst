@@ -61,7 +61,7 @@ You will have to add the cmp and cfflib to your Python path. Also add to the *.b
 	# an example if you cloned inside your homefolder in subfolder dev
 	# export PYTHONPATH="${PYTHONPATH}:/home/myuser/dev/cmp/cmp:/myuser/dev/cfflib/cfflib"
 
-You shoud now test if you can properly import cmp and cfflib. Start an IPython Shell::
+You should now test if you can properly import cmp and cfflib. Start an IPython Shell::
 
   ipython
   
@@ -78,9 +78,9 @@ Project configuration and setup
 
 Steps to do before executing the pipeline
 
-#. Create the folder structure for your project.::
+#. Create the folder structure for your project for DSI data. For DTI data, rename the folder DSI with DTI.::
 
-	├── test_cmp
+	├── myproject
 	│   ├── control001
 	│   │   └── tp1
 	│   │       ├── RAWDATA
@@ -89,7 +89,8 @@ Steps to do before executing the pipeline
 	│   │       │   └── T2
 
 
-#. Copy the DICOM / MPRAGE (T1, T2) images in the corresponding folders
+#. Copy the DICOM / MPRAGE (T1, T2) images in the corresponding folders. The T2 images
+are optional but they improve the registration of the data.
 
 #. Run the Connectome Mapping Pipeline GUI from IPython::
 
@@ -99,7 +100,7 @@ Steps to do before executing the pipeline
 
 #. After the first run of the e.g. the first module DICOM Converter, the folder structure should look like this::
 
-	├── test_cmp
+	├── myproject
 	│   ├── control001
 	│   │   └── tp1
 	│   │       ├── CMT

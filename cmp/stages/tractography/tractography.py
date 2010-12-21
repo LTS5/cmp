@@ -1,6 +1,8 @@
+import gzip
 import os, os.path as op
 from time import time
 from ...logme import *
+from glob import glob
 
 def convert_wm_mask():
     
@@ -22,6 +24,32 @@ def convert_wm_mask():
     log.info("[ DONE ]")
     
 
+def decompress(f):
+    log.info("Decompress %s" % f)
+    f=gzip.open(f, 'rb')
+    fc = f.read()
+    fout=open(f.rstrip('.gz'), 'wb')
+    fout.write(fc)
+    fout.close()
+    f.close()
+
+def decompress_odf_nifti():
+    log.info("Decompress Nifti files")
+    log.info("======================")
+    
+    odf_out_path = gconf.get_cmp_rawdiff_reconout()
+    fi = glob(op.join(odf_out_path, '*.nii.gz'))
+    
+    for f in fi:
+        decompress(f)
+        # remove .nii.gz
+        os.remove(f)
+
+    # do not remove mask nii.gz
+    mask = op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii.gz')
+    decompress(mask)
+
+    
 def fiber_tracking_dsi():
     
     log.info("Run STREAMLINE tractography")
@@ -106,6 +134,7 @@ def run(conf):
     
     if gconf.diffusion_imaging_model == 'DSI' and \
         gconf.diffusion_imaging_stream == 'Lausanne2011':
+        decompress_odf_nifti
         fiber_tracking_dsi()
     elif gconf.diffusion_imaging_model == 'DTI' and \
         gconf.diffusion_imaging_stream == 'Lausanne2011':

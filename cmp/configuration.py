@@ -39,7 +39,7 @@ class PipelineConfiguration(traits.HasTraits):
     # DSI
     nr_of_gradient_directions = traits.Int(515)
     nr_of_sampling_directions = traits.Int(181)
-    odf_recon_param = traits.Str('-b0 1 -dsi -p 4 -sn 0 -ot nii')
+    odf_recon_param = traits.Str('-b0 1 -dsi -p 4 -sn 0')
     
     # DTI
     gradient_table_file = traits.File(exists=False)

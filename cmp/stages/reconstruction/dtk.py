@@ -91,7 +91,7 @@ def compute_dts():
         # store bvalues in 4th component of gradient_matrix
         # otherwise use --b_value 1000 for a global b value
         # param = '--number_of_b0 1 --gradient_matrix %s 1'
-        # others? -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii
+        # others? -iop 1 0 0 0 1 0 -oc -p 3 -sn 0 -ot nii.gz
          
     dti_cmd = 'dti_recon %s %s -b0 %s -b %s %s -ot nii.gz' % (input_file,  
                              op.join(dti_out_path, "dti_"),
