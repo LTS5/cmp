@@ -67,7 +67,7 @@ def fiber_tracking_dsi():
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_streamline')
     dtb_cmd = '%s --odf %s --wm %s --odfdir %s --out %s %s' % (cmd, op.join(odf_out_path, 'dsi_'),
                             # use the white matter mask after registration!
-                            op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii.gz'),
+                            op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
                             gconf.get_dtb_streamline_vecs_file(),
                             op.join(fibers_path, 'streamline'), param )
     
