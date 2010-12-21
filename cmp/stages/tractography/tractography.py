@@ -26,12 +26,12 @@ def convert_wm_mask():
 
 def decompress(f):
     log.info("Decompress %s" % f)
-    f=gzip.open(f, 'rb')
-    fc = f.read()
+    fin=gzip.open(f, 'rb')
+    fc = fin.read()
     fout=open(f.rstrip('.gz'), 'wb')
     fout.write(fc)
     fout.close()
-    f.close()
+    fin.close()
 
 def decompress_odf_nifti():
     log.info("Decompress Nifti files")
