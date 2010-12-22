@@ -204,7 +204,7 @@ def declare_outputs(conf):
     
     stage = conf.pipeline_status.GetStage(__name__)
     rawdiff_dir = conf.get_cmp_rawdiff()
-    diffusion_out_path = gconf.get_cmp_rawdiff_reconout()
+    diffusion_out_path = conf.get_cmp_rawdiff_reconout()
     
     cmp_scalars_path = conf.get_cmp_scalars()
     
