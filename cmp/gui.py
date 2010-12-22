@@ -286,8 +286,8 @@ class CMPGUI( PipelineConfiguration ):
                 HGroup( 
                     #Item( 'validate_form', label = 'Validate Form', show_label = False),
                     Item( 'about', label = 'About', show_label = False),
-                    Item( 'save', label = 'Save', show_label = False),
-                    Item( 'load', label = 'Load', show_label = False),
+                    Item( 'save', label = 'Save State', show_label = False),
+                    Item( 'load', label = 'Load State', show_label = False),
                     spring,
                     Item( 'run', label = 'Map Connectome!', show_label = False),
                 ),
