@@ -151,7 +151,7 @@ def declare_inputs(conf):
     """Declare the inputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
-    diffusion_out_path = gconf.get_cmp_rawdiff_reconout()
+    diffusion_out_path = conf.get_cmp_rawdiff_reconout()
     
     conf.pipeline_status.AddStageInput(stage, conf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
 
