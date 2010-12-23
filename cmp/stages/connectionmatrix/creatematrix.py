@@ -194,7 +194,12 @@ def cmat():
         nROIs = gconf.parcellation[r]['number_of_regions']
         log.info("Create the connection matrix (%s rois)" % nROIs)
         G     = nx.Graph()
-        G.add_nodes_from( range(1, int(nROIs)+1) )
+        # add node information from parcellation
+        gp = nx.read_graphml(gconf.parcellation[r]['node_information_graphml'])
+        for u,d in gp.nodes_iter(data=True):
+            G.add_node(int(u), d)
+
+        #G.add_nodes_from( range(1, int(nROIs)+1) )
         dis = 0
         
         # For each endpoints
