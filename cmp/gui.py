@@ -158,15 +158,26 @@ class CMPGUI( PipelineConfiguration ):
             Item('subject_name',label="Name"),
             Item('subject_timepoint',label="Timepoint"),
             Item('subject_workingdir',label="Working Directory"),
-            Item('subject_raw_glob_diffusion',label="Diffusion File Pattern"),
-            Item('subject_raw_glob_T1',label="T1 File Pattern"),
-            Item('subject_raw_glob_T2',label="T2 File Pattern"),
             Item( 'subject_metadata',
                   label  = 'Metadata',
                   editor = table_editor ),
             show_border = True
         ),
         label = "Subject"
+        )
+
+    dicomconverter_group = Group(
+        VGroup(
+            Item('subject_raw_glob_diffusion',label="Diffusion File Pattern"),
+            Item('subject_raw_glob_T1',label="T1 File Pattern"),
+            Item('subject_raw_glob_T2',label="T2 File Pattern"),
+            Item('extract_diffusion_metadata', label="Try extracting Diffusion metadata"),
+            Item('extract_T1_metadata', label="Try extracting T1 metadata"),
+            Item('extract_T2_metadata', label="Try extracting T2 metadata"),
+            show_border = True
+        ),       
+        visible_when = "active_dicomconverter",             
+        label = "DICOM Converter"                        
         )
 
     registration_group = Group(
@@ -295,6 +306,7 @@ class CMPGUI( PipelineConfiguration ):
               main_group,
               metadata_group,
               subject_group,
+              dicomconverter_group,
               registration_group,
               parcellation_group,
               reconstruction_group,

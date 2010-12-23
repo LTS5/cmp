@@ -10,6 +10,25 @@ from cmp.util import reorient
 import nibabel.nicom.dicomreaders as dr
 import nibabel as ni
 
+def dsi2metadata():
+    try:
+        # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
+        data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, raw_glob)
+    except Exception, e:
+        log.error("There was an exception: %s" % e)
+        return
+    
+    del data
+    import numpy as np
+    np.savetxt(op.join(diffme, 'dsi_affine.txt'), affine, delimiter=',')
+    np.savetxt(op.join(diffme, 'dsi_bvals.txt'), bval, delimiter=',')
+    np.savetxt(op.join(diffme, 'dsi_bvects.txt'), bvect, delimiter=',')
+
+    arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
+    arr[:,:3] = bvect
+    arr[:,3] = bval
+    np.savetxt(op.join(diffme, 'gradient_table.txt'), arr, delimiter=',')
+    
 def diff2nifti_dsi_unpack():
 
     raw_dir = op.join(gconf.get_rawdata())    
@@ -32,23 +51,7 @@ def diff2nifti_dsi_unpack():
         diff_cmd = 'diff_unpack %s %s' % (first,
                                  op.join(nifti_dir, 'DSI.nii.gz'))            
         runCmd(diff_cmd, log)
-        try:
-            # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
-            data, affine, bval, bvect = dr.read_mosaic_dir(dsi_dir, raw_glob)
-            del data
-            import numpy as np
-            np.savetxt(op.join(diffme, 'dsi_affine.txt'), affine, delimiter=',')
-            np.savetxt(op.join(diffme, 'dsi_bvals.txt'), bval, delimiter=',')
-            np.savetxt(op.join(diffme, 'dsi_bvects.txt'), bvect, delimiter=',')
-    
-            arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
-            arr[:,:3] = bvect
-            arr[:,3] = bval
-            np.savetxt(op.join(diffme, 'gradient_table.txt'), arr, delimiter=',')
-        except:
-            pass
         
-
 def dsi_resamp():
     
     nifti_dir = op.join(gconf.get_nifti())
@@ -56,7 +59,11 @@ def dsi_resamp():
     log.info("Resampling 'DSI' to 1x1x1 mm^3...")
     
     # extract only first image with nibabel
-    img = ni.load(op.join(nifti_dir, 'DSI.nii.gz'))
+    try:
+        img = ni.load(op.join(nifti_dir, 'DSI.nii.gz'))
+    except Exception, e:
+        log.error("Exception occured: %s" % e)
+        
     data = img.get_data()
     hdr = img.get_header()
     aff = img.get_affine()
@@ -91,23 +98,27 @@ def diff2nifti_dti_unpack():
         first = sorted(glob(op.join(dti_dir, raw_glob)))[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii.gz'))            
         runCmd(diff_cmd, log)
-        
-        try:
-            # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
-            data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, raw_glob)
-            del data
-            import numpy as np
-            np.savetxt(op.join(diffme, 'dti_affine.txt'), affine, delimiter=',')
-            np.savetxt(op.join(diffme, 'dti_bvals.txt'), bval, delimiter=',')
-            np.savetxt(op.join(diffme, 'dti_bvects.txt'), bvect, delimiter=',')
-            
-            arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
-            arr[:,:3] = bvect
-            arr[:,3] = bval
-            np.savetxt(op.join(diffme, 'gradient_table.txt'), arr, delimiter=',')
-        except:
-            pass
 
+
+def dti2metadata():
+    try:
+        # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
+        data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, raw_glob)
+    except Exception, e:
+        log.error("There was an exception: %s" % e)
+        return
+
+    del data
+    import numpy as np
+    np.savetxt(op.join(diffme, 'dti_affine.txt'), affine, delimiter=',')
+    np.savetxt(op.join(diffme, 'dti_bvals.txt'), bval, delimiter=',')
+    np.savetxt(op.join(diffme, 'dti_bvects.txt'), bvect, delimiter=',')
+    
+    arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
+    arr[:,:3] = bvect
+    arr[:,3] = bval
+    np.savetxt(op.join(diffme, 'gradient_table.txt'), arr, delimiter=',')
+            
 
 def dti_resamp():
     
@@ -115,8 +126,12 @@ def dti_resamp():
     
     log.info("Resampling 'DTI' to 1x1x1 mm^3...")
     
-    # extract only first image with nibabel
-    img = ni.load(op.join(nifti_dir, 'DTI.nii.gz'))
+    try:
+        # extract only first image with nibabel
+        img = ni.load(op.join(nifti_dir, 'DTI.nii.gz'))
+    except Exception, e:
+        log.error("Exception occured: %s" % e)
+        
     data = img.get_data()
     hdr = img.get_header()
     aff = img.get_affine()
@@ -207,12 +222,15 @@ def run(conf):
     if gconf.diffusion_imaging_model == 'DSI':
         diff2nifti_dsi_unpack()
         dsi_resamp()
+        if gconf.extract_diffusion_metadata:
+            dsi2metadata()
         
         
     elif gconf.diffusion_imaging_model == 'DTI':
         diff2nifti_dti_unpack()
         dti_resamp()
-        t12nifti_diff_unpack()
+        if gconf.extract_diffusion_metadata():
+            dti2metadata()
         
     t12nifti_diff_unpack()
     reorient_t1(gconf.diffusion_imaging_model)

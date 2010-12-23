@@ -59,14 +59,19 @@ class PipelineConfiguration(traits.HasTraits):
     nlin_reg_bet_T2_param = traits.Str('-f 0.35 -g 0.15')
     nlin_reg_bet_b0_param = traits.Str('-f 0.2 -g 0.2')
     nlin_reg_fnirt_param = traits.Str('--subsamp=8,4,2,2 --miter==5,5,5,5 --lambda=240,120,90,30 --splineorder=3 --applyinmask=0,0,1,1 --applyrefmask=0,0,1,1')
+    
+    # dicom converter
+    subject_raw_glob_diffusion = traits.Str( "*.ima" )
+    subject_raw_glob_T1 = traits.Str( "*.ima" )
+    subject_raw_glob_T2 = traits.Str( "*.ima" )
+    extract_diffusion_metadata = Bool(False)
+    extract_T1_metadata = Bool(False)
+    extract_T2_metadata = Bool(False)
 
     # subject
     subject_name = traits.Str(  )
     subject_timepoint = traits.Str( )
     subject_workingdir = traits.Directory()
-    subject_raw_glob_diffusion = traits.Str( "*.ima" )
-    subject_raw_glob_T1 = traits.Str( "*.ima" )
-    subject_raw_glob_T2 = traits.Str( "*.ima" )
     subject_logger = None
     subject_metadata = [KeyValue(key='description', value=''),
                         KeyValue(key='', value=''),
