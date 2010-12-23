@@ -75,6 +75,13 @@ def log_paths():
     log.info(gconf.dtk_home)
     log.info(gconf.dtk_matrices)
 
+def save_state():
+    
+    log.info("Save state for run to pickle")
+    fname = os.path.join(gconf.get_log(), gconf.get_logname(suffix = '.pkl'))
+    log.info("Filename: %s" % fname)
+    gconf.save_state( fname )
+    
 
 def run(conf):
     """ Run the first preprocessing step
@@ -92,6 +99,7 @@ def run(conf):
     log.info("Preprocessing")
     log.info("=============")
 
+    save_state()
     log_system_setup()
     create_folders()
     set_env_vars()
