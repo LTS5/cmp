@@ -144,9 +144,7 @@ class PipelineConfiguration(traits.HasTraits):
     
     # Pipeline status object
     pipeline_status = pipeline_status.PipelineStatus()
-    
-    # stage description
-    stagedescription = traits.Str("Here will be the description of the stage.")
+
     
     def __init__(self, **kwargs):
         # NOTE: In python 2.6, object.__init__ no longer accepts input

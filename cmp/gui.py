@@ -4,17 +4,19 @@ import os.path
 #import threading
 
 from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
-                 Bool, File, Button, Enum
+                 Bool, File, Button, Enum, Instance
     
 from enthought.traits.ui.api import View, Item, HGroup, Handler, \
-                    message, spring, Group, VGroup, TableEditor
+                    message, spring, Group, VGroup, TableEditor, UIInfo
 
+    
 from enthought.traits.ui.table_column \
     import ObjectColumn
 
 import cmp    
 from cmp.configuration import PipelineConfiguration
 from cmp.util import KeyValue
+from cmp.helpgui import HelpDialog
 
 #class CMPThread( threading.Thread ):
 #
@@ -39,6 +41,28 @@ table_editor = TableEditor(
     row_factory = KeyValue
 )
 
+class CMPGUIHandler ( Handler ):
+    
+    def object_run_changed(self, info):
+        object = info.object
+        if info.initialized:
+            # first do a consistency check
+            object.consistency_check()
+            # this should work for wx backend
+            # https://mail.enthought.com/pipermail/enthought-dev/2010-March/025896.html
+            
+            print "hide GUI-------------"
+            # map the connectome
+            try:
+                info.ui.control.Show(False)
+                cmp.connectome.mapit(object)
+            finally:
+                info.ui.control.Show(True)
+                
+            # show the gui again
+            #info.ui.control.Show(True)
+            print "after mapit"
+            
 
 class CMPGUI( PipelineConfiguration ):
     """ The Graphical User Interface for the CMP
@@ -54,7 +78,8 @@ class CMPGUI( PipelineConfiguration ):
     run = Button
     save = Button
     load = Button
-
+    help = Button
+    
     inspect_registration = Button
     inspect_segmentation = Button
     inspect_whitemattermask = Button
@@ -265,76 +290,44 @@ class CMPGUI( PipelineConfiguration ):
         )
         
     view = View(
-        HGroup(
-            VGroup(
-                HGroup(
-                  main_group,
-                  metadata_group,
-                  subject_group,
-                  registration_group,
-                  parcellation_group,
-                  reconstruction_group,
-                  tractography_group,
-                  fiberfilter_group,
-                  cffconverter_group,
-                  configuration_group,
-                  orientation= 'horizontal',
-                  layout='tabbed',
-                  #springy=True
-                ),
-                spring,
-                HGroup( 
-                    #Item( 'validate_form', label = 'Validate Form', show_label = False),
-                    Item( 'about', label = 'About', show_label = False),
-                    Item( 'save', label = 'Save State', show_label = False),
-                    Item( 'load', label = 'Load State', show_label = False),
-                    spring,
-                    Item( 'run', label = 'Map Connectome!', show_label = False),
-                ),
+        Group(
+            HGroup(
+              main_group,
+              metadata_group,
+              subject_group,
+              registration_group,
+              parcellation_group,
+              reconstruction_group,
+              tractography_group,
+              fiberfilter_group,
+              cffconverter_group,
+              configuration_group,
+              orientation= 'horizontal',
+              layout='tabbed',
+              springy=True
             ),
-            VGroup(
-                   Item('stagedescription', style = 'readonly', show_label = False)
-                   )
+            spring,
+            HGroup( 
+                Item( 'about', label = 'About', show_label = False),
+                Item( 'help', label = 'Help', show_label = False),
+                Item( 'save', label = 'Save State', show_label = False),
+                Item( 'load', label = 'Load State', show_label = False),
+                spring,
+                Item( 'run', label = 'Map Connectome!', show_label = False),
+            ),
         ),
         resizable = True,
+        handler = CMPGUIHandler,
         title     = 'Connectome Mapping Pipeline',
     )
     
     def _about_fired(self):
-        msg = """Connectome Mapping Pipeline
-Version 1.0
-
-Copyright (C) 2010, Ecole Polytechnique Federale de Lausanne (EPFL) and
-Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland
-                
-Contact
--------
-info@connectomics.org
-http://www.connectomics.org/
-
-Contributors
-------------
-* Jean-Philippe Thiran
-* Reto Meuli
-* Stephan Gerhard
-* Alessandro Daducci
-* Leila Cammoun
-* Patric Hagmann
-* Alia Lemkaddem
-* Elda Fischi
-* Christophe Chenes
-* Xavier Gigandet
-
-External Contributors
----------------------
-
-Children's Hospital Boston:
-* Ellen Grant
-* Daniel Ginsburg
-* Rudolph Pienaar
-
-"""
-        print msg
+        a=HelpDialog()
+        a.configure_traits(kind='livemodal')
+        
+    def _help_fired(self):
+        a=HelpDialog()
+        a.configure_traits(kind='livemodal')
     
     def load_state(self, cmpconfigfile):
         """ Load CMP Configuration state directly.
@@ -371,7 +364,8 @@ Children's Hospital Boston:
         
     def show(self):
         """ Show the GUI """
-        self.configure_traits()
+        #self.configure_traits()
+        self.edit_traits(kind='livemodal')
                     
 #    def _gradient_table_file_default(self):
 #    	return self.get_gradient_table_file()
@@ -415,42 +409,53 @@ Children's Hospital Boston:
     def _inspect_segmentation_fired(self):
         cmp.freesurfer.inspect(self)
 
-    def _active_dicomconverter_changed(self, value):
-        self.stagedescription = """DICOM Converter\n==========\n\n
-What is this module about?"""
-        
-    def _active_registration_changed(self, value):
-        self.stagedescription = "Registration\n"
-
-    def _active_segmentation_changed(self, value):
-        self.stagedescription = "Segmentation\n============"
-
-    def _active_parcellation_changed(self, value):
-        self.stagedescription = "Parcellation\n============"
-
-    def _active_reconstruction_changed(self, value):
-        self.stagedescription = "Reconstruction\n============"
-
-    def _active_tractography_changed(self, value):
-        self.stagedescription = "Tractography\n============"
-
-    def _active_fiberfilter_changed(self, value):
-        self.stagedescription = "Fiber Filtering\n============"
-
-    def _active_connectome_changed(self, value):
-        self.stagedescription = "Connectome Creation\n============"
-        
-    def _active_cffconverter_changed(self, value):
-        self.stagedescription = "CFF Converter\n============"
-        
-    def _skip_completed_stages_changed(self, value):
-        self.stagedescription = "Skip completed stages\n============"
+#    def _active_dicomconverter_changed(self, value):
+#        self.stagedescription = """DICOM Converter\n==========\n\n
+#What is this module about?"""
+#        
+#    def _active_registration_changed(self, value):
+#        self.stagedescription = "Registration\n"
+#
+#    def _active_segmentation_changed(self, value):
+#        self.stagedescription = "Segmentation\n============"
+#
+#    def _active_parcellation_changed(self, value):
+#        self.stagedescription = "Parcellation\n============"
+#
+#    def _active_reconstruction_changed(self, value):
+#        self.stagedescription = "Reconstruction\n============"
+#
+#    def _active_tractography_changed(self, value):
+#        self.stagedescription = "Tractography\n============"
+#
+#    def _active_fiberfilter_changed(self, value):
+#        self.stagedescription = "Fiber Filtering\n============"
+#
+#    def _active_connectome_changed(self, value):
+#        self.stagedescription = "Connectome Creation\n============"
+#        
+#    def _active_cffconverter_changed(self, value):
+#        self.stagedescription = "CFF Converter\n============"
+#        
+#    def _skip_completed_stages_changed(self, value):
+#        self.stagedescription = "Skip completed stages\n============"
 
     def _run_fired(self):
+        pass
         # execute the pipeline thread
-        # store the pickle
-        self.save_state(os.path.join(self.get_log(), self.get_logname(suffix = '.pkl')) )
-        cmp.connectome.mapit(self)
+        
+        # first do a consistency check
+        #self.consistency_check()
+        
+        # otherwise store the pickle
+        #self.save_state(os.path.join(self.get_log(), self.get_logname(suffix = '.pkl')) )
+        
+        # hide the gui
+        # run the pipeline
+        #print "mapit"
+        #cmp.connectome.mapit(self)
+        # show the gui
+        
         #cmpthread = CMPThread(self)
         #cmpthread.start()
 
