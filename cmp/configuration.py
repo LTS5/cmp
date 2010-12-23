@@ -61,9 +61,12 @@ class PipelineConfiguration(traits.HasTraits):
     nlin_reg_fnirt_param = traits.Str('--subsamp=8,4,2,2 --miter==5,5,5,5 --lambda=240,120,90,30 --splineorder=3 --applyinmask=0,0,1,1 --applyrefmask=0,0,1,1')
     
     # dicom converter
+    do_convert_diffusion = traits.Bool(True)
     subject_raw_glob_diffusion = traits.Str( "*.ima" )
     subject_raw_glob_T1 = traits.Str( "*.ima" )
+    do_convert_T1 = traits.Bool(True)
     subject_raw_glob_T2 = traits.Str( "*.ima" )
+    do_convert_T2 = traits.Bool(True)
     extract_diffusion_metadata = traits.Bool(False)
 
     # subject

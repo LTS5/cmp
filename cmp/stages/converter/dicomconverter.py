@@ -219,23 +219,24 @@ def run(conf):
     log.info("DICOM -> NIFTI conversion")
     log.info("=========================")
     
-    if gconf.diffusion_imaging_model == 'DSI':
+    if gconf.diffusion_imaging_model == 'DSI' and gconf.do_convert_diffusion:
         diff2nifti_dsi_unpack()
         dsi_resamp()
         if gconf.extract_diffusion_metadata:
             dsi2metadata()
         
         
-    elif gconf.diffusion_imaging_model == 'DTI':
+    elif gconf.diffusion_imaging_model == 'DTI' and gconf.do_convert_diffusion:
         diff2nifti_dti_unpack()
         dti_resamp()
         if gconf.extract_diffusion_metadata():
             dti2metadata()
-        
-    t12nifti_diff_unpack()
-    reorient_t1(gconf.diffusion_imaging_model)
     
-    if gconf.registration_mode == 'Nonlinear':
+    if gconf.do_convert_T1:
+        t12nifti_diff_unpack()
+        reorient_t1(gconf.diffusion_imaging_model)
+    
+    if gconf.registration_mode == 'Nonlinear' and gconf.do_convert_T2:
         t22nifti_diff_unpack()
         reorient_t2(gconf.diffusion_imaging_model)
 
