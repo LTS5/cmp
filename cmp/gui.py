@@ -51,17 +51,17 @@ class CMPGUIHandler ( Handler ):
             # this should work for wx backend
             # https://mail.enthought.com/pipermail/enthought-dev/2010-March/025896.html
             
-            print "hide GUI-------------"
+            #print "hide GUI-------------"
             # map the connectome
             try:
-                info.ui.control.Show(False)
+                #info.ui.control.Show(False)
                 cmp.connectome.mapit(object)
             finally:
-                info.ui.control.Show(True)
+                pass #info.ui.control.Show(True)
                 
             # show the gui again
             #info.ui.control.Show(True)
-            print "after mapit"
+            #print "after mapit"
             
 
 class CMPGUI( PipelineConfiguration ):
