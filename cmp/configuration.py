@@ -64,9 +64,7 @@ class PipelineConfiguration(traits.HasTraits):
     subject_raw_glob_diffusion = traits.Str( "*.ima" )
     subject_raw_glob_T1 = traits.Str( "*.ima" )
     subject_raw_glob_T2 = traits.Str( "*.ima" )
-    extract_diffusion_metadata = Bool(False)
-    extract_T1_metadata = Bool(False)
-    extract_T2_metadata = Bool(False)
+    extract_diffusion_metadata = traits.Bool(False)
 
     # subject
     subject_name = traits.Str(  )
