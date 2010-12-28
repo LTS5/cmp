@@ -39,10 +39,10 @@ def add_cmat2connectome(connectome, addcmatpickle = False):
                    'average_fiber_length' : np.mean(d['fiblength'])
                   }
             gs.add_edge(u,v, di)
-        cnet = cf.CNetwork(name = 'Network: %s' % r)
-        cnet.set_with_nxgraph('connectome_%s' % r, gs)
-        #cnet.set_metadata({'segmentation_volume_filename':cmat[r]['graph']})
-        #XXX: add resolution etc.
+        cnet = cf.CNetwork(name = 'connectome_%s' % r)
+        cnet.set_with_nxgraph(gs)
+        cnet.update_metadata( { 'resolution' : r,
+                                'segmentation_volume_filename' : cmat[r]['filename']})
         connectome.add_connectome_network(cnet)
         log.info("Done.")
         
