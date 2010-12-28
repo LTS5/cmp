@@ -248,8 +248,7 @@ def run(conf):
 
     log.info("Module took %s seconds to process." % (time()-start))
 
-    if not len(gconf.emailnotify) == 0:
-        msg = "DICOM Converter module finished!\nIt took %s seconds." % 
+    if not len(gconf.emailnotify) == 0: 
         msg = ("DICOM Converter", int(time()-start))
         send_email_notification(msg, gconf, log)    
         
