@@ -110,25 +110,24 @@ def runCmd( cmd, log ):
 def send_email_notification(message, gconf, log, host = 'localhost'):
     
     import smtplib
-    
-    fromaddr = 'Connectome Mappin Pipeline <info@connectomics.org>'
-    receivers = gconf.emailnotify
+    from email.mime.text import MIMEText
 
     # add subject information
     text = "\nProject: %s\nSubject: %s\nTimepoint: %s\nWorkingdir: %s" % (gconf.project_name, \
             gconf.subject_name, gconf.subject_timepoint, gconf.subject_workingdir)
+    fromaddr = 'Connectome Mapping Pipeline <info@connectomics.org>'
     
-    msg = ("""\
-From: %s
-To: %s
-Subject: CMP - Notification
+    msg = MIMEText(text)
+    msg['Subject'] = "CMP - %s - Finished." % msg(0)
+    msg['From'] = fromaddr 
+    msg['To'] = ", ".join(gconf.emailnotify)
 
-%s""" % (fromaddr, ", ".join(receivers), text))
-        
     try:
         smtpObj = smtplib.SMTP(host)
-        smtpObj.sendmail(fromaddr, receivers, message)         
+        smtpObj.sendmail(fromaddr, gconf.emailnotify, msg)         
         log.info("Successfully sent email")    
     except smtplib.SMTPException:
         log.info("Error: Unable to send email")
+    finally:
+        smtpObj.quit()
 
