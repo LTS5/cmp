@@ -113,12 +113,12 @@ def send_email_notification(message, gconf, log, host = 'localhost'):
     from email.mime.text import MIMEText
 
     # add subject information
-    text = "\nModule:%s\nTime: %s seconds\nProject: %s\nSubject: %s\nTimepoint: %s\nWorkingdir: %s" % (message[0], \
+    text = "Module:%s\nTime: %s seconds\nProject: %s\nSubject: %s\nTimepoint: %s\nWorkingdir: %s" % (message[0], \
             message[1], gconf.project_name, gconf.subject_name, gconf.subject_timepoint, gconf.subject_workingdir)
     fromaddr = 'Connectome Mapping Pipeline <info@connectomics.org>'
     
     msg = MIMEText(text)
-    msg['Subject'] = "CMP - %s - Finished." % message[0]
+    msg['Subject'] = "CMP - %s - Finished" % message[0]
     msg['From'] = fromaddr 
     msg['To'] = ", ".join(gconf.emailnotify)
 

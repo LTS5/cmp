@@ -262,7 +262,8 @@ class CMPGUI( PipelineConfiguration ):
         VGroup(
                Item('apply_splinefilter', label="Apply spline filter"),
                Item('apply_fiberlength', label="Apply cutoff filter"),
-               Item('fiber_cutoff', label='Cutoff length (mm)', enabled_when = 'apply_fiberlength'),
+               Item('fiber_cutoff_lower', label='Lower cutoff length (mm)', enabled_when = 'apply_fiberlength'),
+               Item('fiber_cutoff_upper', label='Upper cutoff length (mm)', enabled_when = 'apply_fiberlength'),
                show_border = True,
                enabled_when = "active_fiberfilter"   
             ),

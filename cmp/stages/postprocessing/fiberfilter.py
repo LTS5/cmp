@@ -65,7 +65,7 @@ def filter_fibers(applied_spline=False):
     le = compute_length_array(intrk, savefname = 'lengths_beforecutfiltered.npy')
     
     # cut the fibers smaller than value
-    reducedidx = np.where(le>gconf.fiber_cutoff)[0]
+    reducedidx = np.where(le>gconf.fiber_cutoff_lower & le<gconf.fiber_cutoff_higher)[0]
     
     # load trackfile (downside, needs everything in memory)
     fibold, hdrold = tv.read(intrk)
