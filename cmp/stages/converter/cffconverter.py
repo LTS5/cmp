@@ -63,7 +63,6 @@ def convert2cff():
     c = cf.connectome()
     
     # creating metadata
-    c.connectome_meta = cf.CMetadata()                    
     c.connectome_meta.set_name('%s - %s' % (gconf.subject_name, gconf.subject_timepoint) )
     c.connectome_meta.set_generator(gconf.generator)
     c.connectome_meta.set_author(gconf.author)
