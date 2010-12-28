@@ -158,7 +158,7 @@ def run(conf):
     cleanup_symlinks()
 
     if not len(gconf.emailnotify) == 0:        
-        msg = "Freesurfer module finished!\nIt took %s seconds." % int(time()-start)
+        msg = ["Freesurfer Segmentation", int(time()-start)]
         send_email_notification(msg, gconf, log)
           
 def declare_inputs(conf):

@@ -106,7 +106,7 @@ def run(conf):
     log.info("Module took %s seconds to process." % (time()-start))
     
     if not len(gconf.emailnotify) == 0:
-        msg = "CFF Converter module finished!\nIt took %s seconds." % int(time()-start)
+        msg = ["CFF Converter", int(time()-start)]
         send_email_notification(msg, gconf, log)
         
 def declare_inputs(conf):

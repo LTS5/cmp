@@ -391,7 +391,7 @@ def run(conf):
     log.info("Module took %s seconds to process." % (time()-start))
 
     if not len(gconf.emailnotify) == 0:
-        msg = "Mask creation module finished!\nIt took %s seconds." % int(time()-start)
+        msg = ["Mask creation", int(time()-start)]
         send_email_notification(msg, gconf, log)  
         
 def declare_inputs(conf):
