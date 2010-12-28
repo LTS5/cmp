@@ -13,6 +13,7 @@ import nibabel as ni
 def dsi2metadata():
     raw_dir = op.join(gconf.get_rawdata())  
     dsi_dir = op.join(raw_dir, 'DSI')
+    raw_glob = gconf.get_rawglob('diffusion')
     diffme = gconf.get_diffusion_metadata()
     try:
         # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
@@ -107,6 +108,7 @@ def dti2metadata():
     raw_dir = op.join(gconf.get_rawdata())  
     dti_dir = op.join(raw_dir, 'DTI')
     diffme = gconf.get_diffusion_metadata()
+    raw_glob = gconf.get_rawglob('diffusion')
     try:
         # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
         data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, raw_glob)
