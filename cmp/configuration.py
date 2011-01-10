@@ -414,10 +414,13 @@ class PipelineConfiguration(traits.HasTraits):
         cmp_path = op.dirname(__file__)
         return op.join(cmp_path, 'data', 'diffusion', 'gradient_tables', name + '.txt')
     
-    def get_dtb_streamline_vecs_file(self):
+    def get_dtb_streamline_vecs_file(self, as_text = False):
         """ Returns the odf directions file used for DTB_streamline """
         cmp_path = op.dirname(__file__)
-        return op.join(cmp_path, 'data', 'diffusion', 'odf_directions', '181_vecs.dat')
+        if as_text:
+            return op.join(cmp_path, 'data', 'diffusion', 'odf_directions', '181_vecs.txt')
+        else:
+            return op.join(cmp_path, 'data', 'diffusion', 'odf_directions', '181_vecs.dat')
     
     # XXX
     def get_cmp_scalarfields(self):

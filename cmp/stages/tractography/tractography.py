@@ -3,6 +3,9 @@ import os, os.path as op
 from time import time
 from ...logme import *
 from glob import glob
+import cmp.util as util
+import nibabel as nib
+import numpy as np
 
 def convert_wm_mask():
     
@@ -33,7 +36,7 @@ def decompress(f):
     fout.close()
     fin.close()
 
-def decompress_odf_nifti():
+def decompress_fsmask_nifti():
     log.info("Decompress Nifti files")
     log.info("======================")
     
@@ -79,8 +82,94 @@ def fiber_tracking_dsi():
     
     log.info("[ DONE ]")
 
+def simulate_odf_from_dti():
+    
+    log.info("Create a dummy dsi_odf.nii from dti data")
+
+    odf_out_path = gconf.get_cmp_rawdiff_reconout()
+    odf_direct = gconf.get_dtb_streamline_vecs_file()
+    
+    v1 = op.join(odf_out_path, 'dti_v1.nii')
+    e1 = op.join(odf_out_path, 'dti_e1.nii')
+    odfout = op.join(odf_out_path, 'dsi_odf.nii')
+    
+    vi =nib.load(v1)
+    v = vi.get_data()
+    ei=nib.load()
+    e = ei.get_data(e1)
+    sa=np.loadtxt(odf_direct, delimiter=',')
+    sampdir = sa.shape[0]
+    # dummy odf data output    
+    odf = np.zeros( (sampdir, v.shape[0], v.shape[1], v.shape[2]) )
+    for i in range(v.shape[0]):
+        print "i", i
+        for j in range(v.shape[1]):
+            for k in range(v.shape[2]):
+                v1 = v[i,j,k,:]
+                # find the sampling direction that matches the principal eigenvector
+                arr=np.dot(sa,v1)
+                idx = np.where(arr==arr.max())[0][0]
+                odf[idx,i,j,k] = e[i,j,k]
+    
+    # create the output dsi_odf.nii file with the correct header
+    hdr = vi.get_header()
+    dim = hdr['dim'][1:4].copy()
+    pixdim = hdr['pixdim'][1:4].copy()
+    # number of sampling directions
+    hdr['dim'][1] = sampdir
+    # setting appropriate voxel dimension
+    hdr['dim'][2:5] = dim
+    # setting pixeldim (does not matter for first dimension, as it is number of volumes)
+    hdr['pixdim'][1] = 1.0
+    hdr['pixdim'][2:5] = pixdim
+    # and also for pixel dimension
+    odfimg = nib.Nifti1Image(odf, vi.get_affine(), hdr)
+    log.info("Save image to: %s" % odfout)
+    nib.save(odfimg, odfout)
+    
+    log.info("[ DONE ]")
+
+
+def fiber_tracking_dti_renameb0():
+    
+    log.info("Copy dti_b0.nii in preparation")
+    # copy the b0 nifti file
+    odf_out_path = gconf.get_cmp_rawdiff_reconout()
+    src = op.join(odf_out_path, 'dti_b0.nii')
+    dst = op.join(odf_out_path, 'dsi_b0.nii')
+    util.mymove(src, dst, log, copy = True)
 
 def fiber_tracking_dti():
+
+    log.info("Run STREAMLINE tractography")
+    log.info("===========================")
+    
+    fibers_path = gconf.get_cmp_fibers()
+    odf_out_path = gconf.get_cmp_rawdiff_reconout()
+    
+    # streamline tractography
+    # streamline tractography
+    if not gconf.streamline_param_dti == '':
+        param = gconf.streamline_param_dti
+    else:
+        param = '--angle 40 --rSeed 4'
+        
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_streamline')
+    dtb_cmd = '%s --odf %s --wm %s --odfdir %s --out %s %s' % (cmd, op.join(odf_out_path, 'dti_'),
+                            # use the white matter mask after registration!
+                            op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
+                            gconf.get_dtb_streamline_vecs_file(),
+                            op.join(fibers_path, 'streamline'), param )
+    
+    runCmd( dtb_cmd, log )
+        
+    if not op.exists(op.join(fibers_path, 'streamline.trk')):
+        log.error('No streamline.trk created')    
+    
+    log.info("[ DONE ]")
+    
+
+def fiber_tracking_dti_old():
 
     log.info("Run STREAMLINE tractography")
     log.info("===========================")
@@ -135,10 +224,13 @@ def run(conf):
     
     if gconf.diffusion_imaging_model == 'DSI' and \
         gconf.diffusion_imaging_stream == 'Lausanne2011':
-        decompress_odf_nifti()
+        decompress_fsmask_nifti()
         fiber_tracking_dsi()
     elif gconf.diffusion_imaging_model == 'DTI' and \
         gconf.diffusion_imaging_stream == 'Lausanne2011':
+        decompress_fsmask_nifti()
+        simulate_odf_from_dti()
+        fiber_tracking_dti_renameb0()
         fiber_tracking_dti()
     
     log.info("Module took %s seconds to process." % (time()-start))
