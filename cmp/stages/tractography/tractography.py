@@ -84,19 +84,19 @@ def fiber_tracking_dsi():
 
 def simulate_odf_from_dti():
     
-    log.info("Create a dummy dsi_odf.nii from dti data")
+    log.info("Create a dummy dsi_max.nii from dti data")
 
     odf_out_path = gconf.get_cmp_rawdiff_reconout()
-    odf_direct = gconf.get_dtb_streamline_vecs_file()
+    odf_direct = gconf.get_dtb_streamline_vecs_file(as_text=True)
     
     v1 = op.join(odf_out_path, 'dti_v1.nii')
     e1 = op.join(odf_out_path, 'dti_e1.nii')
-    odfout = op.join(odf_out_path, 'dsi_odf.nii')
+    odfout = op.join(odf_out_path, 'dsi_max.nii')
     
     vi =nib.load(v1)
     v = vi.get_data()
-    ei=nib.load()
-    e = ei.get_data(e1)
+    ei=nib.load(e1)
+    e = ei.get_data()
     sa=np.loadtxt(odf_direct, delimiter=',')
     sampdir = sa.shape[0]
     # dummy odf data output    
@@ -109,7 +109,8 @@ def simulate_odf_from_dti():
                 # find the sampling direction that matches the principal eigenvector
                 arr=np.dot(sa,v1)
                 idx = np.where(arr==arr.max())[0][0]
-                odf[idx,i,j,k] = e[i,j,k]
+                # odf[idx,i,j,k] = e[i,j,k]
+                odf[idx,i,j,k] = 1 # store 
     
     # create the output dsi_odf.nii file with the correct header
     hdr = vi.get_header()
