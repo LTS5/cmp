@@ -11,7 +11,7 @@ Install Diffusion Toolkit::
 
 Install Freesurfer 5.0::
 
-  firefox http://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall
+    firefox http://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall
   
 Install NeuroDebian. Add the NeuroDebian repository to your source list as described here::
 
@@ -35,7 +35,7 @@ Clone the cmp repository::
 
 In another folder, clone the cfflib repository::
 
-  git clone git://github.com/unidesigner/cfflib.git
+	git clone git://github.com/unidesigner/cfflib.git
 
 You should have setup the environment variables for Bash in */home/username/.bashrc* for
 Freesurfer, FSL and Diffusion Toolkit already. They should look something like this::
@@ -57,18 +57,18 @@ Freesurfer, FSL and Diffusion Toolkit already. They should look something like t
 You will have to add the cmp and cfflib to your Python path. Also add to the *.bashrc*::
 
 	# CMP Path
-	export PYTHONPATH="${PYTHONPATH}:/path/to/your/cmp/cmp:/path/tocfflib/cfflib"
+	export PYTHONPATH="/path/to/your/cmp/cmp:/path/tocfflib/cfflib:${PYTHONPATH}"
 	# an example if you cloned inside your homefolder in subfolder dev
-	# export PYTHONPATH="${PYTHONPATH}:/home/myuser/dev/cmp/cmp:/myuser/dev/cfflib/cfflib"
+	# export PYTHONPATH="/home/myuser/dev/cmp/cmp:/myuser/dev/cfflib/cfflib:${PYTHONPATH}"
 
 You should now test if you can properly import cmp and cfflib. Start an IPython Shell::
 
-  ipython
+	ipython
   
 And try the two following commands::
 
-  import cmp
-  import cfflib
+	import cmp
+	import cfflib
   
 They should import without an error. Now you are ready to start to create your folder structure.
 
@@ -78,7 +78,7 @@ Project configuration and setup
 
 Steps to do before executing the pipeline
 
-#. Create the folder structure for your project for DSI data. For DTI data, rename the folder DSI with DTI.::
+#. Create the folder structure for your project for DSI data. For DTI data, rename the folder DSI to DTI.::
 
 	├── myproject
 	│   ├── control001
@@ -89,7 +89,7 @@ Steps to do before executing the pipeline
 	│   │       │   └── T2
 
 
-#. Copy the DICOM / MPRAGE (T1, T2) images in the corresponding folders. The T2 images
+#. Copy the DICOM / MPRAGE (DSI, DTI, T1, T2) images in the corresponding folders. The T2 images
 are optional but they improve the registration of the data.
 
 #. Run the Connectome Mapping Pipeline GUI from IPython::
@@ -103,7 +103,7 @@ are optional but they improve the registration of the data.
 	├── myproject
 	│   ├── control001
 	│   │   └── tp1
-	│   │       ├── CMT
+	│   │       ├── CMP
 	│   │       │   ├── fibers
 	│   │       │   ├── fs_output
 	│   │       │   ├── raw_diffusion
@@ -130,15 +130,15 @@ If you run into any problems, do not hesitate to send an email with the error de
 Starting the pipeline without GUI
 ---------------------------------
 You can start the pipeline also from IPython or in a script. You can find an map_connectome.py example file
-in the cloned cmp repository in /data/default_project/map_connectome.py.
+in the cloned cmp repository in /example/default_project/map_connectome.py.
 
 You can start to modify this script to loop over subjects and/or load the "pickle" file automatically, add::
 
-  from cmp.gui import CMPGUI
-  cmpgui = CMPGUI()
-	cmpgui.load_state('/path/to/your/pickle/state/LOG/cmt.pkl')
+	from cmp.gui import CMPGUI
+	cmpgui = CMPGUI()
+	cmpgui.load_state('/path/to/your/pickle/state/LOG/cmp.pkl')
 
-You can set the attributes of the cmtgui configuration object in the script and directly call the pipeline execution engine::
+You can set the attributes of the cmpgui configuration object in the script and directly call the pipeline execution engine::
 
 	cmpgui.active_dicomconverter = True
 	cmpgui.project_name = '...'
