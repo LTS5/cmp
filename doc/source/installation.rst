@@ -27,7 +27,7 @@ Install FMRIB Software Library. Using the version in the NeuroDebian repository:
 
 Install Debian/Ubuntu dependencies::
 
-	sudo apt-get install libblitz0-dev libboost-all-dev git-core python-dicom
+	sudo apt-get install libblitz0-dev libboost-all-dev git-core python-dicom libnifti1
 
 Clone the cmp repository::
 

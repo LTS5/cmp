@@ -19,7 +19,8 @@ packages=["cmp",
           "cmp.stages.registration",
           "cmp.stages.tractography",
           "cmp.stages.stats",
-          "cmp.stages.template_module"]
+          "cmp.stages.template_module",
+          "cmp.pipeline"]
 
 package_data = {'cmp':
                 ['data/colortable_and_gcs/*.txt',
@@ -29,7 +30,15 @@ package_data = {'cmp':
                  'binary/linux2/bit32/*',
                  'binary/linux2/bit32/*.*',
                  'binary/linux2/bit64/*.*',
-                 'binary/linux2/bit64/*'
+                 'binary/linux2/bit64/*',
+                 'data/diffusion/gradient_tables/*.txt',
+                 'data/diffusion/odf_directions/*.*',
+                 'data/parcellation/lausanne2008/*.*',
+                 'data/parcellation/lausanne2008/resolution83/*.*',
+                 'data/parcellation/lausanne2008/resolution150/*.*',
+                 'data/parcellation/lausanne2008/resolution258/*.*',
+                 'data/parcellation/lausanne2008/resolution500/*.*',
+                 'data/parcellation/lausanne2008/resolution1015/*.*'
                  ]}
 
 ################################################################################
