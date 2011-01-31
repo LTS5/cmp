@@ -194,8 +194,6 @@ def run(conf):
     elif gconf.diffusion_imaging_model == 'DTI' and \
         gconf.diffusion_imaging_stream == 'Lausanne2011':
         decompress_fsmask_nifti()
-        simulate_odf_from_dti()
-        fiber_tracking_dti_renameb0()
         fiber_tracking_dti()
     
     log.info("Module took %s seconds to process." % (time()-start))
