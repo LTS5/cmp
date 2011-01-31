@@ -178,12 +178,12 @@ def convert_to_dir_dti():
 
     dti_out_path = gconf.get_cmp_rawdiff_reconout()
 
-    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_dtk2dir --dirlist "%s" --prefix "%s" --type "dti"' % 
-                  (gconf.get_dtb_streamline_vecs_file(), op.join(dti_out_path, 'dti_'))) 
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_dtk2dir --prefix "%s" --type "dti"' % 
+                  op.join(dti_out_path, 'dti_')) 
     
     runCmd (cmd, log )
 
-    if not op.exists(op.join(odf_out_path, "dti_dir.nii")):
+    if not op.exists(op.join(dti_out_path, "dti_dir.nii")):
         log.error("Unable to create dti_dir.nii")
     
     log.info("[ DONE ]")
