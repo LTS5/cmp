@@ -237,7 +237,7 @@ def run(conf):
     elif gconf.diffusion_imaging_model == 'DTI' and gconf.do_convert_diffusion:
         diff2nifti_dti_unpack()
         dti_resamp()
-        if gconf.extract_diffusion_metadata():
+        if gconf.extract_diffusion_metadata:
             dti2metadata()
     
     if gconf.do_convert_T1:
