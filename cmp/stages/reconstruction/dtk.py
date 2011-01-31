@@ -167,7 +167,24 @@ def convert_to_dir_dsi():
     runCmd (cmd, log )
 
     if not op.exists(op.join(odf_out_path, "dsi_dir.nii")):
-        log.error("Unable to reconstruct ODF!")
+        log.error("Unable to create dsi_dir.nii")
+    
+    log.info("[ DONE ]")
+    
+def convert_to_dir_dti():
+
+    log.info("Convert to new file format")
+    log.info("==========================")
+
+    dti_out_path = gconf.get_cmp_rawdiff_reconout()
+
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_dtk2dir --dirlist "%s" --prefix "%s" --type "dti"' % 
+                  (gconf.get_dtb_streamline_vecs_file(), op.join(dti_out_path, 'dti_'))) 
+    
+    runCmd (cmd, log )
+
+    if not op.exists(op.join(odf_out_path, "dti_dir.nii")):
+        log.error("Unable to create dti_dir.nii")
     
     log.info("[ DONE ]")
     
@@ -188,14 +205,15 @@ def run(conf):
         
     if gconf.diffusion_imaging_model == 'DSI' and \
         gconf.diffusion_imaging_stream == 'Lausanne2011':
-        #resample_dsi()
-        #compute_odfs()
+        resample_dsi()
+        compute_odfs()
         convert_to_dir_dsi()
     elif gconf.diffusion_imaging_model == 'DTI' and \
         gconf.diffusion_imaging_stream == 'Lausanne2011':
         resample_dti()
         compute_dts()
-    
+        convert_to_dir_dti()
+        
     log.info("Module took %s seconds to process." % (time()-start))
 
     if not len(gconf.emailnotify) == 0:
@@ -238,6 +256,5 @@ def declare_outputs(conf):
         conf.diffusion_imaging_stream == 'Lausanne2011':
         conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DTI_resampled_2x2x2.nii.gz', 'DTI_resampled_2x2x2-nii-gz')
         conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dti_tensor.nii', 'dti_tensor-nii')
-        
-                
+        conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dti_dir.nii', 'dti_dir-nii')
           

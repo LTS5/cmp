@@ -118,15 +118,15 @@ class CMPGUI( PipelineConfiguration ):
                         Item('skip_completed_stages', label = 'Skip Previously Completed Stages:'),
                         label="Stages"     
                         ),
-                        VGroup(
+                        VGroup(      
                         Item('inspect_registration', label = 'Registration', show_label = False),
                         Item('inspect_segmentation', label = 'Segmentation', show_label = False),
                         #Item('inspect_whitemattermask', label = 'White Matter Mask', show_label = False),
                         #Item('inspect_parcellation', label = 'Parcellation', show_label = False),
-                        #Item('inspect_reconstruction', label = 'Reconstruction', show_label = False),
+                        #Item('inspect_reconstruction', label = 'Reconstruction', show_label = False), # DTB_viewer
                         Item('inspect_tractography', label = 'Tractography Original', show_label = False),
                         Item('inspect_tractography_filtered', label = 'Tractography Filtered', show_label = False),
-                        Item('inspect_fiberfilter', label = 'Filtered Fibers', show_label = False),
+                        #Item('inspect_fiberfilter', label = 'Filtered Fibers', show_label = False),
                         #Item('inspect_connectomefile', label = 'Connectome File', show_label = False),
                         label="Inspector")
                         #VGroup(
@@ -417,11 +417,8 @@ class CMPGUI( PipelineConfiguration ):
         cmp.tractography.inspect(self)
         
     def _inspect_tractography_filtered_fired(self):
-        cmp.tractography.inspect(self, filtered = True)
-        
-    def _inspect_fiberfilter_fired(self):
         cmp.fiberfilter.inspect(self)
-
+        
     def _inspect_segmentation_fired(self):
         cmp.freesurfer.inspect(self)
 

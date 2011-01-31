@@ -72,7 +72,6 @@ def fiber_tracking_dsi():
     dtb_cmd = '%s --dir %s --wm %s  --out %s %s' % (cmd, op.join(odf_out_path, 'dsi_dir.nii'),
                             # use the white matter mask after registration!
                             op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
- # --odfdir %s                           gconf.get_dtb_streamline_vecs_file(),
                             op.join(fibers_path, 'streamline.trk'), param )
     
     runCmd( dtb_cmd, log )
@@ -96,7 +95,7 @@ def fiber_tracking_dsi_old_streamline():
     if not gconf.streamline_param == '':
         param = gconf.streamline_param
     else:
-        param = '--angle 40 --rSeed 4'
+        param = '--angle 40'
 
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_streamline')
     dtb_cmd = '%s --odf %s --wm %s --odfdir %s --out %s %s' % (cmd, op.join(odf_out_path, 'dsi_'),
@@ -112,64 +111,6 @@ def fiber_tracking_dsi_old_streamline():
     
     log.info("[ DONE ]")
 
-#def simulate_odf_from_dti():
-#    
-#    log.info("Create a dummy dsi_max.nii from dti data")
-#
-#    odf_out_path = gconf.get_cmp_rawdiff_reconout()
-#    odf_direct = gconf.get_dtb_streamline_vecs_file(as_text=True)
-#    
-#    v1 = op.join(odf_out_path, 'dti_v1.nii')
-#    e1 = op.join(odf_out_path, 'dti_e1.nii')
-#    odfout = op.join(odf_out_path, 'dsi_max.nii')
-#    
-#    vi =nib.load(v1)
-#    v = vi.get_data()
-#    ei=nib.load(e1)
-#    e = ei.get_data()
-#    sa=np.loadtxt(odf_direct, delimiter=',')
-#    sampdir = sa.shape[0]
-#    # dummy odf data output    
-#    odf = np.zeros( (sampdir, v.shape[0], v.shape[1], v.shape[2]) )
-#    for i in range(v.shape[0]):
-#        print "i", i
-#        for j in range(v.shape[1]):
-#            for k in range(v.shape[2]):
-#                v1 = v[i,j,k,:]
-#                # find the sampling direction that matches the principal eigenvector
-#                arr=np.dot(sa,v1)
-#                idx = np.where(arr==arr.max())[0][0]
-#                # odf[idx,i,j,k] = e[i,j,k]
-#                odf[idx,i,j,k] = 1 # store 
-#    
-#    # create the output dsi_odf.nii file with the correct header
-#    hdr = vi.get_header()
-#    dim = hdr['dim'][1:4].copy()
-#    pixdim = hdr['pixdim'][1:4].copy()
-#    # number of sampling directions
-#    hdr['dim'][1] = sampdir
-#    # setting appropriate voxel dimension
-#    hdr['dim'][2:5] = dim
-#    # setting pixeldim (does not matter for first dimension, as it is number of volumes)
-#    hdr['pixdim'][1] = 1.0
-#    hdr['pixdim'][2:5] = pixdim
-#    # and also for pixel dimension
-#    odfimg = nib.Nifti1Image(odf, vi.get_affine(), hdr)
-#    log.info("Save image to: %s" % odfout)
-#    nib.save(odfimg, odfout)
-#    
-#    log.info("[ DONE ]")
-
-
-#def fiber_tracking_dti_renameb0():
-#    
-#    log.info("Copy dti_b0.nii in preparation")
-#    # copy the b0 nifti file
-#    odf_out_path = gconf.get_cmp_rawdiff_reconout()
-#    src = op.join(odf_out_path, 'dti_b0.nii')
-#    dst = op.join(odf_out_path, 'dsi_b0.nii')
-#    util.mymove(src, dst, log, copy = True)
-
 def fiber_tracking_dti():
 
     log.info("Run STREAMLINE tractography")
@@ -179,6 +120,32 @@ def fiber_tracking_dti():
     odf_out_path = gconf.get_cmp_rawdiff_reconout()
     
     # streamline tractography
+    # streamline tractography
+    if not gconf.streamline_param_dti == '':
+        param = gconf.streamline_param_dti
+    else:
+        param = '--angle 40'
+        
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_streamline')
+    dtb_cmd = '%s --dir %s --wm %s  --out %s %s' % (cmd, op.join(odf_out_path, 'dti_dir.nii'),
+                            # use the white matter mask after registration!
+                            op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
+                            op.join(fibers_path, 'streamline.trk'), param )
+    runCmd( dtb_cmd, log )
+        
+    if not op.exists(op.join(fibers_path, 'streamline.trk')):
+        log.error('No streamline.trk created')    
+    
+    log.info("[ DONE ]")
+
+def fiber_tracking_dti_old():
+
+    log.info("Run STREAMLINE tractography")
+    log.info("===========================")
+    
+    fibers_path = gconf.get_cmp_fibers()
+    odf_out_path = gconf.get_cmp_rawdiff_reconout()
+    
     # streamline tractography
     if not gconf.streamline_param_dti == '':
         param = gconf.streamline_param_dti
@@ -199,44 +166,11 @@ def fiber_tracking_dti():
     
     log.info("[ DONE ]")
     
-
-#def fiber_tracking_dti_old():
-#
-#    log.info("Run STREAMLINE tractography")
-#    log.info("===========================")
-#    
-#    fibers_path = gconf.get_cmp_fibers()
-#    ten_out_path = gconf.get_cmp_rawdiff_reconout()
-#    
-#    # streamline tractography
-#    if not gconf.streamline_param_dti == '':
-#        param = gconf.streamline_param_dti
-#    else:
-#        param = ''
-#
-#    dtk_cmd = 'dti_tracker %s %s -m %s %s' % (op.join(ten_out_path, 'dti_'),
-#                            # use the white matter mask after registration!
-#                            op.join(fibers_path, 'streamline.trk'), 
-#                            op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm_resamp2x2x2.nii.gz'),
-#                            param )
-#    
-#    runCmd( dtk_cmd, log )
-#        
-#    if not op.exists(op.join(fibers_path, 'streamline.trk')):
-#        log.error('No streamline.trk created')    
-#    
-#    log.info("[ DONE ]")
-    
-def inspect(gconf, filtered = False):
+def inspect(gconf):
     """ Inspect the results of this stage """
-    if filtered:
-        log = gconf.get_logger()
-        trkcmd = 'trackvis %s' % op.join(gconf.get_cmp_fibers(), 'streamline_filtered.trk')
-        runCmd( trkcmd, log )
-    else:
-        log = gconf.get_logger()
-        trkcmd = 'trackvis %s' % op.join(gconf.get_cmp_fibers(), 'streamline.trk')
-        runCmd( trkcmd, log )
+    log = gconf.get_logger()
+    trkcmd = 'trackvis %s' % op.join(gconf.get_cmp_fibers(), 'streamline.trk')
+    runCmd( trkcmd, log )
 
 def run(conf):
     """ Run the tractography step
