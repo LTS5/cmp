@@ -66,7 +66,7 @@ def fiber_tracking_dsi():
     if not gconf.streamline_param == '':
         param = gconf.streamline_param
     else:
-        param = '--angle 40'
+        param = '--angle 40 --seeds 32'
 
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_streamline')
     dtb_cmd = '%s --dir %s --wm %s  --out %s %s' % (cmd, op.join(odf_out_path, 'dsi_dir.nii'),
@@ -95,7 +95,7 @@ def fiber_tracking_dsi_old_streamline():
     if not gconf.streamline_param == '':
         param = gconf.streamline_param
     else:
-        param = '--angle 40'
+        param = '--angle 40 --seeds 32'
 
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_streamline')
     dtb_cmd = '%s --odf %s --wm %s --odfdir %s --out %s %s' % (cmd, op.join(odf_out_path, 'dsi_'),

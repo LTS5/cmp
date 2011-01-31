@@ -118,7 +118,9 @@ class CMPGUI( PipelineConfiguration ):
                         Item('skip_completed_stages', label = 'Skip Previously Completed Stages:'),
                         label="Stages"     
                         ),
-                        VGroup(      
+                        VGroup(
+                        #Item('inspect_rawT1', label = 'Inspect Raw T1', show_label = False),
+                        #Item('inspect_rawdiff', label = 'Inspect Raw Diffusion', show_label = False),       
                         Item('inspect_registration', label = 'Registration', show_label = False),
                         Item('inspect_segmentation', label = 'Segmentation', show_label = False),
                         #Item('inspect_whitemattermask', label = 'White Matter Mask', show_label = False),

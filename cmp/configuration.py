@@ -51,7 +51,7 @@ class PipelineConfiguration(traits.HasTraits):
     dti_recon_param = traits.Str('')
                
     # tractography
-    streamline_param = traits.Str('--angle 30 --rSeed 4')
+    streamline_param = traits.Str('--angle 30  --seeds 32')
     streamline_param_dti = traits.Str('')
     
     # registration
