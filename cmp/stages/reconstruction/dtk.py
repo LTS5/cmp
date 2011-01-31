@@ -154,6 +154,24 @@ def compute_odfs():
     
     log.info("[ DONE ]")
 
+def convert_to_dir_dsi():
+
+    log.info("Convert to new file format")
+    log.info("==========================")
+
+    odf_out_path = gconf.get_cmp_rawdiff_reconout()
+
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB__dtk2dir --prefix "%s" --type "dsi" --vf 0' % 
+                  op.join(odf_out_path, 'dsi_'))
+    
+    runCmd (cmd, log )
+
+    if not op.exists(op.join(odf_out_path, "dsi_dir.nii")):
+        log.error("Unable to reconstruct ODF!")
+    
+    log.info("[ DONE ]")
+    
+    
 def run(conf):
     """ Run the diffusion step
     
@@ -172,6 +190,7 @@ def run(conf):
         gconf.diffusion_imaging_stream == 'Lausanne2011':
         resample_dsi()
         compute_odfs()
+        convert_to_dir_dsi()
     elif gconf.diffusion_imaging_model == 'DTI' and \
         gconf.diffusion_imaging_stream == 'Lausanne2011':
         resample_dti()
@@ -212,6 +231,7 @@ def declare_outputs(conf):
         conf.diffusion_imaging_stream == 'Lausanne2011':
         conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DSI_resampled_2x2x2.nii.gz', 'DSI_resampled_2x2x2-nii-gz')
         conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
+        conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dsi_dir.nii', 'dsi_dir-nii')
         conf.pipeline_status.AddStageOutput(stage, cmp_scalars_path, 'dsi_gfa.nii', 'dsi_gfa-nii')      
           
     elif conf.diffusion_imaging_model == 'DTI' and \
