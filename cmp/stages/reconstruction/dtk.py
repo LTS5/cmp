@@ -188,8 +188,8 @@ def run(conf):
         
     if gconf.diffusion_imaging_model == 'DSI' and \
         gconf.diffusion_imaging_stream == 'Lausanne2011':
-        resample_dsi()
-        compute_odfs()
+        #resample_dsi()
+        #compute_odfs()
         convert_to_dir_dsi()
     elif gconf.diffusion_imaging_model == 'DTI' and \
         gconf.diffusion_imaging_stream == 'Lausanne2011':
