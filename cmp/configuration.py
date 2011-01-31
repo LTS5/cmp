@@ -100,7 +100,7 @@ class PipelineConfiguration(traits.HasTraits):
     publisher = traits.Str()
     created = traits.Date()
     modified = traits.Date()
-    license =  traits.Date()
+    license =  traits.Str()
     rights = traits.Str()
     reference = traits.Str()
     relation =  traits.Str()

@@ -161,8 +161,8 @@ def convert_to_dir_dsi():
 
     odf_out_path = gconf.get_cmp_rawdiff_reconout()
 
-    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB__dtk2dir --prefix "%s" --type "dsi" --vf 0' % 
-                  op.join(odf_out_path, 'dsi_'))
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_dtk2dir --dirlist "%s"--prefix "%s" --type "dsi" --vf 0' % 
+                  (get_dtb_streamline_vecs_file(), op.join(odf_out_path, 'dsi_'))) 
     
     runCmd (cmd, log )
 
