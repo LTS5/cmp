@@ -95,15 +95,18 @@ class PipelineConfiguration(traits.HasTraits):
     skip_completed_stages = traits.Bool(False)
 
     # metadata
-    author = traits.Str()
-    institution = traits.Str()
-    creationdate = traits.Date()
-    modificationdate = traits.Date()
-    species = traits.Str('Homo sapiens')
-    legalnotice = traits.Str()
+    creator = traits.Str()
+    email =  traits.Str()
+    publisher = traits.Str()
+    created = traits.Date()
+    modified = traits.Date()
+    license =  traits.Date()
+    rights = traits.Str()
     reference = traits.Str()
-    url = traits.Str()
+    relation =  traits.Str()
+    species = traits.Str('Homo sapiens')
     description = traits.Str()
+    
     
     # parcellation
     custompar_nrroi = traits.Int()
@@ -234,12 +237,12 @@ class PipelineConfiguration(traits.HasTraits):
             raise Exception(msg)
         
         # check metadata
-        if self.author == '':
+        if self.creator == '':
             raise Exception('You need to enter author for metadata!')
-        if self.institution == '':
+        if self.publisher == '':
             raise Exception('You need to enter institution for metadata!')        
-        if self.legalnotice == '':
-            raise Exception('You need to enter license/legal notice of your data!')
+        if self.email == '':
+            raise Exception('You need to enter email of a contact person!')
         
         # check if software paths exists
         pas = {'configuration.freesurfer_home' : self.freesurfer_home,

@@ -139,14 +139,16 @@ class CMPGUI( PipelineConfiguration ):
 
     metadata_group = Group(
                     VGroup(
-                        Item('author', label = "Author"),
-                        Item('institution', label = "Institution"),
-                        Item('creationdate', label = "Creation Date"),
-                        Item('modificationdate', label = "Modification Date"),
+                        Item('creator', label = "Creator"),
+                        Item('email', label = "E-Mail"),
+                        Item('publisher', label = "Publisher"),
+                        Item('created', label = "Creation Date"),
+                        Item('modified', label = "Modification Date"),
+                        Item('license', label = "License"),
+                        Item('rights', label = "Rights"),
+                        Item('reference', label = "References"),
+                        Item('relation', label = "Relations"),
                         Item('species', label = "Species"),
-                        Item('legalnotice', label = "Legal Notice"),
-                        Item('reference', label = "Reference"),
-                        Item('url', label = "URL"),
                         Item('description', label = "Project Description"),
                     ),
                     label = "Metadata",
