@@ -73,13 +73,12 @@ def convert2cff():
     c.connectome_meta.set_rights(gconf.rights)
     c.connectome_meta.set_references(gconf.reference)
     c.connectome_meta.set_relation(gconf.relation)
-    c.connectome_meta.set_reference(gconf.reference)
     c.connectome_meta.set_species(gconf.species)
     c.connectome_meta.set_description(gconf.description)
 
     mydict = {}
     for ele in gconf.subject_metadata:
-        mydict[str(ele.key), str(ele.value)]        
+        mydict[str(ele.key)] = str(ele.value)
     mydict['subject_name'] = gconf.subject_name
     mydict['subject_timepoint'] = gconf.subject_timepoint
     mydict['subject_workingdir'] = gconf.subject_workingdir
