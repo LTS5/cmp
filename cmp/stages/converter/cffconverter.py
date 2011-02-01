@@ -71,7 +71,7 @@ def convert2cff():
     c.connectome_meta.set_modified(gconf.modified)
     c.connectome_meta.set_license(gconf.license)
     c.connectome_meta.set_rights(gconf.rights)
-    c.connectome_meta.set_reference(gconf.reference)
+    c.connectome_meta.set_references(gconf.reference)
     c.connectome_meta.set_relation(gconf.relation)
     c.connectome_meta.set_reference(gconf.reference)
     c.connectome_meta.set_species(gconf.species)
