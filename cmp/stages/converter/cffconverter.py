@@ -63,17 +63,27 @@ def convert2cff():
     c = cf.connectome()
     
     # creating metadata
-    c.connectome_meta.set_name('%s - %s' % (gconf.subject_name, gconf.subject_timepoint) )
-    c.connectome_meta.set_generator(gconf.generator)
-    c.connectome_meta.set_author(gconf.author)
-    c.connectome_meta.set_institution(gconf.institution)
-    c.connectome_meta.set_creation_date(gconf.creationdate)
-    c.connectome_meta.set_modification_date(gconf.modificationdate)
-    c.connectome_meta.set_species(gconf.species)
-    c.connectome_meta.set_legal_notice(gconf.legalnotice)
+    c.connectome_meta.set_title('%s - %s' % (gconf.subject_name, gconf.subject_timepoint) )
+    c.connectome_meta.set_creator(gconf.creator)
+    c.connectome_meta.set_email(gconf.email)
+    c.connectome_meta.set_publisher(gconf.publisher)
+    c.connectome_meta.set_created(gconf.created)
+    c.connectome_meta.set_modified(gconf.modified)
+    c.connectome_meta.set_license(gconf.license)
+    c.connectome_meta.set_rights(gconf.rights)
     c.connectome_meta.set_reference(gconf.reference)
-    c.connectome_meta.set_url(gconf.url)
+    c.connectome_meta.set_relation(gconf.relation)
+    c.connectome_meta.set_reference(gconf.reference)
+    c.connectome_meta.set_species(gconf.species)
     c.connectome_meta.set_description(gconf.description)
+
+    mydict = {}
+    for ele in gconf.subject_metadata:
+        mydict[str(ele.key), str(ele.value)]        
+    mydict['subject_name'] = gconf.subject_name
+    mydict['subject_timepoint'] = gconf.subject_timepoint
+    mydict['subject_workingdir'] = gconf.subject_workingdir
+    c.connectome_meta.update_metadata(mydict)
 
     # XXX: depending on what was checked
     if gconf.cff_fullnetworkpickle:
