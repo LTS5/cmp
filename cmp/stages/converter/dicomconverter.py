@@ -244,7 +244,7 @@ def run(conf):
         t12nifti_diff_unpack()
         reorient_t1(gconf.diffusion_imaging_model)
     
-    if gconf.registration_mode == 'Nonlinear' and gconf.do_convert_T2:
+    if gconf.do_convert_T2:
         t22nifti_diff_unpack()
         reorient_t2(gconf.diffusion_imaging_model)
 
