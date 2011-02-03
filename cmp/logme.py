@@ -50,9 +50,11 @@ def mkLocalLog( f ):
 def runCmd( cmd, log ):
 
     # timestamp for name
-    import time
-    t = int(time.time()*10)
-    fname = "out_fifo_%s" % str(t)
+    import random
+    t = random.randint(1, 10000000)
+    # create in temporary file
+    import tempfile
+    fname = op.join(tempfile.gettempdir(), "out_fifo_%s" % str(t))
 
     try:
         os.unlink( fname )
@@ -107,14 +109,21 @@ def runCmd( cmd, log ):
         except:
             _localLog.warning( "Failed to unlink '%s'." % fname)
 
+def GetInHMS(seconds):
+    hours = seconds / 3600
+    seconds -= 3600*hours
+    minutes = seconds / 60
+    seconds -= 60*minutes
+    return "%02d:%02d:%02d" % (hours, minutes, seconds)
+
 def send_email_notification(message, gconf, log, host = 'localhost'):
     
     import smtplib
     from email.mime.text import MIMEText
-
+    
     # add subject information
-    text = "Module:%s\nTime: %s seconds\nProject: %s\nSubject: %s\nTimepoint: %s\nWorkingdir: %s" % (message[0], \
-            message[1], gconf.project_name, gconf.subject_name, gconf.subject_timepoint, gconf.subject_workingdir)
+    text = "Module:%s\nTime: %s\nProject: %s\nSubject: %s\nTimepoint: %s\nWorkingdir: %s" % (message[0], \
+            GetInHMS(message[1]), gconf.project_name, gconf.subject_name, gconf.subject_timepoint, gconf.subject_workingdir)
     fromaddr = 'Connectome Mapping Pipeline <info@connectomics.org>'
     
     msg = MIMEText(text)
