@@ -122,7 +122,7 @@ def create_roi():
 
                 log.info("---------------------")
                 log.info("Work on brain region: %s" % (brv['dn_region']) )
-                log.info("Freesurfer Struct Name: %s" %  brv['dn_freesurfer_structname'] )
+                log.info("Freesurfer Struct         Name: %s" %  brv['dn_freesurfer_structname'] )
                 log.info("---------------------")
 
                 # if it is subcortical, retrieve roi from aseg

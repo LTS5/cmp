@@ -140,17 +140,17 @@ def compute_odfs():
     # calculate GFA map
 
     # XXX: this will be replaced by Python code, to compute different scalar fields
-    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_gfa')
-    dta_cmd = '%s --dsi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'))
-    runCmd( dta_cmd, log )
+    #cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_gfa')
+    #dta_cmd = '%s --dsi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'))
+    #runCmd( dta_cmd, log )
 
-    if not op.exists(op.join(odf_out_path, "dsi_gfa.nii")):
-        log.error("Unable to calculate GFA map!")
-    else:
-        # copy dsi_gfa.nii.gz to scalar folder for processing with connectionmatrix
-        src = op.join(odf_out_path, "dsi_gfa.nii")
-        dst = op.join(gconf.get_cmp_scalars(), 'dsi_gfa.nii')
-        mymove( src, dst, log )
+    #if not op.exists(op.join(odf_out_path, "dsi_gfa.nii")):
+    #    log.error("Unable to calculate GFA map!")
+    #else:
+    #    # copy dsi_gfa.nii.gz to scalar folder for processing with connectionmatrix
+    #    src = op.join(odf_out_path, "dsi_gfa.nii")
+    #    dst = op.join(gconf.get_cmp_scalars(), 'dsi_gfa.nii')
+    #    mymove( src, dst, log )
     
     log.info("[ DONE ]")
 
@@ -250,7 +250,7 @@ def declare_outputs(conf):
         conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DSI_resampled_2x2x2.nii.gz', 'DSI_resampled_2x2x2-nii-gz')
         conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
         conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dsi_dir.nii', 'dsi_dir-nii')
-        conf.pipeline_status.AddStageOutput(stage, cmp_scalars_path, 'dsi_gfa.nii', 'dsi_gfa-nii')      
+        # conf.pipeline_status.AddStageOutput(stage, cmp_scalars_path, 'dsi_gfa.nii', 'dsi_gfa-nii')      
           
     elif conf.diffusion_imaging_model == 'DTI' and \
         conf.diffusion_imaging_stream == 'Lausanne2011':
