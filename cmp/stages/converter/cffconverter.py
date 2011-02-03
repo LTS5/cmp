@@ -48,11 +48,21 @@ def add_lengths2connectome(connectome):
     fibers_path = gconf.get_cmp_fibers()
     
     cda = cf.CData(name="Filtered fiber length",
-                   src=op.join(fibers_path, ''),
+                   src=op.join(fibers_path, 'lengths.npy'),
                    fileformat='NumPy',
                    dtype='FilteredFiberLengthArray')
 
     connectome.add_connectome_data(cda)
+
+    log.info("Adding fiber endpoints array to connectome...")
+        
+    cda = cf.CData(name="Fiber endpoints",
+                   src=op.join(fibers_path, 'endpoints.npy'),
+                   fileformat='NumPy',
+                   dtype='FiberEndpoints')
+
+    connectome.add_connectome_data(cda)
+
     
 def add_raw2connectome(connectome, type):
     
@@ -168,8 +178,8 @@ def add_surfaces2connectome(connectome):
     fs_dir = gconf.get_fs()
     
     for i in li:
-        outfile = op.join(fs_dir, i+'.gii')
-        cmd = 'mris_convert %s %s' % (op.join(fs_dir, i), outfile)
+        outfile = op.join(fs_dir, 'surf', i+'.gii')
+        cmd = 'mris_convert %s %s' % (op.join(fs_dir, 'surf', i), outfile)
         runCmd( cmd, log )
     
         if op.exists(outfile):
@@ -211,7 +221,7 @@ def add_cmat2connectome(connectome, addcmatpickle = False):
         
     if addcmatpickle:
         log.info("Adding cmat.pickle to connectome...")
-        cnet = cf.CNetwork(name = 'cmat.pickle')
+        cnet = cf.CNetwork(name = 'cmat')
         cnet.set_with_nxgraph('connectome_cmat', cmat)
         connectome.add_connectome_network(cnet)       
         log.info("Done.")
@@ -241,7 +251,10 @@ def convert2cff():
 
     mydict = {}
     for ele in gconf.subject_metadata:
+        if str(ele.key) == "":
+            continue
         mydict[str(ele.key)] = str(ele.value)
+        
     mydict['subject_name'] = gconf.subject_name
     mydict['subject_timepoint'] = gconf.subject_timepoint
     mydict['subject_workingdir'] = gconf.subject_workingdir
