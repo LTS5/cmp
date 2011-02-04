@@ -16,8 +16,10 @@ def load_endpoints_from_trk(fib, voxelSize):
     
     Returns
     -------
-    endpoints: matrix of size [#fibers, 2, 3] containing for each fiber the
-               index of its first and last point
+    (endpoints: matrix of size [#fibers, 2, 3] containing for each fiber the
+               index of its first and last point in the voxelSize volume
+    endpointsmm) : endpoints in milimeter coordinates
+    
     """
 
     log.info("========================")
@@ -26,6 +28,7 @@ def load_endpoints_from_trk(fib, voxelSize):
     # Init
     n         = len(fib)
     endpoints = np.zeros( (n, 2, 3) )
+    endpointsmm = np.zeros( (n, 2, 3) )
     pc        = -1
 
     # Computation for each fiber
@@ -44,6 +47,11 @@ def load_endpoints_from_trk(fib, voxelSize):
         # store endpoint
         endpoints[i,1,:] = f[-1,:]
         
+        # store startpoint
+        endpointsmm[i,0,:] = f[0,:]
+        # store endpoint
+        endpointsmm[i,1,:] = f[-1,:]
+        
         # Translate from mm to index
         endpoints[i,0,0] = int( endpoints[i,0,0] / float(voxelSize[0]))
         endpoints[i,0,1] = int( endpoints[i,0,1] / float(voxelSize[1]))
@@ -53,7 +61,7 @@ def load_endpoints_from_trk(fib, voxelSize):
         endpoints[i,1,2] = int( endpoints[i,1,2] / float(voxelSize[2]))
 		
     # Return the matrices  
-    return endpoints  
+    return (endpoints, endpointsmm)  
 	
     log.info("done")
     log.info("========================")
@@ -135,6 +143,7 @@ def cmat():
           	
     # create the endpoints for each fibers
     en_fname  = op.join(gconf.get_cmp_fibers(), 'endpoints.npy')
+    en_fnamemm  = op.join(gconf.get_cmp_fibers(), 'endpointsmm.npy')
     ep_fname  = op.join(gconf.get_cmp_fibers(), 'lengths.npy')
     intrk = op.join(gconf.get_cmp_fibers(), 'streamline_filtered.trk')
 
@@ -153,9 +162,10 @@ def cmat():
     firstROI = nibabel.load(firstROIFile)
     roiVoxelSize = firstROI.get_header().get_zooms()
     log.info('Computing endpoints')
-    endpoints = load_endpoints_from_trk(fib, roiVoxelSize)
+    (endpoints,endpointsmm) = load_endpoints_from_trk(fib, roiVoxelSize)
     log.info('Saving endpoints')
     np.save(en_fname, endpoints)
+    np.save(en_fnamemm, endpointsmm)
 
     # load fiber lengths array
     epLen     = np.load(ep_fname)
