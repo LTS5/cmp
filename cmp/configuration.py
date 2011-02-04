@@ -409,7 +409,7 @@ class PipelineConfiguration(traits.HasTraits):
     def get_custom_gradient_table(self):
         """ Returns the absolute path to the custom gradient table
         with optional b-values in the 4th row """
-        return op.join(self.get_diffusion_metadata(), 'gradient_table.txt')
+        return self.gradient_table_file
     
     def get_cmp_gradient_table(self, name):
         """ Return default gradient tables shipped with CMP. These are mainly derived from

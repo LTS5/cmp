@@ -105,7 +105,10 @@ def reorient(src, ref, log):
     shutil.move(tmp2, src)
     log.info("File %s written" % src)
     
-    os.remove(tmpsrc)
+    # Only remove the temporary file if the conventions did not match.  Otherwise,
+    # we end up removing the output.
+    if tmpsrc != src:
+        os.remove(tmpsrc)
     log.info("Remove temporary file %s" % tmpsrc)   
 
 def DTB_viewer():
