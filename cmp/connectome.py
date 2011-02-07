@@ -23,7 +23,7 @@ def setup_pipeline_status(cobj):
                (cmp.cffconverter, cobj.active_cffconverter) ]
     
     for stage,stageEnabled in stages:
-        cobj.pipeline_status.AddStage( stage.__name__ )
+        cobj.pipeline_status.AddStage( stage.__name__, True )
         if hasattr(stage,'declare_inputs'):
             stage.declare_inputs(cobj)
         if hasattr(stage,'declare_outputs'):            

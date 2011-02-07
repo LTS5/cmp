@@ -262,22 +262,26 @@ def declare_inputs(conf):
     raw_dir = op.join(conf.get_rawdata())        
     nifti_dir = op.join(conf.get_nifti())
     dsi_dir = op.join(raw_dir, 'DSI')
-    raw_glob = conf.get_rawglob('diffusion')
+    raw_glob_diffusion = conf.get_rawglob('diffusion')
+    raw_glob_T1 = conf.get_rawglob('T1')
+    raw_glob_T2 = conf.get_rawglob('T2')
     diffme = conf.get_diffusion_metadata()
     dti_dir = op.join(raw_dir, 'DTI')
     t1_dir = op.join(raw_dir, 'T1')
     t2_dir = op.join(raw_dir, 'T2')
-        
-    if conf.diffusion_imaging_model == 'DSI':
-        conf.pipeline_status.AddStageInput(stage, dsi_dir, raw_glob, 'dsi-dcm')        
+
+    print ("globs: (%s, %s, %s" % (raw_glob_diffusion, raw_glob_T1, raw_glob_T2))        
+    if conf.diffusion_imaging_model == 'DSI'  and conf.do_convert_diffusion:
+        conf.pipeline_status.AddStageInput(stage, dsi_dir, raw_glob_diffusion, 'dsi-dcm')        
                 
-    elif conf.diffusion_imaging_model == 'DTI':
-        conf.pipeline_status.AddStageInput(stage, dti_dir, raw_glob, 'dti-dcm')
+    elif conf.diffusion_imaging_model == 'DTI' and conf.do_convert_diffusion:
+        conf.pipeline_status.AddStageInput(stage, dti_dir, raw_glob_diffusion, 'dti-dcm')
         
-    conf.pipeline_status.AddStageInput(stage, t1_dir, raw_glob, 't1-dcm')
+    if conf.do_convert_T1:        
+        conf.pipeline_status.AddStageInput(stage, t1_dir, raw_glob_T1, 't1-dcm')
     
-    if conf.registration_mode == 'Nonlinear':
-        conf.pipeline_status.AddStageInput(stage, t2_dir, raw_glob, 't2-dcm')        
+    if conf.do_convert_T2:
+        conf.pipeline_status.AddStageInput(stage, t2_dir, raw_glob_T2, 't2-dcm')        
                 
     
 def declare_outputs(conf):
@@ -288,11 +292,10 @@ def declare_outputs(conf):
     raw_dir = op.join(conf.get_rawdata())        
     nifti_dir = op.join(conf.get_nifti())
     dsi_dir = op.join(raw_dir, 'DSI')
-    raw_glob = conf.get_rawglob('diffusion')
     diffme = conf.get_diffusion_metadata()
     dti_dir = op.join(raw_dir, 'DTI')
     
-    if conf.diffusion_imaging_model == 'DSI':
+    if conf.diffusion_imaging_model == 'DSI' and conf.do_convert_diffusion:
         # not required output in case nibabel dicom reader can not handle DICOMs
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_affine.txt', 'affine')
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'dsi_bvals.txt', 'bvals')
@@ -301,7 +304,7 @@ def declare_outputs(conf):
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'DSI.nii.gz', 'dsi-nii-gz')
         
         
-    elif conf.diffusion_imaging_model == 'DTI':
+    elif conf.diffusion_imaging_model == 'DTI' and conf.do_convert_diffusion:
         # not required output in case nibabel dicom reader can not handle DICOMs
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_affine.txt', 'affine')
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_bvals.txt', 'bvals')
@@ -309,10 +312,13 @@ def declare_outputs(conf):
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'gradient_table.txt', 'gradient_table')
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'DTI.nii.gz', 'dti-nii-gz')
 
-    conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'Diffusion_b0_resampled.nii.gz', 'diffusion-resampled-nii-gz')        
-    conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1.nii.gz', 't1-nii-gz')
+    if conf.do_convert_diffusion:
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'Diffusion_b0_resampled.nii.gz', 'diffusion-resampled-nii-gz')
+        
+    if conf.do_convert_T1:                    
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1.nii.gz', 't1-nii-gz')
     
-    if conf.registration_mode == 'Nonlinear':
+    if conf.do_convert_T2: 
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2.nii.gz', 't2-nii-gz')
         
        

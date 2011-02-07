@@ -61,11 +61,15 @@ class PipelineStatus():
         except:
             self.logError("Could not write file: " + filename)
             
-    def AddStage(self, name):
+    def AddStage(self, name, clearExisting=False):
         """Add a new stage to the pipeline if it does not exist.  If it does already exist,
         just return the existing stage.  Returns the stage"""
         for stage in self.Pipeline.stages:
             if stage.name == name:
+                if clearExisting:
+                    # Clear the current inputs and outputs
+                    del stage.inputs[:]
+                    del stage.outputs[:]                                                            
                 return stage
             
         newStage = self.Pipeline.stages.add()
