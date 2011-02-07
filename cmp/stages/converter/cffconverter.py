@@ -82,7 +82,7 @@ def add_fiberarr2connectome(connectome):
         log.info("Adding fiber labels array (%s) to connectome..." % str(r))
         
         cda = cf.CData(name="Fiber labels (%s)" % str(r),
-                       src=op.join(fibers_path, 'fiberlabels_%s.npy' % str(s)),
+                       src=op.join(fibers_path, 'fiberlabels_%s.npy' % str(r)),
                        fileformat='NumPy',
                        dtype='FiberEndpoints')
         connectome.add_connectome_data(cda)
