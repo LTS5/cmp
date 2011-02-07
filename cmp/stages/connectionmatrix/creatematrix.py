@@ -12,10 +12,16 @@ def compute_curvature_array(fib):
     log.info("Compute curvature ...")
     
     n = len(fib)
+    pc        = -1
     meancurv = np.zeros( (n, 1) )
     for i, fi in enumerate(fib):
+        # Percent counter
+        pcN = int(round( float(100*i)/n ))
+        if pcN > pc and pcN%1 == 0:    
+            pc = pcN
+            log.info('%4.0f%%' % (pc))
         meancurv[i,0] = mean_curvature(fi[0])
-        
+
     return meancurv
     log.info("DONE")
 
@@ -179,8 +185,11 @@ def cmat():
                 continue
             
             # Update fiber label
-            fiberlabels[i,0] = float(str(int(startROI))+'.'+str(int(endROI)))
-            
+            if startROI <= endROI:
+                fiberlabels[i,0] = float(str(int(startROI))+'.'+str(int(endROI)))
+            else:
+                fiberlabels[i,0] = float(str(int(endROI))+'.'+str(int(startROI)))
+
             # Add edge to graph
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
@@ -189,14 +198,14 @@ def cmat():
                 G.add_edge(startROI, endROI, fiblist   = [i])
                 G.add_edge(startROI, endROI, fiblength = [endpointsmm[i]])
                 
-        log.error("Found %i (%f %) fibers that start or terminate in a voxel which is not labeled. (zero value)" % (dis, dis*1.0/n) )
+        log.error("Found %i (%f percent) fibers that start or terminate in a voxel which is not labeled. (zero value)" % (dis, dis*1.0/n) )
                                   
         # Add all in the current resolution
-        cmat.update({r: {'filename': roi_fname, 'graph': G}})  
+	cmat.update({r: {'filename': roi_fname, 'graph': G}})  
         
-    log.info("Storing fiber labels")
-    np.save(fiberlables_fname, fiberlabels)
-        
+        log.info("Storing fiber labels")
+        np.save(fiberlabels_fname, fiberlabels)
+            
     log.info("done")
     log.info("========================")
         
