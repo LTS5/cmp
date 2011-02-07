@@ -163,4 +163,58 @@ def length(xyz, along=False):
         return np.cumsum(dists)
     return np.sum(dists)
 
-dicomconverter_desc = "DICOM Converter: \nDescription..."
+def magn(xyz,n=1):
+    ''' magnitude of vector
+        
+    '''    
+    mag=np.sum(xyz**2,axis=1)**0.5
+    imag=np.where(mag==0)
+    mag[imag]=np.finfo(float).eps
+
+    if n>1:
+        return np.tile(mag,(n,1)).T
+    return mag.reshape(len(mag),1)   
+
+def mean_curvature(xyz):    
+    ''' Calculates the mean curvature of a curve
+    
+    Parameters
+    ------------
+    xyz : array-like shape (N,3)
+       array representing x,y,z of N points in a curve
+        
+    Returns
+    -----------
+    m : float 
+        float representing the mean curvature
+    
+    Examples
+    --------
+    Create a straight line and a semi-circle and print their mean curvatures
+    
+    >>> from dipy.tracking import metrics as tm
+    >>> import numpy as np
+    >>> x=np.linspace(0,1,100)
+    >>> y=0*x
+    >>> z=0*x
+    >>> xyz=np.vstack((x,y,z)).T
+    >>> m=tm.mean_curvature(xyz) #mean curvature straight line    
+    >>> theta=np.pi*np.linspace(0,1,100)
+    >>> x=np.cos(theta)
+    >>> y=np.sin(theta)
+    >>> z=0*x
+    >>> xyz=np.vstack((x,y,z)).T
+    >>> m=tm.mean_curvature(xyz) #mean curvature for semi-circle    
+    '''
+    xyz = np.asarray(xyz)
+    n_pts = xyz.shape[0]
+    if n_pts == 0:
+        raise ValueError('xyz array cannot be empty')
+    
+    dxyz=np.gradient(xyz)[0]            
+    ddxyz=np.gradient(dxyz)[0]
+    
+    #Curvature
+    k = magn(np.cross(dxyz,ddxyz),1)/(magn(dxyz,1)**3)    
+        
+    return np.mean(k)

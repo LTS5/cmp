@@ -41,9 +41,9 @@ def add_fibers2connectome(connectome):
 
     connectome.add_connectome_track(ctr)
     
-def add_lengths2connectome(connectome):
+def add_fiberarr2connectome(connectome):
     
-    log.info("Adding fiber lengths array to connectome...")
+    log.info("Adding fiber arrays to connectome...")
     
     fibers_path = gconf.get_cmp_fibers()
     
@@ -60,8 +60,32 @@ def add_lengths2connectome(connectome):
                    src=op.join(fibers_path, 'endpoints.npy'),
                    fileformat='NumPy',
                    dtype='FiberEndpoints')
-
+    
+    log.info("Adding fiber endpoints (mm) array to connectome...")
+        
+    cda = cf.CData(name="Fiber endpoints (mm)",
+                   src=op.join(fibers_path, 'endpointsmm.npy'),
+                   fileformat='NumPy',
+                   dtype='FiberEndpoints')
     connectome.add_connectome_data(cda)
+
+    log.info("Adding fiber mean curvature array to connectome...")
+        
+    cda = cf.CData(name="Fiber mean curvature",
+                   src=op.join(fibers_path, 'meancurvature.npy'),
+                   fileformat='NumPy',
+                   dtype='FiberEndpoints')
+    connectome.add_connectome_data(cda)
+
+
+    log.info("Adding fiber labels array to connectome...")
+        
+    cda = cf.CData(name="Fiber labels",
+                   src=op.join(fibers_path, 'fiberlabels.npy'),
+                   fileformat='NumPy',
+                   dtype='FiberEndpoints')
+    connectome.add_connectome_data(cda)
+
 
     
 def add_raw2connectome(connectome, type):
@@ -100,6 +124,22 @@ def add_raw2connectome(connectome, type):
     
     if not cvol is None:
         connectome.add_connectome_volume(cvol)    
+
+def add_scalars2connectome(connectome, type):
+    
+    log.info("Adding scalar fields to connectome...")
+    
+    scalarpath = gconf.get_cmp_scalars()
+    
+    if type == 'gfa':
+        if gconf.diffusion_imaging_model == 'DSI':
+            if op.exists(op.join(scalarpath, 'dsi_gfa.nii')):
+                cvol = cf.CVolume(name="GFA Scalar Map",
+                               src=op.join(scalarpath, 'dsi_gfa.nii'),
+                               fileformat='Nifti1',
+                               dtype='GFA')
+                connectome.add_connectome_volume(cvol)    
+
 
 def add_roiseg2connectome(connectome):
     
@@ -271,8 +311,8 @@ def convert2cff():
     if gconf.cff_filteredfibers:
         add_fibers2connectome(c)
         
-    if gconf.cff_fiberlengtharr:
-        add_lengths2connectome(c)
+    if gconf.cff_fiberarr:
+        add_fiberarr2connectome(c)
         
     if gconf.cff_rawdiffusion:
         add_raw2connectome(c, 'rawdiffusion')
@@ -282,6 +322,9 @@ def convert2cff():
         
     if gconf.cff_rawT2:
         add_raw2connectome(c, 'rawT2')
+    
+    if gconf.cff_scalars:
+        add_scalars2connectome(c, 'gfa')
     
     if gconf.cff_roisegmentation:
         add_roiseg2connectome(c)    

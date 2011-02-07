@@ -138,19 +138,17 @@ def compute_odfs():
         log.error("Unable to reconstruct ODF!")
         
     # calculate GFA map
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_gfa')
+    dta_cmd = '%s --dsi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'))
+    runCmd( dta_cmd, log )
 
-    # XXX: this will be replaced by Python code, to compute different scalar fields
-    #cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_gfa')
-    #dta_cmd = '%s --dsi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'))
-    #runCmd( dta_cmd, log )
-
-    #if not op.exists(op.join(odf_out_path, "dsi_gfa.nii")):
-    #    log.error("Unable to calculate GFA map!")
-    #else:
-    #    # copy dsi_gfa.nii.gz to scalar folder for processing with connectionmatrix
-    #    src = op.join(odf_out_path, "dsi_gfa.nii")
-    #    dst = op.join(gconf.get_cmp_scalars(), 'dsi_gfa.nii')
-    #    mymove( src, dst, log )
+    if not op.exists(op.join(odf_out_path, "dsi_gfa.nii")):
+        log.error("Unable to calculate GFA map!")
+    else:
+        # copy dsi_gfa.nii.gz to scalar folder for processing with connectionmatrix
+        src = op.join(odf_out_path, "dsi_gfa.nii")
+        dst = op.join(gconf.get_cmp_scalars(), 'dsi_gfa.nii')
+        mymove( src, dst, log )
     
     log.info("[ DONE ]")
 
