@@ -77,14 +77,15 @@ def add_fiberarr2connectome(connectome):
                    dtype='FiberEndpoints')
     connectome.add_connectome_data(cda)
 
-
-    log.info("Adding fiber labels array to connectome...")
+    resolution = gconf.parcellation.keys()
+    for r in resolution:
+        log.info("Adding fiber labels array (%s) to connectome..." % str(r))
         
-    cda = cf.CData(name="Fiber labels",
-                   src=op.join(fibers_path, 'fiberlabels.npy'),
-                   fileformat='NumPy',
-                   dtype='FiberEndpoints')
-    connectome.add_connectome_data(cda)
+        cda = cf.CData(name="Fiber labels (%s)" % str(r),
+                       src=op.join(fibers_path, 'fiberlabels_%s.npy' % str(s)),
+                       fileformat='NumPy',
+                       dtype='FiberEndpoints')
+        connectome.add_connectome_data(cda)
 
 
     

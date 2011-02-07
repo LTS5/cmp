@@ -106,7 +106,6 @@ def cmat():
     en_fnamemm  = op.join(gconf.get_cmp_fibers(), 'endpointsmm.npy')
     ep_fname  = op.join(gconf.get_cmp_fibers(), 'lengths.npy')
     curv_fname  = op.join(gconf.get_cmp_fibers(), 'meancurvature.npy')
-    fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'fiberlabels.npy')
     intrk = op.join(gconf.get_cmp_fibers(), 'streamline_filtered.trk')
 
     fib, hdr    = nibabel.trackvis.read(intrk, False)
@@ -124,7 +123,6 @@ def cmat():
     firstROI = nibabel.load(firstROIFile)
     roiVoxelSize = firstROI.get_header().get_zooms()
     (endpoints,endpointsmm) = create_endpoints_array(fib, roiVoxelSize)
-    
     meancurv = compute_curvature_array(fib)
     np.save(en_fname, endpoints)
     np.save(en_fnamemm, endpointsmm)
@@ -135,13 +133,15 @@ def cmat():
     log.info("Resolution treatment")
     
     n = len(fib)
-    fiberlabels = np.zeros( (n, 1) )
     
     resolution = gconf.parcellation.keys()
     cmat = {}
     for r in resolution:
         log.info("Resolution = "+r)
-      
+        
+        # create empty fiber label array
+        fiberlabels = np.zeros( (n, 1) )
+        
         # Open the corresponding ROI
         log.info("Open the corresponding ROI")
         roi_fname = op.join(gconf.get_cmp_tracto_mask_tob0(), r, 'ROI_HR_th.nii.gz')
@@ -201,9 +201,10 @@ def cmat():
         log.error("Found %i (%f percent) fibers that start or terminate in a voxel which is not labeled. (zero value)" % (dis, dis*1.0/n) )
                                   
         # Add all in the current resolution
-	cmat.update({r: {'filename': roi_fname, 'graph': G}})  
+        cmat.update({r: {'filename': roi_fname, 'graph': G}})  
         
         log.info("Storing fiber labels")
+        fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'fiberlabels_%s.npy' % str(r))
         np.save(fiberlabels_fname, fiberlabels)
             
     log.info("done")
