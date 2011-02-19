@@ -198,7 +198,7 @@ def cmat():
                 G.add_edge(startROI, endROI, fiblist   = [i])
                 G.add_edge(startROI, endROI, fiblength = [endpointsmm[i]])
                 
-        log.error("Found %i (%f percent) fibers that start or terminate in a voxel which is not labeled. (zero value)" % (dis, dis*1.0/n) )
+        log.error("Found %i (%f percent out of %i fibers) fibers that start or terminate in a voxel which is not labeled. (zero value)" % (dis, dis*100.0/n, n) )
                                   
         # Add all in the current resolution
         cmat.update({r: {'filename': roi_fname, 'graph': G}})  
