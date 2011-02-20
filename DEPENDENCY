@@ -14,14 +14,3 @@ Required
 * NumPy
 * Traits / Traits GUI (getting rid of it?)
 * python-protobuf 2.3 (Google Protocol Buffers)
-
-Binary
-------
-Do we need the linked against libraries?
-Boost, Blitz, libnifti
-
-Optional
---------
-* NiPype
-* Matplotlib for histogram plotting
-* TrackVis for tractography result inspection
