@@ -376,7 +376,7 @@ def generate_WM_and_GM_mask():
     niiAPARCdata = niiAPARCimg.get_data()
     
     # mri_convert aparc+aseg.mgz aparc+aseg.nii.gz
-    WMout = op.join(fs_dir, 'fsmask_1mm.nii.gz')
+    WMout = op.join(fs_dir, 'mri', 'fsmask_1mm.nii.gz')
     
     
     #%% label mapping    
@@ -400,14 +400,15 @@ def generate_WM_and_GM_mask():
          niiWM[niiAPARCdata == i] = 1
          
     img = ni.Nifti1Image(niiWM, niiAPARCimg.get_affine(), niiAPARCimg.get_header())
+    log.info("Save to: " + WMout)
     ni.save(img, WMout)
 
     log.info("GM mask....")    
     #%% create GM mask (CORTICAL+SUBCORTICAL)
     #%  -------------------------------------
     for park in gconf.parcellation.keys():
-        log.info("Parcellation:" + park)
-        GMout = op.join(fs_dir, 'ROI_%s.nii.gz' % park)
+        log.info("Parcellation: " + park)
+        GMout = op.join(fs_dir, 'mri', 'ROI_%s.nii.gz' % park)
 
         niiGM = np.zeros( niiAPARCdata.shape, dtype = np.uint8 )
         
@@ -423,7 +424,8 @@ def generate_WM_and_GM_mask():
         # % other region to account for in the GM
         for idx, i in enumerate(OTHER[1]):
             niiGM[ niiAPARCdata == i ] = OTHER[2][idx]
-        
+
+        log.info("Save to: " + GMout)        
         img = ni.Nifti1Image(niiGM, niiAPARCimg.get_affine(), niiAPARCimg.get_header())
         ni.save(img, GMout)
         
