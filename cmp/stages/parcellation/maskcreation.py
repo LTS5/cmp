@@ -376,7 +376,7 @@ def generate_WM_and_GM_mask():
     niiAPARCdata = niiAPARCimg.get_data()
     
     # mri_convert aparc+aseg.mgz aparc+aseg.nii.gz
-    WMout = op.join(reg_path, 'fsmask_1mm.nii.gz')
+    WMout = op.join(fs_dir, 'fsmask_1mm.nii.gz')
     
     
     #%% label mapping    
@@ -407,7 +407,7 @@ def generate_WM_and_GM_mask():
     #%  -------------------------------------
     for park in gconf.parcellation.keys():
         log.info("Parcellation:" + park)
-        GMout = op.join(reg_path, park, 'ROI_HR_th.nii.gz')
+        GMout = op.join(fs_dir, 'ROI_%s.nii.gz' % park)
 
         niiGM = np.zeros( niiAPARCdata.shape, dtype = np.uint8 )
         
@@ -428,6 +428,36 @@ def generate_WM_and_GM_mask():
         ni.save(img, GMout)
         
     log.info("[DONE]")
+
+
+def crop_and_move_WM_and_GM():
+    
+    fs_dir = gconf.get_fs()
+    reg_path = gconf.get_cmp_tracto_mask()
+    
+    log.info("Cropping and moving datasets to %s" % reg_path)
+    
+    # datasets to crop and move: (from, to)
+    ds = [
+          (op.join(fs_dir, 'mri', 'fsmask_1mm.nii.gz'), op.join(reg_path, 'fsmask_1mm.nii.gz') ),
+          ]
+    
+    for p in gconf.parcellation.keys():
+        ds.append( (op.join(fs_dir, 'mri', 'ROI_%s.nii.gz' % p), op.join(reg_path, p, 'ROI_HR_th.nii.gz')) )
+    
+    orig = op.join(fs_dir, 'mri', 'orig', '001.mgz')
+        
+    for d in ds:
+        log.info("Processing %s:" % d[0])
+        
+        # does it exist at all?
+        if not op.exists(d[0]):
+            raise Exception('File %s does not exist.' % d[0])
+        # reslice to original volume because the roi creation with freesurfer
+        # changed to 256x256x256 resolution
+        mri_cmd = 'mri_convert -rl "%s" -rt nearest "%s" -nc "%s"' % (orig, d[0], d[1])
+        runCmd( mri_cmd,log )
+        
 
 def run(conf):
     """ Run the first mask creation step
@@ -458,6 +488,7 @@ def run(conf):
         crop_and_move_datasets()
     elif gconf.parcellation_scheme == "Lausanne2011":
         generate_WM_and_GM_mask()
+        crop_and_move_WM_and_GM()
     
     log.info("Module took %s seconds to process." % (time()-start))
 
