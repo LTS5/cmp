@@ -372,7 +372,7 @@ def generate_WM_and_GM_mask():
     runCmd( mri_cmd, log )
 
     fout = op.join(fs_dir, 'mri', 'aparc+aseg.nii.gz')    
-    niiAPARCimg = nib.load(fout)
+    niiAPARCimg = ni.load(fout)
     niiAPARCdata = niiAPARCimg.get_data()
     
     # mri_convert aparc+aseg.mgz aparc+aseg.nii.gz
@@ -399,8 +399,8 @@ def generate_WM_and_GM_mask():
     for i in SUBCORTICAL[1]:
          niiWM[niiAPARCdata == i] = 1
          
-    img = nib.Nifti1Image(niiWM, niiAPARCimg.get_affine(), niiAPARCimg.get_header())
-    nib.save(img, WMout)
+    img = ni.Nifti1Image(niiWM, niiAPARCimg.get_affine(), niiAPARCimg.get_header())
+    ni.save(img, WMout)
 
     log.info("GM mask....")    
     #%% create GM mask (CORTICAL+SUBCORTICAL)
@@ -424,8 +424,8 @@ def generate_WM_and_GM_mask():
         for idx, i in enumerate(OTHER[1]):
             niiGM[ niiAPARCdata == i ] = OTHER[2][idx]
         
-        img = nib.Nifti1Image(niiGM, niiAPARCimg.get_affine(), niiAPARCimg.get_header())
-        nib.save(img, GMout)
+        img = ni.Nifti1Image(niiGM, niiAPARCimg.get_affine(), niiAPARCimg.get_header())
+        ni.save(img, GMout)
         
     log.info("[DONE]")
 
@@ -456,7 +456,7 @@ def run(conf):
         create_roi()
         create_wm_mask()    
         crop_and_move_datasets()
-    elif gconf.parcellation_scheme == "Lausanne2008":
+    elif gconf.parcellation_scheme == "Lausanne2011":
         generate_WM_and_GM_mask()
     
     log.info("Module took %s seconds to process." % (time()-start))
@@ -493,7 +493,7 @@ def declare_outputs(conf):
         for p in conf.parcellation.keys():
             conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
             
-    elif conf.parcellation_scheme == "Lausanne2008":
+    elif conf.parcellation_scheme == "Lausanne2011":
         conf.pipeline_status.AddStageOutput(stage, reg_path, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
         for p in conf.parcellation.keys():
             conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
