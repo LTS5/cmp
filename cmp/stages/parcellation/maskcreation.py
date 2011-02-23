@@ -484,7 +484,7 @@ def declare_outputs(conf):
     stage = conf.pipeline_status.GetStage(__name__)
     reg_path = conf.get_cmp_tracto_mask()
     
-    if gconf.parcellation_scheme == "Lausanne2008":
+    if conf.parcellation_scheme == "Lausanne2008":
         conf.pipeline_status.AddStageOutput(stage, reg_path, 'aseg.nii.gz', 'aseg-nii-gz')
         conf.pipeline_status.AddStageOutput(stage, reg_path, 'ribbon.nii.gz', 'ribbon-nii-gz')    
         conf.pipeline_status.AddStageOutput(stage, reg_path, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
@@ -493,7 +493,7 @@ def declare_outputs(conf):
         for p in conf.parcellation.keys():
             conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
             
-    elif gconf.parcellation_scheme == "Lausanne2008":
+    elif conf.parcellation_scheme == "Lausanne2008":
         conf.pipeline_status.AddStageOutput(stage, reg_path, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
         for p in conf.parcellation.keys():
             conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
