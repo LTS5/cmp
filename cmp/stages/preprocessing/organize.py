@@ -73,7 +73,6 @@ def log_paths():
     log.info(gconf.freesurfer_home)
     log.info(gconf.fsl_home)
     log.info(gconf.dtk_home)
-    log.info(gconf.dtk_matrices)
 
 def save_state():
     

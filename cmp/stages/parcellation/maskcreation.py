@@ -361,6 +361,74 @@ def crop_and_move_datasets():
         runCmd( mri_cmd,log )
 
 
+def generate_WM_and_GM_mask():
+    
+    log.info("Create the WM and GM mask")
+    fs_dir = gconf.get_fs()
+    reg_path = gconf.get_cmp_tracto_mask()
+    
+    # need to convert
+    mri_cmd = 'mri_convert -i "%s/mri/aparc+aseg.mgz" -o "%s/mri/aparc+aseg.nii.gz"' % (fs_dir, fs_dir)
+    runCmd( mri_cmd, log )
+
+    fout = op.join(fs_dir, 'mri', 'aparc+aseg.nii.gz')    
+    niiAPARCimg = nib.load(fout)
+    niiAPARCdata = niiAPARCimg.get_data()
+    
+    # mri_convert aparc+aseg.mgz aparc+aseg.nii.gz
+    WMout = op.join(reg_path, 'fsmask_1mm.nii.gz')
+    
+    
+    #%% label mapping    
+    CORTICAL = {1 : [ 1, 2, 3,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34],
+                2 : [31,13, 9,21,27,25,19,29,15,23, 1,24, 4,30,26,11, 6, 2, 5,22,16,14,10,20,12, 7, 8,18,30,17, 3,28,33]}
+    SUBCORTICAL = {1:[48,49,50,51,52,53,54,58,59,60,   9,10,11,12,13,17,18,26,27,28],
+                   2:[34,34,35,36,37,40,41,38,39,39,  75,75,76,77,78,81,82,79,80,80]}
+    OTHER = {1:[16,251,252,253,254,255,86,1004,2004],
+             2:[83, 84, 84, 84, 84,  84, 84,   84,   84]}
+    
+    WM = [2, 29, 32, 41, 61, 64] +  range(77,86+1) + range(100, 117+1) + range(155,158+1) + range(195,196+1) + range(199,200+1) + range(203,204+1) + [212, 219, 223] + range(250,255+1)
+    
+    log.info("WM mask....")
+    #%% create WM mask    
+    niiWM = np.zeros( niiAPARCdata.shape, dtype = np.uint8 )
+
+    for i in WM:
+         niiWM[niiAPARCdata == i] = 1
+    
+    for i in SUBCORTICAL[1]:
+         niiWM[niiAPARCdata == i] = 1
+         
+    img = nib.Nifti1Image(niiWM, niiAPARCimg.get_affine(), niiAPARCimg.get_header())
+    nib.save(img, WMout)
+
+    log.info("GM mask....")    
+    #%% create GM mask (CORTICAL+SUBCORTICAL)
+    #%  -------------------------------------
+    for park in gconf.parcellation.keys():
+        log.info("Parcellation:" + park)
+        GMout = op.join(reg_path, park, 'ROI_HR_th.nii.gz')
+
+        niiGM = np.zeros( niiAPARCdata.shape, dtype = np.uint8 )
+        
+        # % 33 cortical regions (stored in the order of "parcel33")
+        for idx,i in enumerate(CORTICAL[1]):
+            niiGM[ niiAPARCdata == (2000+i)] = CORTICAL[2][idx] # RIGHT
+            niiGM[ niiAPARCdata == (1000+i)] = CORTICAL[2][idx] + 41 # LEFT
+        
+        #% subcortical nuclei
+        for idx,i in enumerate(SUBCORTICAL[1]):
+            niiGM[ niiAPARCdata == i ] = SUBCORTICAL[2][idx]
+        
+        # % other region to account for in the GM
+        for idx, i in enumerate(OTHER[1]):
+            niiGM[ niiAPARCdata == i ] = OTHER[2][idx]
+        
+        img = nib.Nifti1Image(niiGM, niiAPARCimg.get_affine(), niiAPARCimg.get_header())
+        nib.save(img, GMout)
+        
+    log.info("[DONE]")
+
 def run(conf):
     """ Run the first mask creation step
     
@@ -377,16 +445,19 @@ def run(conf):
     start = time()
     
     log.info("ROI_HR_th.nii.gz / fsmask_1mm.nii.gz CREATION")
-    log.info("=======================================")
+    log.info("=============================================")
     
     from os import environ
     env = environ
     env['SUBJECTS_DIR'] = gconf.get_subj_dir()
     
-    create_annot_label()
-    create_roi()
-    create_wm_mask()    
-    crop_and_move_datasets()
+    if gconf.parcellation_scheme == "Lausanne2008":
+        create_annot_label()
+        create_roi()
+        create_wm_mask()    
+        crop_and_move_datasets()
+    elif gconf.parcellation_scheme == "Lausanne2008":
+        generate_WM_and_GM_mask()
     
     log.info("Module took %s seconds to process." % (time()-start))
 
@@ -413,11 +484,18 @@ def declare_outputs(conf):
     stage = conf.pipeline_status.GetStage(__name__)
     reg_path = conf.get_cmp_tracto_mask()
     
-    conf.pipeline_status.AddStageOutput(stage, reg_path, 'aseg.nii.gz', 'aseg-nii-gz')
-    conf.pipeline_status.AddStageOutput(stage, reg_path, 'ribbon.nii.gz', 'ribbon-nii-gz')    
-    conf.pipeline_status.AddStageOutput(stage, reg_path, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
-    conf.pipeline_status.AddStageOutput(stage, reg_path, 'cc_unknown.nii.gz', 'cc_unknown-nii-gz')
+    if gconf.parcellation_scheme == "Lausanne2008":
+        conf.pipeline_status.AddStageOutput(stage, reg_path, 'aseg.nii.gz', 'aseg-nii-gz')
+        conf.pipeline_status.AddStageOutput(stage, reg_path, 'ribbon.nii.gz', 'ribbon-nii-gz')    
+        conf.pipeline_status.AddStageOutput(stage, reg_path, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
+        conf.pipeline_status.AddStageOutput(stage, reg_path, 'cc_unknown.nii.gz', 'cc_unknown-nii-gz')
+            
+        for p in conf.parcellation.keys():
+            conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
+            
+    elif gconf.parcellation_scheme == "Lausanne2008":
+        conf.pipeline_status.AddStageOutput(stage, reg_path, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
+        for p in conf.parcellation.keys():
+            conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
         
-    for p in conf.parcellation.keys():
-        conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
-                
+        

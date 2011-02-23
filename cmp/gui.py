@@ -210,15 +210,15 @@ class CMPGUI( PipelineConfiguration ):
     parcellation_group = Group(
         VGroup(
                Item('parcellation_scheme', label="Parcellation Scheme"),
-               VGroup(
-                      Item('custompar_nrroi', label="Number of ROI"),
-                      Item('custompar_nodeinfo', label="Node Information (GraphML)"),
-                      Item('custompar_volumeparcell', label="Volumetric parcellation"),
-                      enabled_when = 'parcellation_scheme == "custom"',
-                      label = "Custom Parcellation"
-               ),
-               show_border = True,
-               enabled_when = "active_registration"
+#               VGroup(
+#                      Item('custompar_nrroi', label="Number of ROI"),
+#                      Item('custompar_nodeinfo', label="Node Information (GraphML)"),
+#                      Item('custompar_volumeparcell', label="Volumetric parcellation"),
+#                      enabled_when = 'parcellation_scheme == "custom"',
+#                      label = "Custom Parcellation"
+#               ),
+#               show_border = True,
+#               enabled_when = "active_registration"
             ),
         visible_when = "active_parcellation",
         label = "Parcellation",                         
@@ -304,7 +304,6 @@ class CMPGUI( PipelineConfiguration ):
                Item('freesurfer_home',label="Freesurfer Home"),
                Item('fsl_home',label="FSL Home"),
                Item('dtk_home',label="DTK Home"),
-               Item('dtk_matrices',label="DTK Matrices"),
                show_border = True,
             ),
         label = "Configuration",                         
@@ -415,6 +414,12 @@ class CMPGUI( PipelineConfiguration ):
         if not os.path.exists(self.gradient_table_file):
             msg = 'Selected gradient table %s does not exist!' % self.gradient_table_file
             raise Exception(msg)
+    
+    def _parcellation_scheme_changed(self, value):
+        if value == "Lausanne2008":
+            self.parcellation = self._get_lausanne_parcellation(parcel = "Lausanne2008")
+        else:
+            self.parcellation = self._get_lausanne_parcellation(parcel = "Lausanne2011")
     
     def _inspect_registration_fired(self):
         cmp.registration.inspect(self)

@@ -27,7 +27,7 @@ class PipelineConfiguration(traits.HasTraits):
     generator = traits.Enum( "cmp 1.0", ["cmp 1.0"] )
     
     # parcellation scheme
-    parcellation_scheme = traits.Enum("Lausanne2008", ["Lausanne2008"], desc="used parcellation scheme")
+    parcellation_scheme = traits.Enum("Lausanne2011", ["Lausanne2008", "Lausanne2011"], desc="used parcellation scheme")
     
     # choose between 'L' (linear) and 'N' (non-linear)
     registration_mode = traits.Enum("Linear", ["Linear", "Nonlinear"], desc="registration mode: linear or non-linear")
@@ -51,7 +51,7 @@ class PipelineConfiguration(traits.HasTraits):
     dti_recon_param = traits.Str('')
                
     # tractography
-    streamline_param = traits.Str('--angle 30  --seeds 32')
+    streamline_param = traits.Str('--angle 60  --seeds 32')
     streamline_param_dti = traits.Str('')
     
     # registration
@@ -150,7 +150,6 @@ class PipelineConfiguration(traits.HasTraits):
     freesurfer_home = traits.Directory(exists=False, desc="path to Freesurfer")
     fsl_home = traits.Directory(exists=False, desc="path to FSL")
     dtk_home = traits.Directory(exists=False, desc="path to diffusion toolkit")
-    dtk_matrices = traits.Directory(exists=False, desc="path to diffusion toolkit matrices")
 
     # This file stores descriptions of the inputs/outputs to each stage of the
     # CMP pipeline.  It can be queried using the PipelineStatus python object 
@@ -159,15 +158,10 @@ class PipelineConfiguration(traits.HasTraits):
     # Pipeline status object
     pipeline_status = pipeline_status.PipelineStatus()
 
-    
-    def __init__(self, **kwargs):
-        # NOTE: In python 2.6, object.__init__ no longer accepts input
-        # arguments.  HasTraits does not define an __init__ and
-        # therefore these args were being ignored.
-        super(PipelineConfiguration, self).__init__(**kwargs)
-
-        # the default parcellation provided
-        default_parcell = {'scale33' : {'number_of_regions' : 83,
+    def _get_lausanne_parcellation(self, parcel = "Lausanne2011"):
+        
+        if parcel == "Lausanne2008":
+            return {'scale33' : {'number_of_regions' : 83,
                                         # contains name, url, color, freesurfer_label, etc. used for connection matrix
                                         'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution83'), 'resolution83.graphml'),
                                         # scalar node values on fsaverage? or atlas? 
@@ -208,8 +202,25 @@ class PipelineConfiguration(traits.HasTraits):
                                         'subtract_from_wm_mask' : 0,
                                         },
                            }
-        
-        self.parcellation = default_parcell
+        else:
+            return {'freesurferaparc' : {'number_of_regions' : 84,
+                                        # contains name, url, color, freesurfer_label, etc. used for connection matrix
+                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('freesurferaparc'), 'resolution84.graphml'),
+                                        # scalar node values on fsaverage? or atlas? 
+                                        'surface_parcellation' : None,
+                                        # scalar node values in fsaverage volume?
+                                        'volume_parcellation' : None,
+                                        }
+            }
+    
+    def __init__(self, **kwargs):
+        # NOTE: In python 2.6, object.__init__ no longer accepts input
+        # arguments.  HasTraits does not define an __init__ and
+        # therefore these args were being ignored.
+        super(PipelineConfiguration, self).__init__(**kwargs)
+
+        # the default parcellation provided
+        self.parcellation = self._get_lausanne_parcellation(parcel = "Lausanne2011")
 
         self.can_use_dipy = dipy_here
                 
@@ -492,14 +503,23 @@ class PipelineConfiguration(traits.HasTraits):
     def get_lausanne_parcellation_path(self, parcellationname):
         
         cmp_path = op.dirname(__file__)
-        
-        allowed_default_parcel = ['resolution83', 'resolution150', 'resolution258', 'resolution500', 'resolution1015']
-        
-        if parcellationname in allowed_default_parcel:
-            return op.join(cmp_path, 'data', 'parcellation', 'lausanne2008', parcellationname)
+
+        if self.parcellation_scheme == "Lausanne2008":
+            allowed_default_parcel = ['resolution83', 'resolution150', 'resolution258', 'resolution500', 'resolution1015']
+            if parcellationname in allowed_default_parcel:
+                return op.join(cmp_path, 'data', 'parcellation', 'lausanne2008', parcellationname)
+            else:
+                msg = "Not a valid default parcellation name for the lausanne2008 parcellation scheme"
+                raise Exception(msg)
+
         else:
-            log.error("Not a valid default parcellation name for the lausanne2008 parcellation scheme")
-        
+            allowed_default_parcel = ['freesurferaparc']
+            if parcellationname in allowed_default_parcel:
+                return op.join(cmp_path, 'data', 'parcellation', 'lausanne2011', parcellationname)
+            else:
+                msg = "Not a valid default parcellation name for the lausanne2011 parcellation scheme"
+                raise Exception(msg)
+            
         
     def get_cmp_binary_path(self):
         """ Returns the path to the binary files for the current platform

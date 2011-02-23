@@ -6,6 +6,7 @@ fname = '/home/stephan/dev/cmp_test/project01/control01/tp1_run3/FREESURFER/mri/
 fout = '/home/stephan/dev/cmp_test/project01/control01/tp1_run3/FREESURFER/mri/aparc+aseg.nii.gz'
 # mri_convert aparc+aseg.mgz aparc+aseg.nii.gz
 WMout = '/home/stephan/dev/cmp_test/project01/control01/tp1_run3/FREESURFER/mri/WM.nii.gz'
+GMout = '/home/stephan/dev/cmp_test/project01/control01/tp1_run3/FREESURFER/mri/GM.nii.gz'
 
 
 #%% label mapping
@@ -64,3 +65,26 @@ for i in SUBCORTICAL[1]:
      
 img = nib.Nifti1Image(niiWM, niiAPARCimg.get_affine(), niiAPARCimg.get_header())
 nib.save(img, WMout)
+
+
+# cortical
+
+#%% create GM mask (CORTICAL+SUBCORTICAL)
+#%  -------------------------------------
+niiGM = np.zeros( niiAPARCdata.shape, dtype = np.uint8 )
+
+# % 33 cortical regions (stored in the order of "parcel33")
+for idx,i in enumerate(CORTICAL[1]):
+    niiGM[ niiAPARCdata == (2000+i)] = CORTICAL[2][idx] # RIGHT
+    niiGM[ niiAPARCdata == (1000+i)] = CORTICAL[2][idx] + 41 # LEFT
+
+#% subcortical nuclei
+for idx,i in enumerate(SUBCORTICAL[1]):
+    niiGM[ niiAPARCdata == i ] = SUBCORTICAL[2][idx]
+
+# % other region to account for in the GM
+for idx, i in enumerate(OTHER[1]):
+    niiGM[ niiAPARCdata == i ] = OTHER[2][idx]
+
+img = nib.Nifti1Image(niiGM, niiAPARCimg.get_affine(), niiAPARCimg.get_header())
+nib.save(img, GMout)
