@@ -74,7 +74,7 @@ def add_fiberarr2connectome(connectome):
     cda = cf.CData(name="Fiber mean curvature",
                    src=op.join(fibers_path, 'meancurvature.npy'),
                    fileformat='NumPy',
-                   dtype='FiberEndpoints')
+                   dtype='FiberCurvature')
     connectome.add_connectome_data(cda)
 
     resolution = gconf.parcellation.keys()
@@ -84,7 +84,7 @@ def add_fiberarr2connectome(connectome):
         cda = cf.CData(name="Fiber labels (%s)" % str(r),
                        src=op.join(fibers_path, 'fiberlabels_%s.npy' % str(r)),
                        fileformat='NumPy',
-                       dtype='FiberEndpoints')
+                       dtype='FiberLabels')
         connectome.add_connectome_data(cda)
 
 
@@ -188,7 +188,7 @@ def add_roiseg2connectome(connectome):
         file = op.join(op.join(reg_path, p), 'ROI_HR_th.nii.gz')
         
         if op.exists(file):
-            cvol = cf.CVolume(name="ROI Scale %s" % p,
+            cvol = cf.CVolume(name="ROI Volume %s" % p,
                            src=file,
                            fileformat='Nifti1',
                            dtype='Segmentation')
