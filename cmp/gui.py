@@ -357,6 +357,8 @@ class CMPGUI( PipelineConfiguration ):
         output = open(cmpconfigfile, 'rb')
         data = sp.load(output)
         self.__setstate__(data.__getstate__())
+        # make sure that dtk_matrices is set
+        self.dtk_matrices = op.join(self.dtk_home, 'matrices')
         output.close()
 
     def save_state(self, cmpconfigfile):
@@ -419,7 +421,7 @@ class CMPGUI( PipelineConfiguration ):
         if value == "Lausanne2008":
             self.parcellation = self._get_lausanne_parcellation(parcel = "Lausanne2008")
         else:
-            self.parcellation = self._get_lausanne_parcellation(parcel = "Lausanne2011")
+            self.parcellation = self._get_lausanne_parcellation(parcel = "NativeFreesurfer")
     
     def _inspect_registration_fired(self):
         cmp.registration.inspect(self)

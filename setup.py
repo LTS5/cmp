@@ -38,7 +38,8 @@ package_data = {'cmp':
                  'data/parcellation/lausanne2008/resolution150/*.*',
                  'data/parcellation/lausanne2008/resolution258/*.*',
                  'data/parcellation/lausanne2008/resolution500/*.*',
-                 'data/parcellation/lausanne2008/resolution1015/*.*'
+                 'data/parcellation/lausanne2008/resolution1015/*.*',
+                 'data/parcellation/nativefreesurfer/freesurferaparc/*.*',
                  ]}
 
 ################################################################################
@@ -78,6 +79,7 @@ def main(**extra_args):
           author='EPFL LTS5 Diffusion Group',
           author_email='info@connectomics.org',
           url='http://www.connectomics.org/',
+          scripts = glob('scripts/*.py'),
           packages = packages,
           package_data = package_data,
           **extra_args

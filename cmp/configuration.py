@@ -27,7 +27,7 @@ class PipelineConfiguration(traits.HasTraits):
     generator = traits.Enum( "cmp 1.0", ["cmp 1.0"] )
     
     # parcellation scheme
-    parcellation_scheme = traits.Enum("Lausanne2011", ["Lausanne2008", "Lausanne2011"], desc="used parcellation scheme")
+    parcellation_scheme = traits.Enum("NativeFreesurfer", ["Lausanne2008", "NativeFreesurfer"], desc="used parcellation scheme")
     
     # choose between 'L' (linear) and 'N' (non-linear)
     registration_mode = traits.Enum("Linear", ["Linear", "Nonlinear"], desc="registration mode: linear or non-linear")
@@ -158,7 +158,7 @@ class PipelineConfiguration(traits.HasTraits):
     # Pipeline status object
     pipeline_status = pipeline_status.PipelineStatus()
 
-    def _get_lausanne_parcellation(self, parcel = "Lausanne2011"):
+    def _get_lausanne_parcellation(self, parcel = "NativeFreesurfer"):
         
         if parcel == "Lausanne2008":
             return {'scale33' : {'number_of_regions' : 83,
@@ -220,7 +220,7 @@ class PipelineConfiguration(traits.HasTraits):
         super(PipelineConfiguration, self).__init__(**kwargs)
 
         # the default parcellation provided
-        self.parcellation = self._get_lausanne_parcellation(parcel = "Lausanne2011")
+        self.parcellation = self._get_lausanne_parcellation(parcel = "NativeFreesurfer")
 
         self.can_use_dipy = dipy_here
                 
@@ -482,7 +482,6 @@ class PipelineConfiguration(traits.HasTraits):
         if not op.exists(fpath):
             msg = "DSI matrix does not exists: %s" % fpath
             raise Exception(msg)
-            
         return fpath
     
     
@@ -515,9 +514,9 @@ class PipelineConfiguration(traits.HasTraits):
         else:
             allowed_default_parcel = ['freesurferaparc']
             if parcellationname in allowed_default_parcel:
-                return op.join(cmp_path, 'data', 'parcellation', 'lausanne2011', parcellationname)
+                return op.join(cmp_path, 'data', 'parcellation', 'nativefreesurfer', parcellationname)
             else:
-                msg = "Not a valid default parcellation name for the lausanne2011 parcellation scheme"
+                msg = "Not a valid default parcellation name for the NativeFreesurfer parcellation scheme"
                 raise Exception(msg)
             
         

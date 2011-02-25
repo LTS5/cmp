@@ -488,7 +488,7 @@ def run(conf):
         create_roi()
         create_wm_mask()    
         crop_and_move_datasets()
-    elif gconf.parcellation_scheme == "Lausanne2011":
+    elif gconf.parcellation_scheme == "NativeFreesurfer":
         generate_WM_and_GM_mask()
         crop_and_move_WM_and_GM()
     
@@ -526,7 +526,7 @@ def declare_outputs(conf):
         for p in conf.parcellation.keys():
             conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
             
-    elif conf.parcellation_scheme == "Lausanne2011":
+    elif conf.parcellation_scheme == "NativeFreesurfer":
         conf.pipeline_status.AddStageOutput(stage, reg_path, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
         for p in conf.parcellation.keys():
             conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
