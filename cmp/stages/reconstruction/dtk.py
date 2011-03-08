@@ -201,13 +201,11 @@ def run(conf):
     globals()['log'] = gconf.get_logger() 
     start = time()
         
-    if gconf.diffusion_imaging_model == 'DSI' and \
-        gconf.diffusion_imaging_stream == 'Lausanne2011':
+    if gconf.diffusion_imaging_model == 'DSI':
         resample_dsi()
         compute_odfs()
         convert_to_dir_dsi()
-    elif gconf.diffusion_imaging_model == 'DTI' and \
-        gconf.diffusion_imaging_stream == 'Lausanne2011':
+    elif gconf.diffusion_imaging_model == 'DTI':
         resample_dti()
         compute_dts()
         convert_to_dir_dti()
@@ -224,12 +222,10 @@ def declare_inputs(conf):
     stage = conf.pipeline_status.GetStage(__name__)
     nifti_dir = conf.get_nifti()
     
-    if conf.diffusion_imaging_model == 'DSI' and \
-        conf.diffusion_imaging_stream == 'Lausanne2011':
+    if conf.diffusion_imaging_model == 'DSI':
         conf.pipeline_status.AddStageInput(stage, nifti_dir, 'DSI.nii.gz', 'dsi-nii-gz')
         
-    elif conf.diffusion_imaging_model == 'DTI' and \
-        conf.diffusion_imaging_stream == 'Lausanne2011':
+    elif conf.diffusion_imaging_model == 'DTI':
         conf.pipeline_status.AddStageInput(stage, nifti_dir, 'DTI.nii.gz', 'dti-nii-gz')
         
 
@@ -243,15 +239,13 @@ def declare_outputs(conf):
     
     cmp_scalars_path = conf.get_cmp_scalars()
     
-    if conf.diffusion_imaging_model == 'DSI' and \
-        conf.diffusion_imaging_stream == 'Lausanne2011':
+    if conf.diffusion_imaging_model == 'DSI':
         conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DSI_resampled_2x2x2.nii.gz', 'DSI_resampled_2x2x2-nii-gz')
         conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
         conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dsi_dir.nii', 'dsi_dir-nii')
         # conf.pipeline_status.AddStageOutput(stage, cmp_scalars_path, 'dsi_gfa.nii', 'dsi_gfa-nii')      
           
-    elif conf.diffusion_imaging_model == 'DTI' and \
-        conf.diffusion_imaging_stream == 'Lausanne2011':
+    elif conf.diffusion_imaging_model == 'DTI':
         conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DTI_resampled_2x2x2.nii.gz', 'DTI_resampled_2x2x2-nii-gz')
         conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dti_tensor.nii', 'dti_tensor-nii')
         conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dti_dir.nii', 'dti_dir-nii')

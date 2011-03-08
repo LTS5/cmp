@@ -8,18 +8,16 @@ import datetime as dt
 from cmp.logme import getLog
 from cmp.pipeline import pipeline_status
 from cmp.util import KeyValue
-# check if connectomeviewer including compiled dipy is available
-# if so, we can use more fast options in the pipeline
+
 try:
     dipy_here = True
-    import cviewer.libs.dipy.core.track_performance
+    import dipy
 except ImportError:
     dipy_here = False
     
 class PipelineConfiguration(traits.HasTraits):
        
     # project settings
-    project_name = traits.Str(desc="the name of the project")
     project_dir = traits.Directory(exists=False, desc="data path to where the project is stored")
         
     # project metadata (for connectome file)
@@ -247,8 +245,8 @@ class PipelineConfiguration(traits.HasTraits):
         """ Provides a checking facility for configuration objects """
         
         # project name not empty
-        if self.project_name == '' or self.project_name == None:
-            msg = 'You have to set a project name!'
+        if not op.exists(self.project_dir):
+            msg = 'Your project directory does not exist!'
             raise Exception(msg)
         
         # check metadata

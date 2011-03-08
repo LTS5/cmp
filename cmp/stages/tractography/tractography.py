@@ -187,12 +187,10 @@ def run(conf):
     
     convert_wm_mask()
     
-    if gconf.diffusion_imaging_model == 'DSI' and \
-        gconf.diffusion_imaging_stream == 'Lausanne2011':
+    if gconf.diffusion_imaging_model == 'DSI':
         decompress_fsmask_nifti()
         fiber_tracking_dsi()
-    elif gconf.diffusion_imaging_model == 'DTI' and \
-        gconf.diffusion_imaging_stream == 'Lausanne2011':
+    elif gconf.diffusion_imaging_model == 'DTI':
         decompress_fsmask_nifti()
         fiber_tracking_dti()
     
@@ -210,11 +208,9 @@ def declare_inputs(conf):
     
     conf.pipeline_status.AddStageInput(stage, conf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
 
-    if conf.diffusion_imaging_model == 'DSI' and \
-        conf.diffusion_imaging_stream == 'Lausanne2011':
+    if conf.diffusion_imaging_model == 'DSI':
         conf.pipeline_status.AddStageInput(stage, diffusion_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
-    elif conf.diffusion_imaging_model == 'DTI' and \
-        conf.diffusion_imaging_stream == 'Lausanne2011':
+    elif conf.diffusion_imaging_model == 'DTI':
         conf.pipeline_status.AddStageInput(stage, diffusion_out_path, 'dti_tensor.nii', 'dti_tensor-nii')      
         
     
@@ -226,11 +222,9 @@ def declare_outputs(conf):
         
     conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii.gz', 'fsmask_1mm__8bit-nii-gz')
     
-    if conf.diffusion_imaging_model == 'DSI' and \
-       conf.diffusion_imaging_stream == 'Lausanne2011':
+    if conf.diffusion_imaging_model == 'DSI':
         conf.pipeline_status.AddStageOutput(stage, fibers_path, 'streamline.trk', 'streamline-trk')
-    elif conf.diffusion_imaging_model == 'DTI' and \
-        conf.diffusion_imaging_stream == 'Lausanne2011':
+    elif conf.diffusion_imaging_model == 'DTI':
         conf.pipeline_status.AddStageOutput(stage, fibers_path, 'streamline.trk', 'streamline-trk')
               
           

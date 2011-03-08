@@ -12,66 +12,54 @@ Install Diffusion Toolkit::
 Install Freesurfer 5.0::
 
     firefox http://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall
-  
-Install NeuroDebian. Add the NeuroDebian repository to your source list as described here::
+
+Now, add the NeuroDebian repository to your system. The steps are explained here::
 
 	firefox http://neuro.debian.net/
 
-Upgrade your package index and update::
-
-  sudo apt-get update
-  
 Install FMRIB Software Library. Using the version in the NeuroDebian repository::
 
-	sudo aptitude fsl fslview fslview-doc python-nibabel python-nibabel-doc
+	sudo apt-get install fsl fslview fslview-doc
 
-Install Debian/Ubuntu dependencies::
+We need the Python package Nibabel and Python-DICOM for neuroimaging file input-output::
 
-	sudo apt-get install libblitz0-dev libboost-all-dev git-core python-dicom libnifti1
+	sudo apt-get install python-nibabel python-nibabel-doc python-dicom
 
-Clone the cmp repository::
+If you have not yet done so, install IPython for an advanced interactive Python shell::
 
-	git clone git@github.com:LTS5/cmp.git
+	sudo apt-get install ipython
 
-In another folder, clone the cfflib repository::
+Install now the Connectome Mapper pipeline::
 
-	git clone git://github.com/unidesigner/cfflib.git
+	sudo apt-get install connectomemapper
 
-You should have setup the environment variables for Bash in */home/username/.bashrc* for
-Freesurfer, FSL and Diffusion Toolkit already. They should look something like this::
+At this point, make sure that you have setup the environment variables correctly for the
+external packages such as Freesurfer and Diffusion Toolkit (The FSL environment variables should
+be set automatically when installing FSL as described above). You should have the environment
+variables: FREESURFER_HOME and DTDIR and FSL_HOME. You can check this if you enter in the bash
+shell (terminal), they should give you the correct path to your packages::
+
+    echo $FREESURFER_HOME
+    echo $FSL_HOME
+    echo $DTDIR
+
+In case, you have to updated your bash configuration.::
+
+    gedit /home/username/.bashrc
+
+The should contain something similar as (adapted to your installation paths)::
 
 	# FREESURFER configuration
 	export FREESURFER_HOME="/usr/share/freesurfer"
 	source "${FREESURFER_HOME}/SetUpFreeSurfer.sh"
-	
-	# FSL configuration
-	export FSL_HOME="/usr/share/fsl"
-	source "${FSL_HOME}/etc/fslconf/fsl.sh"
-	export PATH="${FSL_HOME}/bin:${PATH}"
-	
+
 	# DIFFUSION TOOLKIT configuration
 	export DTDIR="/usr/share/dtk"
-	export DSI_PATH="${DTDIR}/matrices/"
 	export PATH="${DTDIR}:${PATH}"
-	
-You will have to add the cmp and cfflib to your Python path. Also add to the *.bashrc*::
 
-	# CMP Path
-	export PYTHONPATH="/path/to/your/cmp/cmp:/path/tocfflib/cfflib:${PYTHONPATH}"
-	# an example if you cloned inside your homefolder in subfolder dev
-	# export PYTHONPATH="/home/myuser/dev/cmp/cmp:/myuser/dev/cfflib/cfflib:${PYTHONPATH}"
+Now, you are ready to start the Connectome Mapper::
 
-You should now test if you can properly import cmp and cfflib. Start an IPython Shell::
-
-	ipython
-  
-And try the two following commands::
-
-	import cmp
-	import cfflib
-  
-They should import without an error. Now you are ready to start to create your folder structure.
-
+    connectomemapper
 
 Project configuration and setup
 -------------------------------
@@ -89,14 +77,12 @@ Steps to do before executing the pipeline
 	│   │       │   └── T2
 
 
-#. Copy the DICOM / MPRAGE (DSI, DTI, T1, T2) images in the corresponding folders. The T2 images
-are optional but they improve the registration of the data.
+#. Copy the Diffusion / MPRAGE (DSI, DTI, T1, T2) images (DICOM series) in the corresponding folders.
+The T2 images are optional but they improve the registration of the data.
 
-#. Run the Connectome Mapping Pipeline GUI from IPython::
+#. Run the Connectome Mapper and configure it for your project::
 
-    from cmp.gui import CMPGUI
-    cmpgui = CMPGUI()
-    cmpgui.show()
+    connectomemapper
 
 #. After the first run of the e.g. the first module DICOM Converter, the folder structure should look like this::
 
@@ -120,17 +106,17 @@ are optional but they improve the registration of the data.
 
 All the files for your subject will be stored in this folder structure.
 
-In the GUI, now you should setup all the parameters for your your single subject and hit *Map connectome!*.
+In the GUI, now you should setup all the parameters for your your single subject and hit the *Map connectome!* button.
 
-If you have to restart the GUI later and do not want to enter everything again, you can look in the LOG folder,
-there are so-called pickle files with ending .pkl and you can load with the *Load* button in the GUI to restore your configuration state.
+If you have to restart the GUI later and do not want to enter everything again, you can open the LOG folder,
+there are so-called pickle files with ending .pkl and you can load them with the *Load* button in the GUI to restore your configuration state.
 
 If you run into any problems, do not hesitate to send an email with the error description to info AT connectomics DOT org.
 
 Starting the pipeline without GUI
 ---------------------------------
 You can start the pipeline also from IPython or in a script. You can find an map_connectome.py example file
-in the cloned cmp repository in /example/default_project/map_connectome.py.
+in the source code repository in /example/default_project/map_connectome.py.
 
 You can start to modify this script to loop over subjects and/or load the "pickle" file automatically, add::
 

@@ -5,3 +5,4 @@
 /doc/build
 /src/cpp/build
 .settings/
+.idea/

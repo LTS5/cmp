@@ -6,7 +6,7 @@
 Connectome Mapping Toolkit documentation
 ========================================
 
-The target date for the release is January 2011. Stay tuned!
+The target date for the release is March 25th, 2011. Stay tuned!
 
 Contents:
 

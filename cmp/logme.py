@@ -122,8 +122,8 @@ def send_email_notification(message, gconf, log, host = 'localhost'):
     from email.mime.text import MIMEText
     
     # add subject information
-    text = "Module:%s\nTime: %s\nProject: %s\nSubject: %s\nTimepoint: %s\nWorkingdir: %s" % (message[0], \
-            GetInHMS(message[1]), gconf.project_name, gconf.subject_name, gconf.subject_timepoint, gconf.subject_workingdir)
+    text = "Module:%s\nTime: %s\nProject Directory: %s\nSubject: %s\nTimepoint: %s\nWorkingdir: %s" % (message[0], \
+            GetInHMS(message[1]), gconf.project_dir, gconf.subject_name, gconf.subject_timepoint, gconf.subject_workingdir)
     fromaddr = 'Connectome Mapping Pipeline <info@connectomics.org>'
     
     msg = MIMEText(text)

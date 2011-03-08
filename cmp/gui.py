@@ -92,16 +92,10 @@ class CMPGUI( PipelineConfiguration ):
   
     main_group = Group(
                     VGroup(
-                    Item('project_name', label='Project Name:', tooltip = 'Please enter a name for your project'),
-                    Item('project_dir', label='Project Directory:'),
+                    Item('project_dir', label='Project Directory:', tooltip = 'Please select the root folder of your project'),
                     Item('generator', label='Generator', ),
+                    Item('diffusion_imaging_model', label='Imaging Modality'),
                       label="Project Settings"
-                    ),
-                    VGroup(
-                    Item('diffusion_imaging_model', label='Imaging Model'),
-                    Item('diffusion_imaging_stream', label='Imaging Stream'),
-                    show_border = False,
-                      label="Imaging Stream"
                     ),
                     HGroup(
                         VGroup(
