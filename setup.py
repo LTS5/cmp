@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Connectome Mapping Pipeline
+"""Connectome Mapper
 """
 from glob import glob
 import os
@@ -75,7 +75,7 @@ def main(**extra_args):
     
     setup(name='CMP',
           version='1.0',
-          description='Connectome Mapping Pipeline',
+          description='Connectome Mapper',
           author='EPFL LTS5 Diffusion Group',
           author_email='info@connectomics.org',
           url='http://www.connectomics.org/',

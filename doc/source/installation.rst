@@ -33,6 +33,9 @@ Install now the Connectome Mapper pipeline::
 
 	sudo apt-get install connectomemapper
 
+.. note:: The Connectome Mapper is not yet packaged in Neuro Debian. Until this happens, you can download the source code
+   from the `GitHub page <http://github.com/LTS5/connectomemapper>`_ and install it with *python setup.py install*
+
 At this point, make sure that you have setup the environment variables correctly for the
 external packages such as Freesurfer and Diffusion Toolkit (The FSL environment variables should
 be set automatically when installing FSL as described above). You should have the environment
@@ -76,9 +79,8 @@ Steps to do before executing the pipeline
 	│   │       │   ├── T1
 	│   │       │   └── T2
 
-
 #. Copy the Diffusion / MPRAGE (DSI, DTI, T1, T2) images (DICOM series) in the corresponding folders.
-The T2 images are optional but they improve the registration of the data.
+   The T2 images are optional but they improve the registration of the data.
 
 #. Run the Connectome Mapper and configure it for your project::
 

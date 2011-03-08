@@ -1,4 +1,4 @@
-""" Defines the graphical user interface to the Connectome Mapping Pipeline
+""" Defines the graphical user interface to the Connectome Mapper
 """
 import os.path    
 #import threading
@@ -122,7 +122,6 @@ class CMPGUI( PipelineConfiguration ):
                         #Item('inspect_reconstruction', label = 'Reconstruction', show_label = False), # DTB_viewer
                         Item('inspect_tractography', label = 'Tractography Original', show_label = False),
                         Item('inspect_tractography_filtered', label = 'Tractography Filtered', show_label = False),
-                        #Item('inspect_fiberfilter', label = 'Filtered Fibers', show_label = False),
                         #Item('inspect_connectomefile', label = 'Connectome File', show_label = False),
                         label="Inspector")
                         #VGroup(
@@ -272,7 +271,7 @@ class CMPGUI( PipelineConfiguration ):
     cffconverter_group = Group(
         VGroup(
                Item('cff_fullnetworkpickle', label="All connectomes"),
-               Item('cff_cmatpickle', label='cmat.pickle'),
+              # Item('cff_cmatpickle', label='cmat.pickle'),
                Item('cff_originalfibers', label="Original Tractography"),
                Item('cff_filteredfibers', label="Filtered Tractography"),
                Item('cff_fiberarr', label="Filtered fiber arrays"),
@@ -292,9 +291,9 @@ class CMPGUI( PipelineConfiguration ):
     configuration_group = Group(
         VGroup(
                Item('emailnotify', label='E-Mail Notification'),
-               Item('wm_handling', label='White Matter Mask Handling', tooltip = """1: run through the freesurfer step without stopping
-2: prepare whitematter mask for correction (store it in subject dir/NIFTI
-3: rerun freesurfer part with corrected white matter mask"""),
+               #Item('wm_handling', label='White Matter Mask Handling', tooltip = """1: run through the freesurfer step without stopping
+#2: prepare whitematter mask for correction (store it in subject dir/NIFTI
+#3: rerun freesurfer part with corrected white matter mask"""),
                Item('freesurfer_home',label="Freesurfer Home"),
                Item('fsl_home',label="FSL Home"),
                Item('dtk_home',label="DTK Home"),
@@ -333,7 +332,7 @@ class CMPGUI( PipelineConfiguration ):
         ),
         resizable = True,
         handler = CMPGUIHandler,
-        title     = 'Connectome Mapping Pipeline',
+        title     = 'Connectome Mapper',
     )
     
     def _about_fired(self):
@@ -400,7 +399,17 @@ class CMPGUI( PipelineConfiguration ):
             raise Exception(msg)
 
         return gradfile
-	
+
+    def _project_dir_changed(self, value):
+        self.subject_workingdir = value
+
+    def _subject_name_changed(self, value):
+        self.subject_workingdir = os.path.join(self.project_dir, value, self.subject_timepoint)
+
+    def _subject_timepoint_changed(self, value):
+        self.subject_workingdir = os.path.join(self.project_dir, self.subject_name, value)
+
+
     def _gradient_table_changed(self, value):
         if value == 'custom':
             self.gradient_table_file = self.get_custom_gradient_table()

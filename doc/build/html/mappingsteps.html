@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -7,22 +5,21 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Connectome Mapping Modules &mdash; Connectome Mapping Pipeline v1.0 documentation</title>
+    <title>Connectome Mapper Stages &mdash; Connectome Mapper v1.0 documentation</title>
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    '#',
         VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
+        COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Connectome Mapping Pipeline v1.0 documentation" href="index.html" />
+    <link rel="top" title="Connectome Mapper v1.0 documentation" href="index.html" />
     <link rel="prev" title="Installation Instruction" href="installation.html" /> 
   </head>
   <body>
@@ -35,32 +32,55 @@
         <li class="right" >
           <a href="installation.html" title="Installation Instruction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Connectome Mapping Pipeline v1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Connectome Mapper v1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="installation.html"
-                        title="previous chapter">Installation Instruction</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/mappingsteps.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" size="18" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Connectome Mapper Stages</a><ul>
+<li><a class="reference external" href="#general-description">General description</a></li>
+<li><a class="reference external" href="#project-settings-main-tab">Project settings / Main Tab</a></li>
+<li><a class="reference external" href="#project-related-information-metadata-tab">Project-related information / Metadata Tab</a></li>
+<li><a class="reference external" href="#subject-timepoint-related-information">Subject/Timepoint related information</a></li>
+<li><a class="reference external" href="#dicom-converter">DICOM Converter</a></li>
+<li><a class="reference external" href="#registration">Registration</a><ul>
+<li><a class="reference external" href="#linear-registration">Linear Registration</a></li>
+<li><a class="reference external" href="#nonlinear-registration">Nonlinear Registration</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#parcellation">Parcellation</a></li>
+<li><a class="reference external" href="#reconstruction">Reconstruction</a></li>
+<li><a class="reference external" href="#tractography">Tractography</a></li>
+<li><a class="reference external" href="#fiber-filtering">Fiber Filtering</a></li>
+<li><a class="reference external" href="#connectome-file-format-converter">Connectome File Format Converter</a></li>
+<li><a class="reference external" href="#configuration">Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="installation.html"
+                                  title="previous chapter">Installation Instruction</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/mappingsteps.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
 
@@ -69,29 +89,186 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="connectome-mapping-modules">
-<h1>Connectome Mapping Modules<a class="headerlink" href="#connectome-mapping-modules" title="Permalink to this headline">¶</a></h1>
-<p>&lt;GENERAL INTRODUCTION. Alia&gt;
-What is the general goal/use of the pipeline?</p>
-<p>What is the data layout on the filesystem?</p>
-<p>&lt;CONVERTER. ?&gt;
-Description:
-Inputs:
-Outputs:
-Parameters to set:
-Description of the parameters/References such as papers, links
-Known issues:</p>
-<p>&lt;REGISTRATION. Alessandro&gt;</p>
-<p>&lt;SEGMENTATION. ?&gt;
-Freesurfer step</p>
-<p>&lt;ROI CREATION and WM MASK CREATION. Patric/Leila&gt;</p>
-<p>&lt;RECONSTRUCTION DSI. Alessandro&gt;</p>
-<p>&lt;RECONSTRUCTION DTI. Elda&gt;</p>
-<p>&lt;TRACTOGRAPHY. ?&gt;</p>
-<p>&lt;FIBERFILTERING. Stephan&gt;
-dtk spline filtering</p>
-<p>&lt;CONNECTIONMATRIX. Christophe&gt;</p>
-<p>&lt;CFFCONVERTER. Stephan&gt;</p>
+  <div class="section" id="connectome-mapper-stages">
+<h1>Connectome Mapper Stages<a class="headerlink" href="#connectome-mapper-stages" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="general-description">
+<h2>General description<a class="headerlink" href="#general-description" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="project-settings-main-tab">
+<h2>Project settings / Main Tab<a class="headerlink" href="#project-settings-main-tab" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/maintab.png" src="_images/maintab.png" />
+<dl class="docutils">
+<dt>Project directory</dt>
+<dd>Select the root folder of your project which contains the subfolders for all the subjects of this project.</dd>
+<dt>Generator</dt>
+<dd>Which version of the mapper to use. Defaults to cmp 1.0</dd>
+<dt>Imaging Modality</dt>
+<dd>What type of data to process. Currently supports DSI and DTI data.</dd>
+<dt>Stages</dt>
+<dd>Select the stages you want to run. A good practice is to incrementally select the stages to be processed. So you keep good control of what is going on.</dd>
+<dt>Inspector</dt>
+<dd>Lets you inspect the result of different processing stages, using external packages such as FSL, Freesurfer or Diffusion Toolkit.</dd>
+</dl>
+<p>Buttons</p>
+<ul class="simple">
+<li>About: Information about the pipeline, copyright, contributors etc.</li>
+<li>Help: Show help information for each processing stage</li>
+<li>Save state: Save the entered information, parameters etc in order not to enter them again.</li>
+<li>Load state: You can load a saved state.</li>
+<li>Map Connectome! : Start the processing of the selected stages. Information and error messages are written to the console.</li>
+</ul>
+</div>
+<div class="section" id="project-related-information-metadata-tab">
+<h2>Project-related information / Metadata Tab<a class="headerlink" href="#project-related-information-metadata-tab" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/metadata.png" src="_images/metadata.png" />
+<p>Enter relevant project-wide metadata. Keep in mind that good metadata eases the reuse of the data a lot later on. The
+metadata fields are derived from the <a class="reference external" href="http://dublincore.org/documents/dcmi-terms/">Dublin Core Metadata Standards</a></p>
+<ul class="simple">
+<li>Creator: The dataset creator.</li>
+<li>Publisher: Institution that published the dataset.</li>
+<li>Created: Dataset creation date</li>
+<li>Modified: Dataset modification date</li>
+<li>Rights: Like copyrights</li>
+<li>License: The license of the data</li>
+<li>References: E.g. Reference to a journal paper which used this dataset</li>
+<li>Relation: Related resources, such as an URL</li>
+<li>Species: Binomal species name</li>
+<li>Email: Email address of the contact person of the dataset.</li>
+<li>Project description: A short general project description.</li>
+</ul>
+</div>
+<div class="section" id="subject-timepoint-related-information">
+<h2>Subject/Timepoint related information<a class="headerlink" href="#subject-timepoint-related-information" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/subject.png" src="_images/subject.png" />
+<dl class="docutils">
+<dt>Name</dt>
+<dd>Specify a name/ID/own code for the subject. The name is reused as folder name in the project structure.</dd>
+<dt>Timepoint</dt>
+<dd>Enter the timepoint name. Should correspond to the folder name.</dd>
+<dt>Working Directory</dt>
+<dd>Automatically generated using the project directory and name and timepoint informatino. You can change it by selecting
+the folder that contains the RAWDATA folder. Usually, this should be project/subject/timepoint</dd>
+<dt>Metadata</dt>
+<dd>Add key-value metadata fields  for this subject and timepoint. This metadata can be reused for processing later.
+Examples are age, handedness etc.</dd>
+</dl>
+</div>
+<div class="section" id="dicom-converter">
+<h2>DICOM Converter<a class="headerlink" href="#dicom-converter" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/dicomconverter.png" src="_images/dicomconverter.png" />
+<p>Converts the raw DICOM data files in the RAWDATA subfolders into the Nifti format. It is possible to convert independently
+the structural data (T1 and T2) and the diffusion one (DSI,DTI). Performs required flipping if needed.
+If the DICOM files have no file ending, just enter * as the file pattern.</p>
+<p>If you have not acquired any structural T2 image, you can deselect the corresponding checkbox. However, diffusion data and T1 data are required.</p>
+<p>If you select the extraction of diffusion metadata, bvalues and bvector textfiles are tried to be extracted using
+the Nibabel DICOM reader (supporting Siemens DICOM so far) extracted from the DICOM files and stored in
+the NIFTI/diffusion_metadata folder for your subject/timepoint.</p>
+<p>For the conversion, packages such as Diffusion Toolkit and Nibabel are used.</p>
+</div>
+<div class="section" id="registration">
+<h2>Registration<a class="headerlink" href="#registration" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/registration.png" src="_images/registration.png" />
+<p>This stage allows to register the structural T1 image (where the parcellation of the cortical surface is extracted) onto the diffusion space.</p>
+<p>Choose <em>Linear</em> if you only acquired the structural T1 image and you miss the additional T2. In this way, the stage will
+try to align the T1 directly onto the b0 image.</p>
+<p>If additional T2 images have been acquired, <em>Nonlinear</em> registration can be performed. A two steps procedure is performed:</p>
+<ol class="arabic simple">
+<li>First, a linear registration if performed between the T1 and the T2; these images don&#8217;t share the same contrast but
+there are no distortions between them, so a linear registration will suffice.</li>
+<li>Then, a nonlinear registration will try to align the T2 image and the b0 one, and then the two transformations are concatenated.
+To preserve edges, a intermediate skull-stripping step is performed on both images by using <a class="reference external" href="http://www.fmrib.ox.ac.uk/fsl/bet2/index.html">BET</a>.</li>
+</ol>
+<p>We use the nonlinear registration approach in order to mitigate the nonlinear distortions which are present in diffusion images.
+Future versions of the pipeline will account for other methods to achieve this (e.g. fieldmaps).</p>
+<div class="section" id="linear-registration">
+<h3>Linear Registration<a class="headerlink" href="#linear-registration" title="Permalink to this headline">¶</a></h3>
+<p>The FSL linear registration tool <a class="reference external" href="http://www.fmrib.ox.ac.uk/fsl/flirt/index.html">FLIRT</a> is used to perform this step.
+Default parameters (which can be modified) generally give good results in most cases.</p>
+</div>
+<div class="section" id="nonlinear-registration">
+<h3>Nonlinear Registration<a class="headerlink" href="#nonlinear-registration" title="Permalink to this headline">¶</a></h3>
+<p>The FSL nonlinear registration tool <a class="reference external" href="http://www.fmrib.ox.ac.uk/fsl/fnirt/index.html">FNIRT</a> is used to perform this step.
+Default parameters (which can be modified) generally give good results in most cases.</p>
+</div>
+</div>
+<div class="section" id="parcellation">
+<h2>Parcellation<a class="headerlink" href="#parcellation" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/parcellation.png" src="_images/parcellation.png" />
+<p>We provide two parcellation schemes.</p>
+<dl class="docutils">
+<dt>NativeFreesurfer</dt>
+<dd>The native Freesurfer parcellation using the <a class="reference external" href="http://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation">Desikan-Killiany Atlas</a>
+extended to include subcortical regions.</dd>
+<dt>Lausanne2011</dt>
+<dd>The multi-resolution parcellation that was used in Hagmann et al. 2008 and adapted for the new Freesurfer 5.0 version.</dd>
+</dl>
+</div>
+<div class="section" id="reconstruction">
+<h2>Reconstruction<a class="headerlink" href="#reconstruction" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/reconstruction.png" src="_images/reconstruction.png" />
+<p>Use <a class="reference external" href="http://www.trackvis.org/dtk/">DiffusionToolkit</a> for extracting the orientation distribution function (ODF), the default parameters are the same as DTKs.</p>
+<p>Please refer to <a class="reference external" href="http://www.trackvis.org/dtk/?subsect=script#odf_recon">odf_recon</a> documentation for the meaning of each parameter.</p>
+</div>
+<div class="section" id="tractography">
+<h2>Tractography<a class="headerlink" href="#tractography" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/tractography.png" src="_images/tractography.png" />
+<p>This module runs a classical streamline fiber-tracking algorithm (Weeden et al. (2003), Diffusion spectrum magnetic resonance imaging (DSI))
+tractography adapted to deal with possible multiple directions inside each voxel.</p>
+<p>The following parameters are automatically set by the mapper:
+Tracking is performed inside the white matter mask computed by FreeSurfer (&#8211;wm parameter) and is started in each non-zero
+voxel of the seed mask (&#8211;seed parameter); if no such a mask is give, then all voxels will be considered.
+Trajectories are iteratively propagated following coherent diffusion directions inside each voxel (&#8211;dir parameter) by using a fixed step size
+(&#8211;stepSize parameter) and the Euler integration method, and are stopped when a stopping criteria is met.</p>
+<p>The following parameters are recommended to be explored:
+Stopping criteria are: trajectories are outside the white matter mask or no compatible direction are found below a specific crossing angle, &#8211;angle parameter).
+Only diffusion directions with a volume fraction greater than a threshold are considered (&#8211;vf parameter).
+For some imaging modalities, this parameter has no sense (e.g. DTI) and it is ignored.
+Multiple seed points can be created inside each voxel (&#8211;seeds parameter); this way, multiple trajectories
+will be started for every direction inside each voxel.</p>
+</div>
+<div class="section" id="fiber-filtering">
+<h2>Fiber Filtering<a class="headerlink" href="#fiber-filtering" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/fiberfiltering.png" src="_images/fiberfiltering.png" />
+<dl class="docutils">
+<dt>Apply spline filter</dt>
+<dd>Fibers are spline-filtered using diffusion toolkit. Please refer to <a class="reference external" href="http://www.trackvis.org/dtk/?subsect=script#spline_filter">spline_filter</a> documentation.</dd>
+</dl>
+<p>Apply cutoff filter: Fibers can be filtered depending on their length:</p>
+<ul class="simple">
+<li>Lower cutoff: Fibers smaller than this cutoff length are filtered.</li>
+<li>Upper cutoff: Fibers longer than this cutoff length are filtered.</li>
+</ul>
+</div>
+<div class="section" id="connectome-file-format-converter">
+<h2>Connectome File Format Converter<a class="headerlink" href="#connectome-file-format-converter" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/cffconverter.png" src="_images/cffconverter.png" />
+<p>Raw and processed data are stored in the connectome file for further analysis in the Connectome Viewer or elsewhere.</p>
+<dl class="docutils">
+<dt>All connectomes</dt>
+<dd>All the connectivity information for the different resolutions.</dd>
+<dt>Tractography</dt>
+<dd>Store the tractography results.</dd>
+<dt>Parcellation Volumes</dt>
+<dd>Store the parcellated volumes in the same space as the T1 data.</dd>
+<dt>Raw T1 data</dt>
+<dd>Store the raw T1 data in Nifti format.</dd>
+<dt>Raw T2 data</dt>
+<dd>Store the raw T2 data in Nifti format if available.</dd>
+<dt>Individual surfaces</dt>
+<dd>Store the surfaces extracted by Freesurfer in Gifti format.</dd>
+</dl>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/configuration.png" src="_images/configuration.png" />
+<dl class="docutils">
+<dt>E-Mail notification</dt>
+<dd>If you have installed an SMTP server, you can enter a list of email addresses to which an email is sent after the completion of a stage.</dd>
+<dt>Environment variables</dt>
+<dd>They are recognized by your current .bashrc settings. These fields should not be empty, otherwise you have to add the
+missing environment variables in your environment. Changing the paths only in this option is not sufficient.</dd>
+</dl>
+</div>
 </div>
 
 
@@ -109,12 +286,12 @@ dtk spline filtering</p>
         <li class="right" >
           <a href="installation.html" title="Installation Instruction"
              >previous</a> |</li>
-        <li><a href="index.html">Connectome Mapping Pipeline v1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Connectome Mapper v1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2010, EPFL &amp; UNIL-CHUV.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      &copy; Copyright 2011, EPFL &amp; UNIL-CHUV.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
     </div>
   </body>
 </html>

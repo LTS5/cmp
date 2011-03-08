@@ -124,7 +124,7 @@ def send_email_notification(message, gconf, log, host = 'localhost'):
     # add subject information
     text = "Module:%s\nTime: %s\nProject Directory: %s\nSubject: %s\nTimepoint: %s\nWorkingdir: %s" % (message[0], \
             GetInHMS(message[1]), gconf.project_dir, gconf.subject_name, gconf.subject_timepoint, gconf.subject_workingdir)
-    fromaddr = 'Connectome Mapping Pipeline <info@connectomics.org>'
+    fromaddr = 'Connectome Mapper <info@connectomics.org>'
     
     msg = MIMEText(text)
     msg['Subject'] = "CMP - %s - Finished" % message[0]

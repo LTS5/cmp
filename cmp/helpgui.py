@@ -6,7 +6,7 @@ from enthought.traits.ui.api import View, Item, HGroup, Handler, \
                     
 desc = {
 'About' : """
-Connectome Mapping Pipeline
+Connectome Mapper
 Version 1.0
 
 Copyright (C) 2010, Ecole Polytechnique Federale de Lausanne (EPFL) and
@@ -21,7 +21,6 @@ Contributors
 ------------
 * Jean-Philippe Thiran
 * Reto Meuli
-* Stephan Gerhard
 * Alessandro Daducci
 * Leila Cammoun
 * Patric Hagmann
@@ -29,6 +28,7 @@ Contributors
 * Elda Fischi
 * Christophe Chenes
 * Xavier Gigandet
+* Stephan Gerhard
 
 External Contributors
 ---------------------
@@ -87,7 +87,7 @@ class HelpDialog ( HasTraits ):
                Item( name  = 'stagedescription', style = 'readonly', show_label = False ),
                show_border = True
         ),
-        title     = 'Connectome Mapping Pipeline Help',
+        title     = 'Connectome Mapper Help',
         buttons   = [ 'OK' ],
         resizable = True,
         width = 0.4,

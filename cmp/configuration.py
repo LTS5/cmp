@@ -30,9 +30,8 @@ class PipelineConfiguration(traits.HasTraits):
     # choose between 'L' (linear) and 'N' (non-linear)
     registration_mode = traits.Enum("Linear", ["Linear", "Nonlinear"], desc="registration mode: linear or non-linear")
     
-    # going to support qBall, HARDI
+    # going to support qBall, HARDI and possibly other modalities
     diffusion_imaging_model = traits.Enum( "DSI", ["DSI", "DTI"])
-    diffusion_imaging_stream = traits.Enum( "Lausanne2011", ["Lausanne2011"] )
     
     # DSI
     nr_of_gradient_directions = traits.Int(515)
@@ -60,10 +59,10 @@ class PipelineConfiguration(traits.HasTraits):
     
     # dicom converter
     do_convert_diffusion = traits.Bool(True)
-    subject_raw_glob_diffusion = traits.Str( "*.ima" )
-    subject_raw_glob_T1 = traits.Str( "*.ima" )
+    subject_raw_glob_diffusion = traits.Str( "*.*" )
+    subject_raw_glob_T1 = traits.Str( "*.*" )
     do_convert_T1 = traits.Bool(True)
-    subject_raw_glob_T2 = traits.Str( "*.ima" )
+    subject_raw_glob_T2 = traits.Str( "*.*" )
     do_convert_T2 = traits.Bool(True)
     extract_diffusion_metadata = traits.Bool(False)
 
@@ -105,7 +104,6 @@ class PipelineConfiguration(traits.HasTraits):
     species = traits.Str('Homo sapiens')
     description = traits.Str()
     
-    
     # parcellation
     custompar_nrroi = traits.Int()
     custompar_nodeinfo = traits.File()
@@ -114,7 +112,7 @@ class PipelineConfiguration(traits.HasTraits):
     # fiber filtering
     apply_splinefilter = traits.Bool(True, desc='apply the spline filtering from diffusion toolkit')
     apply_fiberlength = traits.Bool(True, desc='apply cutoff to fiber lengths')
-    fiber_cutoff_lower = traits.Float(30.0, desc='cut fibers that are shorter in length than given length in mm')
+    fiber_cutoff_lower = traits.Float(20.0, desc='cut fibers that are shorter in length than given length in mm')
     fiber_cutoff_upper = traits.Float(500.0, desc='cut fibers that are longer in length than given length in mm') 
     
     # cff converter

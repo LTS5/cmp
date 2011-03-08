@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Connectome Mapping Pipeline documentation build configuration file, created by
+# Connectome Mapper documentation build configuration file, created by
 # sphinx-quickstart on Wed Sep  1 13:43:40 2010.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -37,8 +37,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Connectome Mapping Pipeline'
-copyright = u'2010, EPFL & UNIL-CHUV'
+project = u'Connectome Mapper'
+copyright = u'2011, EPFL & UNIL-CHUV'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -172,7 +172,7 @@ htmlhelp_basename = 'ConnectomeMappingPipelinedoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'ConnectomeMappingPipeline.tex', u'Connectome Mapping Pipeline Documentation',
+  ('index', 'ConnectomeMapper.tex', u'Connectome Mapper Documentation',
    u'EPFL LTS5 Diffusion MRI Team', 'manual'),
 ]
 
