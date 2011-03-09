@@ -230,7 +230,19 @@ def add_surfaces2connectome(connectome):
                            dtype='Surfaceset')
             
             connectome.add_connectome_surface(csur)
-        
+
+def add_networks2connectome(connectome):
+
+    # cmat = nx.read_gpickle(op.join(gconf.get_cmp_matrices(), 'cmat.pickle'))
+    resolution = gconf.parcellation.keys()
+    for r in resolution:
+        log.info("Loading network for parcellation: %s" % r)
+        G = nx.read_gpickle( op.join(gconf.get_cmp_matrices(), 'connectome_%s.gpickle' % r) )
+        cnet = cf.CNetwork(name = 'connectome_%s' % r)
+        cnet.set_with_nxgraph(G)
+        cnet.update_metadata( { 'resolution' : r })
+        connectome.add_connectome_network(cnet)
+        log.info("Added.")
         
 def add_cmat2connectome(connectome, addcmatpickle = False):
     log.info("Loading cmat.pickle....")
@@ -304,7 +316,8 @@ def convert2cff():
     # XXX: depending on what was checked
     if gconf.cff_fullnetworkpickle:
         # adding networks
-        add_cmat2connectome(c, addcmatpickle = gconf.cff_cmatpickle)
+        # add_cmat2connectome(c, addcmatpickle = gconf.cff_cmatpickle)
+        add_networks2connectome(c)
         
     if gconf.cff_originalfibers:
         add_fibersoriginal2connectome(c)

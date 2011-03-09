@@ -7,10 +7,11 @@ import shutil
 from ...logme import *
 from cmp.util import reorient
 
-import nibabel.nicom.dicomreaders as dr
+
 import nibabel as ni
 
 def dsi2metadata():
+    import nibabel.nicom.dicomreaders as dr
     raw_dir = op.join(gconf.get_rawdata())  
     dsi_dir = op.join(raw_dir, 'DSI')
     raw_glob = gconf.get_rawglob('diffusion')
@@ -105,6 +106,7 @@ def diff2nifti_dti_unpack():
 
 
 def dti2metadata():
+    import nibabel.nicom.dicomreaders as dr
     raw_dir = op.join(gconf.get_rawdata())  
     dti_dir = op.join(raw_dir, 'DTI')
     diffme = gconf.get_diffusion_metadata()

@@ -137,6 +137,7 @@ def cmat():
     resolution = gconf.parcellation.keys()
     cmat = {}
     for r in resolution:
+        
         log.info("Resolution = "+r)
         
         # create empty fiber label array
@@ -200,23 +201,35 @@ def cmat():
                 
         log.info("Found %i (%f percent out of %i fibers) fibers that start or terminate in a voxel which is not labeled. (orphans)" % (dis, dis*100.0/n, n) )
         log.info("Valid fibers: %i (%f percent)" % (n-dis, 100 - dis*100.0/n) )
-                                  
+
+        # update edges
+        # measures to add, XXX
+        for u,v,d in G.edges_iter(data=True):
+            di = { 'number_of_fibers' : len(d['fiblist']),
+                   'average_fiber_length' : np.mean(d['fiblength'])
+                  }
+            G.remove_edge(u,v)
+            G.add_edge(u,v, di)
+
         # Add all in the current resolution
-        cmat.update({r: {'filename': roi_fname, 'graph': G}})  
-        
+        # cmat.update({r: {'filename': roi_fname, 'graph': G}})
+
+        # storing network
+        nx.write_gpickle(G, op.join(gconf.get_cmp_matrices(), 'connectome_%s.gpickle' % r))
+
         log.info("Storing fiber labels")
         fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'fiberlabels_%s.npy' % str(r))
         np.save(fiberlabels_fname, fiberlabels)
             
-    log.info("done")
+    log.info("Done.")
     log.info("========================")
         
     # Save the connection matrix
-    log.info("========================")
-    log.info("Save the connection matrix")
-    nx.write_gpickle(cmat, op.join(gconf.get_cmp_matrices(), 'cmat.pickle'))
-    log.info("done")
-    log.info("========================")                        
+#    log.info("========================")
+#    log.info("Save the connection matrix")
+    #nx.write_gpickle(cmat, op.join(gconf.get_cmp_matrices(), 'cmat.pickle'))
+#    log.info("done")
+#    log.info("========================")
 
 def run(conf):
     """ Run the connection matrix module

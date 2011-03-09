@@ -79,7 +79,7 @@ DICOM Converter
 
 Converts the raw DICOM data files in the RAWDATA subfolders into the Nifti format. It is possible to convert independently
 the structural data (T1 and T2) and the diffusion one (DSI,DTI). Performs required flipping if needed.
-If the DICOM files have no file ending, just enter * as the file pattern.
+If the DICOM files have no file name ending, just enter * as the file pattern.
 
 If you have not acquired any structural T2 image, you can deselect the corresponding checkbox. However, diffusion data and T1 data are required.
 

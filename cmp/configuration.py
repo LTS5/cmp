@@ -201,7 +201,7 @@ class PipelineConfiguration(traits.HasTraits):
         else:
             return {'freesurferaparc' : {'number_of_regions' : 84,
                                         # contains name, url, color, freesurfer_label, etc. used for connection matrix
-                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('freesurferaparc'), 'resolution84.graphml'),
+                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('freesurferaparc'), 'resolution83.graphml'),
                                         # scalar node values on fsaverage? or atlas? 
                                         'surface_parcellation' : None,
                                         # scalar node values in fsaverage volume?
@@ -229,7 +229,7 @@ class PipelineConfiguration(traits.HasTraits):
         # try to discover paths from environment variables
         try:
             self.freesurfer_home = op.join(os.environ['FREESURFER_HOME'])
-            self.fsl_home = op.join(os.environ['FSL_HOME'])
+            self.fsl_home = op.join(os.environ['FSLDIR'])
             self.dtk_home = os.environ['DTDIR']
             self.dtk_matrices = op.join(self.dtk_home, 'matrices')
         except KeyError:

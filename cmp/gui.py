@@ -331,6 +331,7 @@ class CMPGUI( PipelineConfiguration ):
             ),
         ),
         resizable = True,
+        width=0.3,
         handler = CMPGUIHandler,
         title     = 'Connectome Mapper',
     )
@@ -351,7 +352,10 @@ class CMPGUI( PipelineConfiguration ):
         data = sp.load(output)
         self.__setstate__(data.__getstate__())
         # make sure that dtk_matrices is set
-        self.dtk_matrices = op.join(self.dtk_home, 'matrices')
+        self.dtk_matrices = os.path.join(self.dtk_home, 'matrices')
+        # update the subject directory
+        if os.path.exists(self.project_dir):
+            self.subject_workingdir = os.path.join(self.project_dir, self.subject_name, self.subject_timepoint)
         output.close()
 
     def save_state(self, cmpconfigfile):

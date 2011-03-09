@@ -635,21 +635,6 @@
       <data key="d10">http://www.connectome.ch/wiki/brstRes83_(Homo sapiens)</data>
       <data key="d11">(0.91352593898773193, -33.081859588623047, 0.0)</data>
     </node>
-    <node id="84">
-      <data key="d0">121,98,74</data>
-      <data key="d1">(0.91352593898773193, -33.081859588623047, -31.276702880859375)</data>
-      <data key="d6">(0.91352593898773193, -33.081859588623047, -31.276702880859375)</data>
-      <data key="d7">subcortical</data>
-      <data key="d2">(0.91352593898773193, -33.081859588623047, -31.276702880859375)</data>
-      <data key="d3">XXXX</data>
-      <data key="d12">16</data>
-      <data key="d8">83</data>
-      <data key="d4">(0.91352593898773193, -33.081859588623047, -31.276702880859375)</data>
-      <data key="d5">brstRes83</data>
-      <data key="d9">none</data>
-      <data key="d10">http://www.connectome.ch/wiki/brstRes83_(Homo sapiens)</data>
-      <data key="d11">(0.91352593898773193, -33.081859588623047, 0.0)</data>
-    </node>
     <node id="35">
       <data key="d0">100,172,222</data>
       <data key="d1">(16.194923400878906, 7.176084041595459, 8.9214611053466797)</data>
