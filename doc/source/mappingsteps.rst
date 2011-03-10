@@ -132,8 +132,11 @@ NativeFreesurfer
     The native Freesurfer parcellation using the `Desikan-Killiany Atlas <http://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation>`_
     extended to include subcortical regions.
 
-Lausanne2011
-    The multi-resolution parcellation that was used in Hagmann et al. 2008 and adapted for the new Freesurfer 5.0 version.
+.. warning::
+
+    Lausanne2011
+        The multi-resolution parcellation that was used in Hagmann et al. 2008. It is currently updated
+        to incorporate the changes of the new Freesurfer 5.0 version.
 
 
 Reconstruction

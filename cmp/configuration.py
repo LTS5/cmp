@@ -493,7 +493,14 @@ class PipelineConfiguration(traits.HasTraits):
         
         if name in provided_atlases:
             return op.join(cmp_path, 'data', 'colortable_and_gcs', 'my_atlas_gcs', name)
-    
+
+    def get_freeview_lut(self, name):
+
+        cmp_path = op.dirname(__file__)
+        if name == "NativeFreesurfer":
+            return op.join(cmp_path, 'data', 'parcellation', 'nativefreesurfer', 'freesurferaparc', 'FreeSurferColorLUT_adapted.txt')
+        else:
+            return ""
         
     def get_lausanne_parcellation_path(self, parcellationname):
         

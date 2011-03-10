@@ -268,6 +268,9 @@ def declare_outputs(conf):
     
     stage = conf.pipeline_status.GetStage(__name__)
             
-    conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_matrices(), 'cmat.pickle', 'cmat-pickle')
     conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fibers(), 'endpoints.npy', 'endpoints-npy')       
     
+    resolution = conf.parcellation.keys()
+    for r in resolution:
+        conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_matrices(), 'connectome_%s.gpickle' % r, 'connectome_%s-gpickle')
+        conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fibers(), 'fiberlabels_%s.npy' % str(r), 'fiberlabels_%s-npy' % str(r))

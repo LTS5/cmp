@@ -39,7 +39,7 @@ Install now the Connectome Mapper pipeline::
 At this point, make sure that you have setup the environment variables correctly for the
 external packages such as Freesurfer and Diffusion Toolkit (The FSL environment variables should
 be set automatically when installing FSL as described above). You should have the environment
-variables: FREESURFER_HOME and DTDIR and FSLDIR. You can check this if you enter in the bash
+variables: FREESURFER_HOME, DTDIR, DSI_DIR and FSLDIR. You can check this if you enter in the bash
 shell (terminal), they should give you the correct path to your packages::
 
     echo $FREESURFER_HOME
@@ -58,6 +58,7 @@ The should contain something similar as (adapted to your installation paths)::
 
 	# DIFFUSION TOOLKIT configuration
 	export DTDIR="/usr/share/dtk"
+	export DSI_PATH="/usr/share/dtk/matrices"
 	export PATH="${DTDIR}:${PATH}"
 
 	# FSL configuration

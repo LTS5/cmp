@@ -131,16 +131,41 @@ def add_scalars2connectome(connectome, type):
     log.info("Adding scalar fields to connectome...")
     
     scalarpath = gconf.get_cmp_scalars()
+
+    import gzip
     
     if type == 'gfa':
         if gconf.diffusion_imaging_model == 'DSI':
-            if op.exists(op.join(scalarpath, 'dsi_gfa.nii')):
+            if op.exists(op.join(scalarpath, 'dsi_gfa.nii.gz')):
                 cvol = cf.CVolume(name="GFA Scalar Map",
-                               src=op.join(scalarpath, 'dsi_gfa.nii'),
-                               fileformat='Nifti1',
+                               src=op.join(scalarpath, 'dsi_gfa.nii.gz'),
+                               fileformat='Nifti1GZ',
                                dtype='GFA')
-                connectome.add_connectome_volume(cvol)    
-
+                connectome.add_connectome_volume(cvol)
+    elif type == 'skewness':
+        if gconf.diffusion_imaging_model == 'DSI':
+            if op.exists(op.join(scalarpath, 'dsi_skewness.nii.gz')):
+                cvol = cf.CVolume(name="Skewness Scalar Map",
+                               src=op.join(scalarpath, 'dsi_skewness.nii.gz'),
+                               fileformat='Nifti1GZ',
+                               dtype='GFA')
+                connectome.add_connectome_volume(cvol)
+    elif type == 'kurtosis':
+        if gconf.diffusion_imaging_model == 'DSI':
+            if op.exists(op.join(scalarpath, 'dsi_kurtosis.nii')):
+                cvol = cf.CVolume(name="Kurtosis Scalar Map",
+                               src=op.join(scalarpath, 'dsi_kurtosis.nii.gz'),
+                               fileformat='Nifti1GZ',
+                               dtype='GFA')
+                connectome.add_connectome_volume(cvol)
+#    elif type == 'P0':
+#        if gconf.diffusion_imaging_model == 'DSI':
+#            if op.exists(op.join(scalarpath, 'P0.nii')):
+#                cvol = cf.CVolume(name="P0 Scalar Map",
+#                               src=op.join(scalarpath, 'P0.nii.gz'),
+#                               fileformat='Nifti1GZ',
+#                               dtype='P0')
+#                connectome.add_connectome_volume(cvol)
 
 def add_roiseg2connectome(connectome):
     
@@ -157,28 +182,28 @@ def add_roiseg2connectome(connectome):
     if op.exists(asegf):
         cvol = cf.CVolume(name="Aseg segmentation volume",
                        src=asegf,
-                       fileformat='Nifti1',
+                       fileformat='Nifti1GZ',
                        dtype='Segmentation')
         connectome.add_connectome_volume(cvol)
                 
     if op.exists(ribbonf):
         cvol = cf.CVolume(name="Ribbon segmentation volume",
                        src=ribbonf,
-                       fileformat='Nifti1',
+                       fileformat='Nifti1GZ',
                        dtype='Segmentation')
         connectome.add_connectome_volume(cvol)
                 
     if op.exists(fsmaskf):
         cvol = cf.CVolume(name="White matter mask",
                        src=fsmaskf,
-                       fileformat='Nifti1',
+                       fileformat='Nifti1GZ',
                        dtype='Segmentation')
         connectome.add_connectome_volume(cvol)
         
     if op.exists(unkf):
         cvol = cf.CVolume(name="CC and Unknown",
                        src=unkf,
-                       fileformat='Nifti1',
+                       fileformat='Nifti1GZ',
                        dtype='Segmentation')
         connectome.add_connectome_volume(cvol)
                 
@@ -190,7 +215,7 @@ def add_roiseg2connectome(connectome):
         if op.exists(file):
             cvol = cf.CVolume(name="ROI Volume %s" % p,
                            src=file,
-                           fileformat='Nifti1',
+                           fileformat='Nifti1GZ',
                            dtype='Segmentation')
             connectome.add_connectome_volume(cvol)
     
@@ -203,7 +228,7 @@ def add_roiseg2connectome(connectome):
         if op.exists(file):
             cvol = cf.CVolume(name="ROI Scale %s (b0 space)" % p,
                            src=file,
-                           fileformat='Nifti1',
+                           fileformat='Nifti1GZ',
                            dtype='Segmentation')
             connectome.add_connectome_volume(cvol)
         
@@ -231,6 +256,29 @@ def add_surfaces2connectome(connectome):
             
             connectome.add_connectome_surface(csur)
 
+    # convert label and add
+    lilab = ['lh.aparc.annot', 'rh.aparc.annot']
+    # corresponding surface to use
+    corsurf = ['lh.pial', 'rh.pial']
+    for idx, i in enumerate(lilab):
+        outfile = op.join(fs_dir, 'label', i+'.gii')
+        cmd = 'mris_convert --annot %s %s %s' % (op.join(fs_dir, 'label', i), op.join(fs_dir, 'surf', corsurf[idx]), outfile)
+        runCmd( cmd, log )
+
+        # mris_convert --annot lh.aparc.annot ../surf/lh.pial lh.aparc.annot.gifti
+        if op.exists(outfile):
+            csur = cf.CSurface(name="Surface Label %s" % i,
+                           src=outfile,
+                           fileformat='Gifti',
+                           dtype='Labels')
+
+            connectome.add_connectome_surface(csur)
+
+    # XXX: we could convert subcortical volume rois to gifti meshes with
+    # mri_tessellate data/nuclei_delineations.nii $i deep/lh.deepstruct1
+    # mris_smooth deep/lh.deepstruct1 -n 10 deep/lh.deepstruct1-smooth
+    # mris_convert deep/lh.-n deep/$i.gii
+
 def add_networks2connectome(connectome):
 
     # cmat = nx.read_gpickle(op.join(gconf.get_cmp_matrices(), 'cmat.pickle'))
@@ -243,41 +291,6 @@ def add_networks2connectome(connectome):
         cnet.update_metadata( { 'resolution' : r })
         connectome.add_connectome_network(cnet)
         log.info("Added.")
-        
-def add_cmat2connectome(connectome, addcmatpickle = False):
-    log.info("Loading cmat.pickle....")
-    cmat = nx.read_gpickle(op.join(gconf.get_cmp_matrices(), 'cmat.pickle'))
-    resolution = gconf.parcellation.keys()
-    for r in resolution:
-        log.info("Adding connectome for resolution: %s" % r)
-        # retrieve the graph
-        g = cmat[r]['graph']
-        # the graph to use for storage
-        gs = nx.Graph()
-        # read the parcellation graph for node information
-        gp = nx.read_graphml(gconf.parcellation[r]['node_information_graphml'])
-        for u,d in gp.nodes_iter(data=True):
-            gs.add_node(int(u), d)
-        # add edges
-        for u,v,d in g.edges_iter(data=True):
-            # measures to add, XXX
-            di = { 'number_of_fibers' : len(d['fiblist']),
-                   'average_fiber_length' : np.mean(d['fiblength'])
-                  }
-            gs.add_edge(u,v, di)
-        cnet = cf.CNetwork(name = 'connectome_%s' % r)
-        cnet.set_with_nxgraph(gs)
-        cnet.update_metadata( { 'resolution' : r,
-                                'segmentation_volume_filename' : cmat[r]['filename']})
-        connectome.add_connectome_network(cnet)
-        log.info("Done.")
-        
-    if addcmatpickle:
-        log.info("Adding cmat.pickle to connectome...")
-        cnet = cf.CNetwork(name = 'cmat')
-        cnet.set_with_nxgraph('connectome_cmat', cmat)
-        connectome.add_connectome_network(cnet)       
-        log.info("Done.")
 
 def convert2cff():
     
@@ -316,7 +329,6 @@ def convert2cff():
     # XXX: depending on what was checked
     if gconf.cff_fullnetworkpickle:
         # adding networks
-        # add_cmat2connectome(c, addcmatpickle = gconf.cff_cmatpickle)
         add_networks2connectome(c)
         
     if gconf.cff_originalfibers:
@@ -339,6 +351,9 @@ def convert2cff():
     
     if gconf.cff_scalars:
         add_scalars2connectome(c, 'gfa')
+        add_scalars2connectome(c, 'skewness')
+        add_scalars2connectome(c, 'kurtosis')
+        # add_scalars2connectome(c, 'P0')
     
     if gconf.cff_roisegmentation:
         add_roiseg2connectome(c)    
@@ -377,7 +392,7 @@ def declare_inputs(conf):
     
     stage = conf.pipeline_status.GetStage(__name__)
     
-    conf.pipeline_status.AddStageInput(stage, conf.get_cmp_matrices(), 'cmat.pickle', 'cmat-pickle')
+    # conf.pipeline_status.AddStageInput(stage, conf.get_cmp_matrices(), 'cmat.pickle', 'cmat-pickle')
         
     
 def declare_outputs(conf):

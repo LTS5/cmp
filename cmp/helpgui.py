@@ -9,9 +9,11 @@ desc = {
 Connectome Mapper
 Version 1.0
 
-Copyright (C) 2010, Ecole Polytechnique Federale de Lausanne (EPFL) and
+Copyright (C) 2011, Ecole Polytechnique Federale de Lausanne (EPFL) and
 Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland
-                
+
+The code is released under the Modified BSD license.
+
 Contact
 -------
 info@connectomics.org
@@ -39,39 +41,14 @@ Children's Hospital Boston:
 * Rudolph Pienaar
 
 """,
-'DICOM Converter' : """
-My DICOM Descr""",
+'Help' : """
+For a short description of the processing stages, please refer to the online documentation:
+http://connectomics.org/connectomemapper/
 
-'Registration' : """
-test
-""",
-'Segmentation' : """
-Seg
-""",
-'Parcellation' : """
-Parcel
-""",
-'Reconstruction' : """
-Rec
-""",
-'Tractography' : """
-Tract
-""",
-'Fiber Filtering' : """
-Filter
-""",
-'Connectome Creation' : """
-CC
-""",
-'CFF Converter' : """
-CFF""",
-'Configuration' : """
-Conf
-""",
-'Metadata' : """
-Metad
+If you have any questions or feedback, please use the mailinglist for the Connectome Mapping Toolkit:
+http://groups.google.com/group/cmtk
+
 """
-
 }
 
 

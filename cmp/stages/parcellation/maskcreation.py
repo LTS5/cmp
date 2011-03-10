@@ -378,17 +378,35 @@ def generate_WM_and_GM_mask():
     # mri_convert aparc+aseg.mgz aparc+aseg.nii.gz
     WMout = op.join(fs_dir, 'mri', 'fsmask_1mm.nii.gz')
     
-    #%% label mapping    
-    CORTICAL = {1 : [ 1, 2, 3, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34],
-                2 : [31,13, 9,21,27,25,19,29,15,23, 1,24, 4,30,26,11, 6, 2, 5,22,16,14,10,20,12, 7, 8,18,30,17, 3,28,33]}
-    SUBCORTICAL = {1:[48,49,50,51,52,53,54,58,59,60, 9,10,11,12,13,17,18,26,27,28],
-                   2:[34,34,35,36,37,40,41,38,39,39,75,75,76,77,78,81,82,79,80,80]}
-    #OTHER = {1:[16,251,252,253,254,255,86,1004,2004],
-    #         2:[83, 84, 84, 84, 84, 84,84,  84,  84]}
-    OTHER = {1:[16],
-             2:[83]}
+    #%% label mapping
+    # Using FreesurferColorLUT.txt
+    # mappings are stored in mappings.ods
+    
+#    CORTICAL = {1 : [ 1, 2, 3, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34],
+#                2 : [31,13, 9,21,27,25,19,29,15,23, 1,24, 4,30,26,11, 6, 2, 5,22,16,14,10,20,12, 7, 8,18,30,17, 3,28,33]}
+#
+#
+#    SUBCORTICAL = {1:[48,49,50,51,52,53,54,58,59,60, 9,10,11,12,13,17,18,26,27,28],
+#                   2:[34,34,35,36,37,40,41,38,39,39,75,75,76,77,78,81,82,79,80,80]}
+#
+#    OTHER = {1:[16],
+#             2:[83]}
 
-    WM = [2, 29, 32, 41, 61, 64] +  range(77,86+1) + range(100, 117+1) + range(155,158+1) + range(195,196+1) + range(199,200+1) + range(203,204+1) + [212, 219, 223] + range(250,255+1)
+    MAPPING = [[1,2012],[2,2019],[3,2032],[4,2014],[5,2020],[6,2018],[7,2027],[8,2028],[9,2003],[10,2024],[11,2017],[12,2026],
+               [13,2002],[14,2023],[15,2010],[16,2022],[17,2031],[18,2029],[19,2008],[20,2025],[21,2005],[22,2021],[23,2011],
+               [24,2013],[25,2007],[26,2016],[27,2006],[28,2033],[29,2009],[30,2015],[31,2001],[32,2030],[33,2034],[34,2035],
+               [35,49],[36,50],[37,51],[38,52],[39,58],[40,53],[41,54],[42,1012],[43,1019],[44,1032],[45,1014],[46,1020],[47,1018],
+               [48,1027],[49,1028],[50,1003],[51,1024],[52,1017],[53,1026],[54,1002],[55,1023],[56,1010],[57,1022],[58,1031],
+               [59,1029],[60,1008],[61,1025],[62,1005],[63,1021],[64,1011],[65,1013],[66,1007],[67,1016],[68,1006],[69,1033],
+               [70,1009],[71,1015],[72,1001],[73,1030],[74,1034],[75,1035],[76,10],[77,11],[78,12],[79,13],[80,26],[81,17],
+               [82,18],[83,16]]
+
+    WM = [2, 29, 32, 41, 61, 64, 59, 60, 27, 28] +  range(77,86+1) + range(100, 117+1) + range(155,158+1) + range(195,196+1) + range(199,200+1) + range(203,204+1) + [212, 219, 223] + range(250,255+1)
+    # add
+    # 59  Right-Substancia-Nigra
+    # 60  Right-VentralDC
+    # 27  Left-Substancia-Nigra
+    # 28  Left-VentralDC
     
     log.info("WM mask....")
     #%% create WM mask    
@@ -396,9 +414,10 @@ def generate_WM_and_GM_mask():
 
     for i in WM:
          niiWM[niiAPARCdata == i] = 1
-    
-    for i in SUBCORTICAL[1]:
-         niiWM[niiAPARCdata == i] = 1
+
+    # we do not add subcortical regions
+#    for i in SUBCORTICAL[1]:
+#         niiWM[niiAPARCdata == i] = 1
          
     img = ni.Nifti1Image(niiWM, niiAPARCimg.get_affine(), niiAPARCimg.get_header())
     log.info("Save to: " + WMout)
@@ -412,19 +431,22 @@ def generate_WM_and_GM_mask():
         GMout = op.join(fs_dir, 'mri', 'ROI_%s.nii.gz' % park)
 
         niiGM = np.zeros( niiAPARCdata.shape, dtype = np.uint8 )
-        
-        # % 33 cortical regions (stored in the order of "parcel33")
-        for idx,i in enumerate(CORTICAL[1]):
-            niiGM[ niiAPARCdata == (2000+i)] = CORTICAL[2][idx] # RIGHT
-            niiGM[ niiAPARCdata == (1000+i)] = CORTICAL[2][idx] + 41 # LEFT
-        
-        #% subcortical nuclei
-        for idx,i in enumerate(SUBCORTICAL[1]):
-            niiGM[ niiAPARCdata == i ] = SUBCORTICAL[2][idx]
-        
-        # % other region to account for in the GM
-        for idx, i in enumerate(OTHER[1]):
-            niiGM[ niiAPARCdata == i ] = OTHER[2][idx]
+
+        for ma in MAPPING:
+            niiGM[ niiAPARCdata == ma[1]] = ma[0]
+            
+#        # % 33 cortical regions (stored in the order of "parcel33")
+#        for idx,i in enumerate(CORTICAL[1]):
+#            niiGM[ niiAPARCdata == (2000+i)] = CORTICAL[2][idx] # RIGHT
+#            niiGM[ niiAPARCdata == (1000+i)] = CORTICAL[2][idx] + 41 # LEFT
+#
+#        #% subcortical nuclei
+#        for idx,i in enumerate(SUBCORTICAL[1]):
+#            niiGM[ niiAPARCdata == i ] = SUBCORTICAL[2][idx]
+#
+#        # % other region to account for in the GM
+#        for idx, i in enumerate(OTHER[1]):
+#            niiGM[ niiAPARCdata == i ] = OTHER[2][idx]
 
         log.info("Save to: " + GMout)        
         img = ni.Nifti1Image(niiGM, niiAPARCimg.get_affine(), niiAPARCimg.get_header())
@@ -460,7 +482,23 @@ def crop_and_move_WM_and_GM():
         # changed to 256x256x256 resolution
         mri_cmd = 'mri_convert -rl "%s" -rt nearest "%s" -nc "%s"' % (orig, d[0], d[1])
         runCmd( mri_cmd,log )
-        
+
+def inspect(gconf):
+    """ Inspect the results of this stage """
+    log = gconf.get_logger()
+    log.info("Check parcellation")
+    
+    if gconf.parcellation_scheme == "NativeFreesurfer":
+        reg_path = gconf.get_cmp_tracto_mask()
+
+        cmdstr = op.join(reg_path, 'fsmask_1mm.nii.gz ')
+
+        for p in gconf.parcellation.keys():
+            cmdstr += op.join(reg_path, p, 'ROI_HR_th.nii.gz:colormap=lut:lut=%s ' % gconf.get_freeview_lut('NativeFreesurfer'))
+
+        freeview_view_cmd = 'freeview %s' % cmdstr
+        runCmd( freeview_view_cmd, log )
+
 
 def run(conf):
     """ Run the first mask creation step

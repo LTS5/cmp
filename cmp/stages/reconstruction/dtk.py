@@ -5,6 +5,7 @@ from ...logme import *
 from glob import glob
 import subprocess
 from cmp.util import mymove
+import gzip
 
 def resample_dsi():
 
@@ -139,7 +140,7 @@ def compute_odfs():
         
     # calculate GFA map
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_gfa')
-    dta_cmd = '%s --dsi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'))
+    dta_cmd = '%s --dsi "%s" --m 2' % (cmd, op.join(odf_out_path, 'dsi_'))
     runCmd( dta_cmd, log )
 
     if not op.exists(op.join(odf_out_path, "dsi_gfa.nii")):
@@ -147,9 +148,80 @@ def compute_odfs():
     else:
         # copy dsi_gfa.nii.gz to scalar folder for processing with connectionmatrix
         src = op.join(odf_out_path, "dsi_gfa.nii")
-        dst = op.join(gconf.get_cmp_scalars(), 'dsi_gfa.nii')
-        mymove( src, dst, log )
-    
+        dst = op.join(gconf.get_cmp_scalars(), 'dsi_gfa.nii.gz')
+
+        log.info("Gzip compress...")
+        f_in = open(src, 'rb')
+        f_out = gzip.open(dst, 'wb')
+        f_out.writelines(f_in)
+        f_out.close()
+        f_in.close()
+        
+        # mymove( src, dst, log )
+
+    # calculate skewness map
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_gfa')
+    dta_cmd = '%s --dsi "%s" --m 3' % (cmd, op.join(odf_out_path, 'dsi_'))
+    runCmd( dta_cmd, log )
+
+    if not op.exists(op.join(odf_out_path, "dsi_skewness.nii")):
+        log.error("Unable to calculate skewness map!")
+    else:
+        # copy dsi_gfa.nii.gz to scalar folder for processing with connectionmatrix
+        src = op.join(odf_out_path, "dsi_skewness.nii")
+        dst = op.join(gconf.get_cmp_scalars(), 'dsi_skewness.nii.gz')
+
+        log.info("Gzip compress...")
+        f_in = open(src, 'rb')
+        f_out = gzip.open(dst, 'wb')
+        f_out.writelines(f_in)
+        f_out.close()
+        f_in.close()
+
+
+    # calculate dsi_kurtosis map
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_gfa')
+    dta_cmd = '%s --dsi "%s" --m 4' % (cmd, op.join(odf_out_path, 'dsi_'))
+    runCmd( dta_cmd, log )
+
+    if not op.exists(op.join(odf_out_path, "dsi_kurtosis.nii")):
+        log.error("Unable to calculate kurtosis map!")
+    else:
+        # copy dsi_kurtosis.nii.gz to scalar folder for processing with connectionmatrix
+        src = op.join(odf_out_path, "dsi_kurtosis.nii")
+        dst = op.join(gconf.get_cmp_scalars(), 'dsi_kurtosis.nii.gz')
+
+        log.info("Gzip compress...")
+        f_in = open(src, 'rb')
+        f_out = gzip.open(dst, 'wb')
+        f_out.writelines(f_in)
+        f_out.close()
+        f_in.close()
+
+        # mymove( src, dst, log )
+
+
+    # calculate P0 map
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_P0')
+    dta_cmd = '%s --dsi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'))
+    runCmd( dta_cmd, log )
+
+    if not op.exists(op.join(odf_out_path, "P0.nii")):
+        log.error("Unable to calculate P0 map!")
+    else:
+        # copy dsi_kurtosis.nii.gz to scalar folder for processing with connectionmatrix
+        src = op.join(odf_out_path, "P0.nii")
+        dst = op.join(gconf.get_cmp_scalars(), 'P0.nii.gz')
+
+        log.info("Gzip compress...")
+        f_in = open(src, 'rb')
+        f_out = gzip.open(dst, 'wb')
+        f_out.writelines(f_in)
+        f_out.close()
+        f_in.close()
+
+        # mymove( src, dst, log )
+
     log.info("[ DONE ]")
 
 def convert_to_dir_dsi():
@@ -202,7 +274,7 @@ def run(conf):
     start = time()
         
     if gconf.diffusion_imaging_model == 'DSI':
-        resample_dsi()
+        #resample_dsi()
         compute_odfs()
         convert_to_dir_dsi()
     elif gconf.diffusion_imaging_model == 'DTI':

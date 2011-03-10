@@ -118,7 +118,7 @@ class CMPGUI( PipelineConfiguration ):
                         Item('inspect_registration', label = 'Registration', show_label = False),
                         Item('inspect_segmentation', label = 'Segmentation', show_label = False),
                         #Item('inspect_whitemattermask', label = 'White Matter Mask', show_label = False),
-                        #Item('inspect_parcellation', label = 'Parcellation', show_label = False),
+                        Item('inspect_parcellation', label = 'Parcellation', show_label = False),
                         #Item('inspect_reconstruction', label = 'Reconstruction', show_label = False), # DTB_viewer
                         Item('inspect_tractography', label = 'Tractography Original', show_label = False),
                         Item('inspect_tractography_filtered', label = 'Tractography Filtered', show_label = False),
@@ -275,7 +275,7 @@ class CMPGUI( PipelineConfiguration ):
                Item('cff_originalfibers', label="Original Tractography"),
                Item('cff_filteredfibers', label="Filtered Tractography"),
                Item('cff_fiberarr', label="Filtered fiber arrays"),
-               Item('cff_scalars', label="Scalar maps (GFA,...)"),
+               Item('cff_scalars', label="Scalar maps"),
                Item('cff_rawdiffusion', label="Raw Diffusion Data"),
                Item('cff_rawT1', label="Raw T1 data"),
                Item('cff_rawT2', label="Raw T2 data"),
@@ -441,6 +441,9 @@ class CMPGUI( PipelineConfiguration ):
         
     def _inspect_segmentation_fired(self):
         cmp.freesurfer.inspect(self)
+
+    def _inspect_parcellation_fired(self):
+        cmp.maskcreation.inspect(self)
 
 #    def _active_dicomconverter_changed(self, value):
 #        self.stagedescription = """DICOM Converter\n==========\n\n
