@@ -101,26 +101,26 @@ def add_raw2connectome(connectome, type):
             if op.exists(op.join(nifti_dir, 'DSI.nii.gz')):
                 cvol = cf.CVolume(name="Raw Diffusion",
                                src=op.join(nifti_dir, 'DSI.nii.gz'),
-                               fileformat='Nifti1',
+                               fileformat='Nifti1GZ',
                                dtype='DSI')    
                 
         elif gconf.diffusion_imaging_model == 'DTI':
             if op.exists(op.join(nifti_dir, 'DTI.nii.gz')):
                 cvol = cf.CVolume(name="Raw Diffusion",
                                src=op.join(nifti_dir, 'DTI.nii.gz'),
-                               fileformat='Nifti1',
+                               fileformat='Nifti1GZ',
                                dtype='DTI')
     elif type == 'rawT1':
         if op.exists(op.join(nifti_dir, 'T1.nii.gz')):
             cvol = cf.CVolume(name="Raw T1 image",
                            src=op.join(nifti_dir, 'T1.nii.gz'),
-                           fileformat='Nifti1',
+                           fileformat='Nifti1GZ',
                            dtype='T1-weighted')
     elif type == 'rawT2':
         if op.exists(op.join(nifti_dir, 'T2.nii.gz')):
             cvol = cf.CVolume(name="Raw T2 image",
                            src=op.join(nifti_dir, 'T2.nii.gz'),
-                           fileformat='Nifti1',
+                           fileformat='Nifti1GZ',
                            dtype='T2-weighted')
     
     if not cvol is None:

@@ -274,7 +274,7 @@ def run(conf):
     start = time()
         
     if gconf.diffusion_imaging_model == 'DSI':
-        #resample_dsi()
+        resample_dsi()
         compute_odfs()
         convert_to_dir_dsi()
     elif gconf.diffusion_imaging_model == 'DTI':
