@@ -114,11 +114,16 @@ if ( !vm.count("dwi") ) {
 		for(int y=0; y<dim[1] ;y++)
 			for(int z=0; z<dim[2] ;z++)
 			{
-				b0 = (*niiDWI.img)(x,y,z,1);
-				if ( b0>0 )
-					(*niiP0.img)(x,y,z) = sum( (*niiDWI.img)(x,y,z,Range::all()) ) / b0;
+				float value;
+				b0 = (*niiDWI.img)(x,y,z,0);
+				if ( b0>0 ) {
+					value = 0;
+					for(int i=0; i<niiDWI.hdr->dim[4] ;i++)
+						value += (*niiDWI.img)(x,y,z,i);
+					(*niiP0.img)(x,y,z) = value / b0;
+				}
 				else
-					(*niiP0.img)(x,y,z) = 0;
+				(*niiP0.img)(x,y,z) = 0;
 			}
 
 
