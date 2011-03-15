@@ -103,6 +103,7 @@ class CMPGUI( PipelineConfiguration ):
                         Item('active_registration', label = 'Registration'),
                         Item('active_segmentation', label = 'Segmentation'),
                         Item('active_parcellation', label = 'Parcellation'),
+                        Item('active_applyregistration', label = 'Apply registration'),
     		            Item('active_reconstruction', label = 'Reconstruction'),
                         Item('active_tractography', label = 'Tractography', tooltip = 'performs tractography'),
                         Item('active_fiberfilter', label = 'Fiber Filtering', tooltip = 'applies filtering operation to the fibers'),
@@ -444,37 +445,6 @@ class CMPGUI( PipelineConfiguration ):
 
     def _inspect_parcellation_fired(self):
         cmp.maskcreation.inspect(self)
-
-#    def _active_dicomconverter_changed(self, value):
-#        self.stagedescription = """DICOM Converter\n==========\n\n
-#What is this module about?"""
-#        
-#    def _active_registration_changed(self, value):
-#        self.stagedescription = "Registration\n"
-#
-#    def _active_segmentation_changed(self, value):
-#        self.stagedescription = "Segmentation\n============"
-#
-#    def _active_parcellation_changed(self, value):
-#        self.stagedescription = "Parcellation\n============"
-#
-#    def _active_reconstruction_changed(self, value):
-#        self.stagedescription = "Reconstruction\n============"
-#
-#    def _active_tractography_changed(self, value):
-#        self.stagedescription = "Tractography\n============"
-#
-#    def _active_fiberfilter_changed(self, value):
-#        self.stagedescription = "Fiber Filtering\n============"
-#
-#    def _active_connectome_changed(self, value):
-#        self.stagedescription = "Connectome Creation\n============"
-#        
-#    def _active_cffconverter_changed(self, value):
-#        self.stagedescription = "CFF Converter\n============"
-#        
-#    def _skip_completed_stages_changed(self, value):
-#        self.stagedescription = "Skip completed stages\n============"
 
     def _run_fired(self):
         pass

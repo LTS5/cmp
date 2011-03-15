@@ -83,6 +83,7 @@ class PipelineConfiguration(traits.HasTraits):
     active_registration = traits.Bool(False)
     active_segmentation = traits.Bool(False)
     active_parcellation = traits.Bool(False)
+    active_applyregistration = traits.Bool(False)
     active_reconstruction = traits.Bool(False)
     active_tractography = traits.Bool(False)
     active_fiberfilter = traits.Bool(False)

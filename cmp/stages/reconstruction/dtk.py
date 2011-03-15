@@ -203,7 +203,7 @@ def compute_odfs():
 
     # calculate P0 map
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_P0')
-    dta_cmd = '%s --dsi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'))
+    dta_cmd = '%s --dsi "%s" --dwi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'), op.join(gconf.get_nifti(), 'DSI.nii.gz'))
     runCmd( dta_cmd, log )
 
     if not op.exists(op.join(odf_out_path, "P0.nii")):
@@ -315,7 +315,6 @@ def declare_outputs(conf):
         conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DSI_resampled_2x2x2.nii.gz', 'DSI_resampled_2x2x2-nii-gz')
         conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
         conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dsi_dir.nii', 'dsi_dir-nii')
-        # conf.pipeline_status.AddStageOutput(stage, cmp_scalars_path, 'dsi_gfa.nii', 'dsi_gfa-nii')      
           
     elif conf.diffusion_imaging_model == 'DTI':
         conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'DTI_resampled_2x2x2.nii.gz', 'DTI_resampled_2x2x2-nii-gz')

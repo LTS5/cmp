@@ -158,14 +158,14 @@ def add_scalars2connectome(connectome, type):
                                fileformat='Nifti1GZ',
                                dtype='GFA')
                 connectome.add_connectome_volume(cvol)
-#    elif type == 'P0':
-#        if gconf.diffusion_imaging_model == 'DSI':
-#            if op.exists(op.join(scalarpath, 'P0.nii')):
-#                cvol = cf.CVolume(name="P0 Scalar Map",
-#                               src=op.join(scalarpath, 'P0.nii.gz'),
-#                               fileformat='Nifti1GZ',
-#                               dtype='P0')
-#                connectome.add_connectome_volume(cvol)
+    elif type == 'P0':
+        if gconf.diffusion_imaging_model == 'DSI':
+            if op.exists(op.join(scalarpath, 'dsi_P0.nii')):
+                cvol = cf.CVolume(name="P0 Scalar Map",
+                               src=op.join(scalarpath, 'dsi_P0.nii.gz'),
+                               fileformat='Nifti1GZ',
+                               dtype='P0')
+                connectome.add_connectome_volume(cvol)
 
 def add_roiseg2connectome(connectome):
     
@@ -353,7 +353,7 @@ def convert2cff():
         add_scalars2connectome(c, 'gfa')
         add_scalars2connectome(c, 'skewness')
         add_scalars2connectome(c, 'kurtosis')
-        # add_scalars2connectome(c, 'P0')
+        add_scalars2connectome(c, 'P0')
     
     if gconf.cff_roisegmentation:
         add_roiseg2connectome(c)    

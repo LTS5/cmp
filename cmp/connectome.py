@@ -14,7 +14,7 @@ def setup_pipeline_status(cobj):
                (cmp.registration, cobj.active_registration),
                (cmp.freesurfer, cobj.active_segmentation),        
                (cmp.maskcreation, cobj.active_parcellation),
-               (cmp.apply_registration, cobj.active_parcellation),
+               (cmp.apply_registration, cobj.active_applyregistration),
                (cmp.dtk, cobj.active_reconstruction),
                (cmp.tractography, cobj.active_tractography),
                (cmp.fiberfilter, cobj.active_fiberfilter),
