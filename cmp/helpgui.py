@@ -1,3 +1,9 @@
+# Copyright (C) 2009-2011, Ecole Polytechnique Fédérale de Lausanne (EPFL) and
+# Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland
+# All rights reserved.
+#
+#  This software is distributed under the open-source license Modified BSD.
+
 from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
                  Bool, File, Button, Enum
     
@@ -46,7 +52,7 @@ For a short description of the processing stages, please refer to the online doc
 http://connectomics.org/connectomemapper/
 
 If you have any questions or feedback, please use the mailinglist for the Connectome Mapping Toolkit:
-http://groups.google.com/group/cmtk
+http://groups.google.com/group/cmtk-users
 
 """
 }

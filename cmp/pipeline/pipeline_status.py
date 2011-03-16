@@ -1,5 +1,4 @@
 #
-#
 # NAME
 #
 #    pipeline_status

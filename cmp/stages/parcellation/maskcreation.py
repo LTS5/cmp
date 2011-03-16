@@ -1,3 +1,9 @@
+# Copyright (C) 2009-2011, Ecole Polytechnique Fédérale de Lausanne (EPFL) and
+# Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland
+# All rights reserved.
+#
+#  This software is distributed under the open-source license Modified BSD.
+
 import os, os.path as op
 from glob import glob
 from time import time
@@ -36,32 +42,32 @@ def create_annot_label():
             pass
         
     comp = [
-    ('rh', 'myatlas_33_rh.gcs', 'rh.myaparc_33.annot', 'regenerated_rh_35',''),
+#    ('rh', 'myatlas_36_rh.gcs', 'rh.myaparc_36.annot', 'regenerated_rh_36','myaparc_36'),
     ('rh', 'myatlasP1_16_rh.gcs','rh.myaparcP1_16.annot','regenerated_rh_500','myaparcP1_16'),
     ('rh', 'myatlasP17_28_rh.gcs','rh.myaparcP17_28.annot','regenerated_rh_500','myaparcP17_28'),
-    ('rh', 'myatlasP29_35_rh.gcs','rh.myaparcP29_35.annot','regenerated_rh_500','myaparcP29_35'),
-    ('rh','myatlas_60_rh.gcs','rh.myaparc_60.annot','regenerated_rh_60','myaparc_60'),
-    ('rh','myatlas_125_rh.gcs','rh.myaparc_125.annot','regenerated_rh_125','myaparc_125'),
-    ('rh','myatlas_250_rh.gcs','rh.myaparc_250.annot','regenerated_rh_250','myaparc_250'),
-    ('lh', 'myatlas_33_lh.gcs', 'lh.myaparc_33.annot', 'regenerated_lh_35',''),
+    ('rh', 'myatlasP29_36_rh.gcs','rh.myaparcP29_36.annot','regenerated_rh_500','myaparcP29_36'),
+#    ('rh','myatlas_60_rh.gcs','rh.myaparc_60.annot','regenerated_rh_60','myaparc_60'),
+#    ('rh','myatlas_125_rh.gcs','rh.myaparc_125.annot','regenerated_rh_125','myaparc_125'),
+#    ('rh','myatlas_250_rh.gcs','rh.myaparc_250.annot','regenerated_rh_250','myaparc_250'),
+#    ('lh', 'myatlas_36_lh.gcs', 'lh.myaparc_36.annot', 'regenerated_lh_36','myaparc_36'),
     ('lh', 'myatlasP1_16_lh.gcs','lh.myaparcP1_16.annot','regenerated_lh_500','myaparcP1_16'),
     ('lh', 'myatlasP17_28_lh.gcs','lh.myaparcP17_28.annot','regenerated_lh_500','myaparcP17_28'),
-    ('lh', 'myatlasP29_35_lh.gcs','lh.myaparcP29_35.annot','regenerated_lh_500','myaparcP29_35'),
-    ('lh','myatlas_60_lh.gcs','lh.myaparc_60.annot','regenerated_lh_60', 'myaparc_60'),
-    ('lh','myatlas_125_lh.gcs','lh.myaparc_125.annot','regenerated_lh_125','myaparc_125'),
-    ('lh','myatlas_250_lh.gcs','lh.myaparc_250.annot','regenerated_lh_250','myaparc_250'),
+    ('lh', 'myatlasP29_36_lh.gcs','lh.myaparcP29_36.annot','regenerated_lh_500','myaparcP29_36'),
+#    ('lh','myatlas_60_lh.gcs','lh.myaparc_60.annot','regenerated_lh_60', 'myaparc_60'),
+#    ('lh','myatlas_125_lh.gcs','lh.myaparc_125.annot','regenerated_lh_125','myaparc_125'),
+#    ('lh','myatlas_250_lh.gcs','lh.myaparc_250.annot','regenerated_lh_250','myaparc_250'),
     ]
 
     for out in comp:      
         mris_cmd = 'mris_ca_label "FREESURFER" %s "%s/surf/%s.sphere.reg" "%s" "%s" ' % (out[0], 
-		fs_dir, out[0], gconf.get_lausanne_atlas(out[1]), op.join(fs_label_dir, out[2]))    
+		    fs_dir, out[0], gconf.get_lausanne_atlas(out[1]), op.join(fs_label_dir, out[2]))
         runCmd( mris_cmd, log )
         log.info('-----------')
 
-        if not out[4] == '':
-            annot = '--annotation "%s"' % out[4]
-        else:
-            annot = ''
+
+        annot = '--annotation "%s"' % out[4]
+
+
         mri_an_cmd = 'mri_annotation2label --subject "FREESURFER" --hemi %s --outdir "%s" %s' % (out[0], op.join(fs_label_dir, out[3]), annot)
         runCmd( mri_an_cmd, log )
         log.info('-----------')
@@ -122,24 +128,24 @@ def create_roi():
 
                 log.info("---------------------")
                 log.info("Work on brain region: %s" % (brv['dn_region']) )
-                log.info("Freesurfer Struct         Name: %s" %  brv['dn_freesurfer_structname'] )
+                log.info("Freesurfer Name: %s" %  brv['dn_fsname'] )
                 log.info("---------------------")
 
                 # if it is subcortical, retrieve roi from aseg
                 idx = np.where(asegd == int(brv['dn_fs_aseg_val']))
-                rois[idx] = int(brv['dn_intensityvalue'])
+                rois[idx] = int(brv['dn_correspondence_id'])
             
             elif brv['dn_region'] == 'cortical':
                 log.info(brv)
                 log.info("---------------------")
                 log.info("Work on brain region: %s" % (brv['dn_region']) )
-                log.info("Freesurfer Struct Name: %s" %  brv['dn_freesurfer_structname'] )
+                log.info("Freesurfer Name: %s" %  brv['dn_fsname'] )
                 log.info("---------------------")
 
                 labelpath = op.join(fs_dir, 'label', parval['fs_label_subdir_name'] % hemi)
                 # construct .label file name
                 
-                fname = '%s.%s.label' % (hemi, brv['dn_freesurfer_structname'])
+                fname = '%s.%s.label' % (hemi, brv['dn_fsname'])
 
                 # execute fs mri_label2vol to generate volume roi from the label file
                 # store it in temporary file to be overwritten for each region
@@ -153,7 +159,7 @@ def create_roi():
 
                 # find voxel and set them to intensityvalue in rois
                 idx = np.where(tmpd == 1)
-                rois[idx] = int(brv['dn_intensityvalue'])
+                rois[idx] = int(brv['dn_correspondence_id'])
                 
                         
         # store volume eg in ROI_scale33.nii.gz
@@ -317,9 +323,9 @@ def create_wm_mask():
             
             if brv['dn_region'] == 'cortical':
                 
-                log.info("Subtracting cortical region %s with intensity value %s" % (brv['dn_region'], brv['dn_intensityvalue']))
+                log.info("Subtracting region %s with intensity value %s" % (brv['dn_region'], brv['dn_correspondence_id']))
     
-                idx = np.where(roid == int(brv['dn_intensityvalue']))
+                idx = np.where(roid == int(brv['dn_correspondence_id']))
                 wmmask[idx] = 0
     
     # output white matter mask. crop and move it afterwards
@@ -499,6 +505,19 @@ def inspect(gconf):
         freeview_view_cmd = 'freeview %s' % cmdstr
         runCmd( freeview_view_cmd, log )
 
+    elif gconf.parcellation_scheme == "Lausanne2008":
+        reg_path = gconf.get_cmp_tracto_mask()
+
+        cmdstr = op.join(reg_path, 'fsmask_1mm.nii.gz ')
+
+        for p in gconf.parcellation.keys():
+            cmdstr += " " + op.join(reg_path, p, 'ROI_HR_th.nii.gz')
+
+        freeview_view_cmd = 'freeview %s' % cmdstr
+        runCmd( freeview_view_cmd, log )
+
+
+
 
 def run(conf):
     """ Run the first mask creation step
@@ -525,7 +544,7 @@ def run(conf):
     if gconf.parcellation_scheme == "Lausanne2008":
         create_annot_label()
         create_roi()
-        create_wm_mask()    
+        create_wm_mask()
         crop_and_move_datasets()
     elif gconf.parcellation_scheme == "NativeFreesurfer":
         generate_WM_and_GM_mask()

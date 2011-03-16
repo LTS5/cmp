@@ -1,3 +1,9 @@
+# Copyright (C) 2009-2011, Ecole Polytechnique Fédérale de Lausanne (EPFL) and
+# Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland
+# All rights reserved.
+#
+#  This software is distributed under the open-source license Modified BSD.
+
 """ The configuration is based on traits and used to create the configuration for a project. """
 
 import enthought.traits.api as traits
@@ -158,46 +164,47 @@ class PipelineConfiguration(traits.HasTraits):
     def _get_lausanne_parcellation(self, parcel = "NativeFreesurfer"):
         
         if parcel == "Lausanne2008":
-            return {'scale33' : {'number_of_regions' : 83,
+            return {
+                'scale33' : {'number_of_regions' : 82,
                                         # contains name, url, color, freesurfer_label, etc. used for connection matrix
                                         'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution83'), 'resolution83.graphml'),
-                                        # scalar node values on fsaverage? or atlas? 
+                                        # scalar node values on fsaverage? or atlas?
                                         'surface_parcellation' : None,
                                         # scalar node values in fsaverage volume?
                                         'volume_parcellation' : None,
                                         # the subdirectory name from where to copy parcellations, with hemispheric wildcard
-                                        'fs_label_subdir_name' : 'regenerated_%s_35',
+                                        'fs_label_subdir_name' : 'regenerated_%s_36',
                                         # should we subtract the cortical rois for the white matter mask?
                                         'subtract_from_wm_mask' : 1,
                                         },
-                            'scale60' : {'number_of_regions' : 150,
-                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution150'), 'resolution150.graphml'), 
+                            'scale60' : {'number_of_regions' : 129,
+                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution150'), 'resolution150.graphml'),
                                         'surface_parcellation' : None,
                                         'volume_parcellation' : None,
                                         'fs_label_subdir_name' : 'regenerated_%s_60',
-                                        'subtract_from_wm_mask' : 0,
+                                        'subtract_from_wm_mask' : 1,
                                         },
-                            'scale125' : {'number_of_regions' : 258,
-                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution258'), 'resolution258.graphml'), 
+                            'scale125' : {'number_of_regions' : 234,
+                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution258'), 'resolution258.graphml'),
                                         'surface_parcellation' : None,
                                         'volume_parcellation' : None,
                                         'fs_label_subdir_name' : 'regenerated_%s_125',
-                                        'subtract_from_wm_mask' : 0,
+                                        'subtract_from_wm_mask' : 1,
                                         },
-                            'scale250' : {'number_of_regions' : 500,
-                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution500'), 'resolution500.graphml'), 
+                            'scale250' : {'number_of_regions' : 463,
+                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution500'), 'resolution500.graphml'),
                                         'surface_parcellation' : None,
                                         'volume_parcellation' : None,
                                         'fs_label_subdir_name' : 'regenerated_%s_250',
-                                        'subtract_from_wm_mask' : 0,
+                                        'subtract_from_wm_mask' : 1,
                                         },
-                            'scale500' : {'number_of_regions' : 1015,
-                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution1015'), 'resolution1015.graphml'), 
-                                        'surface_parcellation' : None,
-                                        'volume_parcellation' : None,
-                                        'fs_label_subdir_name' : 'regenerated_%s_500',
-                                        'subtract_from_wm_mask' : 0,
-                                        },
+#                            'scale500' : {'number_of_regions' : 839,
+#                                        'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('resolution1015'), 'resolution1015.graphml'),
+#                                        'surface_parcellation' : None,
+#                                        'volume_parcellation' : None,
+#                                        'fs_label_subdir_name' : 'regenerated_%s_500',
+#                                        'subtract_from_wm_mask' : 1,
+#                                        },
                            }
         else:
             return {'freesurferaparc' : {'number_of_regions' : 84,
@@ -492,12 +499,27 @@ class PipelineConfiguration(traits.HasTraits):
         
         cmp_path = op.dirname(__file__)
         
-        provided_atlases = ['myatlas_33_rh.gcs','myatlasP1_16_rh.gcs','myatlasP17_28_rh.gcs','myatlasP29_35_rh.gcs',
-                            'myatlas_60_rh.gcs','myatlas_125_rh.gcs','myatlas_250_rh.gcs','myatlas_33_lh.gcs','myatlasP1_16_lh.gcs',
-                            'myatlasP17_28_lh.gcs','myatlasP29_35_lh.gcs','myatlas_60_lh.gcs','myatlas_125_lh.gcs','myatlas_250_lh.gcs']
+        provided_atlases = ['myatlas_36_rh.gcs',
+                            'myatlasP1_16_rh.gcs',
+                            'myatlasP17_28_rh.gcs',
+                            'myatlasP29_36_rh.gcs',
+                            'myatlas_60_rh.gcs',
+                            'myatlas_125_rh.gcs',
+                            'myatlas_250_rh.gcs',
+                            
+                            'myatlas_36_lh.gcs',
+                            'myatlasP1_16_lh.gcs',
+                            'myatlasP17_28_lh.gcs',
+                            'myatlasP29_36_lh.gcs',
+                            'myatlas_60_lh.gcs',
+                            'myatlas_125_lh.gcs',
+                            'myatlas_250_lh.gcs']
         
         if name in provided_atlases:
             return op.join(cmp_path, 'data', 'colortable_and_gcs', 'my_atlas_gcs', name)
+        else:
+            msg = "Atlas %s does not exists" % name
+            raise Exception(msg)
 
     def get_freeview_lut(self, name):
 

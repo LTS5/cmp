@@ -1,3 +1,9 @@
+# Copyright (C) 2009-2011, Ecole Polytechnique Fédérale de Lausanne (EPFL) and
+# Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland
+# All rights reserved.
+#
+#  This software is distributed under the open-source license Modified BSD.
+
 """ Convert a selection of files from the subject folder into
 a connectome file format for visualization and analysis in the connectomeviewer """
 

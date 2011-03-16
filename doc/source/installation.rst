@@ -2,6 +2,13 @@
 Installation Instruction
 ========================
 
+.. warning:: This software is for research purposes only and shall not be used for
+             any clinical use. This software has not been reviewed or approved by
+             the Food and Drug Administration or equivalent authority, and is for
+             non-clinical, IRB-approved Research Use Only. In no event shall data
+             or images generated through the use of the Software be used in the
+             provision of patient care.
+
 Step-by-Step Guide for Installation on Ubuntu/Debian
 ----------------------------------------------------
 
