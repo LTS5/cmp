@@ -139,6 +139,11 @@ NativeFreesurfer
         to incorporate the changes of the new Freesurfer 5.0 version.
 
 
+Apply registration
+------------------
+
+The registration transformations are applied to the white matter mask and the parcellation to map them into the diffusion space.
+
 Reconstruction
 --------------
 
