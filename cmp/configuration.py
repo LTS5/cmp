@@ -30,14 +30,14 @@ class PipelineConfiguration(traits.HasTraits):
     # choose between 'L' (linear) and 'N' (non-linear)
     registration_mode = traits.Enum("Linear", ["Linear", "Nonlinear"], desc="registration mode: linear or non-linear")
     
-    # going to support qBall, HARDI and possibly other modalities
-    diffusion_imaging_model = traits.Enum( "DSI", ["DSI", "DTI"])
+    diffusion_imaging_model = traits.Enum( "DSI", ["DSI", "DTI", "QBALL"])
     
     # DSI
     nr_of_gradient_directions = traits.Int(515)
     nr_of_sampling_directions = traits.Int(181)
     odf_recon_param = traits.Str('-b0 1 -dsi -p 4 -sn 0')
-    
+    hardi_recon_param = traits.Str('-b0 1 -p 3 -sn 1')
+
     # DTI
     gradient_table_file = traits.File(exists=False)
     gradient_table = traits.Enum('siemens_64', ['custom', 'mgh_dti_006', 'mgh_dti_018', 'mgh_dti_030', 'mgh_dti_042', 'mgh_dti_060',
@@ -355,6 +355,8 @@ class PipelineConfiguration(traits.HasTraits):
             return op.join(self.get_subj_dir(), 'RAWDATA', 'DSI')
         elif self.diffusion_imaging_model == 'DTI':
             return op.join(self.get_subj_dir(), 'RAWDATA', 'DTI')
+        elif self.diffusion_imaging_model == 'QBALL':
+            return op.join(self.get_subj_dir(), 'RAWDATA', 'QBALL')
 
     def get_fs(self):
         """ Returns the subject root folder path for freesurfer files """
@@ -396,6 +398,8 @@ class PipelineConfiguration(traits.HasTraits):
             return op.join(self.get_cmp(), 'raw_diffusion', 'odf_0')
         elif self.diffusion_imaging_model == 'DTI':
             return op.join(self.get_cmp(), 'raw_diffusion', 'dti_0')
+        elif self.diffusion_imaging_model == 'QBALL':
+            return op.join(self.get_cmp(), 'raw_diffusion', 'qball_0')
 
     def get_cmp_rawdiff_resampled(self):
         return op.join(self.get_cmp_rawdiff(), '2x2x2')

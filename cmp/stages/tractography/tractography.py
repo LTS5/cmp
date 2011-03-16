@@ -138,32 +138,30 @@ def fiber_tracking_dti():
     
     log.info("[ DONE ]")
 
-def fiber_tracking_dti_old():
+def fiber_tracking_qball():
 
     log.info("Run STREAMLINE tractography")
     log.info("===========================")
-    
+
     fibers_path = gconf.get_cmp_fibers()
     odf_out_path = gconf.get_cmp_rawdiff_reconout()
-    
+
     # streamline tractography
     if not gconf.streamline_param_dti == '':
         param = gconf.streamline_param_dti
     else:
-        param = '--angle 40 --rSeed 4'
-        
+        param = '--angle 60'
+
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_streamline')
-    dtb_cmd = '%s --odf %s --wm %s --odfdir %s --out %s %s' % (cmd, op.join(odf_out_path, 'dti_'),
+    dtb_cmd = '%s --dir %s --wm %s  --out %s %s' % (cmd, op.join(odf_out_path, 'qball_dir.nii'),
                             # use the white matter mask after registration!
                             op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
-                            gconf.get_dtb_streamline_vecs_file(),
-                            op.join(fibers_path, 'streamline'), param )
-    
+                            op.join(fibers_path, 'streamline.trk'), param )
     runCmd( dtb_cmd, log )
-        
+
     if not op.exists(op.join(fibers_path, 'streamline.trk')):
-        log.error('No streamline.trk created')    
-    
+        log.error('No streamline.trk created')
+
     log.info("[ DONE ]")
     
 def inspect(gconf):
@@ -193,6 +191,9 @@ def run(conf):
     elif gconf.diffusion_imaging_model == 'DTI':
         decompress_fsmask_nifti()
         fiber_tracking_dti()
+    elif gconf.diffusion_imaging_model == 'QBALL':
+        decompress_fsmask_nifti()
+        fiber_tracking_qball()
     
     log.info("Module took %s seconds to process." % (time()-start))
 
@@ -212,7 +213,8 @@ def declare_inputs(conf):
         conf.pipeline_status.AddStageInput(stage, diffusion_out_path, 'dsi_odf.nii', 'dsi_odf-nii')
     elif conf.diffusion_imaging_model == 'DTI':
         conf.pipeline_status.AddStageInput(stage, diffusion_out_path, 'dti_tensor.nii', 'dti_tensor-nii')      
-        
+    elif conf.diffusion_imaging_model == 'QBALL':
+        conf.pipeline_status.AddStageInput(stage, diffusion_out_path, 'hardi_odf.nii', 'hardi_odf-nii')
     
 def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""
@@ -226,5 +228,6 @@ def declare_outputs(conf):
         conf.pipeline_status.AddStageOutput(stage, fibers_path, 'streamline.trk', 'streamline-trk')
     elif conf.diffusion_imaging_model == 'DTI':
         conf.pipeline_status.AddStageOutput(stage, fibers_path, 'streamline.trk', 'streamline-trk')
-              
+    elif conf.diffusion_imaging_model == 'QBALL':
+        conf.pipeline_status.AddStageOutput(stage, fibers_path, 'streamline.trk', 'streamline-trk')
           

@@ -236,6 +236,17 @@ class CMPGUI( PipelineConfiguration ):
                show_border = True,
                visible_when = "diffusion_imaging_model == 'DTI'"
             ),
+        VGroup(
+               Item('gradient_table', label="Gradient Table"),
+               Item('gradient_table_file', label="Gradient Table File"),
+               Item('nr_of_gradient_directions', label="Number of Gradient Directions"),
+               Item('nr_of_sampling_directions', label="Number of Sampling Directions"),
+               Item('nr_of_b0', label="Number of b0 volumes"),
+               Item('max_b0_val', label="Maximumb b value"),
+               Item('hardi_recon_param', label="odf_recon Parameters"),
+               show_border = True,
+               visible_when = "diffusion_imaging_model == 'QBALL'"
+            ),
         visible_when = "active_reconstruction",
         label = "Reconstruction",                         
         )
@@ -244,7 +255,7 @@ class CMPGUI( PipelineConfiguration ):
         VGroup(
                Item('streamline_param', label="DTB_streamline Parameters"),
                show_border = True,
-               visible_when = "diffusion_imaging_model == 'DSI'",   
+               visible_when = "diffusion_imaging_model == 'DSI' or diffusion_imaging_model == 'QBALL'",
             ),
         VGroup(
                Item('streamline_param_dti', label="dti_tracker Parameters"),

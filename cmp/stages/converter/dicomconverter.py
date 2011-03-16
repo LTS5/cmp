@@ -104,6 +104,23 @@ def diff2nifti_dti_unpack():
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii.gz'))            
         runCmd(diff_cmd, log)
 
+def diff2nifti_qball_unpack():
+
+    raw_dir = op.join(gconf.get_rawdata())
+    nifti_dir = op.join(gconf.get_nifti())
+    diffme = gconf.get_diffusion_metadata()
+    dti_dir = op.join(raw_dir, 'QBALL')
+    raw_glob = gconf.get_rawglob('diffusion')
+
+    log.info("Convert QBALL ...")
+    # check if .nii.gz / .nii.gz is already available
+    if op.exists(op.join(dti_dir, 'QBALL.nii.gz')):
+        shutil.copy(op.join(dti_dir, 'QBALL.nii.gz'), op.join(nifti_dir, 'QBALL.nii.gz'))
+    else:
+        # read data
+        first = sorted(glob(op.join(dti_dir, raw_glob)))[0]
+        diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'QBALL.nii.gz'))
+        runCmd(diff_cmd, log)
 
 def dti2metadata():
     import nibabel.nicom.dicomreaders as dr
@@ -128,7 +145,30 @@ def dti2metadata():
     arr[:,:3] = bvect
     arr[:,3] = bval
     np.savetxt(op.join(diffme, 'gradient_table.txt'), arr, delimiter=',')
-            
+
+def qball2metadata():
+    import nibabel.nicom.dicomreaders as dr
+    raw_dir = op.join(gconf.get_rawdata())
+    dti_dir = op.join(raw_dir, 'QBALL')
+    diffme = gconf.get_diffusion_metadata()
+    raw_glob = gconf.get_rawglob('diffusion')
+    try:
+        # extract bvals, bvects, affine from dsi and store them as .txt in NIFTI
+        data, affine, bval, bvect = dr.read_mosaic_dir(dti_dir, raw_glob)
+    except Exception, e:
+        log.error("There was an exception: %s" % e)
+        return
+
+    del data
+    import numpy as np
+    np.savetxt(op.join(diffme, 'qball_affine.txt'), affine, delimiter=',')
+    np.savetxt(op.join(diffme, 'qball_bvals.txt'), bval, delimiter=',')
+    np.savetxt(op.join(diffme, 'qball_bvects.txt'), bvect, delimiter=',')
+
+    arr = np.zeros( (bvect.shape[0],bvect.shape[1]+1) )
+    arr[:,:3] = bvect
+    arr[:,3] = bval
+    np.savetxt(op.join(diffme, 'gradient_table.txt'), arr, delimiter=',')
 
 def dti_resamp():
     
@@ -157,6 +197,35 @@ def dti_resamp():
                            op.join(nifti_dir, 'DTI_first.nii.gz'),
                            op.join(nifti_dir, 'Diffusion_b0_resampled.nii.gz'))
     
+    runCmd(mri_cmd, log)
+
+def qball_resamp():
+
+    nifti_dir = op.join(gconf.get_nifti())
+
+    log.info("Resampling 'QBALL' to 1x1x1 mm^3...")
+
+    try:
+        # extract only first image with nibabel
+        img = ni.load(op.join(nifti_dir, 'QBALL.nii.gz'))
+    except Exception, e:
+        log.error("Exception occured: %s" % e)
+
+    data = img.get_data()
+    hdr = img.get_header()
+    aff = img.get_affine()
+
+    # update header
+    hdr['dim'][4] = 1
+    # first slice
+    data = data[:,:,:,0]
+
+    ni.save(ni.Nifti1Image(data, aff, hdr), op.join(nifti_dir, 'QBALL_first.nii.gz'))
+
+    mri_cmd = 'mri_convert -vs 1 1 1 %s %s' % (
+                           op.join(nifti_dir, 'QBALL_first.nii.gz'),
+                           op.join(nifti_dir, 'Diffusion_b0_resampled.nii.gz'))
+
     runCmd(mri_cmd, log)
     
 def t12nifti_diff_unpack():
@@ -235,12 +304,17 @@ def run(conf):
         if gconf.extract_diffusion_metadata:
             dsi2metadata()
         
-        
     elif gconf.diffusion_imaging_model == 'DTI' and gconf.do_convert_diffusion:
         diff2nifti_dti_unpack()
         dti_resamp()
         if gconf.extract_diffusion_metadata:
             dti2metadata()
+
+    elif gconf.diffusion_imaging_model == 'QBALL' and gconf.do_convert_diffusion:
+        diff2nifti_qball_unpack()
+        qball_resamp()
+        if gconf.extract_diffusion_metadata:
+            qball2metadata()
     
     if gconf.do_convert_T1:
         t12nifti_diff_unpack()
@@ -313,6 +387,9 @@ def declare_outputs(conf):
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'dti_bvects.txt', 'bvects')
 #        conf.pipeline_status.AddStageOutput(stage, diffme, 'gradient_table.txt', 'gradient_table')
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'DTI.nii.gz', 'dti-nii-gz')
+
+    elif conf.diffusion_imaging_model == 'QBALL' and conf.do_convert_diffusion:
+        conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'QBALL.nii.gz', 'qball-nii-gz')
 
     if conf.do_convert_diffusion:
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'Diffusion_b0_resampled.nii.gz', 'diffusion-resampled-nii-gz')

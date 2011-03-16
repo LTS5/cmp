@@ -110,6 +110,13 @@ def add_raw2connectome(connectome, type):
                                src=op.join(nifti_dir, 'DTI.nii.gz'),
                                fileformat='Nifti1GZ',
                                dtype='DTI')
+        elif gconf.diffusion_imaging_model == 'QBALL':
+            if op.exists(op.join(nifti_dir, 'QBALL.nii.gz')):
+                cvol = cf.CVolume(name="Raw Diffusion",
+                               src=op.join(nifti_dir, 'QBALL.nii.gz'),
+                               fileformat='Nifti1GZ',
+                               dtype='QBALL')
+
     elif type == 'rawT1':
         if op.exists(op.join(nifti_dir, 'T1.nii.gz')):
             cvol = cf.CVolume(name="Raw T1 image",

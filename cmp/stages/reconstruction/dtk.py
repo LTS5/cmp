@@ -37,10 +37,39 @@ def resample_dsi():
     runCmd( fslmerge_cmd, log )
 
     log.info(" [DONE] ")
-    
+
+def resample_qball():
+
+    log.info("Resample the QBALL dataset to 2x2x2 mm^3")
+    log.info("======================================")
+
+    input_dsi_file = op.join(gconf.get_nifti(), 'QBALL.nii.gz')
+    # XXX: this output file is never generated!
+    output_dsi_file = op.join(gconf.get_cmp_rawdiff(), 'QBALL_resampled_2x2x2.nii.gz')
+    res_dsi_dir = gconf.get_cmp_rawdiff_resampled()
+
+    if not op.exists(input_dsi_file):
+        log.error("File does not exists: %s" % input_dsi_file)
+    else:
+        log.debug("Found file: %s" % input_dsi_file)
+
+    split_cmd = 'fslsplit %s %s -t' % (input_dsi_file, op.join(res_dsi_dir, 'MR'))
+    runCmd( split_cmd, log )
+
+    files = glob( op.join(res_dsi_dir, 'MR*.nii.gz'))
+    for file in sorted(files):
+        tmp_file = op.join(res_dsi_dir, 'tmp.nii.gz')
+        mri_cmd = 'mri_convert -vs 2 2 2 %s %s ' % (file, tmp_file)
+        runCmd( mri_cmd, log )
+        fsl_cmd = 'fslmaths %s %s -odt short' % (tmp_file, file)
+        runCmd( fsl_cmd, log )
+
+    fslmerge_cmd = 'fslmerge -a %s %s' % (output_dsi_file,  op.join(res_dsi_dir, 'MR0000.nii.gz'))
+    runCmd( fslmerge_cmd, log )
+
+    log.info(" [DONE] ")
     
 def resample_dti():
-    # XXX: necessary?
 
     log.info("Resample the DTI dataset to 2x2x2 mm^3")
     log.info("======================================")
@@ -105,7 +134,48 @@ def compute_dts():
     # XXX: what does it reconstruct (filename?)
     #if not op.exists(op.join(odf_out_path, "dsi_odf.nii.gz")):
     #    log.error("Unable to reconstruct ODF!")
+
+
+def compute_hardi_odf():    
+
+    log.info("Compute the ODFs field (HARDI/QBALL)")
+    log.info("====================================")
+
+    first_input_file = op.join(gconf.get_cmp_rawdiff(), '2x2x2', 'MR0000.nii.gz')
+    odf_out_path = gconf.get_cmp_rawdiff_reconout()
+
+    output_dsi_file = op.join(gconf.get_cmp_rawdiff(), 'QBALL_resampled_2x2x2.nii.gz')
+
+    # hardi matrix creation
+    if not gconf.odf_recon_param == '':
+        param = gconf.dti_recon_param + ' -gm %s' % gconf.gradient_table_file
+    else:
+        param = ' -gm %s' % gconf.gradient_table_file
         
+    hardi_cmd = 'hardi_mat "%s" "%s" -ref "%s" -oc' % (gconf.gradient_table_file, op.join(gconf.get_nifti(), 'temp_mat.dat'), output_dsi_file )
+
+    runCmd( hardi_cmd, log )
+
+    if not op.exists(first_input_file):
+        msg = "No input file available: %s" % first_input_file
+        log.error(msg)
+        raise Exception(msg)
+
+    # calculate ODF map
+    if not gconf.hardi_recon_param == '':
+        param = gconf.hardi_recon_param
+    else:
+        param = '-b0 1 -p 3 -sn 1'
+
+    odf_cmd = 'odf_recon "%s" %s %s "%s" -mat "%s" -s 0 %s -ot nii' % (first_input_file,
+                             str(gconf.nr_of_gradient_directions),
+                             str(gconf.nr_of_sampling_directions),
+                             op.join(odf_out_path, "hardi_"),
+                             op.join(gconf.get_nifti(), 'temp_mat.dat'),
+                             param )
+    runCmd (odf_cmd, log )
+
+
 def compute_odfs():    
 
     log.info("Compute the ODFs field")
@@ -257,6 +327,23 @@ def convert_to_dir_dti():
         log.error("Unable to create dti_dir.nii")
     
     log.info("[ DONE ]")
+
+def convert_to_dir_qball():
+
+    log.info("Convert to new file format")
+    log.info("==========================")
+
+    dti_out_path = gconf.get_cmp_rawdiff_reconout()
+
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_dtk2dir --prefix "%s" --type "dsi" --dirlist "%s"' %
+                  (op.join(dti_out_path, 'hardi_'), gconf.get_dtb_streamline_vecs_file()) )
+
+    runCmd (cmd, log )
+
+    if not op.exists(op.join(dti_out_path, "hardi_dir.nii")):
+        log.error("Unable to create hardi_dir.nii")
+
+    log.info("[ DONE ]")
     
     
 def run(conf):
@@ -281,7 +368,11 @@ def run(conf):
         resample_dti()
         compute_dts()
         convert_to_dir_dti()
-        
+    elif gconf.diffusion_imaging_model == 'QBALL':
+#        resample_qball()
+#        compute_hardi_odf()
+        convert_to_dir_qball()
+
     log.info("Module took %s seconds to process." % (time()-start))
 
     if not len(gconf.emailnotify) == 0:
@@ -299,7 +390,9 @@ def declare_inputs(conf):
         
     elif conf.diffusion_imaging_model == 'DTI':
         conf.pipeline_status.AddStageInput(stage, nifti_dir, 'DTI.nii.gz', 'dti-nii-gz')
-        
+
+    elif conf.diffusion_imaging_model == 'QBALL':
+        conf.pipeline_status.AddStageInput(stage, nifti_dir, 'QBALL.nii.gz', 'qball-nii-gz')
 
     
 def declare_outputs(conf):
@@ -321,3 +414,7 @@ def declare_outputs(conf):
         conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dti_tensor.nii', 'dti_tensor-nii')
         conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'dti_dir.nii', 'dti_dir-nii')
           
+    elif conf.diffusion_imaging_model == 'QBALL':
+        conf.pipeline_status.AddStageOutput(stage, rawdiff_dir, 'QBALL_resampled_2x2x2.nii.gz', 'QBALL_resampled_2x2x2-nii-gz')
+        conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'hardi_odf.nii', 'hardi_odf-nii')
+        conf.pipeline_status.AddStageOutput(stage, diffusion_out_path, 'hardi_dir.nii', 'hardi_dir-nii')
