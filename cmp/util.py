@@ -10,11 +10,30 @@ import subprocess
 import numpy as np
 from logme import *
 from enthought.traits.api import HasStrictTraits, Str
-    
+import networkx as nx
+
+try:
+    from pylab import imshow, show, cm
+except ImportError:
+    log.info("matplotlib not available. Can not plot matrix")
+
 class KeyValue(HasStrictTraits):
     key = Str
     value = Str
-    
+
+def show_matrix(a, edge, binarize = False):
+    for u,v,d in a.edges_iter(data=True):
+        a.edge[u][v]['weight'] = a.edge[u][v][edge]
+    bb=nx.to_numpy_matrix(a)
+    if binarize:
+        c=np.zeros(bb.shape)
+        c[bb>0] = 1
+        b = c
+    else:
+        b = bb
+    imshow(b, interpolation='nearest', cmap=cm.jet, vmin = b.min(), vmax=b.max())
+    show()
+
 def mymove(src, dst, log, copy = False):
     """ Custom move function with target checking and logging """
     

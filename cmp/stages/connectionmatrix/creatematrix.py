@@ -240,7 +240,7 @@ def cmat():
 
         log.info("Storing final fiber labels (no orphans)")
         fiberlabels_noorphans_fname  = op.join(gconf.get_cmp_fibers(), 'fiberlabels_noorphans_%s.npy' % str(r))
-        np.save(fiberlabels_noorphans_fname, np.array(final_fiberlabels, dtype = np.float32))
+        np.save(fiberlabels_noorphans_fname, np.array(final_fiberlabels, dtype = np.float64))
 
         log.info("Filtering tractography - keeping only no orphan fibers")
         finalfibers_fname = op.join(gconf.get_cmp_fibers(), 'streamline_final_%s.trk' % str(r))
@@ -248,6 +248,31 @@ def cmat():
 
     log.info("Done.")
     log.info("========================")
+
+def inspect(gconf):
+    """ Inspect the results of this stage """
+    log = gconf.get_logger()
+
+    # display matrices with matplotlib if available
+    # the same script as used in connectome viewer
+
+    # Importing NetworkX
+    import networkx as nx
+
+    # Import Pylab
+    try:
+        from cmp.util import show_matrix
+    except ImportError:
+        log.info("matplotlib not available. Can not plot matrix")
+        return
+
+    resolution = gconf.parcellation.keys()
+
+    for r in resolution:
+        # retrieve the graph
+        g=nx.read_gpickle(op.join(gconf.get_cmp_matrices(), 'connectome_%s.gpickle' % r))
+        show_matrix(g, "number_of_fibers", True)
+
 
 def run(conf):
     """ Run the connection matrix module

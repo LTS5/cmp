@@ -94,7 +94,7 @@ class CMPGUI( PipelineConfiguration ):
     inspect_tractography = Button
     inspect_tractography_filtered = Button
     inspect_fiberfilter = Button
-    inspect_connectomefile = Button
+    inspect_connectionmatrix = Button
   
     main_group = Group(
                     VGroup(
@@ -129,7 +129,7 @@ class CMPGUI( PipelineConfiguration ):
                         #Item('inspect_reconstruction', label = 'Reconstruction', show_label = False), # DTB_viewer
                         Item('inspect_tractography', label = 'Tractography Original', show_label = False),
                         Item('inspect_tractography_filtered', label = 'Tractography Filtered', show_label = False),
-                        #Item('inspect_connectomefile', label = 'Connectome File', show_label = False),
+                        Item('inspect_connectionmatrix', label = 'Connection Matrix', show_label = False),
                         label="Inspector")
                         #VGroup(
                         #label="Status",
@@ -474,6 +474,9 @@ class CMPGUI( PipelineConfiguration ):
 
     def _inspect_parcellation_fired(self):
         cmp.maskcreation.inspect(self)
+
+    def _inspect_connectionmatrix_fired(self):
+        cmp.connectionmatrix.inspect(self)
 
     def _run_fired(self):
         pass

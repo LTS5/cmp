@@ -108,4 +108,3 @@
 107	supramarginal_4	80	154	20	0
 108	insula_2	227	192	32	0
 109	insula_3	228	192	32	0
-110	Error_end	0	0	0	0
