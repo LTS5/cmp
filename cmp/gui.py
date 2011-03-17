@@ -286,6 +286,16 @@ class CMPGUI( PipelineConfiguration ):
         label = "Fiber Filtering",                         
         )
 
+    connectioncreation_group = Group(
+        VGroup(
+               Item('compute_curvature', label="Compute curvature"),
+               show_border = True,
+               enabled_when = "active_connectome"
+            ),
+        visible_when = "active_connectome",
+        label = "Connectome Creation",
+        )
+
     cffconverter_group = Group(
         VGroup(
                Item('cff_fullnetworkpickle', label="All connectomes"),
@@ -293,6 +303,7 @@ class CMPGUI( PipelineConfiguration ):
                Item('cff_originalfibers', label="Original Tractography"),
                Item('cff_filteredfibers', label="Filtered Tractography"),
                Item('cff_fiberarr', label="Filtered fiber arrays"),
+               Item('cff_finalfiberlabels', label="Final Tractography and Labels"),
                Item('cff_scalars', label="Scalar maps"),
                Item('cff_rawdiffusion', label="Raw Diffusion Data"),
                Item('cff_rawT1', label="Raw T1 data"),
@@ -332,6 +343,7 @@ class CMPGUI( PipelineConfiguration ):
               reconstruction_group,
               tractography_group,
               fiberfilter_group,
+              connectioncreation_group,
               cffconverter_group,
               configuration_group,
               orientation= 'horizontal',

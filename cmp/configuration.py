@@ -127,6 +127,7 @@ class PipelineConfiguration(traits.HasTraits):
     cff_cmatpickle = traits.Bool(False)
     cff_originalfibers = traits.Bool(False, desc='stores original fibers')
     cff_filteredfibers = traits.Bool(False, desc='stores filtered fibers')
+    cff_finalfiberlabels = traits.Bool(False, desc='stores final fibers and their labelarrays')
     cff_fiberarr = traits.Bool(False)
     cff_rawdiffusion = traits.Bool(False)
     cff_scalars = traits.Bool(False)
@@ -135,7 +136,7 @@ class PipelineConfiguration(traits.HasTraits):
     cff_roisegmentation = traits.Bool(False, desc='stores multi-resolution parcellation volumes')
     cff_surfaces = traits.Bool(False, desc='stores individually genertated surfaces')
     cff_surfacelabels = traits.Bool(False, desc='stores individually genertated surfaces')
-                        
+
     # do you want to do manual whit matter mask correction?
     wm_handling = traits.Enum(1, [1,2,3], desc="in what state should the freesurfer step be processed")
     
@@ -145,7 +146,10 @@ class PipelineConfiguration(traits.HasTraits):
     # start up fslview
     inspect_registration = traits.Bool(False, desc='start fslview to inspect the the registration results')
     fsloutputtype = traits.Enum( 'NIFTI', ['NIFTI'] )
-    
+
+    # connectome creation
+    compute_curvature = traits.Bool(False)
+
     # email notification, needs a local smtp server
     # sudo apt-get install postfix
     emailnotify = traits.ListStr([], desc='the email address to send stage completion status message')

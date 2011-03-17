@@ -189,6 +189,19 @@ Apply cutoff filter: Fibers can be filtered depending on their length:
 * Lower cutoff: Fibers smaller than this cutoff length are filtered.
 * Upper cutoff: Fibers longer than this cutoff length are filtered.
 
+Connection Matrix Creation
+--------------------------
+
+This stage merges the grey matter labeling and the tractography to create a connection matrix or brain graph for each
+resolution. A final tractography file is stored for each parcellation containing only fibers that start and end
+in grey matter regions.
+
+Very general edge measures are used to construct the network, namely the number of fibers between two regions and their
+average length. Further measures can be computed using the Connectome Viewer using appropriate scalar volumes, tractography
+and label arrays.
+
+Compute curvature
+    Compute the curvature value for each of the filtered fibers
 
 Connectome File Format Converter
 --------------------------------

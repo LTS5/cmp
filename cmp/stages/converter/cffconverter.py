@@ -93,8 +93,28 @@ def add_fiberarr2connectome(connectome):
                        dtype='FiberLabels')
         connectome.add_connectome_data(cda)
 
+def add_finaltractandlabels(connectome):
 
-    
+    resolution = gconf.parcellation.keys()
+    for r in resolution:
+
+        log.info("Adding final fiber labels array (%s) to connectome..." % str(r))
+
+        cda = cf.CData(name="Final fiberlabels (%s)" % str(r),
+                       src=op.join(gconf.get_cmp_fibers(), 'fiberlabels_noorphans_%s.npy' % str(r)),
+                       fileformat='NumPy',
+                       dtype='FiberLabels')
+        connectome.add_connectome_data(cda)
+
+
+        log.info("Adding final tractography for resolution %s" % str(r))
+
+        ctr = cf.CTrack(name='Original Tractography',
+                         src=op.join(gconf.get_cmp_fibers(), 'streamline_final_%s.trk' % str(r)),
+                          fileformat='TrackVis', dtype='FinalFibers')
+
+        connectome.add_connectome_track(ctr)
+
 def add_raw2connectome(connectome, type):
     
     log.info("Adding raw data to connectome (%s)..." % type)
@@ -349,6 +369,9 @@ def convert2cff():
         
     if gconf.cff_filteredfibers:
         add_fibers2connectome(c)
+
+    if gconf.cff_finalfiberlabels:
+        add_finaltractandlabels(c)
         
     if gconf.cff_fiberarr:
         add_fiberarr2connectome(c)

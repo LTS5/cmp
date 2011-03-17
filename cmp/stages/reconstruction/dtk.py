@@ -282,12 +282,12 @@ def compute_odfs():
     dta_cmd = '%s --dsi "%s" --dwi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'), op.join(gconf.get_nifti(), 'DSI.nii.gz'))
     runCmd( dta_cmd, log )
 
-    if not op.exists(op.join(odf_out_path, "P0.nii")):
+    if not op.exists(op.join(odf_out_path, "dsi_P0.nii")):
         log.error("Unable to calculate P0 map!")
     else:
         # copy dsi_kurtosis.nii.gz to scalar folder for processing with connectionmatrix
-        src = op.join(odf_out_path, "P0.nii")
-        dst = op.join(gconf.get_cmp_scalars(), 'P0.nii.gz')
+        src = op.join(odf_out_path, "dsi_P0.nii")
+        dst = op.join(gconf.get_cmp_scalars(), 'dsi_P0.nii.gz')
 
         log.info("Gzip compress...")
         f_in = open(src, 'rb')
@@ -375,8 +375,8 @@ def run(conf):
         compute_dts()
         convert_to_dir_dti()
     elif gconf.diffusion_imaging_model == 'QBALL':
-#        resample_qball()
-#        compute_hardi_odf()
+        resample_qball()
+        compute_hardi_odf()
         convert_to_dir_qball()
 
     log.info("Module took %s seconds to process." % (time()-start))

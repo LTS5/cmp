@@ -91,24 +91,27 @@ def create_endpoints_array(fib, voxelSize):
     log.info("done")
     log.info("========================")
 
+def save_fibers(oldhdr, oldfib, fname, indices):
+    """ Stores a new trackvis file fname using only given indices """
+
+    hdrnew = oldhdr.copy()
+
+    outstreams = []
+    for i in indices:
+        outstreams.append( oldfib[i] )
+
+    n_fib_out = len(outstreams)
+    hdrnew['n_count'] = n_fib_out
+
+    log.info("Writing final no orphan fibers: %s" % fname)
+    nibabel.trackvis.write(fname, outstreams, hdrnew)
+
 
 def cmat(): 
-    """ Create the connection matrix for each resolution using fibers and ROIs.
-        
-    Parameters
-    ----------
-    fib: the fibers data
-    hdr: the header of the fibers.trk
-    
-    Returns
-    -------
-    cmat.dat: the connection matrix
-
-    """
+    """ Create the connection matrix for each resolution using fibers and ROIs. """
               
     # create the endpoints for each fibers
     en_fname  = op.join(gconf.get_cmp_fibers(), 'endpoints.npy')
-    en_fnamemm  = op.join(gconf.get_cmp_fibers(), 'endpointsmm.npy')
     en_fnamemm  = op.join(gconf.get_cmp_fibers(), 'endpointsmm.npy')
     ep_fname  = op.join(gconf.get_cmp_fibers(), 'lengths.npy')
     curv_fname  = op.join(gconf.get_cmp_fibers(), 'meancurvature.npy')
@@ -129,25 +132,28 @@ def cmat():
     firstROI = nibabel.load(firstROIFile)
     roiVoxelSize = firstROI.get_header().get_zooms()
     (endpoints,endpointsmm) = create_endpoints_array(fib, roiVoxelSize)
-    meancurv = compute_curvature_array(fib)
     np.save(en_fname, endpoints)
     np.save(en_fnamemm, endpointsmm)
-    np.save(curv_fname, meancurv)
+
+    # only compute curvature if required
+    if gconf.compute_curvature:
+        meancurv = compute_curvature_array(fib)
+        np.save(curv_fname, meancurv)
     
-    # For each resolution
     log.info("========================")
-    log.info("Resolution treatment")
     
     n = len(fib)
     
     resolution = gconf.parcellation.keys()
-    cmat = {}
+
     for r in resolution:
         
         log.info("Resolution = "+r)
         
         # create empty fiber label array
         fiberlabels = np.zeros( (n, 1) )
+        final_fiberlabels = []
+        final_fibers_idx = []
         
         # Open the corresponding ROI
         log.info("Open the corresponding ROI")
@@ -159,12 +165,12 @@ def cmat():
         nROIs = gconf.parcellation[r]['number_of_regions']
         log.info("Create the connection matrix (%s rois)" % nROIs)
         G     = nx.Graph()
+
         # add node information from parcellation
         gp = nx.read_graphml(gconf.parcellation[r]['node_information_graphml'])
         for u,d in gp.nodes_iter(data=True):
             G.add_node(int(u), d)
 
-        #G.add_nodes_from( range(1, int(nROIs)+1) )
         dis = 0
         
         log.info("Create the connection matrix")
@@ -192,10 +198,18 @@ def cmat():
                 continue
             
             # Update fiber label
-            if startROI <= endROI:
-                fiberlabels[i,0] = float(str(int(startROI))+'.'+str(int(endROI)))
-            else:
-                fiberlabels[i,0] = float(str(int(endROI))+'.'+str(int(startROI)))
+            # switch the rois in order to enforce startROI < endROI
+            if endROI < startROI:
+                tmp = startROI
+                startROI = endROI
+                endROI = tmp
+
+            fiberlabelvalue = float(str(int(startROI))+'.'+str(int(endROI)))
+
+            fiberlabels[i,0] = fiberlabelvalue
+
+            final_fiberlabels.append(fiberlabelvalue)
+            final_fibers_idx.append(i)
 
             # Add edge to graph
             if G.has_edge(startROI, endROI):
@@ -217,25 +231,23 @@ def cmat():
             G.remove_edge(u,v)
             G.add_edge(u,v, di)
 
-        # Add all in the current resolution
-        # cmat.update({r: {'filename': roi_fname, 'graph': G}})
-
         # storing network
         nx.write_gpickle(G, op.join(gconf.get_cmp_matrices(), 'connectome_%s.gpickle' % r))
 
         log.info("Storing fiber labels")
         fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'fiberlabels_%s.npy' % str(r))
         np.save(fiberlabels_fname, fiberlabels)
-            
+
+        log.info("Storing final fiber labels (no orphans)")
+        fiberlabels_noorphans_fname  = op.join(gconf.get_cmp_fibers(), 'fiberlabels_noorphans_%s.npy' % str(r))
+        np.save(fiberlabels_noorphans_fname, np.array(final_fiberlabels, dtype = np.float32))
+
+        log.info("Filtering tractography - keeping only no orphan fibers")
+        finalfibers_fname = op.join(gconf.get_cmp_fibers(), 'streamline_final_%s.trk' % str(r))
+        save_fibers(hdr, fib, finalfibers_fname, final_fibers_idx)
+
     log.info("Done.")
     log.info("========================")
-        
-    # Save the connection matrix
-#    log.info("========================")
-#    log.info("Save the connection matrix")
-    #nx.write_gpickle(cmat, op.join(gconf.get_cmp_matrices(), 'cmat.pickle'))
-#    log.info("done")
-#    log.info("========================")
 
 def run(conf):
     """ Run the connection matrix module
@@ -249,7 +261,10 @@ def run(conf):
     globals()['gconf'] = conf
     globals()['log'] = gconf.get_logger() 
     start = time()
-    
+
+    log.info("Connectome Matrix Creation")
+    log.info("==========================")
+
     cmat()
             
     log.info("Module took %s seconds to process." % (time()-start))
