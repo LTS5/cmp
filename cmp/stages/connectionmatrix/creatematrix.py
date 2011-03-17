@@ -151,7 +151,7 @@ def cmat():
         log.info("Resolution = "+r)
         
         # create empty fiber label array
-        fiberlabels = np.zeros( (n, 1) )
+        fiberlabels = np.zeros( (n, 2) )
         final_fiberlabels = []
         final_fibers_idx = []
         
@@ -204,11 +204,10 @@ def cmat():
                 startROI = endROI
                 endROI = tmp
 
-            fiberlabelvalue = float(str(int(startROI))+'.'+str(int(endROI)))
+            fiberlabels[i,0] = startROI
+            fiberlabels[i,1] = endROI
 
-            fiberlabels[i,0] = fiberlabelvalue
-
-            final_fiberlabels.append(fiberlabelvalue)
+            final_fiberlabels.append( [ startROI, endROI ] )
             final_fibers_idx.append(i)
 
             # Add edge to graph
@@ -240,7 +239,7 @@ def cmat():
 
         log.info("Storing final fiber labels (no orphans)")
         fiberlabels_noorphans_fname  = op.join(gconf.get_cmp_fibers(), 'fiberlabels_noorphans_%s.npy' % str(r))
-        np.save(fiberlabels_noorphans_fname, np.array(final_fiberlabels, dtype = np.float64))
+        np.save(fiberlabels_noorphans_fname, np.array(final_fiberlabels, dtype = np.int32))
 
         log.info("Filtering tractography - keeping only no orphan fibers")
         finalfibers_fname = op.join(gconf.get_cmp_fibers(), 'streamline_final_%s.trk' % str(r))
