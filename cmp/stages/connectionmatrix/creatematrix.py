@@ -11,7 +11,7 @@ import numpy as np
 import nibabel
 import networkx as nx
 from ...logme import *
-from cmp.util import mean_curvature
+from cmp.util import mean_curvature, length
 
 def compute_curvature_array(fib):
     """ Computes the curvature array """
@@ -210,24 +210,41 @@ def cmat():
             final_fiberlabels.append( [ startROI, endROI ] )
             final_fibers_idx.append(i)
 
+
             # Add edge to graph
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
-                G.edge[startROI][endROI]['fiblength'].append(endpointsmm[i])          
             else:
                 G.add_edge(startROI, endROI, fiblist   = [i])
-                G.add_edge(startROI, endROI, fiblength = [endpointsmm[i]])
                 
         log.info("Found %i (%f percent out of %i fibers) fibers that start or terminate in a voxel which is not labeled. (orphans)" % (dis, dis*100.0/n, n) )
         log.info("Valid fibers: %i (%f percent)" % (n-dis, 100 - dis*100.0/n) )
 
+        # create a final fiber length array
+        finalfiberlength = []
+        for idx in final_fibers_idx:
+            # compute length of fiber
+            finalfiberlength.append( length(fib[i][0]) )
+
+        # convert to array
+        finalfiberlength_array = np.array( finalfiberlength )
+        
+        # make final fiber labels as array
+        final_finberlabels_array = np.array(final_fiberlabels, dtype = np.int32)
+
         # update edges
         # measures to add, XXX
         for u,v,d in G.edges_iter(data=True):
-            di = { 'number_of_fibers' : len(d['fiblist']),
-                   'average_fiber_length' : np.mean(d['fiblength'])
-                  }
             G.remove_edge(u,v)
+            di = { 'number_of_fibers' : len(d['fiblist']), }
+            
+            # additional measures
+            # compute mean/std of fiber measure
+            idx = np.where( (final_finberlabels_array[:,0] == int(u)) & (final_finberlabels_array[:,1] == int(v)) )[0]
+
+            di['fiber_length_mean'] = np.mean(finalfiberlength_array[idx])
+            di['fiber_length_std'] = np.std(finalfiberlength_array[idx])
+
             G.add_edge(u,v, di)
 
         # storing network
@@ -239,7 +256,7 @@ def cmat():
 
         log.info("Storing final fiber labels (no orphans)")
         fiberlabels_noorphans_fname  = op.join(gconf.get_cmp_fibers(), 'fiberlabels_noorphans_%s.npy' % str(r))
-        np.save(fiberlabels_noorphans_fname, np.array(final_fiberlabels, dtype = np.int32))
+        np.save(fiberlabels_noorphans_fname, final_finberlabels_array)
 
         log.info("Filtering tractography - keeping only no orphan fibers")
         finalfibers_fname = op.join(gconf.get_cmp_fibers(), 'streamline_final_%s.trk' % str(r))
