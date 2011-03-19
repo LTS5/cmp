@@ -109,7 +109,7 @@ def add_finaltractandlabels(connectome):
 
         log.info("Adding final tractography for resolution %s" % str(r))
 
-        ctr = cf.CTrack(name='Original Tractography',
+        ctr = cf.CTrack(name='Final Tractography',
                          src=op.join(gconf.get_cmp_fibers(), 'streamline_final_%s.trk' % str(r)),
                           fileformat='TrackVis', dtype='FinalFibers')
 
@@ -185,7 +185,7 @@ def add_scalars2connectome(connectome, type):
                 connectome.add_connectome_volume(cvol)
     elif type == 'kurtosis':
         if gconf.diffusion_imaging_model == 'DSI':
-            if op.exists(op.join(scalarpath, 'dsi_kurtosis.nii')):
+            if op.exists(op.join(scalarpath, 'dsi_kurtosis.nii.gz')):
                 cvol = cf.CVolume(name="Kurtosis Scalar Map",
                                src=op.join(scalarpath, 'dsi_kurtosis.nii.gz'),
                                fileformat='Nifti1GZ',
@@ -193,7 +193,7 @@ def add_scalars2connectome(connectome, type):
                 connectome.add_connectome_volume(cvol)
     elif type == 'P0':
         if gconf.diffusion_imaging_model == 'DSI':
-            if op.exists(op.join(scalarpath, 'dsi_P0.nii')):
+            if op.exists(op.join(scalarpath, 'dsi_P0.nii.gz')):
                 cvol = cf.CVolume(name="P0 Scalar Map",
                                src=op.join(scalarpath, 'dsi_P0.nii.gz'),
                                fileformat='Nifti1GZ',
