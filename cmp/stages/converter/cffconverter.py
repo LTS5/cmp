@@ -119,7 +119,7 @@ def add_finaltractandlabels(connectome):
         fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'finalfiberslength_%s.npy' % str(r))
 
         cda = cf.CData(name="Final fiber lengths (%s)" % str(r),
-                       src=fiberlabels_fname),
+                       src=fiberlabels_fname,
                        fileformat='NumPy',
                        dtype='FiberLength')
         connectome.add_connectome_data(cda)
