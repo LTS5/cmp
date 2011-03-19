@@ -114,6 +114,16 @@ def add_finaltractandlabels(connectome):
                           fileformat='TrackVis', dtype='FinalFibers')
 
         connectome.add_connectome_track(ctr)
+        
+        log.info("Adding final fiber length array")
+        fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'finalfiberslength_%s.npy' % str(r))
+
+        cda = cf.CData(name="Final fiber lengths (%s)" % str(r),
+                       src=fiberlabels_fname),
+                       fileformat='NumPy',
+                       dtype='FiberLength')
+        connectome.add_connectome_data(cda)
+        
 
 def add_raw2connectome(connectome, type):
     

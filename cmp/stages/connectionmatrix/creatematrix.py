@@ -233,7 +233,7 @@ def cmat():
         final_finberlabels_array = np.array(final_fiberlabels, dtype = np.int32)
 
         # update edges
-        # measures to add, XXX
+        # measures to add here
         for u,v,d in G.edges_iter(data=True):
             G.remove_edge(u,v)
             di = { 'number_of_fibers' : len(d['fiblist']), }
