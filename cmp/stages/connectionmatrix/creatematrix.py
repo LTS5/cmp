@@ -224,7 +224,7 @@ def cmat():
         finalfiberlength = []
         for idx in final_fibers_idx:
             # compute length of fiber
-            finalfiberlength.append( length(fib[i][0]) )
+            finalfiberlength.append( length(fib[idx][0]) )
 
         # convert to array
         finalfiberlength_array = np.array( finalfiberlength )
@@ -252,6 +252,10 @@ def cmat():
 
         log.info("Storing fiber labels")
         fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'fiberlabels_%s.npy' % str(r))
+        np.save(fiberlabels_fname, finalfiberlength_array)
+
+        log.info("Storing final fiber length array")
+        fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'finalfiberslength_%s.npy' % str(r))
         np.save(fiberlabels_fname, fiberlabels)
 
         log.info("Storing final fiber labels (no orphans)")
