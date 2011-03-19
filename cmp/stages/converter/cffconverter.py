@@ -75,13 +75,14 @@ def add_fiberarr2connectome(connectome):
                    dtype='FiberEndpoints')
     connectome.add_connectome_data(cda)
 
-    log.info("Adding fiber mean curvature array to connectome...")
-        
-    cda = cf.CData(name="Fiber mean curvature",
-                   src=op.join(fibers_path, 'meancurvature.npy'),
-                   fileformat='NumPy',
-                   dtype='FiberCurvature')
-    connectome.add_connectome_data(cda)
+	if op.exists(op.join(fibers_path, 'meancurvature.npy')):
+		log.info("Adding fiber mean curvature array to connectome...")
+			
+		cda = cf.CData(name="Fiber mean curvature",
+					   src=op.join(fibers_path, 'meancurvature.npy'),
+					   fileformat='NumPy',
+					   dtype='FiberCurvature')
+		connectome.add_connectome_data(cda)
 
     resolution = gconf.parcellation.keys()
     for r in resolution:
