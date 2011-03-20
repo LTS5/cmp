@@ -256,7 +256,7 @@ def cmat():
 
         log.info("Storing all fiber labels (with orphans)")
         fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'filtered_fiberslabel_%s.npy' % str(r))
-        np.save(fiberlabels_fname, np.array(fiberlabels, dtype = np.in32), )
+        np.save(fiberlabels_fname, np.array(fiberlabels, dtype = np.int32), )
 
         log.info("Storing final fiber labels (no orphans)")
         fiberlabels_noorphans_fname  = op.join(gconf.get_cmp_fibers(), 'final_fiberlabels_%s.npy' % str(r))
