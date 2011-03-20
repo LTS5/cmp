@@ -110,7 +110,7 @@ def add_finaltractandlabels(connectome):
 
         log.info("Adding final tractography for resolution %s" % str(r))
 
-        ctr = cf.CTrack(name='Final Tractography',
+        ctr = cf.CTrack(name='Final Tractography (%s)' % str(r),
                          src=op.join(gconf.get_cmp_fibers(), 'streamline_final_%s.trk' % str(r)),
                           fileformat='TrackVis', dtype='FinalFibers')
 
