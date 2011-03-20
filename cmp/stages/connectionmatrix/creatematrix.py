@@ -242,8 +242,8 @@ def cmat():
             # compute mean/std of fiber measure
             idx = np.where( (final_fiberlabels_array[:,0] == int(u)) & (final_fiberlabels_array[:,1] == int(v)) )[0]
 
-            di['fiber_length_mean'] = np.mean(finalfiberlength_array[idx])
-            di['fiber_length_std'] = np.std(finalfiberlength_array[idx])
+            di['fiber_length_mean'] = np.mean(final_fiberlength_array[idx])
+            di['fiber_length_std'] = np.std(final_fiberlength_array[idx])
 
             G.add_edge(u,v, di)
 
