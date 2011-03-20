@@ -227,10 +227,10 @@ def cmat():
             finalfiberlength.append( length(fib[idx][0]) )
 
         # convert to array
-        finalfiberlength_array = np.array( finalfiberlength )
+        final_fiberlength_array = np.array( finalfiberlength )
         
         # make final fiber labels as array
-        final_finberlabels_array = np.array(final_fiberlabels, dtype = np.int32)
+        final_fiberlabels_array = np.array(final_fiberlabels, dtype = np.int32)
 
         # update edges
         # measures to add here
@@ -240,7 +240,7 @@ def cmat():
             
             # additional measures
             # compute mean/std of fiber measure
-            idx = np.where( (final_finberlabels_array[:,0] == int(u)) & (final_finberlabels_array[:,1] == int(v)) )[0]
+            idx = np.where( (final_fiberlabels_array[:,0] == int(u)) & (final_fiberlabels_array[:,1] == int(v)) )[0]
 
             di['fiber_length_mean'] = np.mean(finalfiberlength_array[idx])
             di['fiber_length_std'] = np.std(finalfiberlength_array[idx])
@@ -250,17 +250,17 @@ def cmat():
         # storing network
         nx.write_gpickle(G, op.join(gconf.get_cmp_matrices(), 'connectome_%s.gpickle' % r))
 
-        log.info("Storing fiber labels")
-        fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'fiberlabels_%s.npy' % str(r))
-        np.save(fiberlabels_fname, finalfiberlength_array)
-
         log.info("Storing final fiber length array")
-        fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'finalfiberslength_%s.npy' % str(r))
-        np.save(fiberlabels_fname, fiberlabels)
+        fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'final_fiberslength_%s.npy' % str(r))
+        np.save(fiberlabels_fname, final_fiberlength_array)
+
+        log.info("Storing all fiber labels (with orphans)")
+        fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'filtered_fiberslabel_%s.npy' % str(r))
+        np.save(fiberlabels_fname, np.array(fiberlabels, dtype = np.in32), )
 
         log.info("Storing final fiber labels (no orphans)")
-        fiberlabels_noorphans_fname  = op.join(gconf.get_cmp_fibers(), 'fiberlabels_noorphans_%s.npy' % str(r))
-        np.save(fiberlabels_noorphans_fname, final_finberlabels_array)
+        fiberlabels_noorphans_fname  = op.join(gconf.get_cmp_fibers(), 'final_fiberlabels_%s.npy' % str(r))
+        np.save(fiberlabels_noorphans_fname, final_fiberlabels_array)
 
         log.info("Filtering tractography - keeping only no orphan fibers")
         finalfibers_fname = op.join(gconf.get_cmp_fibers(), 'streamline_final_%s.trk' % str(r))

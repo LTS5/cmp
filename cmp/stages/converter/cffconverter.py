@@ -62,14 +62,14 @@ def add_fiberarr2connectome(connectome):
 
     log.info("Adding fiber endpoints array to connectome...")
         
-    cda = cf.CData(name="Fiber endpoints",
+    cda = cf.CData(name="Filtered fiber endpoints",
                    src=op.join(fibers_path, 'endpoints.npy'),
                    fileformat='NumPy',
                    dtype='FiberEndpoints')
     
     log.info("Adding fiber endpoints (mm) array to connectome...")
         
-    cda = cf.CData(name="Fiber endpoints (mm)",
+    cda = cf.CData(name="Filtered fiber endpoints (mm)",
                    src=op.join(fibers_path, 'endpointsmm.npy'),
                    fileformat='NumPy',
                    dtype='FiberEndpoints')
@@ -88,8 +88,8 @@ def add_fiberarr2connectome(connectome):
     for r in resolution:
         log.info("Adding fiber labels array (%s) to connectome..." % str(r))
         
-        cda = cf.CData(name="Fiber labels (%s)" % str(r),
-                       src=op.join(fibers_path, 'fiberlabels_%s.npy' % str(r)),
+        cda = cf.CData(name="Filtered fiber labels (%s)" % str(r),
+                       src=op.join(fibers_path, 'filtered_fiberslabel_%s.npy' % str(r)),
                        fileformat='NumPy',
                        dtype='FiberLabels')
         connectome.add_connectome_data(cda)
@@ -101,8 +101,8 @@ def add_finaltractandlabels(connectome):
 
         log.info("Adding final fiber labels array (%s) to connectome..." % str(r))
 
-        cda = cf.CData(name="Final fiberlabels (%s)" % str(r),
-                       src=op.join(gconf.get_cmp_fibers(), 'fiberlabels_noorphans_%s.npy' % str(r)),
+        cda = cf.CData(name="Final fiber labels (%s)" % str(r),
+                       src=op.join(gconf.get_cmp_fibers(), 'final_fiberlabels_%s.npy' % str(r)),
                        fileformat='NumPy',
                        dtype='FiberLabels')
         connectome.add_connectome_data(cda)
@@ -117,7 +117,7 @@ def add_finaltractandlabels(connectome):
         connectome.add_connectome_track(ctr)
         
         log.info("Adding final fiber length array")
-        fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'finalfiberslength_%s.npy' % str(r))
+        fiberlabels_fname  = op.join(gconf.get_cmp_fibers(), 'final_fiberslength_%s.npy' % str(r))
 
         cda = cf.CData(name="Final fiber lengths (%s)" % str(r),
                        src=fiberlabels_fname,

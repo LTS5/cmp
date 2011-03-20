@@ -13,7 +13,7 @@ from enthought.traits.api import HasStrictTraits, Str
 import networkx as nx
 
 try:
-    from pylab import imshow, show, cm
+    from pylab import imshow, show, cm, figure
 except ImportError:
     log.info("matplotlib not available. Can not plot matrix")
 
@@ -22,6 +22,7 @@ class KeyValue(HasStrictTraits):
     value = Str
 
 def show_matrix(a, edge, binarize = False):
+    figure()
     for u,v,d in a.edges_iter(data=True):
         a.edge[u][v]['weight'] = a.edge[u][v][edge]
     bb=nx.to_numpy_matrix(a)
