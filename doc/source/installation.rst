@@ -42,11 +42,11 @@ You need also Google Protocol Buffers::
 
     sudo apt-get install python-protobuf
 
-Download the Connectome Mapper pipeline source code from the `GitHub page <http://github.com/LTS5/connectomemapper>`_
+Download the Connectome Mapper source code (release-1.0) from the `GitHub page <http://github.com/LTS5/connectomemapper>`_
 
-Extract the source code and install the Connectome Mapper::
+Extract the source code and install the Connectome Mapper from the Bash Shell::
 
-    cd cmp/
+    cd LTS5-cmp-..../
     sudo python setup.py install
 
 Test if you can import the Connectome Mapper correctly in IPython. First start IPython in the Bash Shell::
@@ -95,11 +95,24 @@ Now, you are ready to start the Connectome Mapper from the Bash Shell::
     connectomemapper
 
 
+.. note:: The last stage (Connectome File Format Converter) needs cfflib >= 2.0 which will be released soon. Producing
+         connectome files eases sharing annotated datasets with collaborators or the public (e.g. using cffdata),
+         or for further analysis using the Connectome Viewer (supported with version >= 2.0).
+
 Sample dataset
 --------------
 
 To get you started, we provide two Diffusion Spectrum Imaging sample datasets. They already contain the correct
-folder structure described below. You can find the `datasets online <http://cmtk.org/datasets/rawdata/ >`_.
+folder structure described below. You can find the two `raw datasets online <http://cmtk.org/datasets/rawdata/>`_::
+
+project01_dsi
+    *connectome_0001* with timepoint *tp1* and DSI, T1 and T2 raw data
+
+project02_dsi
+    *connectome_0002* with timepoint *tp1* and DSI, T1 raw data
+
+If you produce any connectome dataset that you want to share with the community, we provide a curated
+`cffdata repository on GitHub <http://github.com/LTS5/cffdata>`_ .
 
 
 Project configuration and setup
@@ -151,7 +164,11 @@ In the GUI, now you should setup all the parameters for your your single subject
 If you have to restart the GUI later and do not want to enter everything again, you can open the LOG folder,
 there are so-called pickle files with ending .pkl and you can load them with the *Load* button in the GUI to restore your configuration state.
 
-If you run into any problems, do not hesitate to send an email with the error description to info AT connectomics DOT org.
+Alternatively, you can also open a pickle file directly from the Bash shell when starting the Connectome Mapper::
+
+    connectomemapper mypickle.pkl
+
+If you run into any problems or have any questions, post to the `CMTK-users group <http://groups.google.com/group/cmtk-users>`_.
 
 Starting the pipeline without GUI
 ---------------------------------
@@ -174,3 +191,4 @@ You can set the attributes of the cmpgui configuration object in the script and 
 	cmpgui.subject_workingdir = '.../'
 	cmp.connectome.mapit(cmpgui)
 
+For a full list of field names, refer to the `source code <http://github.com/LTS5/cmp/blob/master/cmp/configuration.py>`_.

@@ -2,9 +2,6 @@
 Connectome Mapper Stages
 ========================
 
-General description
--------------------
-
 Project settings / Main Tab
 ---------------------------
 
@@ -15,12 +12,12 @@ Project directory
 Generator
     Which version of the mapper to use. Defaults to cmp 1.0
 Imaging Modality
-    What type of data to process. Currently supports DSI and DTI data.
+    What type of data to process. Currently supports DSI, QBALL and DTI data.
 
 Stages
     Select the stages you want to run. A good practice is to incrementally select the stages to be processed. So you keep good control of what is going on.
 Inspector
-    Lets you inspect the result of different processing stages, using external packages such as FSL, Freesurfer or Diffusion Toolkit.
+    Let you inspect the result of different processing stages, using external packages such as FSL, Freesurfer, Diffusion Toolkit or matplotlib.
 
 Buttons
 
@@ -132,11 +129,12 @@ NativeFreesurfer
     The native Freesurfer parcellation using the `Desikan-Killiany Atlas <http://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation>`_
     extended to include subcortical regions.
 
-.. warning::
+Lausanne2008
+    The multi-resolution parcellation that was used in Hagmann et al. 2008. It is updated to incorporate
+    the new atlases provided by Freesurfer 5.0 (including insula).
 
-    Lausanne2011
-        The multi-resolution parcellation that was used in Hagmann et al. 2008. It is currently updated
-        to incorporate the changes of the new Freesurfer 5.0 version.
+.. warning::
+    The Lausanne2008 parcellation is in experimental stage. Use it with caution.
 
 
 Apply registration
@@ -213,11 +211,32 @@ Raw and processed data are stored in the connectome file for further analysis in
 All connectomes
     All the connectivity information for the different resolutions.
 
-Tractography
-    Store the tractography results.
+Original Tractography
+    The unfiltered tractography result as produced by DTB_streamline.
 
-Parcellation Volumes
-    Store the parcellated volumes in the same space as the T1 data.
+Filtered Tractography
+    The tractography result after potential spline and length cutoff filtering.
+
+Filtered fiber arrays
+    The filtered tractography contains also so-called orphan fibers, which are
+    fibers that do not start or end in grey matter voxels. The filtered fiber arrays
+    contain are NumPy arrays labeling the individual fibers as orphans (-1) or connection
+    two regions.
+
+Final Tractography and Labels
+    For each parcellation/resolution, a tractography files and a corresponding fiber
+    label array is produced. The tractography contains much less fibers, because orphan
+    fibers are filtered out, and only fibers to contribute to the final connection matrix
+    are shown.
+
+Scalar Maps
+    For DSI datasets, we provide the computation of a few scalar maps based on the reconstructed
+    Orientation Density Functions (ODF) that might be relevant in comparing subjects.
+    We provide GFA, skewness, kurtosis and P0 maps.
+
+Raw Diffusion data
+    Store the raw diffusion data in Nifti format. Beware that Nifti files do not contain
+    all the information from the DICOM series.
 
 Raw T1 data
     Store the raw T1 data in Nifti format.
@@ -225,7 +244,11 @@ Raw T1 data
 Raw T2 data
     Store the raw T2 data in Nifti format if available.
 
-Individual surfaces
+Parcellation Volumes
+    Store the segmentation and parcellation results (Freesurfer aseg, white matter, ROI parcellation in
+    T1 and diffusion space.
+
+Surfaces
     Store the surfaces extracted by Freesurfer in Gifti format.
 
 
@@ -236,6 +259,7 @@ Configuration
 
 E-Mail notification
     If you have installed an SMTP server, you can enter a list of email addresses to which an email is sent after the completion of a stage.
+    On Ubuntu, you can for instance use `Postfix <https://help.ubuntu.com/community/Postfix>`_.
 
 Environment variables
     They are recognized by your current .bashrc settings. These fields should not be empty, otherwise you have to add the
