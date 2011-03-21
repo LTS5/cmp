@@ -34,6 +34,14 @@ We need the Python package Nibabel and Python-DICOM for neuroimaging file input-
 
 	sudo apt-get install python-nibabel python-nibabel-doc python-dicom
 
+We need Traits and Traits GUI to create the user interface::
+
+	sudo apt-get install python-traits python-traitsgui
+
+In addition, we require NetworkX to store the connection graphs::
+
+	sudo apt-get install python-networkx
+
 If you have not yet done so, install IPython for an advanced interactive Python shell::
 
 	sudo apt-get install ipython
@@ -42,10 +50,11 @@ You need also Google Protocol Buffers::
 
     sudo apt-get install python-protobuf
 
-Download the Connectome Mapper source code (release-1.0) from the `GitHub page <http://github.com/LTS5/connectomemapper>`_
+Download the Connectome Mapper source code (release-1.0) as `tarball <https://github.com/LTS5/cmp/tarball/release-1.0>`_ from the `GitHub page <http://github.com/LTS5/cmp>`_
 
 Extract the source code and install the Connectome Mapper from the Bash Shell::
 
+    tar xzf LTS5-....tar.gz
     cd LTS5-cmp-..../
     sudo python setup.py install
 
