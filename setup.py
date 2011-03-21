@@ -25,8 +25,7 @@ packages=["cmp",
 package_data = {'cmp':
                 ['data/colortable_and_gcs/*.txt',
                  'data/colortable_and_gcs/my_atlas_gcs/*.gcs',
-                 'data/colortable_and_gcs/My_colortable_rnd/*.txt',
-                 'data/colortable_and_gcs/My_colortable_rnd/colortable_rnd_500/*.txt',
+                 'pipeline/pipeline.proto',
                  'binary/linux2/bit32/*',
                  'binary/linux2/bit32/*.*',
                  'binary/linux2/bit64/*.*',
@@ -79,7 +78,7 @@ def main(**extra_args):
           author='EPFL LTS5 Diffusion Group',
           author_email='info@connectomics.org',
           url='http://www.connectomics.org/',
-          scripts = glob('scripts/*.py'),
+          scripts = glob('scripts/*'),
           packages = packages,
           package_data = package_data,
           **extra_args

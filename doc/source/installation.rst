@@ -9,6 +9,8 @@ Installation Instruction
              or images generated through the use of the Software be used in the
              provision of patient care.
 
+.. note:: Please `REGISTER <http://www.cmtk.org/users/register>`_ when before you start to use Connectome Mapper or the Connectome Mapping Toolkit.
+
 Step-by-Step Guide for Installation on Ubuntu/Debian
 ----------------------------------------------------
 
@@ -36,12 +38,29 @@ If you have not yet done so, install IPython for an advanced interactive Python 
 
 	sudo apt-get install ipython
 
-Install now the Connectome Mapper pipeline::
+You need also Google Protocol Buffers::
 
-	sudo apt-get install connectomemapper
+    sudo apt-get install python-protobuf
 
-.. note:: The Connectome Mapper is not yet packaged in Neuro Debian. Until this happens, you can download the source code
-   from the `GitHub page <http://github.com/LTS5/connectomemapper>`_ and install it with *python setup.py install*
+Download the Connectome Mapper pipeline source code from the `GitHub page <http://github.com/LTS5/connectomemapper>`_
+
+Extract the source code and install the Connectome Mapper::
+
+    cd cmp/
+    sudo python setup.py install
+
+Test if you can import the Connectome Mapper correctly in IPython. First start IPython in the Bash Shell::
+
+    ipython
+
+Then, try to import the Connectome Mapper::
+
+    import cmp
+
+Importing should now give you an error. If it does, please send an email to the `CMTK-users group <http://groups.google.com/group/cmtk-users>`_.
+
+.. note:: The Connectome Mapper is not yet packaged in NeuroDebian. As soon as this happens, you will then be
+          able to install with *sudo apt-get install connectomemapper*
 
 At this point, make sure that you have setup the environment variables correctly for the
 external packages such as Freesurfer and Diffusion Toolkit (The FSL environment variables should
@@ -71,9 +90,17 @@ The should contain something similar as (adapted to your installation paths)::
 	# FSL configuration
 	source /etc/fsl/4.1/fsl.sh
 
-Now, you are ready to start the Connectome Mapper::
+Now, you are ready to start the Connectome Mapper from the Bash Shell::
 
     connectomemapper
+
+
+Sample dataset
+--------------
+
+To get you started, we provide two Diffusion Spectrum Imaging sample datasets. They already contain the correct
+folder structure described below. You can find the `datasets online <http://cmtk.org/datasets/rawdata/ >`_.
+
 
 Project configuration and setup
 -------------------------------

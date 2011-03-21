@@ -3,161 +3,191 @@
 from google.protobuf import descriptor
 from google.protobuf import message
 from google.protobuf import reflection
-from google.protobuf import service
-from google.protobuf import service_reflection
 from google.protobuf import descriptor_pb2
+# @@protoc_insertion_point(imports)
+
+
+DESCRIPTOR = descriptor.FileDescriptor(
+  name='pipeline.proto',
+  package='',
+  serialized_pb='\n\x0epipeline.proto\"T\n\x10StageInputOutput\x12\x10\n\x08\x66ilePath\x18\x01 \x02(\t\x12\x0c\n\x04name\x18\x02 \x02(\t\x12\x0f\n\x07rootDir\x18\x03 \x02(\t\x12\x0f\n\x07typeTag\x18\x04 \x01(\t\"i\n\x05Stage\x12\x0b\n\x03num\x18\x01 \x02(\x05\x12\x0c\n\x04name\x18\x02 \x02(\t\x12!\n\x06inputs\x18\x03 \x03(\x0b\x32\x11.StageInputOutput\x12\"\n\x07outputs\x18\x04 \x03(\x0b\x32\x11.StageInputOutput\"!\n\x04Type\x12\x0b\n\x03tag\x18\x01 \x02(\t\x12\x0c\n\x04\x64\x65sc\x18\x02 \x02(\t\"F\n\x08Pipeline\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x16\n\x06stages\x18\x02 \x03(\x0b\x32\x06.Stage\x12\x14\n\x05types\x18\x03 \x03(\x0b\x32\x05.Type')
+
 
 
 
 _STAGEINPUTOUTPUT = descriptor.Descriptor(
   name='StageInputOutput',
   full_name='StageInputOutput',
-  filename='pipeline.proto',
+  filename=None,
+  file=DESCRIPTOR,
   containing_type=None,
   fields=[
     descriptor.FieldDescriptor(
       name='filePath', full_name='StageInputOutput.filePath', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='name', full_name='StageInputOutput.name', index=1,
       number=2, type=9, cpp_type=9, label=2,
-      default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='rootDir', full_name='StageInputOutput.rootDir', index=2,
       number=3, type=9, cpp_type=9, label=2,
-      default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='typeTag', full_name='StageInputOutput.typeTag', index=3,
       number=4, type=9, cpp_type=9, label=1,
-      default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
   ],
   extensions=[
   ],
-  nested_types=[],  # TODO(robinson): Implement.
+  nested_types=[],
   enum_types=[
   ],
-  options=None)
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  serialized_start=18,
+  serialized_end=102,
+)
 
 
 _STAGE = descriptor.Descriptor(
   name='Stage',
   full_name='Stage',
-  filename='pipeline.proto',
+  filename=None,
+  file=DESCRIPTOR,
   containing_type=None,
   fields=[
     descriptor.FieldDescriptor(
       name='num', full_name='Stage.num', index=0,
       number=1, type=5, cpp_type=1, label=2,
-      default_value=0,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='name', full_name='Stage.name', index=1,
       number=2, type=9, cpp_type=9, label=2,
-      default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='inputs', full_name='Stage.inputs', index=2,
       number=3, type=11, cpp_type=10, label=3,
-      default_value=[],
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='outputs', full_name='Stage.outputs', index=3,
       number=4, type=11, cpp_type=10, label=3,
-      default_value=[],
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
   ],
   extensions=[
   ],
-  nested_types=[],  # TODO(robinson): Implement.
+  nested_types=[],
   enum_types=[
   ],
-  options=None)
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  serialized_start=104,
+  serialized_end=209,
+)
 
 
 _TYPE = descriptor.Descriptor(
   name='Type',
   full_name='Type',
-  filename='pipeline.proto',
+  filename=None,
+  file=DESCRIPTOR,
   containing_type=None,
   fields=[
     descriptor.FieldDescriptor(
       name='tag', full_name='Type.tag', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='desc', full_name='Type.desc', index=1,
       number=2, type=9, cpp_type=9, label=2,
-      default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
   ],
   extensions=[
   ],
-  nested_types=[],  # TODO(robinson): Implement.
+  nested_types=[],
   enum_types=[
   ],
-  options=None)
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  serialized_start=211,
+  serialized_end=244,
+)
 
 
 _PIPELINE = descriptor.Descriptor(
   name='Pipeline',
   full_name='Pipeline',
-  filename='pipeline.proto',
+  filename=None,
+  file=DESCRIPTOR,
   containing_type=None,
   fields=[
     descriptor.FieldDescriptor(
       name='name', full_name='Pipeline.name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='stages', full_name='Pipeline.stages', index=1,
       number=2, type=11, cpp_type=10, label=3,
-      default_value=[],
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='types', full_name='Pipeline.types', index=2,
       number=3, type=11, cpp_type=10, label=3,
-      default_value=[],
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
   ],
   extensions=[
   ],
-  nested_types=[],  # TODO(robinson): Implement.
+  nested_types=[],
   enum_types=[
   ],
-  options=None)
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  serialized_start=246,
+  serialized_end=316,
+)
 
 
 _STAGE.fields_by_name['inputs'].message_type = _STAGEINPUTOUTPUT
@@ -168,16 +198,25 @@ _PIPELINE.fields_by_name['types'].message_type = _TYPE
 class StageInputOutput(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType
   DESCRIPTOR = _STAGEINPUTOUTPUT
+  
+  # @@protoc_insertion_point(class_scope:StageInputOutput)
 
 class Stage(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType
   DESCRIPTOR = _STAGE
+  
+  # @@protoc_insertion_point(class_scope:Stage)
 
 class Type(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType
   DESCRIPTOR = _TYPE
+  
+  # @@protoc_insertion_point(class_scope:Type)
 
 class Pipeline(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType
   DESCRIPTOR = _PIPELINE
+  
+  # @@protoc_insertion_point(class_scope:Pipeline)
 
+# @@protoc_insertion_point(module_scope)
