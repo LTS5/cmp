@@ -16,4 +16,5 @@ Contents:
    :maxdepth: 2
 
    installation
+   download
    mappingsteps

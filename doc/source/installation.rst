@@ -50,7 +50,7 @@ You need also Google Protocol Buffers::
 
     sudo apt-get install python-protobuf
 
-Download the Connectome Mapper source code (release-1.0) as `tarball <https://github.com/LTS5/cmp/tarball/release-1.0>`_ from the `GitHub page <http://github.com/LTS5/cmp>`_
+Download the Connectome Mapper: :doc:`/download`
 
 Extract the source code and install the Connectome Mapper from the Bash Shell::
 
