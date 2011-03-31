@@ -39,8 +39,8 @@ class PipelineConfiguration(traits.HasTraits):
     diffusion_imaging_model = traits.Enum( "DSI", ["DSI", "DTI", "QBALL"])
     
     # DSI
-    nr_of_gradient_directions = traits.Int(515)
-    nr_of_sampling_directions = traits.Int(181)
+    nr_of_gradient_directions = traits.Str('515')
+    nr_of_sampling_directions = traits.Str('181')
     odf_recon_param = traits.Str('-b0 1 -dsi -p 4 -sn 0')
     hardi_recon_param = traits.Str('-b0 1 -p 3 -sn 1')
 
@@ -49,8 +49,8 @@ class PipelineConfiguration(traits.HasTraits):
     gradient_table = traits.Enum('siemens_64', ['custom', 'mgh_dti_006', 'mgh_dti_018', 'mgh_dti_030', 'mgh_dti_042', 'mgh_dti_060',
      'mgh_dti_072', 'mgh_dti_090', 'mgh_dti_120', 'mgh_dti_144', 'siemens_06',
      'siemens_12', 'siemens_20', 'siemens_256', 'siemens_30', 'siemens_64'])
-    nr_of_b0 = traits.Int(1)
-    max_b0_val = traits.Int(1000)
+    nr_of_b0 = traits.Str('1')
+    max_b0_val = traits.Str('1000')
     dti_recon_param = traits.Str('')
     dtb_dtk2dir_param = traits.Str('')
     

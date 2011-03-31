@@ -238,7 +238,7 @@ class CMPGUI( PipelineConfiguration ):
                Item('gradient_table', label="Gradient Table"),
                Item('gradient_table_file', label="Gradient Table File"),
                Item('nr_of_b0', label="Number of b0 volumes"),
-               Item('max_b0_val', label="Maximumb b value"),
+               Item('max_b0_val', label="Maximum b value"),
                Item('dti_recon_param', label="dti_recon Parameters"),
                Item('dtb_dtk2dir_param', label="DTB_dtk2dir Parameters"),
                show_border = True,
