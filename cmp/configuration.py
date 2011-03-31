@@ -52,7 +52,8 @@ class PipelineConfiguration(traits.HasTraits):
     nr_of_b0 = traits.Int(1)
     max_b0_val = traits.Int(1000)
     dti_recon_param = traits.Str('')
-               
+    dtb_dtk2dir_param = traits.Str('')
+    
     # tractography
     streamline_param = traits.Str('--angle 60  --seeds 32')
     streamline_param_dti = traits.Str('')

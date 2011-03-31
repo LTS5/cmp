@@ -152,7 +152,15 @@ Reconstruction
 
 Use `DiffusionToolkit <http://www.trackvis.org/dtk/>`_ for extracting the orientation distribution function (ODF), the default parameters are the same as DTKs.
 
-Please refer to `odf_recon <http://www.trackvis.org/dtk/?subsect=script#odf_recon>`_ documentation for the meaning of each parameter.
+Please refer to `odf_recon <http://www.trackvis.org/dtk/?subsect=script#odf_recon>`_ or
+`dti_recon <http://www.trackvis.org/dtk/?subsect=script#dti_recon>`_ documentationfor the meaning of each parameter.
+
+You can also set parameters for the DTB_dtk2dir conversion. This can be helpful if you have to flip axes before tractography.
+
+DTB_dtk2dir parameters
+    --ix                  invert x axis
+    --iy                  invert y axis
+    --iz                  invert z axis
 
 
 Tractography

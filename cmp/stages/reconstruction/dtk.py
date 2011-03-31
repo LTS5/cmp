@@ -307,8 +307,8 @@ def convert_to_dir_dsi():
 
     odf_out_path = gconf.get_cmp_rawdiff_reconout()
 
-    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_dtk2dir --dirlist "%s" --prefix "%s" --type "dsi" --vf 0' % 
-                  (gconf.get_dtb_streamline_vecs_file(), op.join(odf_out_path, 'dsi_'))) 
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_dtk2dir --dirlist "%s" --prefix "%s" --type "dsi" --vf 0 %s' %
+                  (gconf.get_dtb_streamline_vecs_file(), op.join(odf_out_path, 'dsi_')), gconf.dtb_dtk2dir_param)
     
     runCmd (cmd, log )
 
@@ -324,8 +324,8 @@ def convert_to_dir_dti():
 
     dti_out_path = gconf.get_cmp_rawdiff_reconout()
 
-    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_dtk2dir --prefix "%s" --type "dti"' % 
-                  op.join(dti_out_path, 'dti_')) 
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_dtk2dir --prefix "%s" --type "dti" %s' %
+                  op.join(dti_out_path, 'dti_'), gconf.dtb_dtk2dir_param)
     
     runCmd (cmd, log )
 
@@ -341,8 +341,8 @@ def convert_to_dir_qball():
 
     dti_out_path = gconf.get_cmp_rawdiff_reconout()
 
-    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_dtk2dir --prefix "%s" --type "dsi" --dirlist "%s"' %
-                  (op.join(dti_out_path, 'hardi_'), gconf.get_dtb_streamline_vecs_file()) )
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_dtk2dir --prefix "%s" --type "dsi" --dirlist "%s" %s' %
+                  (op.join(dti_out_path, 'hardi_'), gconf.get_dtb_streamline_vecs_file()), gconf.dtb_dtk2dir_param )
 
     runCmd (cmd, log )
 
