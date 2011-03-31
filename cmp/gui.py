@@ -537,8 +537,10 @@ class CMPGUI( PipelineConfiguration ):
         wildcard = "CMP Configuration State (*.pkl)|*.pkl|" \
                         "All files (*.*)|*.*"
         dlg = FileDialog(wildcard=wildcard,title="Filename to store configuration state",\
-                         resizeable=False, \
+                         resizeable=False, action = 'save as', \
                          default_directory=self.subject_workingdir,)
         
         if dlg.open() == OK:
+            if not dlg.path.endswith('.pkl'):
+                dlg.path = dlg.path + '.pkl'
             self.save_state(dlg.path)

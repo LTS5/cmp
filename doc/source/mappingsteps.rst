@@ -137,7 +137,7 @@ Lausanne2008
     the new atlases provided by Freesurfer 5.0 (including insula).
 
 .. warning::
-    The Lausanne2008 parcellation is in experimental stage. Use it with caution.
+    The Lausanne2008 parcellation is in experimental stage. Use it with caution. More information `about the parcellation <http://github.com/LTS5/cmp/blob/master/cmp/data/parcellation/lausanne2008/ParcellationLausanne2008.xls>`_.
 
 
 Apply registration
