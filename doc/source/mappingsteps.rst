@@ -117,6 +117,9 @@ Nonlinear Registration
 The FSL nonlinear registration tool `FNIRT <http://www.fmrib.ox.ac.uk/fsl/fnirt/index.html>`_ is used to perform this step.
 Default parameters (which can be modified) generally give good results in most cases.
 
+Segmentation
+------------
+We use Freesurfer's recon_all for the segmentation. You can provide custom parameters for `recon_all <http://surfer.nmr.mgh.harvard.edu/fswiki/recon-all>`_.
 
 Parcellation
 ------------

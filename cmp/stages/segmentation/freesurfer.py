@@ -39,7 +39,7 @@ def recon_all():
     environ['SUBJECTS_DIR'] = gconf.get_subj_dir()
     
     log.info("Starting recon-all ...")
-    fs_cmd = 'recon-all -s %s -all -no-isrunning' % 'FREESURFER'
+    fs_cmd = 'recon-all -s %s %s' % ('FREESURFER',  gconf.recon_all_parm)
     runCmd( fs_cmd, log )
 
     log.info("[ DONE ]")

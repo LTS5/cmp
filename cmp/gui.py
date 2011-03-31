@@ -256,7 +256,18 @@ class CMPGUI( PipelineConfiguration ):
         visible_when = "active_reconstruction",
         label = "Reconstruction",                         
         )
-    
+
+    segementation_group = Group(
+        VGroup(
+               Item('recon_all_param', label="recon_all Parameters"),
+               show_border = True,
+            ),
+        enabled_when = "active_segmentation",
+        visible_when = "active_segmentation",
+        label = "Segmentation",
+
+    )
+
     tractography_group = Group(
         VGroup(
                Item('streamline_param', label="DTB_streamline Parameters"),
@@ -339,6 +350,7 @@ class CMPGUI( PipelineConfiguration ):
               subject_group,
               dicomconverter_group,
               registration_group,
+              segementation_group,
               parcellation_group,
               reconstruction_group,
               tractography_group,
