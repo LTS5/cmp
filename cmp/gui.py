@@ -250,7 +250,7 @@ class CMPGUI( PipelineConfiguration ):
                Item('nr_of_gradient_directions', label="Number of Gradient Directions"),
                Item('nr_of_sampling_directions', label="Number of Sampling Directions"),
                Item('nr_of_b0', label="Number of b0 volumes"),
-               Item('max_b0_val', label="Maximumb b value"),
+               #Item('max_b0_val', label="Maximumb b value"),
                Item('hardi_recon_param', label="odf_recon Parameters"),
                Item('dtb_dtk2dir_param', label="DTB_dtk2dir Parameters"),
                show_border = True,
