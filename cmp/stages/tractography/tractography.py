@@ -130,7 +130,7 @@ def fiber_tracking_dti():
     if not gconf.streamline_param_dti == '':
         param = gconf.streamline_param_dti
     else:
-        param = '--angle 60'
+        param = '--angle 60  --seeds 32'
         
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_streamline')
     dtb_cmd = '%s --dir %s --wm %s  --out %s %s' % (cmd, op.join(odf_out_path, 'dti_dir.nii'),
@@ -156,7 +156,7 @@ def fiber_tracking_qball():
     if not gconf.streamline_param_dti == '':
         param = gconf.streamline_param_dti
     else:
-        param = '--angle 60'
+        param = '--angle 60  --seeds 32'
 
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_streamline')
     dtb_cmd = '%s --dir %s --wm %s  --out %s %s' % (cmd, op.join(odf_out_path, 'qball_dir.nii'),

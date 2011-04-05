@@ -278,7 +278,7 @@ class CMPGUI( PipelineConfiguration ):
                visible_when = "diffusion_imaging_model == 'DSI' or diffusion_imaging_model == 'QBALL'",
             ),
         VGroup(
-               Item('streamline_param_dti', label="dti_tracker Parameters"),
+               Item('streamline_param', label="DTB_streamline Parameters"),
                show_border = True,
                visible_when = "diffusion_imaging_model == 'DTI'"   
             ),

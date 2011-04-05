@@ -56,7 +56,6 @@ class PipelineConfiguration(traits.HasTraits):
     
     # tractography
     streamline_param = traits.Str('--angle 60  --seeds 32')
-    streamline_param_dti = traits.Str('')
     
     # registration
     lin_reg_param = traits.Str('-usesqform -nosearch -dof 6 -cost mutualinfo')
