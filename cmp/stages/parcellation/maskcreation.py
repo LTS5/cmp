@@ -498,7 +498,7 @@ def inspect(gconf):
         cmdstr = op.join(reg_path, 'fsmask_1mm.nii.gz ')
 
         for p in gconf.parcellation.keys():
-            cmdstr += op.join(reg_path, p, 'ROI_HR_th.nii.gz:colormap=lut:lut=%s ' % gconf.get_freeview_lut('NativeFreesurfer'))
+            cmdstr += op.join(reg_path, p, 'ROI_HR_th.nii.gz:colormap=lut:lut=%s ' % gconf.get_freeview_lut('NativeFreesurfer')['freesurferaparc'])
 
         freeview_view_cmd = 'freeview %s' % cmdstr
         runCmd( freeview_view_cmd, log )

@@ -529,10 +529,12 @@ class PipelineConfiguration(traits.HasTraits):
             raise Exception(msg)
 
     def get_freeview_lut(self, name):
+        """ Returns the Look-Up-Table as text file for a given parcellation scheme
+        in  a dictionary """
 
         cmp_path = op.dirname(__file__)
         if name == "NativeFreesurfer":
-            return op.join(cmp_path, 'data', 'parcellation', 'nativefreesurfer', 'freesurferaparc', 'FreeSurferColorLUT_adapted.txt')
+            return {'freesurferaparc' : op.join(cmp_path, 'data', 'parcellation', 'nativefreesurfer', 'freesurferaparc', 'FreeSurferColorLUT_adapted.txt')}
         else:
             return ""
         
