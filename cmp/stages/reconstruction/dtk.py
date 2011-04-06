@@ -137,6 +137,34 @@ def compute_dts():
     
     runCmd (dti_cmd, log )
 
+    # convert scalar maps
+
+    if not op.exists(op.join(dti_out_path, "dti_fa.nii")):
+        log.error("Unable to calculate FA map!")
+    else:
+        src = op.join(dti_out_path, "dti_fa.nii")
+        dst = op.join(gconf.get_cmp_scalars(), 'dti_fa.nii.gz')
+
+        log.info("Gzip compress...")
+        f_in = open(src, 'rb')
+        f_out = gzip.open(dst, 'wb')
+        f_out.writelines(f_in)
+        f_out.close()
+        f_in.close()
+
+    if not op.exists(op.join(dti_out_path, "dti_adc.nii")):
+        log.error("Unable to calculate ADC map!")
+    else:
+        src = op.join(dti_out_path, "dti_adc.nii")
+        dst = op.join(gconf.get_cmp_scalars(), 'dti_adc.nii.gz')
+
+        log.info("Gzip compress...")
+        f_in = open(src, 'rb')
+        f_out = gzip.open(dst, 'wb')
+        f_out.writelines(f_in)
+        f_out.close()
+        f_in.close()
+
     # XXX: what does it reconstruct (filename?)
     #if not op.exists(op.join(odf_out_path, "dsi_odf.nii.gz")):
     #    log.error("Unable to reconstruct ODF!")
