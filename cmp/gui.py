@@ -6,7 +6,8 @@
 
 """ Defines the graphical user interface to the Connectome Mapper
 """
-import os.path    
+import os.path
+import traceback
 #import threading
 
 from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
@@ -62,12 +63,13 @@ class CMPGUIHandler ( Handler ):
             try:
                 #info.ui.control.Show(False)
                 cmp.connectome.mapit(object)
+            except Exception, e:
+                # output traceback to error log and on the screen
+                err = traceback.format_exc()
+                object.get_logger().error("Exception occured: " + str(e))
+                object.get_logger().error(err)
             finally:
                 pass #info.ui.control.Show(True)
-                
-            # show the gui again
-            #info.ui.control.Show(True)
-            #print "after mapit"
             
 
 class CMPGUI( PipelineConfiguration ):

@@ -23,15 +23,28 @@ def getLog(fpath):
             os.makedirs(op.dirname(fpath))
         except:
             pass
-    
+
+    errfpath = fpath + '.error'
+    if not op.exists(errfpath):
+        try:
+            os.makedirs(op.dirname(errfpath))
+        except:
+            pass
+
     logFile = fpath
+    logFileErr = errfpath
     
     filehandler = logging.FileHandler( logFile )
     filehandler.setLevel( logging.DEBUG )
     filehandler.setFormatter( logFormatter )
-    
+
+    filehandler2 = logging.FileHandler( logFileErr )
+    filehandler2.setLevel( logging.ERROR )
+    filehandler2.setFormatter( logFormatter )
+
     logging.getLogger( '' ).addHandler( consolehandler )
     logging.getLogger( '' ).addHandler( filehandler )
+    logging.getLogger( '' ).addHandler( filehandler2 )
     
     mainlog = logging.getLogger( "main" )
     mainlog.setLevel( logging.DEBUG )
