@@ -58,7 +58,7 @@ if not 'extra_setuptools_args' in globals():
 
 def main(**extra_args):
     from distutils.core import setup
-    
+    from cmp.info import __version__
     # regenerate protoc
     import subprocess
     protofname = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'cmp', 'pipeline', 'pipeline.proto')
@@ -72,9 +72,10 @@ def main(**extra_args):
                                   stderr = subprocess.STDOUT )
     print "protoc return code:", process
     
-    setup(name='CMP',
-          version='1.0',
-          description='Connectome Mapper',
+    setup(name='Connectome Mapper',
+          version=__version__,
+          description="""Connectome Mapper implements a full diffusion MRI processing pipeline, from raw Diffusion/T1/T2 """ + \
+          """data to multi-resolution connection matrices. The Connectome Mapper is part of the Connectome Mapping Toolkit.""",
           author='EPFL LTS5 Diffusion Group',
           author_email='info@connectomics.org',
           url='http://www.connectomics.org/',

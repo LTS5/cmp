@@ -4,6 +4,8 @@
 #
 #  This software is distributed under the open-source license Modified BSD.
 
+from .info import __version__
+
 # PREPROCESSING
 import stages.preprocessing.organize as preprocessing
 
