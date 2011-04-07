@@ -159,7 +159,7 @@ def fiber_tracking_qball():
         param = '--angle 60  --seeds 32'
 
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_streamline')
-    dtb_cmd = '%s --dir %s --wm %s  --out %s %s' % (cmd, op.join(odf_out_path, 'qball_dir.nii'),
+    dtb_cmd = '%s --dir %s --wm %s  --out %s %s' % (cmd, op.join(odf_out_path, 'hardi_dir.nii'),
                             # use the white matter mask after registration!
                             op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
                             op.join(fibers_path, 'streamline.trk'), param )
