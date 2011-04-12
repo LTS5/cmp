@@ -287,7 +287,35 @@ def reorient_t2(model):
     elif model == 'DTI':
         reorient(op.join(nifti_dir, 'T2.nii.gz'), op.join(nifti_dir, 'DTI.nii.gz'), log)
     
-    
+
+def inspect(gconf):
+    """ Inspect the results of this stage """
+    log = gconf.get_logger()
+
+
+    if gconf.do_convert_T1:
+        log.info("Check T1 raw data")
+        fsl_view_cmd = 'fslview %s' % (op.join(gconf.get_nifti(), 'T1.nii.gz') )
+        runCmd( fsl_view_cmd, log )
+        
+    if gconf.do_convert_T2:
+        log.info("Check T2 raw data")
+        fsl_view_cmd = 'fslview %s' % (op.join(gconf.get_nifti(), 'T2.nii.gz') )
+        runCmd( fsl_view_cmd, log )
+
+    if gconf.do_convert_diffusion:
+        log.info("Check raw diffusion data")
+        if gconf.diffusion_imaging_model == 'DSI':
+            fsl_view_cmd = 'fslview %s' % (op.join(gconf.get_nifti(), 'DSI.nii.gz') )
+            runCmd( fsl_view_cmd, log )
+        elif gconf.diffusion_imaging_model == 'DTI':
+            fsl_view_cmd = 'fslview %s' % (op.join(gconf.get_nifti(), 'DTI.nii.gz') )
+            runCmd( fsl_view_cmd, log )
+        elif gconf.diffusion_imaging_model == 'QBALL':
+            fsl_view_cmd = 'fslview %s' % (op.join(gconf.get_nifti(), 'QBALL.nii.gz') )
+            runCmd( fsl_view_cmd, log )
+
+            
 def run(conf):
     """ Run the first dicom converter step
     

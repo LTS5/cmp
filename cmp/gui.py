@@ -87,7 +87,8 @@ class CMPGUI( PipelineConfiguration ):
     save = Button
     load = Button
     help = Button
-    
+
+    inspect_dicomconverter = Button
     inspect_registration = Button
     inspect_segmentation = Button
     inspect_whitemattermask = Button
@@ -123,7 +124,7 @@ class CMPGUI( PipelineConfiguration ):
                         ),
                         VGroup(
                         #Item('inspect_rawT1', label = 'Inspect Raw T1', show_label = False),
-                        #Item('inspect_rawdiff', label = 'Inspect Raw Diffusion', show_label = False),       
+                        Item('inspect_dicomconverter', label = 'Inspect raw data', show_label = False),
                         Item('inspect_registration', label = 'Registration', show_label = False),
                         Item('inspect_segmentation', label = 'Segmentation', show_label = False),
                         #Item('inspect_whitemattermask', label = 'White Matter Mask', show_label = False),
@@ -476,7 +477,10 @@ class CMPGUI( PipelineConfiguration ):
             self.parcellation = self._get_lausanne_parcellation(parcel = "Lausanne2008")
         else:
             self.parcellation = self._get_lausanne_parcellation(parcel = "NativeFreesurfer")
-    
+
+    def _inspect_dicomconverter_fired(self):
+        cmp.dicomconverter.inspect(self)
+
     def _inspect_registration_fired(self):
         cmp.registration.inspect(self)
 
