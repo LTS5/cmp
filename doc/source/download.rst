@@ -38,6 +38,6 @@ By downloading Connectome Mapper, you agree to the terms and conditions of the M
 
 .. note:: Please `REGISTER <http://www.cmtk.org/users/register>`_ when before you start to use Connectome Mapper or the Connectome Mapping Toolkit. This will help us improving the software.
 
-Download the Connectome Mapper `source code tarball (release-1.0) <https://github.com/LTS5/cmp/tarball/release-1.0>`_ from our GitHub repository.
-As a developer, you might want to clone the repository directly from `GitHub <http://github.com/LTS5/cmp>`_.
+`I agree on the terms and conditions of the connectome mapper license and want to download the source code <https://github.com/LTS5/cmp/tarball/release-1.0.1>`_
+
 
