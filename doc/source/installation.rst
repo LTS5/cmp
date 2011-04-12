@@ -34,13 +34,17 @@ We need the Python package Nibabel and Python-DICOM for neuroimaging file input-
 
 	sudo apt-get install python-nibabel python-nibabel-doc python-dicom
 
-We need Traits and Traits GUI to create the user interface::
+We need Traits, Traits GUI, and setuptools to create the user interface::
 
-	sudo apt-get install python-traits python-traitsgui
+	sudo apt-get install python-traits python-traitsgui python-setuptools
 
 In addition, we require NetworkX to store the connection graphs::
 
 	sudo apt-get install python-networkx
+
+And for plotting, we install matplotlib::
+
+    sudo apt-get install python-matplotlib
 
 If you have not yet done so, install IPython for an advanced interactive Python shell::
 
@@ -66,7 +70,8 @@ Then, try to import the Connectome Mapper::
 
     import cmp
 
-Importing should now give you an error. If it does, please send an email to the `CMTK-users group <http://groups.google.com/group/cmtk-users>`_.
+Importing should not give you an error. If it does, please send an email to the `CMTK-users group <http://groups.google.com/group/cmtk-users>`_
+with the traceback shown.
 
 .. note:: The Connectome Mapper is not yet packaged in NeuroDebian. As soon as this happens, you will then be
           able to install with *sudo apt-get install connectomemapper*

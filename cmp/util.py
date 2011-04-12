@@ -15,7 +15,7 @@ import networkx as nx
 try:
     from pylab import imshow, show, cm, figure
 except ImportError:
-    log.info("matplotlib not available. Can not plot matrix")
+    print("matplotlib not available. Can not plot matrix")
 
 class KeyValue(HasStrictTraits):
     key = Str
