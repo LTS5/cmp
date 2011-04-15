@@ -127,8 +127,8 @@ def fiber_tracking_dti():
     
     # streamline tractography
     # streamline tractography
-    if not gconf.streamline_param_dti == '':
-        param = gconf.streamline_param_dti
+    if not gconf.streamline_param == '':
+        param = gconf.streamline_param
     else:
         param = '--angle 60  --seeds 32'
         
@@ -153,8 +153,8 @@ def fiber_tracking_qball():
     odf_out_path = gconf.get_cmp_rawdiff_reconout()
 
     # streamline tractography
-    if not gconf.streamline_param_dti == '':
-        param = gconf.streamline_param_dti
+    if not gconf.streamline_param == '':
+        param = gconf.streamline_param
     else:
         param = '--angle 60  --seeds 32'
 

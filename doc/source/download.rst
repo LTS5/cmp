@@ -36,7 +36,7 @@ By downloading Connectome Mapper, you agree to the terms and conditions of the M
 	OR IMAGES GENERATED THROUGH THE USE OF THE SOFTWARE BE USED IN THE
 	PROVISION OR PATIENT CARE.
 
-.. note:: Please `REGISTER <http://www.cmtk.org/users/register>`_ when before you start to use Connectome Mapper or the Connectome Mapping Toolkit. This will help us improving the software.
+.. note:: Please `REGISTER <http://www.cmtk.org/users/register>`_  before you start to use Connectome Mapper or the Connectome Mapping Toolkit. This will help us improving the software.
 
 `I agree on the terms and conditions of the connectome mapper license and want to download the source code <https://github.com/LTS5/cmp/tarball/release-1.0.2>`_
 
