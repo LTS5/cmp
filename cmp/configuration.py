@@ -105,9 +105,9 @@ class PipelineConfiguration(traits.HasTraits):
     created = traits.Date()
     modified = traits.Date()
     license =  traits.Str()
-    rights = traits.Str()
+#    rights = traits.Str()
     reference = traits.Str()
-    relation =  traits.Str()
+#    relation =  traits.Str()
     species = traits.Str('Homo sapiens')
     description = traits.Str()
 
