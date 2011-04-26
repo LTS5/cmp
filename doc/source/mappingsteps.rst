@@ -40,10 +40,8 @@ metadata fields are derived from the `Dublin Core Metadata Standards <http://dub
 * Publisher: Institution that published the dataset.
 * Created: Dataset creation date
 * Modified: Dataset modification date
-* Rights: Like copyrights
 * License: The license of the data
 * References: E.g. Reference to a journal paper which used this dataset
-* Relation: Related resources, such as an URL
 * Species: Binomal species name
 * Email: Email address of the contact person of the dataset.
 * Project description: A short general project description.

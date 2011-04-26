@@ -1,5 +1,15 @@
 {% extends "!layout.html" %}
 
+{% block rootrellink %}
+<li class="left" ><a href="http://www.cmtk.org/" target="_top" title="Connectome Mapping Toolkit">Connectome Mapping Toolkit</a></li>
+{% endblock %}
+
+{% block sidebarlogo %}
+{{ super() }}
+<i>Latest Release:</i><br />
+Version: {{ release }}
+{% endblock %}
+
 {%- block extrahead %}
 {{ super() }}
 <script type="text/javascript">
@@ -29,3 +39,5 @@ the JavaScript coming from www.google-analytics.com.
 </script>
 </div>
 {% endblock %}
+
+
