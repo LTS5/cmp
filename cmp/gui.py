@@ -303,9 +303,20 @@ class CMPGUI( PipelineConfiguration ):
         label = "Fiber Filtering",                         
         )
 
+    applyregistration_group = Group(
+        VGroup(
+               Item('parcellation_scheme', label="Used Parcellation Scheme"),
+               show_border = True,
+               enabled_when = "active_applyregistration"
+            ),
+        visible_when = "active_applyregistration",
+        label = "Apply Registration",
+        )
+
     connectioncreation_group = Group(
         VGroup(
                Item('compute_curvature', label="Compute curvature"),
+               Item('parcellation_scheme', label="Used Parcellation Scheme"),
                show_border = True,
                enabled_when = "active_connectome"
             ),
@@ -358,6 +369,7 @@ class CMPGUI( PipelineConfiguration ):
               registration_group,
               segementation_group,
               parcellation_group,
+              applyregistration_group,
               reconstruction_group,
               tractography_group,
               fiberfilter_group,
