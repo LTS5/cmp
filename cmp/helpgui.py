@@ -9,11 +9,13 @@ from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
     
 from enthought.traits.ui.api import View, Item, HGroup, Handler, \
                     message, spring, Group, VGroup, TableEditor
-                    
+
+from cmp import __version__
+
 desc = {
 'About' : """
 Connectome Mapper
-Version 1.0
+Version """ + __version__ + """
 
 Copyright (C) 2011, Ecole Polytechnique Federale de Lausanne (EPFL) and
 Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland
