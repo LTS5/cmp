@@ -14,13 +14,14 @@ import datetime as dt
 from cmp.logme import getLog
 from cmp.pipeline import pipeline_status
 from cmp.util import KeyValue
-
+from .info import __version__
 try:
     dipy_here = True
     import dipy
 except ImportError:
     dipy_here = False
-    
+
+
 class PipelineConfiguration(traits.HasTraits):
        
     # project settings
@@ -28,7 +29,7 @@ class PipelineConfiguration(traits.HasTraits):
         
     # project metadata (for connectome file)
     project_metadata = traits.Dict(desc="project metadata to be stored in the connectome file")
-    generator = traits.Enum( "cmp 1.0", ["cmp 1.0"] )
+    generator = traits.Enum( "cmp %s" % __version__, ["cmp %s" % __version__] )
     
     # parcellation scheme
     parcellation_scheme = traits.Enum("NativeFreesurfer", ["Lausanne2008", "NativeFreesurfer"], desc="used parcellation scheme")
