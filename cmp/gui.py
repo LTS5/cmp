@@ -467,16 +467,20 @@ class CMPGUI( PipelineConfiguration ):
     def _subject_timepoint_changed(self, value):
         if self.subject_name != '':
             self.subject_workingdir = os.path.join(self.project_dir, self.subject_name, value)
+        self.subject_timepoint = value
 
     def _subject_workingdir_changed(self, value):
-        # fill in the subject name and timepoint
-        splitpath = os.path.split(value)
+        if self.subject_name == '' and self.subject_timepoint == '':
+            # fill in the subject name and timepoint
+            splitpath = os.path.split(value)
 
-        tp =  splitpath[1]
-        name = os.path.split(splitpath[0])[1]
+            tp =  splitpath[1]
+            name = os.path.split(splitpath[0])[1]
 
-        self.subject_name = name
-        self.subject_timepoint = tp
+            self.subject_name = name
+            self.subject_timepoint = tp
+            
+        self.subject_workingdir = value
 
     def _gradient_table_changed(self, value):
         if value == 'custom':

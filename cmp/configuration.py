@@ -29,7 +29,7 @@ class PipelineConfiguration(traits.HasTraits):
         
     # project metadata (for connectome file)
     project_metadata = traits.Dict(desc="project metadata to be stored in the connectome file")
-    generator = traits.Enum( "cmp %s" % __version__, ["cmp %s" % __version__] )
+    generator = traits.Enum( "cmp %s" % __version__, ["cmp %s" % __version__, "cmp 1.0"] )
     
     # parcellation scheme
     parcellation_scheme = traits.Enum("NativeFreesurfer", ["Lausanne2008", "NativeFreesurfer"], desc="used parcellation scheme")
