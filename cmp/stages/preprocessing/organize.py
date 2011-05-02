@@ -8,7 +8,8 @@ import os, os.path as op
 import sys
 from time import time
 from ...logme import *
-    
+from ...info import __version__
+
 def log_system_setup():
     
     uname_cmd = 'uname -a'
@@ -25,6 +26,9 @@ def log_system_setup():
     # dtk version
     odf_cmd = 'odf_recon -h'
 #    runCmd( odf_cmd, log )
+
+    # log cmp version
+    log.info("Connectome Mapper Version: %s" % __version__ )
     
 def create_folders():
     

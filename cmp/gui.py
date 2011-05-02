@@ -102,7 +102,7 @@ class CMPGUI( PipelineConfiguration ):
     main_group = Group(
                     VGroup(
                     Item('project_dir', label='Project Directory:', tooltip = 'Please select the root folder of your project'),
-                    Item('generator', label='Generator', ),
+                    #Item('generator', label='Generator', ),
                     Item('diffusion_imaging_model', label='Imaging Modality'),
                       label="Project Settings"
                     ),
