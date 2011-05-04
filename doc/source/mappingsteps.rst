@@ -65,6 +65,13 @@ Metadata
     Examples are age, handedness etc.
 
 
+Create Folder
+-------------
+
+This stage creates the folder structure for your subject and timepoint. You can run this stage before you added
+the DICOM files in the corresponding RAWDATA folders. By modifying subject name and timepoint, you can quickly create
+the set of folders for your study.
+
 DICOM Converter
 ---------------
 
