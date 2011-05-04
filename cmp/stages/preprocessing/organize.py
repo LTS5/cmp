@@ -31,8 +31,15 @@ def log_system_setup():
     log.info("Connectome Mapper Version: %s" % __version__ )
     
 def create_folders():
-    
+
+    # check if the subject folder with the raw data folders does exist
+    # if not, create it
+
     paths = [
+        gconf.get_subj_dir(),
+        gconf.get_raw_diffusion(),
+        gconf.get_rawt1(),
+
         gconf.get_nifti(),
         gconf.get_fs(),
         gconf.get_cmp_tracto_mask(),

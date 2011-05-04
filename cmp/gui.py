@@ -108,6 +108,7 @@ class CMPGUI( PipelineConfiguration ):
                     ),
                     HGroup(
                         VGroup(
+                        Item('active_createfolder', label = 'Create Folder'),
                         Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
                         Item('active_registration', label = 'Registration'),
                         Item('active_segmentation', label = 'Segmentation'),

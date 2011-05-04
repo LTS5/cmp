@@ -86,8 +86,8 @@ class PipelineConfiguration(traits.HasTraits):
                         KeyValue(key='', value=''),
                         KeyValue(key='', value=''),]
     
-    
-    active_dicomconverter = traits.Bool(True)
+    active_createfolder = traits.Bool(True)
+    active_dicomconverter = traits.Bool(False)
     active_registration = traits.Bool(False)
     active_segmentation = traits.Bool(False)
     active_parcellation = traits.Bool(False)
@@ -266,9 +266,9 @@ class PipelineConfiguration(traits.HasTraits):
         
         # check metadata
         if self.creator == '':
-            raise Exception('You need to enter author for metadata!')
+            raise Exception('You need to enter creator metadata!')
         if self.publisher == '':
-            raise Exception('You need to enter institution for metadata!')        
+            raise Exception('You need to enter publisher metadata!')
         if self.email == '':
             raise Exception('You need to enter email of a contact person!')
         
@@ -285,21 +285,21 @@ class PipelineConfiguration(traits.HasTraits):
         if self.subject_workingdir == '':
             msg = 'No working directory defined for subject'
             raise Exception(msg)
-        else:
-            wdir = self.get_subj_dir()
-            if not op.exists(wdir):
-                msg = 'Working directory %s does not exists for subject' % (wdir)
-                raise Exception(msg)
-            else:
-                wdiff = op.join(self.get_raw_diffusion())
-                print wdiff
-                if not op.exists(wdiff):
-                    msg = 'Diffusion MRI subdirectory %s does not exists for the subject' % wdiff
-                    raise Exception(msg)
-                wt1 = op.join(self.get_rawt1())
-                if not op.exists(wt1):
-                    msg = 'Structural MRI subdirectory %s T1 does not exist in RAWDATA' % wt1
-                    raise Exception(msg)
+#        else:
+#            wdir = self.get_subj_dir()
+#            if not op.exists(wdir):
+#                msg = 'Working directory %s does not exists for subject' % (wdir)
+#                raise Exception(msg)
+#            else:
+#                wdiff = op.join(self.get_raw_diffusion())
+#                print wdiff
+#                if not op.exists(wdiff):
+#                    msg = 'Diffusion MRI subdirectory %s does not exists for the subject' % wdiff
+#                    raise Exception(msg)
+#                wt1 = op.join(self.get_rawt1())
+#                if not op.exists(wt1):
+#                    msg = 'Structural MRI subdirectory %s T1 does not exist in RAWDATA' % wt1
+#                    raise Exception(msg)
         
     def get_cmp_home(self):
         """ Return the cmp home path """
