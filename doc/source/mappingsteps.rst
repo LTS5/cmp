@@ -9,8 +9,6 @@ Project settings / Main Tab
 
 Project directory
     Select the root folder of your project which contains the subfolders for all the subjects of this project.
-Generator
-    Which version of the mapper to use. Defaults to cmp 1.0
 Imaging Modality
     What type of data to process. Currently supports DSI, QBALL and DTI data.
 
@@ -37,13 +35,13 @@ Enter relevant project-wide metadata. Keep in mind that good metadata eases the 
 metadata fields are derived from the `Dublin Core Metadata Standards <http://dublincore.org/documents/dcmi-terms/>`_
 
 * Creator: The dataset creator.
+* Email: Email address of the contact person of the dataset.
 * Publisher: Institution that published the dataset.
 * Created: Dataset creation date
 * Modified: Dataset modification date
 * License: The license of the data
 * References: E.g. Reference to a journal paper which used this dataset
 * Species: Binomal species name
-* Email: Email address of the contact person of the dataset.
 * Project description: A short general project description.
 
 
