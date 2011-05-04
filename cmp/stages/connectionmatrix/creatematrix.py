@@ -181,7 +181,7 @@ def cmat():
                 startROI = int(roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]])
                 endROI   = int(roiData[endpoints[i, 1, 0], endpoints[i, 1, 1], endpoints[i, 1, 2]])
             except IndexError:
-                log.error("AN INDEXERROR EXCEPTION OCCURED FOR FIBER %s. PLEASE CHECK ENDPOINT GENERATION" % i)
+                log.info("An index error occured for fiber %s. This means that the fiber start or endpoint is outside the volume. Continue." % i)
                 continue
             
             # Filter
