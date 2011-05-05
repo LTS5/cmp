@@ -278,3 +278,7 @@ E-Mail notification
 Environment variables
     They are recognized by your current .bashrc settings. These fields should not be empty, otherwise you have to add the
     missing environment variables in your environment. Changing the paths only in this option is not sufficient.
+
+.. warning::
+    If you want to explore the pipeline parameters, beware that the output of the stages will be overwritten.
+    Alternatively, you can duplicate the data folders.
