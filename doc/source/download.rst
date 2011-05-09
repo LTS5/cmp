@@ -39,8 +39,12 @@ By downloading Connectome Mapper, you agree to the terms and conditions of the M
 .. note:: Please `REGISTER <http://www.cmtk.org/users/register>`_  before you start to use Connectome Mapper or the Connectome Mapping Toolkit. This will help us improving the software.
 
 .. `I agree on the terms and conditions of the connectome mapper license and want to download the source code <https://github.com/LTS5/cmp/tarball/release-1.0.3>`_
+.. <a href="https://github.com/LTS5/cmp/tarball/release-1.0.3" onClick="recordOutboundLink(this, 'Outbound Links', 'release-1.0.3');return false;">I agree on the terms and conditions of the connectome mapper license and want to download the source code</a>
 
 .. raw:: html
 
-   <a href="https://github.com/LTS5/cmp/tarball/release-1.0.3" onClick="recordOutboundLink(this, 'Outbound Links', 'release-1.0.3');return false;">I agree on the terms and conditions of the connectome mapper license and want to download the source code</a>
+   <a href="https://github.com/LTS5/cmp/tarball/release-1.0.3" onclick="_gaq.push(['_trackEvent', 'release-1.0.3', 'download']);">I agree on the terms and conditions of the connectome mapper license and want to download the source code</a>
+
+
+
 
