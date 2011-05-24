@@ -163,6 +163,8 @@ def run(conf):
         
     cleanup_symlinks()
 
+    log.info("Module took %s seconds to process." % (time()-start))
+
     if not len(gconf.emailnotify) == 0:        
         msg = ["Freesurfer Segmentation", int(time()-start)]
         send_email_notification(msg, gconf, log)
