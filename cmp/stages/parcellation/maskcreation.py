@@ -162,9 +162,13 @@ def create_roi():
                         
         # store volume eg in ROI_scale33.nii.gz
         out_roi = op.join(fs_dir, 'label', 'ROI_%s.nii.gz' % parkey)
-        
+        # update the header
+		hdr = aseg.get_header()
+		hdr2 = hdr.copy()
+		hdr2.set_data_dtype(np.uint16)
+
         log.info("Save output image to %s" % out_roi)
-        img = ni.Nifti1Image(rois, aseg.get_affine(), aseg.get_header())
+        img = ni.Nifti1Image(rois, aseg.get_affine(), hdr2)
         ni.save(img, out_roi)
     
     log.info("[ DONE ]")  
