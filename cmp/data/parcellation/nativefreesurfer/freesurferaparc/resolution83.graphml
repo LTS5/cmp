@@ -782,7 +782,7 @@
       <data key="d10">http://www.connectome.ch/wiki/itRes83_LH_(Homo sapiens)</data>
       <data key="d11">(-283.32781982421875, -89.983329772949219, 0.0)</data>
     </node>
-    <node id="34 ">
+    <node id="34">
       <data key="d0">250,150,200</data>
       <data key="d1">(46.165424346923828, -22.94526481628418, 6.5432724952697754)</data>
       <data key="d2">(46.020484924316406, -21.671810150146484, 8.4282712936401367)</data>
