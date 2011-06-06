@@ -210,7 +210,6 @@ def cmat():
             final_fiberlabels.append( [ startROI, endROI ] )
             final_fibers_idx.append(i)
 
-
             # Add edge to graph
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
@@ -242,8 +241,8 @@ def cmat():
             # compute mean/std of fiber measure
             idx = np.where( (final_fiberlabels_array[:,0] == int(u)) & (final_fiberlabels_array[:,1] == int(v)) )[0]
 
-            di['fiber_length_mean'] = np.mean(final_fiberlength_array[idx])
-            di['fiber_length_std'] = np.std(final_fiberlength_array[idx])
+            di['fiber_length_mean'] = float( np.mean(final_fiberlength_array[idx]) )
+            di['fiber_length_std'] = float( np.std(final_fiberlength_array[idx]) )
 
             G.add_edge(u,v, di)
 
