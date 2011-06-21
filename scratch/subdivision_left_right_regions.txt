@@ -1,0 +1,30 @@
+scale500
+	R cortical 1:501
+	R subcortical 502:508
+	L cortical 509:1007
+	L subcortical 1008:1014
+	Brain Stem 1015
+scale250
+	R cortical 1:223
+	R subcortical 224:230
+	L cortical 231:455
+	L subcortical 456:462
+	Brain Stem 463
+scale125
+	R cortical 1:108
+	R subcortical 109:115
+	L cortical 116:226
+	L subcortical 227:233
+	Brain Stem 234
+scale60
+	R cortical 1:57
+	R subcortical 58:64
+	L cortical 65:121
+	L subcortical 122:128
+	Brain Stem 129
+scale33
+	R cortical 1:34
+	R subcortical 35:41
+	L cortical 42:75
+	L subcortical 76:82
+	Brain Stem 83
