@@ -376,7 +376,7 @@ class PipelineConfiguration(traits.HasTraits):
 
         # check if no files and throw exception
         if len(difiles) == 0:
-            raise Exception('Could not find any DICOM files in folder %s', pat )
+            raise Exception('Could not find any DICOM files in folder %s' % pat )
 
         return difiles
 
