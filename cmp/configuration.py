@@ -67,11 +67,13 @@ class PipelineConfiguration(traits.HasTraits):
     
     # dicom converter
     do_convert_diffusion = traits.Bool(True)
+    do_convert_T1 = traits.Bool(True)
+    do_convert_T2 = traits.Bool(True)
+    
+    # DEPRECATED:
     subject_raw_glob_diffusion = traits.Str( "*.*" )
     subject_raw_glob_T1 = traits.Str( "*.*" )
-    do_convert_T1 = traits.Bool(True)
     subject_raw_glob_T2 = traits.Str( "*.*" )
-    do_convert_T2 = traits.Bool(True)
     extract_diffusion_metadata = traits.Bool(False)
 
     # subject
@@ -334,7 +336,7 @@ class PipelineConfiguration(traits.HasTraits):
             return self.subject_logger
         
     def get_rawglob(self, modality):
-        """ Get the file name endings for modality """
+        """ DEPRECATED: Get the file name endings for modality """
         
         if modality == 'diffusion':
             if not self.subject_raw_glob_diffusion == '':
@@ -353,6 +355,30 @@ class PipelineConfiguration(traits.HasTraits):
                 return self.subject_raw_glob_T2
             else:
                 raise Exception('No raw_glob_T2 defined for subject')
+
+    def get_dicomfiles(self, modality):
+        """ Get a list of dicom files for the requested modality. Tries to
+        discover them automatically
+        """
+        from glob import glob
+        if modality == 'diffusion':
+            pat = self.get_raw_diffusion()
+        elif modality == 'T1':
+            pat = self.get_rawt1()
+        elif modality == 'T2':
+            pat = self.get_rawt2()
+
+        # discover files with *.* and *
+        difiles = sorted( glob(op.join(pat, '*.*')) + glob(op.join(pat, '*')) )
+
+        # exclude potential .nii and .nii.gz files
+        difiles = [e for e in difiles if not e.endswith('.nii') and not e.endswith('.nii.gz')]
+
+        # check if no files and throw exception
+        if len(difiles) == 0:
+            raise Exception('Could not find any DICOM files in folder %s', pat )
+
+        return difiles
 
     def get_rawt1(self):
         """ Get raw structural MRI T1 path for subject """

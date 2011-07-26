@@ -45,8 +45,6 @@ def diff2nifti_dsi_unpack():
     raw_dir = op.join(gconf.get_rawdata())    
     nifti_dir = op.join(gconf.get_nifti())
     dsi_dir = op.join(raw_dir, 'DSI')
-    raw_glob = gconf.get_rawglob('diffusion')
-    diffme = gconf.get_diffusion_metadata()
 
     log.info("Convert DSI ...")
     # check if .nii.gz / .nii.gz is already available
@@ -54,11 +52,7 @@ def diff2nifti_dsi_unpack():
         shutil.copy(op.join(dsi_dir, 'DSI.nii.gz'), op.join(nifti_dir, 'DSI.nii.gz'))
     else:
         # read data
-        files = glob(op.join(dsi_dir, raw_glob))
-        if len(files) == 0:
-            raise Exception('No files found for %s. Maybe change raw_glob variable for subject? (case-sensitive!)' % op.join(dsi_dir, raw_glob) )
-		
-        first = sorted(files)[0]
+        first = gconf.get_dicomfiles('diffusion')[0]
         diff_cmd = 'diff_unpack %s %s' % (first,
                                  op.join(nifti_dir, 'DSI.nii.gz'))            
         runCmd(diff_cmd, log)
@@ -98,7 +92,6 @@ def diff2nifti_dti_unpack():
     nifti_dir = op.join(gconf.get_nifti())
     diffme = gconf.get_diffusion_metadata()
     dti_dir = op.join(raw_dir, 'DTI')
-    raw_glob = gconf.get_rawglob('diffusion')
 
     log.info("Convert DTI ...") 
     # check if .nii.gz / .nii.gz is already available
@@ -106,7 +99,7 @@ def diff2nifti_dti_unpack():
         shutil.copy(op.join(dti_dir, 'DTI.nii.gz'), op.join(nifti_dir, 'DTI.nii.gz'))
     else:
         # read data
-        first = sorted(glob(op.join(dti_dir, raw_glob)))[0]
+        first = gconf.get_dicomfiles('diffusion')[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'DTI.nii.gz'))            
         runCmd(diff_cmd, log)
 
@@ -116,7 +109,6 @@ def diff2nifti_qball_unpack():
     nifti_dir = op.join(gconf.get_nifti())
     diffme = gconf.get_diffusion_metadata()
     dti_dir = op.join(raw_dir, 'QBALL')
-    raw_glob = gconf.get_rawglob('diffusion')
 
     log.info("Convert QBALL ...")
     # check if .nii.gz / .nii.gz is already available
@@ -124,7 +116,7 @@ def diff2nifti_qball_unpack():
         shutil.copy(op.join(dti_dir, 'QBALL.nii.gz'), op.join(nifti_dir, 'QBALL.nii.gz'))
     else:
         # read data
-        first = sorted(glob(op.join(dti_dir, raw_glob)))[0]
+        first = gconf.get_dicomfiles('diffusion')[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'QBALL.nii.gz'))
         runCmd(diff_cmd, log)
 
@@ -245,8 +237,7 @@ def t12nifti_diff_unpack():
         log.info("T1.nii.gz already exists. No unpacking.")
         shutil.copy(op.join(t1_dir, 'T1.nii.gz'), op.join(nifti_dir, 'T1.nii.gz'))
     else:
-        raw_glob = gconf.get_rawglob('T1')
-        first = sorted(glob(op.join(t1_dir, raw_glob)))[0]
+        first = gconf.get_dicomfiles('T1')[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T1.nii.gz'))
         runCmd(diff_cmd, log)
         log.info("Dataset 'T1.nii.gz' succesfully created!")
@@ -263,8 +254,7 @@ def t22nifti_diff_unpack():
         log.info("T2.nii.gz already exists. No unpacking.")
         shutil.copy(op.join(t2_dir, 'T2.nii.gz'), op.join(nifti_dir, 'T2.nii.gz'))
     else:
-        raw_glob = gconf.get_rawglob('T2')
-        first = sorted(glob(op.join(t2_dir, raw_glob)))[0]
+        first = gconf.get_dicomfiles('T2')[0]
         diff_cmd = 'diff_unpack %s %s' % (first, op.join(nifti_dir, 'T2.nii.gz'))
         runCmd (diff_cmd, log)        
         log.info("Dataset 'T2.nii.gz' successfully created!")
@@ -335,20 +325,20 @@ def run(conf):
     if gconf.diffusion_imaging_model == 'DSI' and gconf.do_convert_diffusion:
         diff2nifti_dsi_unpack()
         dsi_resamp()
-        if gconf.extract_diffusion_metadata:
-            dsi2metadata()
+        #if gconf.extract_diffusion_metadata:
+        #    dsi2metadata()
         
     elif gconf.diffusion_imaging_model == 'DTI' and gconf.do_convert_diffusion:
         diff2nifti_dti_unpack()
         dti_resamp()
-        if gconf.extract_diffusion_metadata:
-            dti2metadata()
+        #if gconf.extract_diffusion_metadata:
+        #    dti2metadata()
 
     elif gconf.diffusion_imaging_model == 'QBALL' and gconf.do_convert_diffusion:
         diff2nifti_qball_unpack()
         qball_resamp()
-        if gconf.extract_diffusion_metadata:
-            qball2metadata()
+        #if gconf.extract_diffusion_metadata:
+        #    qball2metadata()
     
     if gconf.do_convert_T1:
         t12nifti_diff_unpack()
@@ -369,30 +359,26 @@ def declare_inputs(conf):
     
     stage = conf.pipeline_status.GetStage(__name__)
 
-    raw_dir = op.join(conf.get_rawdata())        
-    nifti_dir = op.join(conf.get_nifti())
-    dsi_dir = op.join(raw_dir, 'DSI')
-    raw_glob_diffusion = conf.get_rawglob('diffusion')
-    raw_glob_T1 = conf.get_rawglob('T1')
-    raw_glob_T2 = conf.get_rawglob('T2')
-    diffme = conf.get_diffusion_metadata()
-    dti_dir = op.join(raw_dir, 'DTI')
-    t1_dir = op.join(raw_dir, 'T1')
-    t2_dir = op.join(raw_dir, 'T2')
-
-    print ("globs: (%s, %s, %s" % (raw_glob_diffusion, raw_glob_T1, raw_glob_T2))        
     if conf.diffusion_imaging_model == 'DSI'  and conf.do_convert_diffusion:
-        conf.pipeline_status.AddStageInput(stage, dsi_dir, raw_glob_diffusion, 'dsi-dcm')        
+        first = conf.get_dicomfiles( 'diffusion')[0]
+        pat, file = op.split(first)
+        conf.pipeline_status.AddStageInput(stage, pat, file, 'dsi-dcm')
                 
     elif conf.diffusion_imaging_model == 'DTI' and conf.do_convert_diffusion:
-        conf.pipeline_status.AddStageInput(stage, dti_dir, raw_glob_diffusion, 'dti-dcm')
+        first = conf.get_dicomfiles( 'diffusion')[0]
+        pat, file = op.split(first)
+        conf.pipeline_status.AddStageInput(stage, pat, file, 'dti-dcm')
         
-    if conf.do_convert_T1:        
-        conf.pipeline_status.AddStageInput(stage, t1_dir, raw_glob_T1, 't1-dcm')
+    if conf.do_convert_T1:
+        first = conf.get_dicomfiles( 'T1')[0]
+        pat, file = op.split(first)
+        conf.pipeline_status.AddStageInput(stage, pat, file, 't1-dcm')
     
     if conf.do_convert_T2:
-        conf.pipeline_status.AddStageInput(stage, t2_dir, raw_glob_T2, 't2-dcm')        
-                
+        first = conf.get_dicomfiles( 'T2')[0]
+        pat, file = op.split(first)
+        conf.pipeline_status.AddStageInput(stage, pat, file, 't2-dcm')
+
     
 def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""

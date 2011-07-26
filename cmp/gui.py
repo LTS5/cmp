@@ -177,12 +177,12 @@ class CMPGUI( PipelineConfiguration ):
     dicomconverter_group = Group(
         VGroup(
             Item('do_convert_diffusion', label="Convert Diffusion data?"),
-            Item('subject_raw_glob_diffusion',label="Diffusion File Pattern", enabled_when = 'do_convert_diffusion'),
+            #Item('subject_raw_glob_diffusion',label="Diffusion File Pattern", enabled_when = 'do_convert_diffusion'),
             Item('do_convert_T1', label="Convert T1 data?"),
-            Item('subject_raw_glob_T1',label="T1 File Pattern", enabled_when = 'do_convert_T1'),
+            #Item('subject_raw_glob_T1',label="T1 File Pattern", enabled_when = 'do_convert_T1'),
             Item('do_convert_T2', label="Convert T2 data?"),
-            Item('subject_raw_glob_T2',label="T2 File Pattern", enabled_when = 'do_convert_T2'),
-            Item('extract_diffusion_metadata', label="Try extracting Diffusion metadata"),
+            #Item('subject_raw_glob_T2',label="T2 File Pattern", enabled_when = 'do_convert_T2'),
+            # Item('extract_diffusion_metadata', label="Try extracting Diffusion metadata"),
             show_border = True
         ),       
         visible_when = "active_dicomconverter",             
