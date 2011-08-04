@@ -53,14 +53,15 @@ class CMPGUIHandler ( Handler ):
     def object_run_changed(self, info):
         object = info.object
         if info.initialized:
-            # first do a consistency check
-            object.consistency_check()
-            # this should work for wx backend
-            # https://mail.enthought.com/pipermail/enthought-dev/2010-March/025896.html
-            
+
             #print "hide GUI-------------"
             # map the connectome
             try:
+                # first do a consistency check
+                object.consistency_check()
+                # this should work for wx backend
+                # https://mail.enthought.com/pipermail/enthought-dev/2010-March/025896.html
+                
                 #info.ui.control.Show(False)
                 cmp.connectome.mapit(object)
             except Exception, e:

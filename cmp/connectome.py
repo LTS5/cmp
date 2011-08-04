@@ -41,46 +41,47 @@ def setup_pipeline_status(cobj):
     return stages
 
 def mapit(cobj):
-    
+
     cobj.consistency_check()
-    
+
     stages = setup_pipeline_status(cobj)
 
     cmp.preprocessing.run( cobj )
-        
+
     # Set the logger function for the PipelineStatus object
     cobj.pipeline_status.SetLoggerFunctions(cobj.get_logger().error, cobj.get_logger().info)
-    
+
     # Execute the pipeline
     for stage, stageEnabled in stages:
-        if stageEnabled == True:        
+        if stageEnabled == True:
             curStageObj = cobj.pipeline_status.GetStage( stage.__name__ )
-                        
-            # Check if the inputs exist            
-            if curStageObj != None:            
+
+            # Check if the inputs exist
+            if curStageObj != None:
                 if cobj.pipeline_status.CanRun( curStageObj ) == False:
-                    msg = "Required input file missing for stage: '%s'" % (stage.__name__)
+                    # TODO: depending on the stage's missing file, point to required stages
+                    msg = "Required input file missing for stage: '%s'. Please run all previous stages." % (stage.__name__)
                     cobj.get_logger().error( msg )
                     raise Exception( msg )
                 # If stage was already completed and user asked to skip completed stages, skip
                 # this stage.
                 elif (cobj.skip_completed_stages == True and
-                      cobj.pipeline_status.RanOK( curStageObj, 
+                      cobj.pipeline_status.RanOK( curStageObj,
                                                   checkTimestamp=True,
                                                   timestampRootFile=cobj.get_pipeline_status_file() ) == True):
                     cobj.get_logger().info( "Skipping previously completed stage: '%s'" % ( stage.__name__) )
                     continue
-                        
-            # Run the stage            
-            if hasattr(stage, 'run'):                
+
+            # Run the stage
+            if hasattr(stage, 'run'):
                 stage.run( cobj )
-                
+
             # Check if the stage ran properly
             if curStageObj != None:
-                if cobj.pipeline_status.RanOK( stage=curStageObj, 
-                                               storeTimestamp=True, 
+                if cobj.pipeline_status.RanOK( stage=curStageObj,
+                                               storeTimestamp=True,
                                                timestampRootFile=cobj.get_pipeline_status_file() ) == False:
                     msg = "Required output file not generated for stage: '%s'" % (stage.__name__)
                     cobj.get_logger().error( msg )
                     raise Exception( msg )
-                
+
