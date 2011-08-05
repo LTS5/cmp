@@ -184,10 +184,10 @@
     </node>
     <node id="711">
       <data key="d0">cortical</data>
-      <data key="d1">isthmuscingulate_4</data>
+      <data key="d1">isthmuscingulate_5</data>
       <data key="d2">left</data>
       <data key="d3">711</data>
-      <data key="d4">lh.isthmuscingulate_4</data>
+      <data key="d4">lh.isthmuscingulate_5</data>
     </node>
     <node id="710">
       <data key="d0">cortical</data>
@@ -3795,10 +3795,10 @@
     </node>
     <node id="869">
       <data key="d0">cortical</data>
-      <data key="d1">lateraloccipital_1</data>
+      <data key="d1">lateraloccipital_21</data>
       <data key="d2">left</data>
       <data key="d3">869</data>
-      <data key="d4">lh.lateraloccipital_1</data>
+      <data key="d4">lh.lateraloccipital_21</data>
     </node>
     <node id="997">
       <data key="d0">cortical</data>
