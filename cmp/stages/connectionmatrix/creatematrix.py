@@ -180,20 +180,26 @@ def cmat():
         t = [c[0] for c in fib]
         h = np.array(t, dtype = np.object )
         if gconf.diffusion_imaging_model == 'DSI':
-            mmap = {'gfa' : 'dsi_gfa.nii.gz',
-                    'skewness' : 'dsi_skewness.nii.gz',
-                    'kurtosis' : 'dsi_kurtosis.nii.gz',
-                    'P0' : 'dsi_P0.nii.gz'
-            }
+            mmap = {}
+            if gconf.connection_P0:
+                mmap['P0'] = 'dsi_P0.nii.gz'
+            if gconf.connection_gfa:
+                mmap['gfa'] = 'dsi_gfa.nii.gz'
+            if gconf.connection_kurtosis:
+                mmap['kurtosis'] = 'dsi_kurtosis.nii.gz'
+            if gconf.connection_skewness:
+                mmap['skewness'] = 'dsi_skewness.nii.gz'
             mmapdata = {}
             for k,v in mmap.items():
                 da = nibabel.load( op.join(gconf.get_cmp_scalars(), v) )
                 mmapdata[k] = (da.get_data(), da.get_header().get_zooms() )
 
         elif gconf.diffusion_imaging_model == 'DTI':
-            mmap = {'fa' : 'dti_fa.nii.gz',
-                    'adc' : 'dti_adc.nii.gz'
-            }
+            mmap = {}
+            if gconf.connection_adc:
+                mmap['adc'] = 'dti_adc.nii.gz'
+            if gconf.connection_fa:
+                mmap['fa'] = 'dti_fa.nii.gz'
             mmapdata = {}
             for k,v in mmap.items():
                 print "Read volume", v

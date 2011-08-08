@@ -319,6 +319,22 @@ class CMPGUI( PipelineConfiguration ):
         VGroup(
                Item('compute_curvature', label="Compute curvature"),
                Item('parcellation_scheme', label="Used Parcellation Scheme"),
+                VGroup(
+                       Item('connection_P0', label="P0"),
+                       Item('connection_gfa', label="GFA"),
+                       Item('connection_kurtosis', label="Kurtosis"),
+                       Item('connection_skewness', label="Skewness"),
+                       label = 'Measure',
+                       show_border = True,
+                       visible_when = "diffusion_imaging_model == 'DSI' or diffusion_imaging_model == 'QBALL'",
+                    ),
+                VGroup(
+                       Item('connection_adc', label="ADC"),
+                       Item('connection_fa', label="FA"),
+                       label = 'Measure',
+                       show_border = True,
+                       visible_when = "diffusion_imaging_model == 'DTI'"
+                    ),
                show_border = True,
                enabled_when = "active_connectome"
             ),
