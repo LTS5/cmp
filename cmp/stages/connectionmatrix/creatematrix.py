@@ -175,10 +175,47 @@ def cmat():
             G.node[int(u)]['dn_position'] = tuple(np.mean( np.where(roiData== int(d["dn_correspondence_id"]) ) , axis = 1))
 
         dis = 0
-        
+
+        # prepare: compute the measures
+        t = [c[0] for c in fib]
+        h = np.array(t, dtype = np.object )
+        if gconf.diffusion_imaging_model == 'DSI':
+            mmap = {'gfa' : 'dsi_gfa.nii.gz',
+                    'skewness' : 'dsi_skewness.nii.gz',
+                    'kurtosis' : 'dsi_kurtosis.nii.gz',
+                    'P0' : 'dsi_P0.nii.gz'
+            }
+            mmapdata = {}
+            for k,v in mmap.items():
+                da = nibabel.load( op.join(gconf.get_cmp_scalars(), v) )
+                mmapdata[k] = (da.get_data(), da.get_header().get_zooms() )
+
+        elif gconf.diffusion_imaging_model == 'DTI':
+            mmap = {'fa' : 'dti_fa.nii.gz',
+                    'adc' : 'dti_adc.nii.gz'
+            }
+            mmapdata = {}
+            for k,v in mmap.items():
+                print "Read volume", v
+                da = nibabel.load( op.join(gconf.get_cmp_scalars(), v) )
+                mmapdata[k] = (da.get_data(), da.get_header().get_zooms() )
+
+        elif gconf.diffusion_imaging_model == 'QBALL':
+            # TODO: what?
+            mmap = {}
+            mmapdata = {}
+                
+
         log.info("Create the connection matrix")
-        for i in range(endpoints.shape[0]):
-    
+        pc = -1
+        for i in range(n):
+
+            # Percent counter
+            pcN = int(round( float(100*i)/n ))
+            if pcN > pc and pcN%1 == 0:
+                pc = pcN
+                log.info('%4.0f%%' % (pc))
+
             # ROI start => ROI end
             try:
                 startROI = int(roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]])
@@ -213,11 +250,25 @@ def cmat():
             final_fiberlabels.append( [ startROI, endROI ] )
             final_fibers_idx.append(i)
 
+            # Retrieve list of scalar measures for all measures for the ith fiber
+            measures = {}
+            for k,v in mmapdata.items():
+                # retrieve indices
+                idx = (h[i]/ v[1] ).astype( np.uint32 )
+                measures[ k ] = v[0][idx[:,0],idx[:,1],idx[:,2]]
+
             # Add edge to graph
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
+                # add measure dictionary to edge
+                for k,v in measures.items():
+                    G.edge[startROI][endROI]['measures'][k].append( v )
             else:
-                G.add_edge(startROI, endROI, fiblist   = [i])
+                G.add_edge(startROI, endROI, fiblist = [i])
+                # add measure dictionary to edge
+                G.edge[startROI][endROI]['measures'] = {}
+                for k,v in measures.items():
+                    G.edge[startROI][endROI]['measures'][k] = [ v ]
                 
         log.info("Found %i (%f percent out of %i fibers) fibers that start or terminate in a voxel which is not labeled. (orphans)" % (dis, dis*100.0/n, n) )
         log.info("Valid fibers: %i (%f percent)" % (n-dis, 100 - dis*100.0/n) )
@@ -239,7 +290,15 @@ def cmat():
         for u,v,d in G.edges_iter(data=True):
             G.remove_edge(u,v)
             di = { 'number_of_fibers' : len(d['fiblist']), }
-            
+
+            # collapse measures to the values
+            if d.has_key( 'measures' ):
+                for kk,vv in d['measures'].items():
+                    da = np.concatenate( vv )
+                    di[kk + '_mean'] = da.mean()
+                    di[kk + '_std'] = da.std()
+                    # could compute histograms here
+
             # additional measures
             # compute mean/std of fiber measure
             idx = np.where( (final_fiberlabels_array[:,0] == int(u)) & (final_fiberlabels_array[:,1] == int(v)) )[0]
