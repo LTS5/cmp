@@ -108,10 +108,10 @@
     </node>
     <node id="68">
       <data key="d0">cortical</data>
-      <data key="d1">temporalpole</data>
+      <data key="d1">entorhinal</data>
       <data key="d2">left</data>
-      <data key="d3">69</data>
-      <data key="d4">lh.temporalpole</data>
+      <data key="d3">68</data>
+      <data key="d4">lh.entorhinal</data>
     </node>
     <node id="69">
       <data key="d0">cortical</data>
