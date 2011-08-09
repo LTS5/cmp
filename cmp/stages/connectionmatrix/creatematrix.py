@@ -256,25 +256,11 @@ def cmat():
             final_fiberlabels.append( [ startROI, endROI ] )
             final_fibers_idx.append(i)
 
-            # Retrieve list of scalar measures for all measures for the ith fiber
-            measures = {}
-            for k,v in mmapdata.items():
-                # retrieve indices
-                idx = (h[i]/ v[1] ).astype( np.uint32 )
-                measures[ k ] = v[0][idx[:,0],idx[:,1],idx[:,2]]
-
             # Add edge to graph
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
-                # add measure dictionary to edge
-                for k,v in measures.items():
-                    G.edge[startROI][endROI]['measures'][k].append( v )
             else:
                 G.add_edge(startROI, endROI, fiblist = [i])
-                # add measure dictionary to edge
-                G.edge[startROI][endROI]['measures'] = {}
-                for k,v in measures.items():
-                    G.edge[startROI][endROI]['measures'][k] = [ v ]
                 
         log.info("Found %i (%f percent out of %i fibers) fibers that start or terminate in a voxel which is not labeled. (orphans)" % (dis, dis*100.0/n, n) )
         log.info("Valid fibers: %i (%f percent)" % (n-dis, 100 - dis*100.0/n) )
@@ -294,23 +280,34 @@ def cmat():
         # update edges
         # measures to add here
         for u,v,d in G.edges_iter(data=True):
+            # print "From To Region ", u,v
             G.remove_edge(u,v)
             di = { 'number_of_fibers' : len(d['fiblist']), }
 
-            # collapse measures to the values
-            if d.has_key( 'measures' ):
-                for kk,vv in d['measures'].items():
-                    da = np.concatenate( vv )
-                    di[kk + '_mean'] = da.mean()
-                    di[kk + '_std'] = da.std()
-                    # could compute histograms here
-
-            # additional measures
-            # compute mean/std of fiber measure
             idx = np.where( (final_fiberlabels_array[:,0] == int(u)) & (final_fiberlabels_array[:,1] == int(v)) )[0]
-
             di['fiber_length_mean'] = float( np.mean(final_fiberlength_array[idx]) )
             di['fiber_length_std'] = float( np.std(final_fiberlength_array[idx]) )
+
+            # this is indexed into the fibers that are valid in the sense of touching start
+            # and end roi and not going out of the volume
+            idx_valid = np.where( (fiberlabels[:,0] == int(u)) & (fiberlabels[:,1] == int(v)) )[0]
+            for k,vv in mmapdata.items():
+                val = []
+                for i in idx_valid:
+                    # retrieve indices
+                    try:
+                        idx2 = (h[i]/ vv[1] ).astype( np.uint32 )
+                        val.append( vv[0][idx2[:,0],idx2[:,1],idx2[:,2]] )
+                    except IndexError, e:
+                        print "Index error occured when trying extract scalar values for measure", k
+                        print "--> Discard fiber with index", i, "Exception: ", e
+                        print "----"
+
+                da = np.concatenate( val )
+                di[k + '_mean'] = float(da.mean())
+                di[k + '_std'] = float(da.std())
+                del da
+                del val
 
             G.add_edge(u,v, di)
 
