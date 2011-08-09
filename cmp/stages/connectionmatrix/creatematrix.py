@@ -207,10 +207,19 @@ def cmat():
                 mmapdata[k] = (da.get_data(), da.get_header().get_zooms() )
 
         elif gconf.diffusion_imaging_model == 'QBALL':
-            # TODO: what?
             mmap = {}
+            if gconf.connection_P0:
+                mmap['P0'] = 'hardi_P0.nii.gz'
+            if gconf.connection_gfa:
+                mmap['gfa'] = 'hardi_gfa.nii.gz'
+            if gconf.connection_kurtosis:
+                mmap['kurtosis'] = 'hardi_kurtosis.nii.gz'
+            if gconf.connection_skewness:
+                mmap['skewness'] = 'hardi_skewness.nii.gz'
             mmapdata = {}
-                
+            for k,v in mmap.items():
+                da = nibabel.load( op.join(gconf.get_cmp_scalars(), v) )
+                mmapdata[k] = (da.get_data(), da.get_header().get_zooms() )
 
         log.info("Create the connection matrix")
         pc = -1
