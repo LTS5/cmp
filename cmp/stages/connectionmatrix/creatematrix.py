@@ -172,7 +172,7 @@ def cmat():
             G.add_node(int(u), d)
             # compute a position for the node based on the mean position of the
             # ROI in voxel coordinates (segmentation volume )
-            G.node[int(u)]['dn_position'] = tuple(np.mean( np.where(roiData== int(d["dn_correspondence_id"]) ) , axis = 1))
+            G.node[int(u)]['dn_position'] = str(tuple(np.mean( np.where(roiData== int(d["dn_correspondence_id"]) ) , axis = 1)))
 
         dis = 0
         
