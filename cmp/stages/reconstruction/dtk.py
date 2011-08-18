@@ -208,7 +208,8 @@ def compute_hardi_odf():
                              op.join(gconf.get_nifti(), 'temp_mat.dat'),
                              param )
     runCmd (odf_cmd, log )
-
+    
+    compute_scalars(gconf.get_cmp_rawdiff_reconout(), 'hardi', 'QBALL.nii.gz')
 
 def compute_odfs():    
 
@@ -238,21 +239,25 @@ def compute_odfs():
                              gconf.get_dtk_dsi_matrix(),
                              param )
     runCmd (odf_cmd, log )
+
+    compute_scalars(odf_out_path, 'dsi', 'DSI.nii.gz')
+
+def compute_scalars(odf_out_path, prefix, fullfname):
     
-    if not op.exists(op.join(odf_out_path, "dsi_odf.nii")):
+    if not op.exists(op.join(odf_out_path, prefix+"_odf.nii")):
         log.error("Unable to reconstruct ODF!")
         
     # calculate GFA map
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_gfa')
-    dta_cmd = '%s --dsi "%s" --m 2' % (cmd, op.join(odf_out_path, 'dsi_'))
+    dta_cmd = '%s --dsi "%s" --m 2' % (cmd, op.join(odf_out_path, prefix+'_'))
     runCmd( dta_cmd, log )
 
-    if not op.exists(op.join(odf_out_path, "dsi_gfa.nii")):
+    if not op.exists(op.join(odf_out_path, prefix+"_gfa.nii")):
         log.error("Unable to calculate GFA map!")
     else:
         # copy dsi_gfa.nii.gz to scalar folder for processing with connectionmatrix
         src = op.join(odf_out_path, "dsi_gfa.nii")
-        dst = op.join(gconf.get_cmp_scalars(), 'dsi_gfa.nii.gz')
+        dst = op.join(gconf.get_cmp_scalars(), prefix+'_gfa.nii.gz')
 
         log.info("Gzip compress...")
         f_in = open(src, 'rb')
@@ -265,15 +270,15 @@ def compute_odfs():
 
     # calculate skewness map
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_gfa')
-    dta_cmd = '%s --dsi "%s" --m 3' % (cmd, op.join(odf_out_path, 'dsi_'))
+    dta_cmd = '%s --dsi "%s" --m 3' % (cmd, op.join(odf_out_path, prefix+'_'))
     runCmd( dta_cmd, log )
 
-    if not op.exists(op.join(odf_out_path, "dsi_skewness.nii")):
+    if not op.exists(op.join(odf_out_path, prefix+"_skewness.nii")):
         log.error("Unable to calculate skewness map!")
     else:
         # copy dsi_gfa.nii.gz to scalar folder for processing with connectionmatrix
-        src = op.join(odf_out_path, "dsi_skewness.nii")
-        dst = op.join(gconf.get_cmp_scalars(), 'dsi_skewness.nii.gz')
+        src = op.join(odf_out_path, prefix+"_skewness.nii")
+        dst = op.join(gconf.get_cmp_scalars(), prefix+'_skewness.nii.gz')
 
         log.info("Gzip compress...")
         f_in = open(src, 'rb')
@@ -285,15 +290,15 @@ def compute_odfs():
 
     # calculate dsi_kurtosis map
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_gfa')
-    dta_cmd = '%s --dsi "%s" --m 4' % (cmd, op.join(odf_out_path, 'dsi_'))
+    dta_cmd = '%s --dsi "%s" --m 4' % (cmd, op.join(odf_out_path, prefix+'_'))
     runCmd( dta_cmd, log )
 
-    if not op.exists(op.join(odf_out_path, "dsi_kurtosis.nii")):
+    if not op.exists(op.join(odf_out_path, prefix+"_kurtosis.nii")):
         log.error("Unable to calculate kurtosis map!")
     else:
         # copy dsi_kurtosis.nii.gz to scalar folder for processing with connectionmatrix
-        src = op.join(odf_out_path, "dsi_kurtosis.nii")
-        dst = op.join(gconf.get_cmp_scalars(), 'dsi_kurtosis.nii.gz')
+        src = op.join(odf_out_path, prefix+"_kurtosis.nii")
+        dst = op.join(gconf.get_cmp_scalars(), prefix+'_kurtosis.nii.gz')
 
         log.info("Gzip compress...")
         f_in = open(src, 'rb')
@@ -307,15 +312,15 @@ def compute_odfs():
 
     # calculate P0 map
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_P0')
-    dta_cmd = '%s --dsi "%s" --dwi "%s"' % (cmd, op.join(odf_out_path, 'dsi_'), op.join(gconf.get_nifti(), 'DSI.nii.gz'))
+    dta_cmd = '%s --dsi "%s" --dwi "%s"' % (cmd, op.join(odf_out_path, prefix+'_'), op.join(gconf.get_nifti(), fullfname))
     runCmd( dta_cmd, log )
 
-    if not op.exists(op.join(odf_out_path, "dsi_P0.nii")):
+    if not op.exists(op.join(odf_out_path, prefix+"_P0.nii")):
         log.error("Unable to calculate P0 map!")
     else:
         # copy dsi_kurtosis.nii.gz to scalar folder for processing with connectionmatrix
-        src = op.join(odf_out_path, "dsi_P0.nii")
-        dst = op.join(gconf.get_cmp_scalars(), 'dsi_P0.nii.gz')
+        src = op.join(odf_out_path, prefix+"_P0.nii")
+        dst = op.join(gconf.get_cmp_scalars(), prefix+'_P0.nii.gz')
 
         log.info("Gzip compress...")
         f_in = open(src, 'rb')

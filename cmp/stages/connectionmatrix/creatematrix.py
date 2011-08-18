@@ -175,10 +175,62 @@ def cmat():
             G.node[int(u)]['dn_position'] = str(tuple(np.mean( np.where(roiData== int(d["dn_correspondence_id"]) ) , axis = 1)))
 
         dis = 0
-        
+
+        # prepare: compute the measures
+        t = [c[0] for c in fib]
+        h = np.array(t, dtype = np.object )
+        if gconf.diffusion_imaging_model == 'DSI':
+            mmap = {}
+            if gconf.connection_P0:
+                mmap['P0'] = 'dsi_P0.nii.gz'
+            if gconf.connection_gfa:
+                mmap['gfa'] = 'dsi_gfa.nii.gz'
+            if gconf.connection_kurtosis:
+                mmap['kurtosis'] = 'dsi_kurtosis.nii.gz'
+            if gconf.connection_skewness:
+                mmap['skewness'] = 'dsi_skewness.nii.gz'
+            mmapdata = {}
+            for k,v in mmap.items():
+                da = nibabel.load( op.join(gconf.get_cmp_scalars(), v) )
+                mmapdata[k] = (da.get_data(), da.get_header().get_zooms() )
+
+        elif gconf.diffusion_imaging_model == 'DTI':
+            mmap = {}
+            if gconf.connection_adc:
+                mmap['adc'] = 'dti_adc.nii.gz'
+            if gconf.connection_fa:
+                mmap['fa'] = 'dti_fa.nii.gz'
+            mmapdata = {}
+            for k,v in mmap.items():
+                print "Read volume", v
+                da = nibabel.load( op.join(gconf.get_cmp_scalars(), v) )
+                mmapdata[k] = (da.get_data(), da.get_header().get_zooms() )
+
+        elif gconf.diffusion_imaging_model == 'QBALL':
+            mmap = {}
+            if gconf.connection_P0:
+                mmap['P0'] = 'hardi_P0.nii.gz'
+            if gconf.connection_gfa:
+                mmap['gfa'] = 'hardi_gfa.nii.gz'
+            if gconf.connection_kurtosis:
+                mmap['kurtosis'] = 'hardi_kurtosis.nii.gz'
+            if gconf.connection_skewness:
+                mmap['skewness'] = 'hardi_skewness.nii.gz'
+            mmapdata = {}
+            for k,v in mmap.items():
+                da = nibabel.load( op.join(gconf.get_cmp_scalars(), v) )
+                mmapdata[k] = (da.get_data(), da.get_header().get_zooms() )
+
         log.info("Create the connection matrix")
-        for i in range(endpoints.shape[0]):
-    
+        pc = -1
+        for i in range(n):
+
+            # Percent counter
+            pcN = int(round( float(100*i)/n ))
+            if pcN > pc and pcN%1 == 0:
+                pc = pcN
+                log.info('%4.0f%%' % (pc))
+
             # ROI start => ROI end
             try:
                 startROI = int(roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]])
@@ -217,7 +269,7 @@ def cmat():
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
             else:
-                G.add_edge(startROI, endROI, fiblist   = [i])
+                G.add_edge(startROI, endROI, fiblist = [i])
                 
         log.info("Found %i (%f percent out of %i fibers) fibers that start or terminate in a voxel which is not labeled. (orphans)" % (dis, dis*100.0/n, n) )
         log.info("Valid fibers: %i (%f percent)" % (n-dis, 100 - dis*100.0/n) )
@@ -237,15 +289,34 @@ def cmat():
         # update edges
         # measures to add here
         for u,v,d in G.edges_iter(data=True):
+            # print "From To Region ", u,v
             G.remove_edge(u,v)
             di = { 'number_of_fibers' : len(d['fiblist']), }
-            
-            # additional measures
-            # compute mean/std of fiber measure
-            idx = np.where( (final_fiberlabels_array[:,0] == int(u)) & (final_fiberlabels_array[:,1] == int(v)) )[0]
 
+            idx = np.where( (final_fiberlabels_array[:,0] == int(u)) & (final_fiberlabels_array[:,1] == int(v)) )[0]
             di['fiber_length_mean'] = float( np.mean(final_fiberlength_array[idx]) )
             di['fiber_length_std'] = float( np.std(final_fiberlength_array[idx]) )
+
+            # this is indexed into the fibers that are valid in the sense of touching start
+            # and end roi and not going out of the volume
+            idx_valid = np.where( (fiberlabels[:,0] == int(u)) & (fiberlabels[:,1] == int(v)) )[0]
+            for k,vv in mmapdata.items():
+                val = []
+                for i in idx_valid:
+                    # retrieve indices
+                    try:
+                        idx2 = (h[i]/ vv[1] ).astype( np.uint32 )
+                        val.append( vv[0][idx2[:,0],idx2[:,1],idx2[:,2]] )
+                    except IndexError, e:
+                        print "Index error occured when trying extract scalar values for measure", k
+                        print "--> Discard fiber with index", i, "Exception: ", e
+                        print "----"
+
+                da = np.concatenate( val )
+                di[k + '_mean'] = float(da.mean())
+                di[k + '_std'] = float(da.std())
+                del da
+                del val
 
             G.add_edge(u,v, di)
 
