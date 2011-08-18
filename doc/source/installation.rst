@@ -174,6 +174,7 @@ Steps to do before executing the pipeline
 All the files for your subject will be stored in this folder structure.
 
 In the GUI, now you should setup all the parameters for your your single subject and hit the *Map connectome!* button.
+You select the stages you want to run. To produce a connectome, all the stages have to be run in sequential order.
 
 If you have to restart the GUI later and do not want to enter everything again, you can open the LOG folder,
 there are so-called pickle files with ending .pkl and you can load them with the *Load* button in the GUI to restore your configuration state.
