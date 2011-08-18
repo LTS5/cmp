@@ -209,7 +209,7 @@ def compute_hardi_odf():
                              param )
     runCmd (odf_cmd, log )
     
-    compute_scalars(gconf.get_cmp_rawdiff_reconout(), 'hardi', 'QBALL.nii.gz')
+    compute_scalars(gconf.get_cmp_rawdiff_reconout(), 'hardi')
 
 def compute_odfs():    
 
@@ -240,9 +240,31 @@ def compute_odfs():
                              param )
     runCmd (odf_cmd, log )
 
-    compute_scalars(odf_out_path, 'dsi', 'DSI.nii.gz')
+    compute_scalars(odf_out_path, 'dsi')
+    
+    # calculate P0 map only for DSI
+    prefix = 'dsi'
+    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_P0')
+    dta_cmd = '%s --dsi "%s" --dwi "%s"' % (cmd, op.join(odf_out_path, prefix+'_'), op.join(gconf.get_nifti(), 'DSI.nii.gz'))
+    runCmd( dta_cmd, log )
 
-def compute_scalars(odf_out_path, prefix, fullfname):
+    if not op.exists(op.join(odf_out_path, prefix+"_P0.nii")):
+        log.error("Unable to calculate P0 map!")
+    else:
+        # copy dsi_kurtosis.nii.gz to scalar folder for processing with connectionmatrix
+        src = op.join(odf_out_path, prefix+"_P0.nii")
+        dst = op.join(gconf.get_cmp_scalars(), prefix+'_P0.nii.gz')
+
+        log.info("Gzip compress...")
+        f_in = open(src, 'rb')
+        f_out = gzip.open(dst, 'wb')
+        f_out.writelines(f_in)
+        f_out.close()
+        f_in.close()
+
+        # mymove( src, dst, log )
+
+def compute_scalars(odf_out_path, prefix):
     
     if not op.exists(op.join(odf_out_path, prefix+"_odf.nii")):
         log.error("Unable to reconstruct ODF!")
@@ -309,27 +331,6 @@ def compute_scalars(odf_out_path, prefix, fullfname):
 
         # mymove( src, dst, log )
 
-
-    # calculate P0 map
-    cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_P0')
-    dta_cmd = '%s --dsi "%s" --dwi "%s"' % (cmd, op.join(odf_out_path, prefix+'_'), op.join(gconf.get_nifti(), fullfname))
-    runCmd( dta_cmd, log )
-
-    if not op.exists(op.join(odf_out_path, prefix+"_P0.nii")):
-        log.error("Unable to calculate P0 map!")
-    else:
-        # copy dsi_kurtosis.nii.gz to scalar folder for processing with connectionmatrix
-        src = op.join(odf_out_path, prefix+"_P0.nii")
-        dst = op.join(gconf.get_cmp_scalars(), prefix+'_P0.nii.gz')
-
-        log.info("Gzip compress...")
-        f_in = open(src, 'rb')
-        f_out = gzip.open(dst, 'wb')
-        f_out.writelines(f_in)
-        f_out.close()
-        f_in.close()
-
-        # mymove( src, dst, log )
 
     log.info("[ DONE ]")
 
