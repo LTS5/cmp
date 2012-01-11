@@ -370,6 +370,10 @@ class CMPGUI( PipelineConfiguration ):
                show_border = True,
                enabled_when = "active_rsfmri"
             ),
+        VGroup(
+            Item('do_save_mat', label="Save .mat format?"),
+            show_border = True
+        ),
         visible_when = "active_rsfmri",
         label = "rsfMRI",
         )

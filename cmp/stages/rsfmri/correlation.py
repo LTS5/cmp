@@ -8,6 +8,7 @@ from time import time
 from ...logme import *
 import nibabel as nib
 import numpy as np
+import scipy.io as sio
 from os import environ
 
 def realign():
@@ -179,6 +180,9 @@ def average_rsfmri():
 
         np.save( op.join(gconf.get_cmp_fmri(), 'averageTimeseries_%s.npy' % s), odata )
 
+        if gconf.do_save_mat:
+            sio.save( op.join(gconf.get_cmp_fmri(), 'averageTimeseries_%s.mat' % s), {'TCS':odata} )
+
     log.info("[ DONE ]")
 
 
@@ -252,6 +256,11 @@ def declare_outputs(conf):
         series2 = 'averageTimeseries_' + p + '-npy'
         conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fmri(), ROI1, ROI2)
         conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fmri(), series1, series2)
+        if conf.do_svae_mat:
+            seriesmat1 = 'averageTimeseries_' + p + '.mat'
+            seriesmet2 = 'averageTimeseries_' + p + '-mat'
+            conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fmri(), seriesmat1, seriesmat2)
+
 
     if conf.rsfmri_registration_mode == 'BBregister':
         conf.pipeline_status.AddStageOutput(stage, nifti_bbregister_dir, 'fMRI-TO-orig.dat', 'fMRI-TO-orig-dat')

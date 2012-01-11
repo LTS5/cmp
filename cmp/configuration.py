@@ -68,14 +68,17 @@ class PipelineConfiguration(traits.HasTraits):
     nlin_reg_bet_b0_param = traits.Str('-f 0.2 -g 0.2')
     nlin_reg_fnirt_param = traits.Str('--subsamp=8,4,2,2 --miter==5,5,5,5 --lambda=240,120,90,30 --splineorder=3 --applyinmask=0,0,1,1 --applyrefmask=0,0,1,1')
     bb_reg_param = traits.Str('--init-header --dti')
-    rsfmri_lin_reg_param = traits.Str('-usesqform -nosearch -dof 6 -cost mutualinfo')
-    rsfmri_bb_reg_param = traits.Str('--init-header --dti')
     
     # dicom converter
     do_convert_diffusion = traits.Bool(True)
     do_convert_T1 = traits.Bool(True)
     do_convert_T2 = traits.Bool(False)
     do_convert_fMRI = traits.Bool(False)
+
+    # rsfmri
+    rsfmri_lin_reg_param = traits.Str('-usesqform -nosearch -dof 6 -cost mutualinfo')
+    rsfmri_bb_reg_param = traits.Str('--init-header --dti')
+    do_save_mat = traits.Bool(True)
     
     # DEPRECATED:
     subject_raw_glob_diffusion = traits.Str( "*.*" )
