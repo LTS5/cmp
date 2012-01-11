@@ -50,6 +50,7 @@ def create_folders():
         gconf.get_rawt1(),
         gconf.get_raw_diffusion(),
         gconf.get_cmp_scalars(),
+        gconf.get_cmp_fmri(),
         gconf.get_cmp_matrices(),
         gconf.get_nifti_trafo(),
         gconf.get_diffusion_metadata(),
@@ -62,6 +63,9 @@ def create_folders():
 
     if gconf.registration_mode == 'Nonlinear':
         paths.append(gconf.get_rawt2())
+
+    if gconf.registration_mode == 'BBregister':
+        paths.append(gconf.get_nifti_bbregister())
 
     for p in gconf.parcellation.keys():
         paths.append(op.join(gconf.get_cmp_tracto_mask(), p))

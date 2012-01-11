@@ -208,7 +208,7 @@ def compute_hardi_odf():
                              op.join(gconf.get_nifti(), 'temp_mat.dat'),
                              param )
     runCmd (odf_cmd, log )
-    
+
     compute_scalars(gconf.get_cmp_rawdiff_reconout(), 'hardi')
 
 def compute_odfs():    
@@ -241,7 +241,7 @@ def compute_odfs():
     runCmd (odf_cmd, log )
 
     compute_scalars(odf_out_path, 'dsi')
-    
+
     # calculate P0 map only for DSI
     prefix = 'dsi'
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_P0')
@@ -262,13 +262,11 @@ def compute_odfs():
         f_out.close()
         f_in.close()
 
-        # mymove( src, dst, log )
-
 def compute_scalars(odf_out_path, prefix):
-    
+
     if not op.exists(op.join(odf_out_path, prefix+"_odf.nii")):
         log.error("Unable to reconstruct ODF!")
-        
+
     # calculate GFA map
     cmd = op.join(gconf.get_cmp_binary_path(), 'DTB_gfa')
     dta_cmd = '%s --dsi "%s" --m 2' % (cmd, op.join(odf_out_path, prefix+'_'))
@@ -278,7 +276,7 @@ def compute_scalars(odf_out_path, prefix):
         log.error("Unable to calculate GFA map!")
     else:
         # copy dsi_gfa.nii.gz to scalar folder for processing with connectionmatrix
-        src = op.join(odf_out_path, "dsi_gfa.nii")
+        src = op.join(odf_out_path, prefix+'_gfa.nii')
         dst = op.join(gconf.get_cmp_scalars(), prefix+'_gfa.nii.gz')
 
         log.info("Gzip compress...")
@@ -287,7 +285,7 @@ def compute_scalars(odf_out_path, prefix):
         f_out.writelines(f_in)
         f_out.close()
         f_in.close()
-        
+
         # mymove( src, dst, log )
 
     # calculate skewness map

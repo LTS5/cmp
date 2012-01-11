@@ -1,7 +1,7 @@
 """ This file contains cmp package information """
 
 _version_major = 1
-_version_minor = 1
+_version_minor = 2
 _version_micro = 0
 _version_extra = ''
 

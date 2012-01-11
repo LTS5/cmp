@@ -128,7 +128,7 @@ def cmat():
     # what it should be
     firstROIFile = op.join(gconf.get_cmp_tracto_mask_tob0(), 
                            gconf.parcellation.keys()[0],
-                           'ROI_HR_th.nii.gz')
+                           'ROIv_HR_th.nii.gz')
     firstROI = nibabel.load(firstROIFile)
     roiVoxelSize = firstROI.get_header().get_zooms()
     (endpoints,endpointsmm) = create_endpoints_array(fib, roiVoxelSize)
@@ -147,7 +147,7 @@ def cmat():
     resolution = gconf.parcellation.keys()
 
     for r in resolution:
-        
+
         log.info("Resolution = "+r)
         
         # create empty fiber label array
@@ -157,7 +157,7 @@ def cmat():
         
         # Open the corresponding ROI
         log.info("Open the corresponding ROI")
-        roi_fname = op.join(gconf.get_cmp_tracto_mask_tob0(), r, 'ROI_HR_th.nii.gz')
+        roi_fname = op.join(gconf.get_cmp_tracto_mask_tob0(), r, 'ROIv_HR_th.nii.gz')
         roi       = nibabel.load(roi_fname)
         roiData   = roi.get_data()
       
@@ -172,7 +172,7 @@ def cmat():
             G.add_node(int(u), d)
             # compute a position for the node based on the mean position of the
             # ROI in voxel coordinates (segmentation volume )
-            G.node[int(u)]['dn_position'] = str(tuple(np.mean( np.where(roiData== int(d["dn_correspondence_id"]) ) , axis = 1)))
+            G.node[int(u)]['dn_position'] = tuple(np.mean( np.where(roiData== int(d["dn_correspondence_id"]) ) , axis = 1))
 
         dis = 0
 
@@ -220,20 +220,20 @@ def cmat():
             for k,v in mmap.items():
                 da = nibabel.load( op.join(gconf.get_cmp_scalars(), v) )
                 mmapdata[k] = (da.get_data(), da.get_header().get_zooms() )
-
+        
         log.info("Create the connection matrix")
         pc = -1
-        for i in range(n):
+        for i in range(n):  # n: number of fibers
 
             # Percent counter
             pcN = int(round( float(100*i)/n ))
             if pcN > pc and pcN%1 == 0:
                 pc = pcN
                 log.info('%4.0f%%' % (pc))
-
+    
             # ROI start => ROI end
             try:
-                startROI = int(roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]])
+                startROI = int(roiData[endpoints[i, 0, 0], endpoints[i, 0, 1], endpoints[i, 0, 2]]) # endpoints from create_endpoints_array
                 endROI   = int(roiData[endpoints[i, 1, 0], endpoints[i, 1, 1], endpoints[i, 1, 2]])
             except IndexError:
                 log.info("An index error occured for fiber %s. This means that the fiber start or endpoint is outside the volume. Continue." % i)
@@ -269,7 +269,7 @@ def cmat():
             if G.has_edge(startROI, endROI):
                 G.edge[startROI][endROI]['fiblist'].append(i)
             else:
-                G.add_edge(startROI, endROI, fiblist = [i])
+                G.add_edge(startROI, endROI, fiblist   = [i])
                 
         log.info("Found %i (%f percent out of %i fibers) fibers that start or terminate in a voxel which is not labeled. (orphans)" % (dis, dis*100.0/n, n) )
         log.info("Valid fibers: %i (%f percent)" % (n-dis, 100 - dis*100.0/n) )
@@ -289,10 +289,11 @@ def cmat():
         # update edges
         # measures to add here
         for u,v,d in G.edges_iter(data=True):
-            # print "From To Region ", u,v
             G.remove_edge(u,v)
             di = { 'number_of_fibers' : len(d['fiblist']), }
-
+            
+            # additional measures
+            # compute mean/std of fiber measure
             idx = np.where( (final_fiberlabels_array[:,0] == int(u)) & (final_fiberlabels_array[:,1] == int(v)) )[0]
             di['fiber_length_mean'] = float( np.mean(final_fiberlength_array[idx]) )
             di['fiber_length_std'] = float( np.std(final_fiberlength_array[idx]) )
@@ -400,7 +401,7 @@ def declare_inputs(conf):
     conf.pipeline_status.AddStageInput(stage, conf.get_cmp_fibers(), 'streamline_filtered.trk', 'streamline-trk')
     
     for r in conf.parcellation.keys():
-        conf.pipeline_status.AddStageInput(stage, op.join(conf.get_cmp_tracto_mask_tob0(), r), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % r)
+        conf.pipeline_status.AddStageInput(stage, op.join(conf.get_cmp_tracto_mask_tob0(), r), 'ROIv_HR_th.nii.gz', 'ROIv_HR_th_%s-nii-gz' % r)
         
 def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""

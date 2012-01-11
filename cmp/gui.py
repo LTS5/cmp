@@ -111,8 +111,8 @@ class CMPGUI( PipelineConfiguration ):
                         VGroup(
                         Item('active_createfolder', label = 'Create Folder'),
                         Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
-                        Item('active_registration', label = 'Registration'),
                         Item('active_segmentation', label = 'Segmentation'),
+                        Item('active_registration', label = 'Registration'),
                         Item('active_parcellation', label = 'Parcellation'),
                         Item('active_applyregistration', label = 'Apply registration'),
     		            Item('active_reconstruction', label = 'Reconstruction'),
@@ -120,6 +120,7 @@ class CMPGUI( PipelineConfiguration ):
                         Item('active_fiberfilter', label = 'Fiber Filtering', tooltip = 'applies filtering operation to the fibers'),
                         Item('active_connectome', label = 'Connectome Creation', tooltip= 'creates the connectivity matrices'),
                         # Item('active_statistics', label = 'Statistics'),
+                        Item('active_rsfmri', label = 'Resting-state fMRI', tooltip= 'creates resting state connectivity matrices'),
                         Item('active_cffconverter', label = 'CFF Converter', tooltip='converts processed files to a connectome file'),
                         Item('skip_completed_stages', label = 'Skip Previously Completed Stages:'),
                         label="Stages"     
@@ -127,8 +128,8 @@ class CMPGUI( PipelineConfiguration ):
                         VGroup(
                         #Item('inspect_rawT1', label = 'Inspect Raw T1', show_label = False),
                         Item('inspect_dicomconverter', label = 'Inspect raw data', show_label = False),
-                        Item('inspect_registration', label = 'Registration', show_label = False),
                         Item('inspect_segmentation', label = 'Segmentation', show_label = False),
+                        Item('inspect_registration', label = 'Registration', show_label = False),
                         #Item('inspect_whitemattermask', label = 'White Matter Mask', show_label = False),
                         Item('inspect_parcellation', label = 'Parcellation', show_label = False),
                         #Item('inspect_reconstruction', label = 'Reconstruction', show_label = False), # DTB_viewer
@@ -184,6 +185,7 @@ class CMPGUI( PipelineConfiguration ):
             Item('do_convert_T2', label="Convert T2 data?"),
             #Item('subject_raw_glob_T2',label="T2 File Pattern", enabled_when = 'do_convert_T2'),
             # Item('extract_diffusion_metadata', label="Try extracting Diffusion metadata"),
+            Item('do_convert_fMRI', label="Convert rs-fMRI data?"),
             show_border = True
         ),       
         visible_when = "active_dicomconverter",             
@@ -205,6 +207,11 @@ class CMPGUI( PipelineConfiguration ):
                       enabled_when = 'registration_mode == "Nonlinear"',
                       label = "Nonlinear Registration"
                ),
+               VGroup(
+                      Item('bb_reg_param', label='BBREGISTER Parameters'),
+                      enabled_when = 'registration_mode == "BBregister"',
+                      label = "BBregister linear Registration"
+                      ),
                show_border = True,
                enabled_when = "active_registration"
             ),
@@ -342,6 +349,31 @@ class CMPGUI( PipelineConfiguration ):
         label = "Connectome Creation",
         )
 
+    rsfmri_group = Group(
+        VGroup(
+               Item('parcellation_scheme', label="Used Parcellation Scheme"),
+               show_border = True,
+               enabled_when = "active_rsfmri"
+            ),
+        VGroup(
+               Item('rsfmri_registration_mode', label="T1-to-fMRI Registration"),
+               VGroup(
+                      Item('rsfmri_lin_reg_param', label='FLIRT Parameters'),
+                      enabled_when = 'rsfmri_registration_mode == "Linear"',
+                      label = "Linear Registration"
+                      ),
+               VGroup(
+                      Item('rsfmri_bb_reg_param', label='BBREGISTER Parameters'),
+                      enabled_when = 'rsfmri_registration_mode == "BBregister"',
+                      label = "BBregister linear Registration"
+                      ),
+               show_border = True,
+               enabled_when = "active_rsfmri"
+            ),
+        visible_when = "active_rsfmri",
+        label = "rsfMRI",
+        )
+
     cffconverter_group = Group(
         VGroup(
                Item('cff_fullnetworkpickle', label="All connectomes"),
@@ -392,6 +424,7 @@ class CMPGUI( PipelineConfiguration ):
               tractography_group,
               fiberfilter_group,
               connectioncreation_group,
+              rsfmri_group,
               cffconverter_group,
               configuration_group,
               orientation= 'horizontal',

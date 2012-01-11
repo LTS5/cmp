@@ -17,14 +17,15 @@ def setup_pipeline_status(cobj):
     # that the stages in the pipeline are laid out before
     # processing begins
     stages = [ (cmp.dicomconverter, cobj.active_dicomconverter),
+               (cmp.freesurfer, cobj.active_segmentation),
                (cmp.registration, cobj.active_registration),
-               (cmp.freesurfer, cobj.active_segmentation),        
                (cmp.maskcreation, cobj.active_parcellation),
                (cmp.apply_registration, cobj.active_applyregistration),
                (cmp.dtk, cobj.active_reconstruction),
                (cmp.tractography, cobj.active_tractography),
                (cmp.fiberfilter, cobj.active_fiberfilter),
                (cmp.connectionmatrix, cobj.active_connectome),
+               (cmp.fmrianalysis, cobj.active_rsfmri),
               # (cmp.fiberstatistics, cobj.active_statistics),               
                (cmp.cffconverter, cobj.active_cffconverter) ]
     
