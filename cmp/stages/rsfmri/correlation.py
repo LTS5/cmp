@@ -256,9 +256,9 @@ def declare_outputs(conf):
         series2 = 'averageTimeseries_' + p + '-npy'
         conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fmri(), ROI1, ROI2)
         conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fmri(), series1, series2)
-        if conf.do_svae_mat:
+        if conf.do_save_mat:
             seriesmat1 = 'averageTimeseries_' + p + '.mat'
-            seriesmet2 = 'averageTimeseries_' + p + '-mat'
+            seriesmat2 = 'averageTimeseries_' + p + '-mat'
             conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fmri(), seriesmat1, seriesmat2)
 
 

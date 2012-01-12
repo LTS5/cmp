@@ -39,6 +39,9 @@ import stages.postprocessing.fiberclustering as fiberclustering
 # CONNECTION MATRIX
 import stages.connectionmatrix.creatematrix as connectionmatrix
 
+# RS-FMRI AVERAGED TIME COURSES
+import stages.rsfmri.correlation as fmrianalysis
+
 # STATISTICS
 import stages.stats.fiber_statistics as fiberstatistics
 
