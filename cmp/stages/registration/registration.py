@@ -7,6 +7,7 @@
 import os, os.path as op
 from glob import glob
 from time import time
+from os import environ
 import subprocess
 import sys
 from ...logme import *
@@ -39,6 +40,65 @@ def lin_regT12b0():
         log.error(msg)
         raise Exception(msg)
     
+    log.info("[ DONE ]")
+
+    
+def bb_regT12b0():
+    log.info("T1 -> b0: BBREGISTER linear registration")
+    log.info("========================================")
+
+    # Linear register "T1" onto "b0_resampled"
+    log.info("Started FreeSurfer bbregister to find 'T1 --> b0' linear transformation")
+
+    if not gconf.bb_reg_param == '':
+        param = gconf.bb_reg_param
+    else:
+        param = '--init-header --dti'
+
+    environ['SUBJECTS_DIR'] = gconf.get_subj_dir()
+
+    bbregister_cmd = 'bbregister --s %s --mov %s --reg %s --fslmat %s %s' % (
+        'FREESURFER',
+        op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii.gz'),
+        op.join(gconf.get_nifti_bbregister(), 'b0-TO-orig.dat'),
+        op.join(gconf.get_nifti_bbregister(), 'b0-TO-orig.mat'),
+        param)
+    runCmd(bbregister_cmd, log)
+
+    convert_xfm_command = 'convert_xfm -inverse %s -omat %s' % (
+        op.join(gconf.get_nifti_bbregister(), 'b0-TO-orig.mat'),
+        op.join(gconf.get_nifti_bbregister(), 'orig-TO-b0.mat'),
+    )
+    runCmd(convert_xfm_command, log)
+
+    tkregister2_command = 'tkregister2 --regheader --mov %s --targ %s --regheader --reg %s --fslregout %s --noedit' % (
+        op.join(gconf.get_fs(), 'mri', 'rawavg.mgz'),
+        op.join(gconf.get_fs(), 'mri', 'orig.mgz'),
+        op.join(gconf.get_nifti_bbregister(), 'T1-TO-orig.dat'),
+        op.join(gconf.get_nifti_bbregister(), 'T1-TO-orig.mat'),
+    )
+    runCmd(tkregister2_command, log)
+
+    convert_xfm_command = 'convert_xfm -omat %s -concat %s %s' % (
+        op.join(gconf.get_nifti_trafo(), 'T1-TO-b0.mat'),
+        op.join(gconf.get_nifti_bbregister(), 'orig-TO-b0.mat'),
+        op.join(gconf.get_nifti_bbregister(), 'T1-TO-orig.mat'),
+    )
+    runCmd(convert_xfm_command, log)
+
+    flirt_cmd = 'flirt -applyxfm -init %s -in %s -ref %s -out %s' % (
+        op.join(gconf.get_nifti_trafo(), 'T1-TO-b0.mat'),
+        op.join(gconf.get_nifti(), 'T1.nii.gz'),
+        op.join(gconf.get_nifti(), 'Diffusion_b0_resampled.nii.gz'),
+        op.join(gconf.get_nifti(), 'T1-TO-b0.nii.gz'),
+    )
+    runCmd(flirt_cmd, log)
+
+    if not op.exists(op.join(gconf.get_nifti_trafo(), 'T1-TO-b0.mat')):
+        msg = "An error occurred. Linear transformation file %s not generated." % op.join(gconf.get_nifti_trafo(), 'T1-TO-b0.mat')
+        log.error(msg)
+        raise Exception(msg)
+
     log.info("[ DONE ]")
 
 
@@ -267,6 +327,8 @@ def run(conf):
     
     if gconf.registration_mode == 'Nonlinear':
         nlin_regT12b0()
+    elif gconf.registration_mode == 'BBregister':
+        bb_regT12b0()
     else:
         lin_regT12b0()
     
@@ -275,27 +337,33 @@ def run(conf):
     if not len(gconf.emailnotify) == 0:
         msg = ["Registration module", int(time()-start)]
         send_email_notification(msg, gconf, log)
-        
+
+
 def declare_inputs(conf):
     """Declare the inputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
     nifti_dir = conf.get_nifti()
+    fs_dir_mri = op.join(conf.get_fs(), 'mri')
 
     conf.pipeline_status.AddStageInput(stage, nifti_dir, 'Diffusion_b0_resampled.nii.gz', 'diffusion-resampled-nii.-gz')
     conf.pipeline_status.AddStageInput(stage, nifti_dir, 'T1.nii.gz', 't1-nii-gz')
     
     if conf.registration_mode == 'Nonlinear':
         conf.pipeline_status.AddStageInput(stage, nifti_dir, 'T2.nii.gz', 't2-nii-gz')
+
+    if conf.registration_mode == 'BBregister':
+        conf.pipeline_status.AddStageInput(stage, fs_dir_mri, 'rawavg.mgz', 'rawavg-mgz')
+        conf.pipeline_status.AddStageInput(stage, fs_dir_mri, 'orig.mgz', 'orig-mgz')
         
                 
-    
 def declare_outputs(conf):
     """Declare the outputs to the stage to the PipelineStatus object"""
     
     stage = conf.pipeline_status.GetStage(__name__)
     nifti_dir = conf.get_nifti()
     nifti_trafo_dir = conf.get_nifti_trafo()
+    nifti_bbregister_dir = conf.get_nifti_bbregister()
 
     conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1-TO-b0.nii.gz', 'T1-TO-B0-nii-gz')
     conf.pipeline_status.AddStageOutput(stage, nifti_trafo_dir, 'T1-TO-b0.mat', 'T1-TO-b0-mat')
@@ -309,4 +377,11 @@ def declare_outputs(conf):
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'b0-brain-mask.nii.gz', 'b0-brain-mask-nii-gz')
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T2-TO-b0_warped.nii.gz', 'T2-TO-b0_warped-nii-gz')
         conf.pipeline_status.AddStageOutput(stage, nifti_dir, 'T1-TO-b0_warped.nii.gz', 'T1-TO-b0_warped-nii-gz')
+
+    if conf.registration_mode == 'BBregister':
+        conf.pipeline_status.AddStageOutput(stage, nifti_bbregister_dir, 'b0-TO-orig.dat', 'b0-TO-orig-dat')
+        conf.pipeline_status.AddStageOutput(stage, nifti_bbregister_dir, 'b0-TO-orig.mat', 'b0-TO-orig-mat')
+        conf.pipeline_status.AddStageOutput(stage, nifti_bbregister_dir, 'orig-TO-b0.mat', 'orig-TO-b0-mat')
+        conf.pipeline_status.AddStageOutput(stage, nifti_bbregister_dir, 'T1-TO-orig.dat', 'T1-TO-orig-dat')
+        conf.pipeline_status.AddStageOutput(stage, nifti_bbregister_dir, 'T1-TO-orig.mat', 'T1-TO-orig-mat')
 
