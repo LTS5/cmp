@@ -5,7 +5,7 @@ Connectome Mapper Stages
 Project settings / Main Tab
 ---------------------------
 
-.. image:: images/maintab.png
+.. image:: images/maintab_120.png
 
 Project directory
     Select the root folder of your project which contains the subfolders for all the subjects of this project.
@@ -29,7 +29,7 @@ Buttons
 Project-related information / Metadata Tab
 ------------------------------------------
 
-.. image:: images/metadata.png
+.. image:: images/metadata_120.png
 
 Enter relevant project-wide metadata. Keep in mind that good metadata eases the reuse of the data a lot later on. The
 metadata fields are derived from the `Dublin Core Metadata Standards <http://dublincore.org/documents/dcmi-terms/>`_
@@ -48,7 +48,7 @@ metadata fields are derived from the `Dublin Core Metadata Standards <http://dub
 Subject/Timepoint related information
 -------------------------------------
 
-.. image:: images/subject.png
+.. image:: images/subject_120.png
 
 Name
     Specify a name/ID/own code for the subject. The name is reused as folder name in the project structure.
@@ -75,28 +75,24 @@ the set of folders for your study.
 DICOM Converter
 ---------------
 
-.. image:: images/dicomconverter.png
+.. image:: images/dicomconverter_120.png
 
 Converts the raw DICOM data files in the RAWDATA subfolders into the Nifti format. It is possible to convert independently
-the structural data (T1 and T2) and the diffusion one (DSI,DTI). Performs required flipping if needed.
+the structural data (T1 and T2), the diffusion (DSI, DTI, QBALL) and the functional data (rs-fMRI). Performs required flipping if needed.
 If the DICOM files have no file name ending, just enter * as the file pattern.
 
-If you have not acquired any structural T2 image, you can deselect the corresponding checkbox. However, diffusion data and T1 data are required.
-
-If you select the extraction of diffusion metadata, bvalues and bvector textfiles are tried to be extracted using
-the Nibabel DICOM reader (supporting Siemens DICOM so far) extracted from the DICOM files and stored in
-the NIFTI/diffusion_metadata folder for your subject/timepoint.
+If you have not acquired any structural T2 image or rs-fMRI image, you can deselect the corresponding checkboxes. However, diffusion data and T1 data are required.
 
 For the conversion, packages such as Diffusion Toolkit and Nibabel are used.
 
 Registration
 ------------
 
-.. image:: images/registration.png
+.. image:: images/registration_120.png
 
 This stage allows to register the structural T1 image (where the parcellation of the cortical surface is extracted) onto the diffusion space.
 
-Choose *Linear* if you only acquired the structural T1 image and you miss the additional T2. In this way, the stage will
+Choose *Linear* or *BBregister* if you only acquired the structural T1 image and you miss the additional T2. In this way, the stage will
 try to align the T1 directly onto the b0 image.
 
 If additional T2 images have been acquired, *Nonlinear* registration can be performed. A two steps procedure is performed:
@@ -111,13 +107,20 @@ Future versions of the pipeline will account for other methods to achieve this (
 
 Linear Registration
 ~~~~~~~~~~~~~~~~~~~
-The FSL linear registration tool `FLIRT <http://www.fmrib.ox.ac.uk/fsl/flirt/index.html>`_ is used to perform this step.
+The FSL linear registration tool `FLIRT <http://www.fmrib.ox.ac.uk/fsl/flirt/index.html>`_ is used.
 Default parameters (which can be modified) generally give good results in most cases.
 
 
 Nonlinear Registration
 ~~~~~~~~~~~~~~~~~~~~~~
 The FSL nonlinear registration tool `FNIRT <http://www.fmrib.ox.ac.uk/fsl/fnirt/index.html>`_ is used to perform this step.
+Default parameters (which can be modified) generally give good results in most cases.
+
+
+BBregister Registration
+~~~~~~~~~~~~~~~~~~~~~~~
+The FREESURFER cross-modal registration tool `BBREGISTER <http://surfer.nmr.mgh.harvard.edu/fswiki/bbregister>`_ is used.
+Differently from FSL FLIRT, BBREGISTER registration algorithm exploits the FREESURFER segmentation results and can therefore be more robust in the context of this pipeline.
 Default parameters (which can be modified) generally give good results in most cases.
 
 Segmentation
@@ -127,7 +130,7 @@ We use Freesurfer's recon_all for the segmentation. You can provide custom param
 Parcellation
 ------------
 
-.. image:: images/parcellation.png
+.. image:: images/parcellation_120.png
 
 We provide two parcellation schemes.
 
@@ -151,7 +154,7 @@ The registration transformations are applied to the white matter mask and the pa
 Reconstruction
 --------------
 
-.. image:: images/reconstruction.png
+.. image:: images/reconstruction_120.png
 
 Use `DiffusionToolkit <http://www.trackvis.org/dtk/>`_ for extracting the orientation distribution function (ODF), the default parameters are the same as DTKs.
 
@@ -169,7 +172,7 @@ DTB_dtk2dir parameters
 Tractography
 ------------
 
-.. image:: images/tractography.png
+.. image:: images/tractography_120.png
 
 This module runs a classical streamline fiber-tracking algorithm (Weeden et al. (2003), Diffusion spectrum magnetic resonance imaging (DSI))
 tractography adapted to deal with possible multiple directions inside each voxel.
@@ -191,7 +194,7 @@ will be started for every direction inside each voxel.
 Fiber Filtering
 ---------------
 
-.. image:: images/fiberfiltering.png
+.. image:: images/fiberfiltering_120.png
 
 Apply spline filter
     Fibers are spline-filtered using diffusion toolkit. Please refer to `spline_filter <http://www.trackvis.org/dtk/?subsect=script#spline_filter>`_ documentation.
@@ -215,10 +218,26 @@ and label arrays.
 Compute curvature
     Compute the curvature value for each of the filtered fibers
 
+Resting-State fMRI Processing 
+-----------------------------
+
+.. image:: images/rsfMRI_120.png
+
+This stage produces average time-courses for each cortical ROI, from resting-state fMRI (rsfMRI) data. 
+FSL `MCFLIRT <http://www.fmrib.ox.ac.uk/fsl/mcflirt/index.html>`_ is used to realign the rsfMRI time points and compute the mean rsfMRI volume. 
+The T1 volume is then registered to the mean rsfMRI volume. It is possible to choose between two different linear registration tools: FLIRT or BBREGISTER (see 'Registration' step).
+The linear transformation T1-to-mean_rsfMRI is then applied to the cortical ROIs' volumes corresponding to the selected parcellation scheme, 
+and the averaged rsfMRI time-course is computed for each ROI.
+
+The averaged time-courses are saved as Numpy matrices of dimensions number_of_ROIs X number_of_timepoints. Check the 'Save .mat format?' case if you wish to save the average time-courses in mat format too. 
+
+The output average time-series matrix can be suitably analysed through the `Connectivity Decoding Toolkit <http://miplab.epfl.ch/richiardi/software.php>`_. In this case,
+check the 'Save .mat format?' option, then import the matrices directly into Matlab and use them to feed the Brain Decoding Toolkit' function 'connectivityDecoding_filtering'.
+
 Connectome File Format Converter
 --------------------------------
 
-.. image:: images/cffconverter.png
+.. image:: images/cffconverter_120.png
 
 Raw and processed data are stored in the connectome file for further analysis in the Connectome Viewer or elsewhere.
 
@@ -269,7 +288,7 @@ Surfaces
 Configuration
 -------------
 
-.. image:: images/configuration.png
+.. image:: images/configuration_120.png
 
 E-Mail notification
     If you have installed an SMTP server, you can enter a list of email addresses to which an email is sent after the completion of a stage.

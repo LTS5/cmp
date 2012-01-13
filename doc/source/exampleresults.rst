@@ -25,7 +25,7 @@ Parcellation
 
 Cortical and subcortical parcellation are shown with Freeview.
 
-.. image:: images/ex_parcellation.png
+.. image:: images/ex_parcellation2.png
 
 Tractography
 ------------
@@ -42,6 +42,13 @@ Connection Matrix Creation
 Generated connection matrix are displayed with Chaco.
 
 .. image:: images/ex_connectionmatrix.png
+
+Rs-fMRI Average Time-Courses
+----------------------------
+
+Average time-courses are displayed with Matplotlib.
+
+.. image:: images/ex_rsfMRI.png
 
 Connectome File Format Converter
 --------------------------------
