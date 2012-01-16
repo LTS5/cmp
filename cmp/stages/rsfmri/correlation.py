@@ -1,4 +1,8 @@
-# Button: to check
+# Copyright (C) 2009-2011, Ecole Polytechnique Federale de Lausanne (EPFL) and
+# Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland
+# All rights reserved.
+#
+#  This software is distributed under the open-source license Modified BSD.
 
 """ This module performs basic resting-state fMRI """
 
@@ -181,7 +185,7 @@ def average_rsfmri():
         np.save( op.join(gconf.get_cmp_fmri(), 'averageTimeseries_%s.npy' % s), odata )
 
         if gconf.do_save_mat:
-            sio.save( op.join(gconf.get_cmp_fmri(), 'averageTimeseries_%s.mat' % s), {'TCS':odata} )
+            sio.savemat( op.join(gconf.get_cmp_fmri(), 'averageTimeseries_%s.mat' % s), {'TCS':odata} )
 
     log.info("[ DONE ]")
 
