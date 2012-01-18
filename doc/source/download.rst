@@ -40,7 +40,8 @@ By downloading Connectome Mapper, you agree to the terms and conditions of the M
 
 .. raw:: html
 
-   <a href="https://github.com/LTS5/cmp/tarball/release-1.1.0" onclick="_gaq.push(['_trackEvent', 'release-1.1.0', 'download']);">I agree on the terms and conditions of the connectome mapper license and want to download the source code</a>
+   <a href="https://github.com/LTS5/cmp/tarball/release-1.2.0" onclick="_gaq.push(['_trackEvent', 'release-1.1.0', 'download']);">I agree on the terms and conditions of the connectome mapper license and want to download the source code, current release 1.2.0</a><br/><br/>
+   <a href="https://github.com/LTS5/cmp/tarball/release-1.1.0" onclick="_gaq.push(['_trackEvent', 'release-1.1.0', 'download']);">I agree on the terms and conditions of the connectome mapper license and want to download the source code, previous release 1.1.0</a>
 
 
 

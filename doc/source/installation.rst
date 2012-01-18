@@ -143,7 +143,8 @@ If you have resting state fMRI data, create a new folder 'fMRI' in RAWDATA.::
 	│   │       ├── RAWDATA
 	│   │       │   ├── DSI
 	│   │       │   ├── T1
-	│   │       │   └── T2
+	│   │       │   ├── T2
+	│   │       │   └── fMRI
 
 #. Copy the Diffusion / MPRAGE (DSI, DTI, QBALL, T1, T2, fMRI) images (DICOM series) in the corresponding folders.
    The T2 images are optional but they improve the registration of the data. The fMRI images are optional.
@@ -174,7 +175,8 @@ If you have resting state fMRI data, create a new folder 'fMRI' in RAWDATA.::
 	│   │       ├── RAWDATA
 	│   │       │   ├── DSI
 	│   │       │   ├── T1
-	│   │       │   └── T2
+	│   │       │   ├── T2
+	│   │       │   └── fMRI
 	│   │       └── STATS
 
 All the files for your subject will be stored in this folder structure.
