@@ -232,8 +232,8 @@ and the averaged rsfMRI time-course is computed for each ROI.
 The averaged time-courses are saved as Numpy matrices of dimensions number_of_ROIs X number_of_timepoints. Check the 'Save .mat format?' case if you wish to save the average time-courses in mat format too. 
 
 The output average time-series matrix can be suitably analysed through the `Connectivity Decoding Toolkit <http://miplab.epfl.ch/richiardi/software.php>`_ (Richiardi J, Eryilmaz H, Schwartz S, Vuilleumier P, 
-Van De Ville D. 2010. Decoding brain states from fMRI connectivity graphs. Neuroimage 56: 616-626). In this case, check the 'Save .mat format?' option, then import the matrices directly into Matlab 
-and use them to feed the Brain Decoding Toolkit' function 'connectivityDecoding_filtering'.
+Van De Ville D. 2011. Decoding brain states from fMRI connectivity graphs. Neuroimage 56: 616-626). In this case, check the 'Save .mat format?' option, then import the matrices directly into Matlab 
+Fand use them to feed the Brain Decoding Toolkit' function 'connectivityDecoding_filtering'.
 
 Connectome File Format Converter
 --------------------------------
