@@ -75,8 +75,9 @@ def main(**extra_args):
     
     setup(name='Connectome Mapper',
           version=__version__,
-          description="""Connectome Mapper implements a full diffusion MRI processing pipeline, from raw Diffusion/T1/T2/fMRI """ + \
-          """data to multi-resolution connection matrices. The Connectome Mapper is part of the Connectome Mapping Toolkit.""",
+          description="""Connectome Mapper implements a full diffusion MRI processing pipeline, from raw Diffusion/T1/T2 """ + \
+          """data to multi-resolution connection matrices. It also offers support for resting state fMRI data processing and multi-resolution functional connection matrices creation. """ + \
+          """The Connectome Mapper is part of the Connectome Mapping Toolkit.""",
           author='EPFL LTS5 Diffusion Group',
           author_email='info@connectomics.org',
           url='http://www.connectomics.org/',
