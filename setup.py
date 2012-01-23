@@ -18,6 +18,7 @@ packages=["cmp",
           "cmp.stages.parcellation",
           "cmp.stages.registration",
           "cmp.stages.tractography",
+          "cmp.stages.fmrianalysis",
           "cmp.stages.stats",
           "cmp.stages.template_module",
           "cmp.pipeline"]
