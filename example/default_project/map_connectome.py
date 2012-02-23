@@ -1,11 +1,12 @@
 from cmp.gui import CMPGUI
+import cmp.connectome
 cmpgui = CMPGUI()
 
-cmpgui.project_name = ''
-cmpgui.project_dir = ''
-cmpgui.subject_name = ''
-cmpgui.subject_timepoint = ''
-cmpgui.subject_workingdir = ''
+cmpgui.project_name = 'a'
+cmpgui.project_dir = 'a'
+cmpgui.subject_name = 'a'
+cmpgui.subject_timepoint = 'a'
+cmpgui.subject_workingdir = 'a'
 
-cmpgui.show()
-#cmp.connectome.mapit(cmpgui)
+#cmpgui.show()
+cmp.connectome.mapit(cmpgui)
