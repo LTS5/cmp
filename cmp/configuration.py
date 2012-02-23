@@ -237,7 +237,7 @@ class PipelineConfiguration(traits.HasTraits):
                                         },
                            }
         else:
-            return {'freesurferaparc' : {'number_of_regions' : 84,
+            return {'freesurferaparc' : {'number_of_regions' : 83,
                                         # contains name, url, color, freesurfer_label, etc. used for connection matrix
                                         'node_information_graphml' : op.join(self.get_lausanne_parcellation_path('freesurferaparc'), 'resolution83.graphml'),
                                         # scalar node values on fsaverage? or atlas? 

@@ -150,7 +150,7 @@ def create_roi():
 
         for brk, brv in pg.nodes_iter(data=True):   # slow loop
 
-            if brv['dn_hemisphere'] == 'left':
+            if brv['d5'] == 'left':
                 hemi = 'lh'
             elif brv['dn_hemisphere'] == 'right':
                 hemi = 'rh'
@@ -167,7 +167,6 @@ def create_roi():
                 rois[idx] = int(brv['dn_correspondence_id'])
 
             elif brv['dn_region'] == 'cortical':
-                log.info(brv)
                 log.info("---------------------")
                 log.info("Work on brain region: %s" % (brv['dn_region']) )
                 log.info("Freesurfer Name: %s" %  brv['dn_fsname'] )
@@ -528,7 +527,7 @@ def generate_WM_and_GM_mask():
     #%  -------------------------------------
     for park in gconf.parcellation.keys():
         log.info("Parcellation: " + park)
-        GMout = op.join(fs_dir, 'mri', 'ROI_%s.nii.gz' % park)
+        GMout = op.join(fs_dir, 'mri', 'ROIv_%s.nii.gz' % park)
 
         niiGM = np.zeros( niiAPARCdata.shape, dtype = np.uint8 )
 
@@ -568,7 +567,7 @@ def crop_and_move_WM_and_GM():
           ]
 
     for p in gconf.parcellation.keys():
-        ds.append( (op.join(fs_dir, 'mri', 'ROI_%s.nii.gz' % p), op.join(reg_path, p, 'ROI_HR_th.nii.gz')) )
+        ds.append( (op.join(fs_dir, 'mri', 'ROIv_%s.nii.gz' % p), op.join(reg_path, p, 'ROIv_HR_th.nii.gz')) )
 
     orig = op.join(fs_dir, 'mri', 'orig', '001.mgz')
 
@@ -595,7 +594,7 @@ def inspect(gconf):
         cmdstr = op.join(reg_path, 'fsmask_1mm.nii.gz ')
 
         for p in gconf.parcellation.keys():
-            cmdstr += op.join(reg_path, p, 'ROI_HR_th.nii.gz:colormap=lut:lut=%s ' % gconf.get_freeview_lut('NativeFreesurfer')['freesurferaparc'])
+            cmdstr += op.join(reg_path, p, 'ROIv_HR_th.nii.gz:colormap=lut:lut=%s ' % gconf.get_freeview_lut('NativeFreesurfer')['freesurferaparc'])
 
         freeview_view_cmd = 'freeview %s' % cmdstr
         runCmd( freeview_view_cmd, log )
@@ -658,7 +657,7 @@ def run(conf):
     globals()['log'] = gconf.get_logger() 
     start = time()
 
-    log.info("ROI_HR_th.nii.gz / fsmask_1mm.nii.gz CREATION")
+    log.info("ROIv_HR_th.nii.gz / fsmask_1mm.nii.gz CREATION")
     log.info("=============================================")
 
     from os import environ
@@ -713,6 +712,6 @@ def declare_outputs(conf):
     elif conf.parcellation_scheme == "NativeFreesurfer":
         conf.pipeline_status.AddStageOutput(stage, reg_path, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
         for p in conf.parcellation.keys():
-            conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
+            conf.pipeline_status.AddStageOutput(stage, op.join(reg_path, p), 'ROIv_HR_th.nii.gz', 'ROIv_HR_th_%s-nii-gz' % (p))
 
 

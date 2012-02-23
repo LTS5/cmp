@@ -39,9 +39,9 @@ def apply_nlin_registration():
     # warp fsmask_1mm and parcellations    
     warp_files = ['fsmask_1mm.nii.gz']
     for park in gconf.parcellation.keys():
-        warp_files.append(op.join(park, 'ROI_HR_th.nii.gz'))
+        warp_files.append(op.join(park, 'ROIv_HR_th.nii.gz'))
         if gconf.parcellation_scheme == "Lausanne2008":
-            warp_files.append(op.join(park, 'ROIv_HR_th.nii.gz'))
+            warp_files.append(op.join(park, 'ROI_HR_th.nii.gz'))
     
     for infile in warp_files:
         log.info("Warp file: %s" % infile)
@@ -92,9 +92,9 @@ def apply_lin_registration():
     
     warp_files = ['fsmask_1mm.nii.gz']
     for park in gconf.parcellation.keys():
-        warp_files.append(op.join(park, 'ROI_HR_th.nii.gz'))
+        warp_files.append(op.join(park, 'ROIv_HR_th.nii.gz'))
         if gconf.parcellation_scheme == "Lausanne2008":
-            warp_files.append(op.join(park, 'ROIv_HR_th.nii.gz'))
+            warp_files.append(op.join(park, 'ROI_HR_th.nii.gz'))
     
     for infile in warp_files:
         log.info("Warp file: %s" % infile)
@@ -162,11 +162,11 @@ def declare_inputs(conf):
     conf.pipeline_status.AddStageInput(stage, tracto_masks_path, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')
     conf.pipeline_status.AddStageInput(stage, nifti_dir, 'Diffusion_b0_resampled.nii.gz', 'Diffusion_b0_resampled-nii-gz')
     for p in conf.parcellation.keys():
-        conf.pipeline_status.AddStageInput(stage, op.join(tracto_masks_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
+        conf.pipeline_status.AddStageInput(stage, op.join(tracto_masks_path, p), 'ROIv_HR_th.nii.gz', 'ROIv_HR_th_%s-nii-gz' % (p))
 
     if conf.parcellation_scheme == "Lausanne2008":
         for p in conf.parcellation.keys():
-            conf.pipeline_status.AddStageInput(stage, op.join(tracto_masks_path, p), 'ROIv_HR_th.nii.gz', 'ROIv_HR_th_%s-nii-gz' % (p))
+            conf.pipeline_status.AddStageInput(stage, op.join(tracto_masks_path, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
 
     
 def declare_outputs(conf):
@@ -177,9 +177,9 @@ def declare_outputs(conf):
             
     conf.pipeline_status.AddStageOutput(stage, tracto_masks_path_out, 'fsmask_1mm.nii.gz', 'fsmask_1mm-nii-gz')            
     for p in conf.parcellation.keys():
-        conf.pipeline_status.AddStageOutput(stage, op.join(tracto_masks_path_out, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
+        conf.pipeline_status.AddStageOutput(stage, op.join(tracto_masks_path_out, p), 'ROIv_HR_th.nii.gz', 'ROIv_HR_th_%s-nii-gz' % (p))
 
     if conf.parcellation_scheme == "Lausanne2008":
         for p in conf.parcellation.keys():
-            conf.pipeline_status.AddStageOutput(stage, op.join(tracto_masks_path_out, p), 'ROIv_HR_th.nii.gz', 'ROIv_HR_th_%s-nii-gz' % (p))
+            conf.pipeline_status.AddStageOutput(stage, op.join(tracto_masks_path_out, p), 'ROI_HR_th.nii.gz', 'ROI_HR_th_%s-nii-gz' % (p))
                     
