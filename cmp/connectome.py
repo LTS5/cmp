@@ -57,10 +57,16 @@ def mapit(cobj):
     # Execute the pipeline
     for stage, stageEnabled in stages:
         if stageEnabled == True:
+            print '--> running: ' + stage.__name__
             curStageObj = cobj.pipeline_status.GetStage( stage.__name__ )
 
             # Check if the inputs exist
             if curStageObj != None:
+
+                for curInput in curStageObj.inputs:
+                  filePath = op.join(curInput.rootDir, curInput.filePath)
+                  print 'requiered filePath: ' + filePath
+
                 if cobj.pipeline_status.CanRun( curStageObj ) == False:
                     # TODO: depending on the stage's missing file, point to required stages
                     msg = "Required input file missing for stage: '%s'. Please run all previous stages." % (stage.__name__)
