@@ -386,6 +386,9 @@ def declare_inputs(conf):
         conf.pipeline_status.AddStageInput(stage, pat, file, 'dsi-dcm')
                 
     elif conf.diffusion_imaging_model == 'DTI' and conf.do_convert_diffusion:
+        print 'dicom reader home: ' + conf.get_cmp_home()
+        print 'dicom reader rdp: ' + conf.get_rawdata()
+        print 'dicom reader log: ' + conf.get_log()
         first = conf.get_dicomfiles( 'diffusion')[0]
         pat, file = op.split(first)
         conf.pipeline_status.AddStageInput(stage, pat, file, 'dti-dcm')

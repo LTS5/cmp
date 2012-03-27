@@ -10,14 +10,25 @@ import os.path
 import traceback
 #import threading
 
-from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
+try:
+  from traits.api import HasTraits, Int, Str, Directory, List,\
                  Bool, File, Button, Enum, Instance
-    
-from enthought.traits.ui.api import View, Item, HGroup, Handler, \
+except ImportError:
+  from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
+                 Bool, File, Button, Enum, Instance
+
+try:
+  from traitsui.api import View, Item, HGroup, Handler, \
+                    message, spring, Group, VGroup, TableEditor, UIInfo
+except ImportError:    
+  from enthought.traits.ui.api import View, Item, HGroup, Handler, \
                     message, spring, Group, VGroup, TableEditor, UIInfo
 
-    
-from enthought.traits.ui.table_column \
+try:
+  from traitsui.table_column \
+    import ObjectColumn
+except ImportError:    
+  from enthought.traits.ui.table_column \
     import ObjectColumn
 
 import cmp    
@@ -462,7 +473,10 @@ class CMPGUI( PipelineConfiguration ):
     def load_state(self, cmpconfigfile):
         """ Load CMP Configuration state directly.
         Useful if you do not want to invoke the GUI"""
-        import enthought.sweet_pickle as sp        
+        try:
+          import apptools.sweet_pickle as sp        
+        except ImportError:
+          import enthought.sweet_pickle as sp        
         output = open(cmpconfigfile, 'rb')
         data = sp.load(output)
         self.__setstate__(data.__getstate__())
@@ -488,7 +502,11 @@ class CMPGUI( PipelineConfiguration ):
         if not os.path.exists(os.path.dirname(cmpconfigfile)):
             os.makedirs(os.path.abspath(os.path.dirname(cmpconfigfile)))
             
-        import enthought.sweet_pickle as sp
+        try:
+          import apptools.sweet_pickle as sp        
+        except ImportError:
+          import enthought.sweet_pickle as sp        
+        
         output = open(cmpconfigfile, 'wb')
         # Pickle the list using the highest protocol available.
         # copy object first
@@ -594,8 +612,14 @@ class CMPGUI( PipelineConfiguration ):
         #cmpthread.start()
 
     def _load_fired(self):
-        import enthought.sweet_pickle as sp
-        from enthought.pyface.api import FileDialog, OK
+        try:
+          import apptools.sweet_pickle as sp
+        except ImportError:
+          import enthought.sweet_pickle as sp
+        try:
+          from pyface.api import FileDialog, OK
+        except ImportError: 
+          from enthought.pyface.api import FileDialog, OK
         
         wildcard = "CMP Configuration State (*.pkl)|*.pkl|" \
                         "All files (*.*)|*.*"
@@ -611,9 +635,15 @@ class CMPGUI( PipelineConfiguration ):
 
     def _save_fired(self):
         import pickle
-        import enthought.sweet_pickle as sp
+        try:
+          import apptools.sweet_pickle as sp
+        except ImportError:
+          import enthought.sweet_pickle as sp
         import os.path
-        from enthought.pyface.api import FileDialog, OK
+        try:
+          from pyface.api import FileDialog, OK
+        except ImportError: 
+          from enthought.pyface.api import FileDialog, OK
         
         wildcard = "CMP Configuration State (*.pkl)|*.pkl|" \
                         "All files (*.*)|*.*"

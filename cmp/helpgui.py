@@ -4,10 +4,22 @@
 #
 #  This software is distributed under the open-source license Modified BSD.
 
-from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
+# try to import the new traits library
+try:
+ from traits.api import HasTraits, Int, Str, Directory, List,\
                  Bool, File, Button, Enum
-    
-from enthought.traits.ui.api import View, Item, HGroup, Handler, \
+# look for the old traits library if the new one is not found
+except ImportError:
+ from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
+                 Bool, File, Button, Enum
+
+# try to import the new traits library
+try:
+  from traitsui.api import View, Item, HGroup, Handler, \
+                    message, spring, Group, VGroup, TableEditor
+# look for the old traits library if the new one is not found
+except ImportError:    
+  from enthought.traits.ui.api import View, Item, HGroup, Handler, \
                     message, spring, Group, VGroup, TableEditor
 
 from cmp import __version__
