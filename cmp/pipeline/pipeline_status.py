@@ -120,12 +120,9 @@ class PipelineStatus():
         return None
     
     def CanRun(self, stage):
-        print 'Pipeline in \"pipeline_status.py\" can run?'
         """Checks a stage inputs to determine if the stage can run"""
         for curInput in stage.inputs:        
             filePath = op.join(curInput.rootDir, curInput.filePath)
-            print 'filePath: ' + filePath
-
             matchingFiles = glob.glob(filePath)
             if len(matchingFiles) >= 1:
                 continue
