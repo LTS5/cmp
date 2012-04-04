@@ -5,8 +5,11 @@
 #  This software is distributed under the open-source license Modified BSD.
 
 """ The configuration is based on traits and used to create the configuration for a project. """
+try:
+  import traits.api as traits
+except ImportError:
+  import enthought.traits.api as traits
 
-import traits.api as traits
 import os.path as op, os
 import sys
 import datetime as dt
