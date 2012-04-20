@@ -183,7 +183,7 @@ int main(int argc, char** argv)
 	/*----------------------------*/
 	else if ( DATA_type.compare("dsi")==0 )
 	{
-		string 	ODF_filename, MAX_filename;
+		string 	ODF_filename, MAX_filename, B0_filename;
 
 		cout <<"-> Converting 'dsi' dataset\n   ------------------------\n\n";
 
@@ -291,8 +291,13 @@ int main(int argc, char** argv)
 		/*  Perform conversion  */
 		cout <<"-> Performing CONVERSION...\n";
 
-		int 	dim[4] 		= {niiMAX.hdr->dim[2], niiMAX.hdr->dim[3], niiMAX.hdr->dim[4], 12};
-		float 	pixdim[4] 	= {niiMAX.hdr->pixdim[2], niiMAX.hdr->pixdim[3], niiMAX.hdr->pixdim[4], 1};
+		B0_filename = DATA_prefix + "b0.nii";
+		NIFTI<INT16> niiB0( B0_filename, false );
+		int     dim[4]         = {niiMAX.hdr->dim[2], niiMAX.hdr->dim[3], niiMAX.hdr->dim[4], 12};
+		float   pixdim[4]      = {niiB0.hdr->pixdim[1], niiB0.hdr->pixdim[2], niiB0.hdr->pixdim[3], 1}; 
+		printf("-> Creating 'DIR' file...\n");
+		printf("      dim   : %d x %d x %d x %d\n", dim[1],dim[2],dim[3],dim[4]);
+		printf("      pixdim: %.4f x %.4f x %.4f x %.4f\n", pixdim[1],pixdim[2],pixdim[3],pixdim[4]);
 
 		NIFTI<FLOAT32> niiDIR;
 		niiDIR.make( 4, dim, pixdim );
