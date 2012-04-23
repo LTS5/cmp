@@ -31,8 +31,7 @@ def setup_pipeline_status(cobj):
     
     for stage,stageEnabled in stages:
         cobj.pipeline_status.AddStage( stage.__name__, True )
-        print 'stage--'
-        print stage.__name__;
+
         if hasattr(stage,'declare_inputs'):
             stage.declare_inputs(cobj)
         if hasattr(stage,'declare_outputs'):            
