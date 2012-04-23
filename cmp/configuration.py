@@ -384,13 +384,6 @@ class PipelineConfiguration(traits.HasTraits):
         """
         from glob import glob
 
-        print 'DEBUGGING CONFIGURATION'
-        print os.getcwd()       
- 
-        print 'conf home: ' + self.get_cmp_home()
-        print 'conf rdp: ' + self.get_rawdata()
-        print 'conf log: ' + self.get_log()
-
         if modality == 'diffusion':
             pat = self.get_raw_diffusion()
         elif modality == 'T1':
@@ -402,17 +395,9 @@ class PipelineConfiguration(traits.HasTraits):
 
         # discover files with *.* and *
         difiles = sorted( glob(op.join(pat, '*.*')) + glob(op.join(pat, '*')) )
-       
-        print 'op: ' + op.join(pat) 
-        print 'pat: ' + pat
-        print 'len: ' + str(len(difiles))
         
         # exclude potential .nii and .nii.gz files
         difiles = [e for e in difiles if not e.endswith('.nii') and not e.endswith('.nii.gz')]
-
-        print 'mod: ' + modality
-        print 'self: ' + self.get_raw_diffusion()
-        print 'len: ' + str(len(difiles))
 
         # check if no files and throw exception
         if len(difiles) == 0:
