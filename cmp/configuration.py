@@ -395,7 +395,6 @@ class PipelineConfiguration(traits.HasTraits):
 
         # discover files with *.* and *
         difiles = sorted( glob(op.join(pat, '*.*')) + glob(op.join(pat, '*')) )
-        
         # exclude potential .nii and .nii.gz files
         difiles = [e for e in difiles if not e.endswith('.nii') and not e.endswith('.nii.gz')]
 
