@@ -233,9 +233,9 @@ def declare_inputs(conf):
     conf.pipeline_status.AddStageInput(stage, nifti_dir, 'T1.nii.gz', 't1-nii-gz')
 
     # requirements: NativeFreesurfer, and output of parcellation stage
-    tracto_masks_path_out = conf.get_cmp_tracto_mask_tob0()
+    tracto_masks_path = conf.get_cmp_tracto_mask()
     for p in conf.parcellation.keys():
-        conf.pipeline_status.AddStageInput(stage, op.join(tracto_masks_path_out, p), 'ROIv_HR_th.nii.gz', 'ROIv_HR_th_%s-nii-gz' % (p))
+        conf.pipeline_status.AddStageInput(stage, op.join(tracto_masks_path, p), 'ROIv_HR_th.nii.gz', 'ROIv_HR_th_%s-nii-gz' % (p))
 
     if conf.rsfmri_registration_mode == 'BBregister':
         conf.pipeline_status.AddStageInput(stage, fs_dir_mri, 'rawavg.mgz', 'rawavg-mgz')
