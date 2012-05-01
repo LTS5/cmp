@@ -150,7 +150,7 @@ def create_roi():
 
         for brk, brv in pg.nodes_iter(data=True):   # slow loop
 
-            if brv['d5'] == 'left':
+            if brv['dn_hemisphere'] == 'left':
                 hemi = 'lh'
             elif brv['dn_hemisphere'] == 'right':
                 hemi = 'rh'
