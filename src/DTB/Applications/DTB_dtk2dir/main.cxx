@@ -296,8 +296,8 @@ int main(int argc, char** argv)
 		int     dim[4]         = {niiMAX.hdr->dim[2], niiMAX.hdr->dim[3], niiMAX.hdr->dim[4], 12};
 		float   pixdim[4]      = {niiB0.hdr->pixdim[1], niiB0.hdr->pixdim[2], niiB0.hdr->pixdim[3], 1}; 
 		printf("-> Creating 'DIR' file...\n");
-		printf("      dim   : %d x %d x %d x %d\n", dim[1],dim[2],dim[3],dim[4]);
-		printf("      pixdim: %.4f x %.4f x %.4f x %.4f\n", pixdim[1],pixdim[2],pixdim[3],pixdim[4]);
+		printf("      dim   : %d x %d x %d x %d\n", dim[0],dim[1],dim[2],dim[3]);
+		printf("      pixdim: %.4f x %.4f x %.4f x %.4f\n", pixdim[0],pixdim[1],pixdim[2],pixdim[3]);
 
 		NIFTI<FLOAT32> niiDIR;
 		niiDIR.make( 4, dim, pixdim );

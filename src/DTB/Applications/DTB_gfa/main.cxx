@@ -91,7 +91,6 @@ int main(int argc, char** argv)
 			cerr<<"Unable to open file!\n";
 		return 1;
 	}
-
 	// check the dimension of ODF dataset
 	if ( niiODF.hdr->dim[0]!=4 || niiODF.hdr->dim[1]!=181 ){
 		cerr<<"The dimension MUST be (181,*,*,*)!\n";
@@ -105,12 +104,12 @@ int main(int argc, char** argv)
 	/* CALCULATE GFA map  */
 	string B0_filename = DSI_basename + "b0.nii";
 	NIFTI<INT16> niiB0( B0_filename, false );
-	int     dim[4]         = {niiODF.hdr->dim[2],    niiODF.hdr->dim[3],    niiODF.hdr->dim[4], 1};
-	float   pixdim[4]      = {niiB0.hdr->pixdim[1], niiB0.hdr->pixdim[2],   niiB0.hdr->pixdim[3], 1}; 
+	int     dim[4]         = {niiODF.hdr->dim[2],    niiODF.hdr->dim[3],    niiODF.hdr->dim[4], 	1};
+	float   pixdim[4]      = {niiB0.hdr->pixdim[1],  niiB0.hdr->pixdim[2],  niiB0.hdr->pixdim[3], 	1}; 
 	short   nDIR		   = niiODF.hdr->dim[1];
 	printf("-> Creating 'scalars' files...\n");
-	printf("      dim   : %d x %d x %d x %d\n", dim[1],dim[2],dim[3],dim[4]);
-	printf("      pixdim: %.4f x %.4f x %.4f x %.4f\n", pixdim[1],pixdim[2],pixdim[3],pixdim[4]);
+	printf("      dim   : %d x %d x %d x %d\n", dim[0],dim[1],dim[2],dim[3]);
+	printf("      pixdim: %.4f x %.4f x %.4f x %.4f\n", pixdim[0],pixdim[1],pixdim[2],pixdim[3]);
 
 	NIFTI<FLOAT32> niiGFA;
 	niiGFA.make( 3, dim, pixdim );
