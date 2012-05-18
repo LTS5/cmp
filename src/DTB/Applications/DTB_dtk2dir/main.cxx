@@ -231,6 +231,8 @@ int main(int argc, char** argv)
 		float c = niiODF.hdr->quatern_c;
 		float b = niiODF.hdr->quatern_b;
 		float a = sqrt(1.0-(b*b+c*c+d*d));
+		cout <<"-> Compute QFORM matrix...\n";
+		printf("      quatern_b, quatern_c, quatern_d,    : %.4f , %.4f , %.4f\n", b,c,d);
 
 		Array<float,2> QFORM(3,3);
 		QFORM = a*a+b*b-c*c-d*d, 2*b*c-2*a*d, 2*b*d+2*a*c,
@@ -241,7 +243,7 @@ int main(int argc, char** argv)
 			 QFORM(0,1)!=0  || QFORM(1,1)!=-1 || QFORM(2,1)!=0 ||
 			 QFORM(0,2)!=0  || QFORM(1,2)!=0  || QFORM(2,2)!=1 )
 		{
-			cerr <<"The 'qform' information is not handled properly by this software! Be careful.\n";
+			cerr <<"\nThe 'qform' information is not handled properly by this software! Be careful.\n";
 			cerr << "   qform = "<< QFORM << "\n";
 		}
 
