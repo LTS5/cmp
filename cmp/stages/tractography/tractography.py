@@ -80,7 +80,8 @@ def fiber_tracking_dsi():
                             op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
                             op.join(fibers_path, 'streamline.trk'), param )
     
-    runCmd( dtb_cmd, log )
+    # set third argument to zero, in order to allow fast processing
+    runCmd( dtb_cmd, log, 0.0 )
         
     if not op.exists(op.join(fibers_path, 'streamline.trk')):
         log.error('No streamline.trk created')    
@@ -110,7 +111,8 @@ def fiber_tracking_dsi_old_streamline():
                             gconf.get_dtb_streamline_vecs_file(),
                             op.join(fibers_path, 'streamline'), param )
     
-    runCmd( dtb_cmd, log )
+    # set third argument to zero, in order to allow fast processing
+    runCmd( dtb_cmd, log, 0.0 )
         
     if not op.exists(op.join(fibers_path, 'streamline.trk')):
         log.error('No streamline.trk created')    
@@ -137,7 +139,8 @@ def fiber_tracking_dti():
                             # use the white matter mask after registration!
                             op.join(gconf.get_cmp_tracto_mask_tob0(), 'fsmask_1mm__8bit.nii'),
                             op.join(fibers_path, 'streamline.trk'), param )
-    runCmd( dtb_cmd, log )
+    # set third argument to zero, in order to allow fast processing
+    runCmd( dtb_cmd, log, 0.0 )
         
     if not op.exists(op.join(fibers_path, 'streamline.trk')):
         log.error('No streamline.trk created')    

@@ -67,7 +67,7 @@ def mkLocalLog( f ):
 
 
 @mkLocalLog
-def runCmd( cmd, log ):
+def runCmd( cmd, log, sleep_interval=0.5 ):
 
     # timestamp for name
     import random
@@ -75,6 +75,8 @@ def runCmd( cmd, log ):
     # create in temporary file
     import tempfile
     fname = op.join(tempfile.gettempdir(), "out_fifo_%s" % str(t))
+    # import time module
+    import time
 
     try:
         os.unlink( fname )
@@ -97,7 +99,10 @@ def runCmd( cmd, log ):
     
         while process.returncode == None:
             # None means process is still running
-    
+
+            # pause for a while
+            time.sleep(sleep_interval)
+
             # need to poll the process once so the returncode
             # gets set (see docs)
             process.poll()
