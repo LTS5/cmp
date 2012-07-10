@@ -114,14 +114,16 @@ class CMPGUI( PipelineConfiguration ):
                         Item('active_segmentation', label = 'Segmentation'),
                         Item('active_registration', label = 'Registration'),
                         Item('active_parcellation', label = 'Parcellation'),
-                        Item('active_applyregistration', label = 'Apply registration'),
+                        Item('active_applyregistration', label = 'Apply Registration'),
     		            Item('active_reconstruction', label = 'Reconstruction'),
                         Item('active_tractography', label = 'Tractography', tooltip = 'performs tractography'),
                         Item('active_fiberfilter', label = 'Fiber Filtering', tooltip = 'applies filtering operation to the fibers'),
                         Item('active_connectome', label = 'Connectome Creation', tooltip= 'creates the connectivity matrices'),
                         # Item('active_statistics', label = 'Statistics'),
-                        Item('active_rsfmri', label = 'Resting-state fMRI', tooltip= 'creates resting state connectivity matrices'),
                         Item('active_cffconverter', label = 'CFF Converter', tooltip='converts processed files to a connectome file'),
+                        Item('active_rsfmri_registration', label = 'rs-fMRI Registration', tooltip= 'register T1 volume to average fMRI volume'),
+                        Item('active_rsfmri_preprocessing', label = 'rs-fMRI Preprocesing', tooltip= 'preprocess fMRI volumes'),
+                        Item('active_rsfmri_connectionmatrix', label = 'rs-fMRI Connectome Creation', tooltip= 'creates functional connectivity matrices'),
                         Item('skip_completed_stages', label = 'Skip Previously Completed Stages:'),
                         label="Stages"     
                         ),
@@ -324,8 +326,8 @@ class CMPGUI( PipelineConfiguration ):
 
     connectioncreation_group = Group(
         VGroup(
-               Item('compute_curvature', label="Compute curvature"),
-               Item('parcellation_scheme', label="Used Parcellation Scheme"),
+                Item('compute_curvature', label="Compute curvature"),
+                Item('parcellation_scheme', label="Used Parcellation Scheme"),
                 VGroup(
                        Item('connection_P0', label="P0"),
                        Item('connection_gfa', label="GFA"),
@@ -349,11 +351,11 @@ class CMPGUI( PipelineConfiguration ):
         label = "Connectome Creation",
         )
 
-    rsfmri_group = Group(
+    rsfmri_registration_group = Group(
         VGroup(
                Item('parcellation_scheme', label="Used Parcellation Scheme"),
                show_border = True,
-               enabled_when = "active_rsfmri"
+               enabled_when = "active_rsfmri_registration"
             ),
         VGroup(
                Item('rsfmri_registration_mode', label="T1-to-fMRI Registration"),
@@ -368,15 +370,83 @@ class CMPGUI( PipelineConfiguration ):
                       label = "BBregister linear Registration"
                       ),
                show_border = True,
-               enabled_when = "active_rsfmri"
-            ),
+               enabled_when = "active_rsfmri_registration"
+               ),
         VGroup(
-            Item('do_save_mat', label="Save .mat format?"),
-            show_border = True
-        ),
-        visible_when = "active_rsfmri",
-        label = "rsfMRI",
+               Item('rsfmri_slice_timing', label="Slice timing interpolation:"),
+               show_border = True
+               ),
+        visible_when = "active_rsfmri_registration",
+        label = "rsfMRI-Registration"
         )
+
+    rsfmri_preprocessing_group = Group(
+               VGroup(
+                      Item('parcellation_scheme', label="Used Parcellation Scheme"),
+                      show_border = True,
+                      enabled_when = "active_rsfmri_preprocessing"
+                     ),
+               VGroup(
+                      Item('rsfmri_smoothing', label="Spatial smoothing, sigma (mm):"),
+                      label = 'Smoothing',
+                      show_border = True
+                      ),
+               VGroup(
+                      Item('rsfmri_discard', label="Discard the first n time points, n:"),
+                      label = 'Discard first n time points',
+                      show_border = True
+                      ),
+               VGroup(
+                      Item('rsfmri_nuisance_WM', label="WM average signal"),
+                      Item('rsfmri_nuisance_CSF', label="CSF average signal"),
+                      Item('rsfmri_nuisance_motion', label="Estimated motion (3rot.+3disp.)"),
+                      label = 'Nuisance signals regression',
+                      show_border = True
+                     ),
+               VGroup(
+                      Item('rsfmri_detrending', label="Linear detrending"),
+                      label = 'Linear detrending',
+                      show_border = True
+                     ),
+               VGroup(
+                      Item('rsfmri_lowpass', label="Temporal lowpass filtering, sigma (volumes):"),
+                      label = 'Lowpass filtering',
+                      show_border = True
+                      ),
+               VGroup(
+                      Item('rsfmri_scrubbing_parameters', label="Compute scrubbing parameters"),
+                      label = 'Scrubbing',
+                      show_border = True
+                      ),
+               visible_when = "active_rsfmri_preprocessing",
+               label = "rsfMRI-Preprocessing"
+               )
+
+    rsfmri_connectionmatrix_group = Group(
+               VGroup(
+                      Item('parcellation_scheme', label="Used Parcellation Scheme"),
+                      show_border = True,
+                      enabled_when = "active_rsfmri_connectionmatrix"
+                     ),
+               VGroup(
+                      Item('rsfmri_scrubbing_apply', label="Apply scrubbing"),
+                      VGroup(
+                          Item('rsfmri_scrubbing_FD', label="FD threshold:"),
+                          Item('rsfmri_scrubbing_DVARS', label="DVARS threshold:"),
+                          enabled_when = "rsfmri_scrubbing_apply",
+                          show_border = False
+                          ),
+                      label = 'Scrubbing',
+                      show_border = True
+                      ),
+               VGroup(
+                      Item('do_save_mat', label="Save .mat format?"),
+                      label = 'Output format',
+                      show_border = True
+                      ),
+               visible_when = "active_rsfmri_connectionmatrix",
+               label = "rsfMRI-Connectome"
+               )
 
     cffconverter_group = Group(
         VGroup(
@@ -428,7 +498,9 @@ class CMPGUI( PipelineConfiguration ):
               tractography_group,
               fiberfilter_group,
               connectioncreation_group,
-              rsfmri_group,
+              rsfmri_registration_group,
+              rsfmri_preprocessing_group,
+              rsfmri_connectionmatrix_group,
               cffconverter_group,
               configuration_group,
               orientation= 'horizontal',
@@ -445,8 +517,9 @@ class CMPGUI( PipelineConfiguration ):
                 Item( 'run', label = 'Map Connectome!', show_label = False),
             ),
         ),
+        scrollable = True,
         resizable = True,
-        width=0.3,
+        width = 0.3,
         handler = CMPGUIHandler,
         title     = 'Connectome Mapper',
     )
