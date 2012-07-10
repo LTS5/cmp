@@ -38,9 +38,6 @@ class PipelineConfiguration(traits.HasTraits):
     # choose between 'L' (linear) and 'N' (non-linear) and 'B' (bbregister)
     registration_mode = traits.Enum("Linear", ["Linear", "Nonlinear", "BBregister"], desc="registration mode: linear or non-linear or bbregister")
 
-    # choose between 'L' (linear) and 'B' (bbregister)
-    rsfmri_registration_mode = traits.Enum("Linear", ["Linear", "BBregister"], desc="registration mode: linear or bbregister")
-
     diffusion_imaging_model = traits.Enum( "DSI", ["DSI", "DTI", "QBALL"])
     
     # DSI
@@ -76,9 +73,26 @@ class PipelineConfiguration(traits.HasTraits):
     do_convert_fMRI = traits.Bool(False)
 
     # rsfmri
+    # choose between 'L' (linear) and 'B' (bbregister)
+    rsfmri_registration_mode = traits.Enum("Linear", ["Linear", "BBregister"], desc="registration mode: linear or bbregister")
     rsfmri_lin_reg_param = traits.Str('-usesqform -nosearch -dof 6 -cost mutualinfo')
     rsfmri_bb_reg_param = traits.Str('--init-header --dti')
     do_save_mat = traits.Bool(True)
+
+    # rsfmri PREPROCESSING STEPS
+    rsfmri_slice_timing = traits.Enum("none", ["none", "bottom-top interleaved", "top-bottom interleaved", "bottom-top", "top-bottom"], desc="time slicing mode")
+    rsfmri_smoothing = traits.Str('0')
+    rsfmri_discard = traits.Str('5')
+    rsfmri_nuisance_WM = traits.Bool(True)
+    rsfmri_nuisance_CSF = traits.Bool(True)
+    rsfmri_nuisance_motion = traits.Bool(True)
+    rsfmri_nuisance = traits.Bool(True)
+    rsfmri_detrending = traits.Bool(True)
+    rsfmri_lowpass = traits.Str('1')
+    rsfmri_scrubbing_parameters = traits.Bool(True)
+    rsfmri_scrubbing_apply = traits.Bool(True)
+    rsfmri_scrubbing_FD = traits.Str('0.5')
+    rsfmri_scrubbing_DVARS = traits.Str('5')
     
     # DEPRECATED:
     subject_raw_glob_diffusion = traits.Str( "*.*" )
@@ -109,8 +123,10 @@ class PipelineConfiguration(traits.HasTraits):
     active_fiberfilter = traits.Bool(False)
     active_connectome = traits.Bool(False)
     active_statistics = traits.Bool(False)
-    active_rsfmri = traits.Bool(False)
     active_cffconverter = traits.Bool(False)
+    active_rsfmri_registration = traits.Bool(False)
+    active_rsfmri_preprocessing = traits.Bool(False)
+    active_rsfmri_connectionmatrix = traits.Bool(False)
     skip_completed_stages = traits.Bool(False)
 
     # metadata
@@ -490,6 +506,15 @@ class PipelineConfiguration(traits.HasTraits):
 
     def get_cmp_fmri(self):
         return op.join(self.get_cmp(), 'fMRI')
+
+    def get_cmp_fmri_preproc(self):
+        return op.join(self.get_cmp_fmri(), 'preprocessing')
+
+    def get_cmp_fmri_matrices(self):
+        return op.join(self.get_cmp_fmri(), 'matrices')
+
+    def get_cmp_fmri_timeseries(self):
+        return op.join(self.get_cmp_fmri(), 'timeseries')    
     
     def get_cmp_tracto_mask(self):
         return op.join(self.get_cmp_fsout(), 'HR')
