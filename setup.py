@@ -18,7 +18,9 @@ packages=["cmp",
           "cmp.stages.parcellation",
           "cmp.stages.registration",
           "cmp.stages.tractography",
-          "cmp.stages.rsfmri",
+          "cmp.stages.rsfmri_registration",
+          "cmp.stages.rsfmri_preprocessing"
+          "cmp.stages.rsfmri_connectionmatrix"
           "cmp.stages.stats",
           "cmp.stages.template_module",
           "cmp.pipeline"]
