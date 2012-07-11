@@ -16,7 +16,7 @@ import numpy as np
 import scipy.io as sio
 import scipy
 from os import environ
-import statsmodels.api as sm
+#import statsmodels.api as sm
 
 
 
@@ -64,10 +64,10 @@ def discard_timepoints():
 
     log.info("[ DONE ]")
 
-
+"""
 def nuisance_regression():
-    """ regress out nuisance signals (WM, CSF, movements) through GLM
-    """
+    #regress out nuisance signals (WM, CSF, movements) through GLM
+    
     log.info("Regression of nuisance signals")
     log.info("==============================")
 
@@ -147,7 +147,7 @@ def nuisance_regression():
     nib.save(img, op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_nuisance.nii.gz'))
 
     log.info("[ DONE ]")
-
+"""
 
 def linear_detrending():
     """ linear detrending
@@ -299,11 +299,13 @@ def run(conf):
     if float(conf.rsfmri_discard) > 0:
         discard_timepoints()
 
+    """
     if conf.rsfmri_nuisance_WM or conf.rsfmri_nuisance_CSF or conf.rsfmri_nuisance_motion:
         conf.rsfmri_nuisance = True
         nuisance_regression()
     else:
         conf.rsfmri_nuisance = False
+    """
 
     if conf.rsfmri_detrending:
         linear_detrending()
