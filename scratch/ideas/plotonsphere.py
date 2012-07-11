@@ -16,7 +16,11 @@
 # for the visualization
 # we need numpy and mayavi
 import numpy as np
-from enthought.mayavi.mlab import *
+
+try:
+	from mayavi.mlab import *
+except ImportError:
+	from enthought.mayavi.mlab import *
 
 pi = np.pi
 cos = np.cos

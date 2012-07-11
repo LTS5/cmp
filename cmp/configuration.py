@@ -6,7 +6,12 @@
 
 """ The configuration is based on traits and used to create the configuration for a project. """
 
-import enthought.traits.api as traits
+
+try: 
+	import traits.api as traits
+except ImportError: 
+	import enthought.traits.api as traits
+
 import os.path as op, os
 import sys
 import datetime as dt

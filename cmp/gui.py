@@ -9,16 +9,22 @@
 import os.path
 import traceback
 #import threading
+try:
+	from traits.api import HasTraits, Int, Str, Directory, List,\
+	                 Bool, File, Button, Enum, Instance
+	from traitsui.api import View, Item, HGroup, Handler, \
+	                    message, spring, Group, VGroup, TableEditor, UIInfo
+	from traitsui.table_column \
+	    import ObjectColumn
+except ImportError:
+	from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
+	                 Bool, File, Button, Enum, Instance
+	from enthought.traits.ui.api import View, Item, HGroup, Handler, \
+	                    message, spring, Group, VGroup, TableEditor, UIInfo	    
+	from enthought.traits.ui.table_column \
+	    import ObjectColumn
 
-from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
-                 Bool, File, Button, Enum, Instance
-    
-from enthought.traits.ui.api import View, Item, HGroup, Handler, \
-                    message, spring, Group, VGroup, TableEditor, UIInfo
 
-    
-from enthought.traits.ui.table_column \
-    import ObjectColumn
 
 import cmp    
 from cmp.configuration import PipelineConfiguration
@@ -102,7 +108,7 @@ class CMPGUI( PipelineConfiguration ):
   
     main_group = Group(
                     VGroup(
-                    Item('project_dir', label='Project Directory:', tooltip = 'Please select the root folder of your project'),
+                    Item('project_dir', label='Project Directory TEST:', tooltip = 'Please select the root folder of your project'),
                     #Item('generator', label='Generator', ),
                     Item('diffusion_imaging_model', label='Imaging Modality'),
                       label="Project Settings"
