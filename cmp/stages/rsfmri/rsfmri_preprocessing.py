@@ -16,7 +16,7 @@ import numpy as np
 import scipy.io as sio
 import scipy
 from os import environ
-#import statsmodels.api as sm
+import statsmodels.api as sm
 
 
 
@@ -64,7 +64,7 @@ def discard_timepoints():
 
     log.info("[ DONE ]")
 
-"""
+
 def nuisance_regression():
     #regress out nuisance signals (WM, CSF, movements) through GLM
     
@@ -79,6 +79,15 @@ def nuisance_regression():
     else:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_mcf.nii.gz')
 
+    if gconf.rsfmri_nuisance_CSF or gconf.rsfmri_nuisance_WM:
+        try:
+            import scipy.ndimage.morphology as nd
+        except ImportError:
+            raise Exception('Need scipy for binary erosion of CSF mask and/or white matter mask')
+        imerode = nd.binary_erosion
+        se = np.zeros( (3,3,3) )
+        se[1,:,1] = 1; se[:,1,1] = 1; se[1,1,:] = 1
+
     # Extract CSF average signal
     dataimg = nib.load( ref_path )
     data = dataimg.get_data()
@@ -86,16 +95,30 @@ def nuisance_regression():
     if gconf.rsfmri_nuisance_CSF:
         asegfile = op.join(gconf.get_cmp_fmri(), 'aseg-TO-fMRI.nii.gz')
         aseg = nib.load( asegfile ).get_data().astype( np.uint32 )
-        csf = np.concatenate((data[aseg==4],data[aseg==43],data[aseg==11],data[aseg==50],data[aseg==31],data[aseg==63],data[aseg==10],data[aseg==49]))
-        csf = csf.mean( axis = 0 )
-        np.save( op.join(gconf.get_cmp_fmri_preproc(), 'averageCSF.npy'), csf )
-        sio.savemat( op.join(gconf.get_cmp_fmri_preproc(), 'averageCSF.mat' ), {'avgCSF':csf} )
+        idx = np.where( (aseg == 4) |
+                        (aseg == 43) |
+                        (aseg == 11) |
+                        (aseg == 50) |
+                        (aseg == 31) |
+                        (aseg == 63) |
+                        (aseg == 10) |
+                        (aseg == 49) )
+        er_mask = np.zeros( aseg.shape )
+        er_mask[idx] = 1
+        er_mask = imerode(er_mask,se)
+        csf_values = data[er_mask==1].mean( axis = 0 )
+        np.save( op.join(gconf.get_cmp_fmri_preproc(), 'averageCSF.npy'), csf_values )
+        sio.savemat( op.join(gconf.get_cmp_fmri_preproc(), 'averageCSF.mat' ), {'avgCSF':csf_values} )
 
     # Extract WM average signal
     if gconf.rsfmri_nuisance_WM:
         WMfile = op.join(gconf.get_cmp_fmri(), 'fsmask_1mm-TO-fMRI.nii.gz')
         WM = nib.load( WMfile ).get_data().astype( np.uint32 )
-        wm_values = data[WM==1].mean( axis = 0 )
+        er_mask = np.zeros( WM.shape )
+        idx = np.where( (WM == 1) )
+        er_mask[idx] = 1
+        er_mask = imerode(er_mask,se)
+        wm_values = data[er_mask==1].mean( axis = 0 )
         np.save( op.join(gconf.get_cmp_fmri_preproc(), 'averageWM.npy'), wm_values )
         sio.savemat( op.join(gconf.get_cmp_fmri_preproc(), 'averageWM.mat' ), {'avgWM':wm_values} )
 
@@ -114,7 +137,7 @@ def nuisance_regression():
 
     # build regressors matrix
     if gconf.rsfmri_nuisance_CSF:
-        X = np.hstack((csf.reshape(tp,1)))
+        X = np.hstack((csf_values.reshape(tp,1)))
         log.info('Detrend CSF average signal')
         if gconf.rsfmri_nuisance_WM:
             X = np.hstack((X.reshape(tp,1),wm_values.reshape(tp,1)))
@@ -147,16 +170,16 @@ def nuisance_regression():
     nib.save(img, op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_nuisance.nii.gz'))
 
     log.info("[ DONE ]")
-"""
 
-def linear_detrending():
+
+def linear_detrending(rsfmri_nuisance):
     """ linear detrending
     """
     log.info("Linear detrending")
     log.info("=================")
 
     # Output from previous preprocessing step
-    if gconf.rsfmri_nuisance:
+    if rsfmri_nuisance:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_nuisance.nii.gz')
     elif float(gconf.rsfmri_discard) > 0:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_discard.nii.gz')
@@ -188,7 +211,7 @@ def linear_detrending():
     log.info("[ DONE ]")    
 
 
-def lowpass_filtering():
+def lowpass_filtering(rsfmri_nuisance):
     """ apply lowpass filtering in time domain
     """
     log.info("Apply lowpass filtering")
@@ -197,7 +220,7 @@ def lowpass_filtering():
     # Output from previous preprocessing step
     if gconf.rsfmri_detrending:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_detrending.nii.gz')
-    elif gconf.rsfmri_nuisance:
+    elif rsfmri_nuisance:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_nuisance.nii.gz')
     elif float(gconf.rsfmri_discard) > 0:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_discard.nii.gz')
@@ -216,7 +239,7 @@ def lowpass_filtering():
     log.info("[ DONE ]")
 
 
-def scrubbing():
+def scrubbing(rsfmri_nuisance):
     """ compute scrubbing parameters: FD and DVARS
     """
     log.info("Precompute FD and DVARS for scrubbing")
@@ -227,7 +250,7 @@ def scrubbing():
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_lowpass.nii.gz')
     elif gconf.rsfmri_detrending:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_detrending.nii.gz')
-    elif gconf.rsfmri_nuisance:
+    elif rsfmri_nuisance:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_nuisance.nii.gz')
     elif float(gconf.rsfmri_discard) > 0:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_discard.nii.gz')
@@ -299,29 +322,28 @@ def run(conf):
     if float(conf.rsfmri_discard) > 0:
         discard_timepoints()
 
-    """
+
     if conf.rsfmri_nuisance_WM or conf.rsfmri_nuisance_CSF or conf.rsfmri_nuisance_motion:
-        conf.rsfmri_nuisance = True
+        rsfmri_nuisance = True
         nuisance_regression()
     else:
-        conf.rsfmri_nuisance = False
-    """
+        rsfmri_nuisance = False
 
     if conf.rsfmri_detrending:
-        linear_detrending()
+        linear_detrending(rsfmri_nuisance)
 
     if float(conf.rsfmri_lowpass) > 0:
-        lowpass_filtering()
+        lowpass_filtering(rsfmri_nuisance)
 
     if conf.rsfmri_scrubbing_parameters:
-        scrubbing()
+        scrubbing(rsfmri_nuisance)
 
     # Final output preprocessing
     if float(conf.rsfmri_lowpass) > 0:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_lowpass.nii.gz')
     elif conf.rsfmri_detrending:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_detrending.nii.gz')
-    elif conf.rsfmri_nuisance:
+    elif rsfmri_nuisance:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_nuisance.nii.gz')
     elif float(conf.rsfmri_discard) > 0:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_discard.nii.gz')
@@ -366,7 +388,7 @@ def declare_outputs(conf):
     if float(conf.rsfmri_discard) > 0:
         conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fmri_preproc(), 'fMRI_discard.nii.gz', 'fmri_discard-nii-gz')
 
-    if conf.rsfmri_nuisance:
+    if conf.rsfmri_nuisance_WM or conf.rsfmri_nuisance_CSF or conf.rsfmri_nuisance_motion:
         conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fmri_preproc(), 'fMRI_nuisance.nii.gz', 'fmri_nuisance-nii-gz')
         conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fmri_preproc(), 'averageCSF.npy', 'averageCSF-npy')
         conf.pipeline_status.AddStageOutput(stage, conf.get_cmp_fmri_preproc(), 'averageWM.npy', 'averageWM-npy')
