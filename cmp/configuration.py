@@ -91,7 +91,6 @@ class PipelineConfiguration(traits.HasTraits):
     rsfmri_nuisance_WM = traits.Bool(True)
     rsfmri_nuisance_CSF = traits.Bool(True)
     rsfmri_nuisance_motion = traits.Bool(True)
-    rsfmri_nuisance = traits.Bool(True)
     rsfmri_detrending = traits.Bool(True)
     rsfmri_lowpass = traits.Str('1')
     rsfmri_scrubbing_parameters = traits.Bool(True)
