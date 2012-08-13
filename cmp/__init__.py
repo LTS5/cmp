@@ -12,6 +12,8 @@ import stages.preprocessing.organize as preprocessing
 # DICOM CONVERTER
 import stages.converter.dicomconverter as dicomconverter
 
+# EPI UNWARP
+import stages.epiunwarp.epiunwarp as epiunwarp
 # REGISTRATION
 import stages.registration.registration as registration
 

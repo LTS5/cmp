@@ -119,6 +119,7 @@ class PipelineConfiguration(traits.HasTraits):
     
     active_createfolder = traits.Bool(True)
     active_dicomconverter = traits.Bool(False)
+    active_epiunwarp = traits.Bool(False)
     active_registration = traits.Bool(False)
     active_segmentation = traits.Bool(False)
     active_parcellation = traits.Bool(False)
@@ -146,6 +147,13 @@ class PipelineConfiguration(traits.HasTraits):
 #    relation =  traits.Str()
     species = traits.Str('Homo sapiens')
     description = traits.Str()
+
+    # epiunwarp
+    tediff_param = traits.Float(2.46)
+    esp_param = traits.Float(0.5)
+    sigma_param = traits.Float(2.0)
+    rev_enc_dir_param = traits.Bool(True)
+    reg_epi_param = traits.Bool(True)
 
     # segmentation
     recon_all_param = traits.Str('-all -no-isrunning')
@@ -466,6 +474,10 @@ class PipelineConfiguration(traits.HasTraits):
     def get_nifti_trafo(self):
         """ Returns the path to the subjects transformation / registration matrices """
         return op.join(self.get_nifti(), 'transformations')
+
+    def get_epiunwarp(self):
+	""" Returns the path to the epiunwarp module temp files """
+        return op.join(self.get_nifti(), 'epiunwarp' )
 
     def get_nifti_bbregister(self):
         """ Returns the path to the subjects transformation / registration matrices, bbregister mode """

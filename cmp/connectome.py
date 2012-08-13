@@ -17,6 +17,7 @@ def setup_pipeline_status(cobj):
     # that the stages in the pipeline are laid out before
     # processing begins
     stages = [ (cmp.dicomconverter, cobj.active_dicomconverter),
+	       (cmp.epiunwarp, cobj.active_epiunwarp),
                (cmp.freesurfer, cobj.active_segmentation),
                (cmp.registration, cobj.active_registration),
                (cmp.maskcreation, cobj.active_parcellation),

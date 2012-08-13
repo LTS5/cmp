@@ -96,6 +96,7 @@ class CMPGUI( PipelineConfiguration ):
     help = Button
 
     inspect_dicomconverter = Button
+#    inspect_epiunwarp = Button
     inspect_registration = Button
     inspect_segmentation = Button
     inspect_whitemattermask = Button
@@ -117,6 +118,7 @@ class CMPGUI( PipelineConfiguration ):
                         VGroup(
                         Item('active_createfolder', label = 'Create Folder'),
                         Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
+                        Item('active_epiunwarp', label = 'EPI Unwarping', tooltip = "corrects EPI volumes for spatial distortions"),
                         Item('active_segmentation', label = 'Segmentation'),
                         Item('active_registration', label = 'Registration'),
                         Item('active_parcellation', label = 'Parcellation'),
@@ -199,6 +201,20 @@ class CMPGUI( PipelineConfiguration ):
         visible_when = "active_dicomconverter",             
         label = "DICOM Converter"                        
         )
+
+    epiunwarp_group = Group(
+        VGroup(
+            Item('tediff_param', label="TE difference (asym time, ms)", tooltip="Difference in echo times of the B0 field map in ms." ),
+            Item('esp_param', label="EPI echo spacing (dwell time, ms)", tooltip="Time (ms) between the start of the readout of two successive lines in k-space during EPI acquisition (eq. time between rows)" ),
+	    Item('sigma_param', label="Voxel Shift Map Smoothing (stddev, mm)", tooltip="Standard deviation in mm for the 2D smoothing applied to the voxel shift map (vsm)" ),
+            Item('rev_enc_dir_param', label="Reverse Phase Encode Direction"),
+            Item('reg_epi_param', label="Register fieldmap magnitude to EPI volume"),
+            show_border = True
+        ),
+        visible_when = "active_epiunwarp",
+        label = "EPI distortion correction",
+        )
+
 
     registration_group = Group(
         VGroup(
@@ -496,6 +512,7 @@ class CMPGUI( PipelineConfiguration ):
               metadata_group,
               subject_group,
               dicomconverter_group,
+              epiunwarp_group,
               registration_group,
               segementation_group,
               parcellation_group,
@@ -541,7 +558,10 @@ class CMPGUI( PipelineConfiguration ):
     def load_state(self, cmpconfigfile):
         """ Load CMP Configuration state directly.
         Useful if you do not want to invoke the GUI"""
-        import enthought.sweet_pickle as sp        
+        try:    
+	        import enthought.sweet_pickle as sp
+	except ImportError:
+		import apptools.sweet_pickle as sp
         output = open(cmpconfigfile, 'rb')
         data = sp.load(output)
         self.__setstate__(data.__getstate__())
@@ -566,8 +586,11 @@ class CMPGUI( PipelineConfiguration ):
         # check if path available
         if not os.path.exists(os.path.dirname(cmpconfigfile)):
             os.makedirs(os.path.abspath(os.path.dirname(cmpconfigfile)))
-            
-        import enthought.sweet_pickle as sp
+        try:    
+	        import enthought.sweet_pickle as sp
+	except ImportError:
+		import apptools.sweet_pickle as sp
+
         output = open(cmpconfigfile, 'wb')
         # Pickle the list using the highest protocol available.
         # copy object first
@@ -673,8 +696,14 @@ class CMPGUI( PipelineConfiguration ):
         #cmpthread.start()
 
     def _load_fired(self):
-        import enthought.sweet_pickle as sp
-        from enthought.pyface.api import FileDialog, OK
+        try:    
+	        import enthought.sweet_pickle as sp
+        	from enthought.pyface.api import FileDialog, OK
+	except ImportError:
+		import apptools.sweet_pickle as sp
+        	from pyface.api import FileDialog, OK
+
+
         
         wildcard = "CMP Configuration State (*.pkl)|*.pkl|" \
                         "All files (*.*)|*.*"
@@ -690,9 +719,15 @@ class CMPGUI( PipelineConfiguration ):
 
     def _save_fired(self):
         import pickle
-        import enthought.sweet_pickle as sp
         import os.path
-        from enthought.pyface.api import FileDialog, OK
+        try:    
+	        import enthought.sweet_pickle as sp
+	        from enthought.pyface.api import FileDialog, OK
+	except ImportError:
+		import apptools.sweet_pickle as sp
+	        from pyface.api import FileDialog, OK
+
+
         
         wildcard = "CMP Configuration State (*.pkl)|*.pkl|" \
                         "All files (*.*)|*.*"

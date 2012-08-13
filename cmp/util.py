@@ -9,7 +9,14 @@ import shutil
 import subprocess
 import numpy as np
 from logme import *
-from enthought.traits.api import HasStrictTraits, Str
+
+try: 
+#	import traits.api as traits
+	from traits.api import HasStrictTraits, Str
+except ImportError: 
+	from traits import HasStrictTraits, Str
+
+
 import networkx as nx
 
 try:
