@@ -9,7 +9,7 @@ import shutil
 import subprocess
 import numpy as np
 from logme import *
-from enthought.traits.api import HasStrictTraits, Str
+from traits.api import HasStrictTraits, Str
 import networkx as nx
 
 try:
