@@ -4,7 +4,7 @@
 #
 #  This software is distributed under the open-source license Modified BSD.
 
-from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
+from traits.api import HasTraits, Int, Str, Directory, List,\
                  Bool, File, Button, Enum
     
 from enthought.traits.ui.api import View, Item, HGroup, Handler, \
