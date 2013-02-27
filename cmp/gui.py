@@ -10,14 +10,14 @@ import os.path
 import traceback
 #import threading
 
-from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
+from traits.api import HasTraits, Int, Str, Directory, List,\
                  Bool, File, Button, Enum, Instance
     
-from enthought.traits.ui.api import View, Item, HGroup, Handler, \
+from traits.ui.api import View, Item, HGroup, Handler, \
                     message, spring, Group, VGroup, TableEditor, UIInfo
 
     
-from enthought.traits.ui.table_column \
+from traits.ui.table_column \
     import ObjectColumn
 
 import cmp    
