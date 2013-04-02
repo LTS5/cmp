@@ -13,6 +13,8 @@ from ...logme import *
 import nibabel as nib
 import numpy as np
 import scipy.io as sio
+from scipy import signal
+import scipy.ndimage.morphology as nd
 import scipy
 from os import environ
 import statsmodels.api as sm
@@ -205,7 +207,7 @@ def apply_registration_roi_to_fmean():
                     reffile,
                     outfile,
                     param)
-    runCmd( flirt_cmd, log )
+    runCmd( flirt_cmd, log )    
 
     log.info("aseg")
     outfile = op.join(gconf.get_cmp_fmri(), 'aseg-TO-fMRI.nii.gz')
@@ -217,6 +219,75 @@ def apply_registration_roi_to_fmean():
                     outfile,
                     param)
     runCmd( flirt_cmd, log )
+    
+    # Register as well an eroded version of the WM mask, the CSF mask and the whole brain mask
+    # This step can be tought better !!! TODO for coming cmp_nipype
+    # WM
+    log.info("erode and register -prepare for nuisance regression-")
+    imerode = nd.binary_erosion
+    se = np.zeros( (3,3,3) )
+    se[1,:,1] = 1; se[:,1,1] = 1; se[1,1,:] = 1
+    WMfile = op.join(gconf.get_cmp_tracto_mask(), 'fsmask_1mm.nii.gz')
+    WM = nib.load( WMfile ).get_data().astype( np.uint32 )
+    er_mask = np.zeros( WM.shape )
+    idx = np.where( (WM == 1) )
+    er_mask[idx] = 1
+    er_mask = imerode(er_mask,se)
+    er_mask = imerode(er_mask,se)
+    img = nib.Nifti1Image(er_mask, nib.load( WMfile ).get_affine(), nib.load( WMfile ).get_header())
+    nib.save(img, op.join(gconf.get_cmp_fmri(), 'fsmask_1mm_eroded.nii.gz'))   
+    outfile = op.join(op.join(gconf.get_cmp_fmri(), 'fsmask_1mm_eroded-TO-fMRI.nii.gz'))
+    infile = op.join(op.join(gconf.get_cmp_fmri(), 'fsmask_1mm_eroded.nii.gz'))
+    flirt_cmd = 'flirt -applyxfm -init %s -in %s -ref %s -out %s %s' % (
+                    outmat,
+                    infile,
+                    reffile,
+                    outfile,
+                    param)
+    runCmd( flirt_cmd, log )
+    # CSF
+    asegfile = op.join(gconf.get_cmp_tracto_mask(), 'aseg.nii.gz')
+    aseg = nib.load( asegfile ).get_data().astype( np.uint32 )
+    idx = np.where( (aseg == 4) |
+                    (aseg == 43) |
+                    (aseg == 11) |
+                    (aseg == 50) |
+                    (aseg == 31) |
+                    (aseg == 63) |
+                    (aseg == 10) |
+                    (aseg == 49) )
+    er_mask = np.zeros( aseg.shape )
+    er_mask[idx] = 1
+    er_mask = imerode(er_mask,se)
+    er_mask = imerode(er_mask,se)    
+    img = nib.Nifti1Image(er_mask, nib.load( asegfile ).get_affine(), nib.load( asegfile ).get_header())
+    nib.save(img, op.join(gconf.get_cmp_fmri(), 'csf_eroded.nii.gz'))   
+    outfile = op.join(op.join(gconf.get_cmp_fmri(), 'csf_eroded-TO-fMRI.nii.gz'))
+    infile = op.join(op.join(gconf.get_cmp_fmri(), 'csf_eroded.nii.gz'))
+    flirt_cmd = 'flirt -applyxfm -init %s -in %s -ref %s -out %s %s' % (
+                    outmat,
+                    infile,
+                    reffile,
+                    outfile,
+                    param)
+    runCmd( flirt_cmd, log )     
+    # Whole brain 
+    idx = np.where( aseg > 0)
+    er_mask = np.zeros( aseg.shape )
+    er_mask[idx] = 1
+    er_mask = imerode(er_mask,se)
+    er_mask = imerode(er_mask,se)
+    img = nib.Nifti1Image(er_mask, nib.load( asegfile ).get_affine(), nib.load( asegfile ).get_header())
+    nib.save(img, op.join(gconf.get_cmp_fmri(), 'brain_eroded.nii.gz'))   
+    outfile = op.join(op.join(gconf.get_cmp_fmri(), 'brain_eroded-TO-fMRI.nii.gz'))
+    infile = op.join(op.join(gconf.get_cmp_fmri(), 'brain_eroded.nii.gz'))
+    flirt_cmd = 'flirt -applyxfm -init %s -in %s -ref %s -out %s %s' % (
+                    outmat,
+                    infile,
+                    reffile,
+                    outfile,
+                    param)
+    runCmd( flirt_cmd, log )           
 
     log.info("[ DONE ]")
 

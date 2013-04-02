@@ -78,47 +78,31 @@ def nuisance_regression():
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_smoothing.nii.gz')
     else:
         ref_path = op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_mcf.nii.gz')
-
-    if gconf.rsfmri_nuisance_CSF or gconf.rsfmri_nuisance_WM:
-        try:
-            import scipy.ndimage.morphology as nd
-        except ImportError:
-            raise Exception('Need scipy for binary erosion of CSF mask and/or white matter mask')
-        imerode = nd.binary_erosion
-        se = np.zeros( (3,3,3) )
-        se[1,:,1] = 1; se[:,1,1] = 1; se[1,1,:] = 1
-
-    # Extract CSF average signal
+        
+    # Extract whole brain average signal
     dataimg = nib.load( ref_path )
     data = dataimg.get_data()
     tp = data.shape[3]
+    if gconf.rsfmri_nuisance_global:
+        brainfile = op.join(gconf.get_cmp_fmri(), 'brain_eroded-TO-fMRI.nii.gz') # load eroded whole brain mask
+        brain = nib.load( brainfile ).get_data().astype( np.uint32 )
+        global_values = data[brain==1].mean( axis = 0 )
+        np.save( op.join(gconf.get_cmp_fmri_preproc(), 'averageGlobal.npy'), global_values )
+        sio.savemat( op.join(gconf.get_cmp_fmri_preproc(), 'averageGlobal.mat' ), {'avgGlobal':global_values} )    		
+
+    # Extract CSF average signal
     if gconf.rsfmri_nuisance_CSF:
-        asegfile = op.join(gconf.get_cmp_fmri(), 'aseg-TO-fMRI.nii.gz')
-        aseg = nib.load( asegfile ).get_data().astype( np.uint32 )
-        idx = np.where( (aseg == 4) |
-                        (aseg == 43) |
-                        (aseg == 11) |
-                        (aseg == 50) |
-                        (aseg == 31) |
-                        (aseg == 63) |
-                        (aseg == 10) |
-                        (aseg == 49) )
-        er_mask = np.zeros( aseg.shape )
-        er_mask[idx] = 1
-        er_mask = imerode(er_mask,se)
-        csf_values = data[er_mask==1].mean( axis = 0 )
+        csffile = op.join(gconf.get_cmp_fmri(), 'csf_eroded-TO-fMRI.nii.gz') # load eroded CSF mask
+        csf = nib.load( csffile ).get_data().astype( np.uint32 )
+        csf_values = data[csf==1].mean( axis = 0 )
         np.save( op.join(gconf.get_cmp_fmri_preproc(), 'averageCSF.npy'), csf_values )
         sio.savemat( op.join(gconf.get_cmp_fmri_preproc(), 'averageCSF.mat' ), {'avgCSF':csf_values} )
 
     # Extract WM average signal
     if gconf.rsfmri_nuisance_WM:
-        WMfile = op.join(gconf.get_cmp_fmri(), 'fsmask_1mm-TO-fMRI.nii.gz')
+        WMfile = op.join(gconf.get_cmp_fmri(), 'fsmask_1mm_eroded-TO-fMRI.nii.gz') # load eroded WM mask
         WM = nib.load( WMfile ).get_data().astype( np.uint32 )
-        er_mask = np.zeros( WM.shape )
-        idx = np.where( (WM == 1) )
-        er_mask[idx] = 1
-        er_mask = imerode(er_mask,se)
-        wm_values = data[er_mask==1].mean( axis = 0 )
+        wm_values = data[WM==1].mean( axis = 0 )
         np.save( op.join(gconf.get_cmp_fmri_preproc(), 'averageWM.npy'), wm_values )
         sio.savemat( op.join(gconf.get_cmp_fmri_preproc(), 'averageWM.mat' ), {'avgWM':wm_values} )
 
@@ -136,28 +120,55 @@ def nuisance_regression():
             move = move[n_discard:-1,:]
 
     # build regressors matrix
-    if gconf.rsfmri_nuisance_CSF:
-        X = np.hstack((csf_values.reshape(tp,1)))
-        log.info('Detrend CSF average signal')
-        if gconf.rsfmri_nuisance_WM:
-            X = np.hstack((X.reshape(tp,1),wm_values.reshape(tp,1)))
-            log.info('Detrend WM average signal')
-            if gconf.rsfmri_nuisance_motion:
-                X = np.hstack((X,move))
-                log.info('Detrend motion average signals')
-        elif gconf.rsfmri_nuisance_motion:
-            X = np.hstack((X.reshape(tp,1),move))
-            log.info('Detrend motion average signals')
-    elif gconf.rsfmri_nuisance_WM:
-        X = np.hstack((wm_values.reshape(tp,1)))
-        log.info('Detrend WM average signal')
-        if gconf.rsfmri_nuisance_motion:
-            X = np.hstack((X.reshape(tp,1),move))
-            log.info('Detrend motion average signals')
+    if gconf.rsfmri_nuisance_global:
+		X = np.hstack(global_values.reshape(tp,1))
+		log.info('Detrend global average signal')
+		if gconf.rsfmri_nuisance_CSF:		
+			X = np.hstack((X.reshape(tp,1),csf_values.reshape(tp,1)))
+			log.info('Detrend CSF average signal')
+			if gconf.rsfmri_nuisance_WM:
+				X = np.hstack((X,wm_values.reshape(tp,1)))
+				log.info('Detrend WM average signal')
+				if gconf.rsfmri_nuisance_motion:
+					X = np.hstack((X,move))
+					log.info('Detrend motion average signals')
+			elif gconf.rsfmri_nuisance_motion:
+				X = np.hstack((X,move))
+				log.info('Detrend motion average signals')
+		elif gconf.rsfmri_nuisance_WM:
+			X = np.hstack((X.reshape(tp,1),wm_values.reshape(tp,1)))
+			log.info('Detrend WM average signal')
+			if gconf.rsfmri_nuisance_motion:
+				X = np.hstack((X,move))
+				log.info('Detrend motion average signals')
+		elif gconf.rsfmri_nuisance_motion:
+			X = np.hstack((X.reshape(tp,1),move))
+			log.info('Detrend motion average signals')
+    elif gconf.rsfmri_nuisance_CSF:			
+		X = np.hstack((csf_values.reshape(tp,1)))
+		log.info('Detrend CSF average signal')
+		if gconf.rsfmri_nuisance_WM:
+			X = np.hstack((X.reshape(tp,1),wm_values.reshape(tp,1)))
+			log.info('Detrend WM average signal')
+			if gconf.rsfmri_nuisance_motion:
+				X = np.hstack((X,move))
+				log.info('Detrend motion average signals')
+		elif gconf.rsfmri_nuisance_motion:
+			X = np.hstack((X.reshape(tp,1),move))
+			log.info('Detrend motion average signals')
+    elif gconf.rsfmri_nuisance_WM:				
+		X = np.hstack((wm_values.reshape(tp,1)))
+		log.info('Detrend WM average signal')
+		if gconf.rsfmri_nuisance_motion:
+			X = np.hstack((X.reshape(tp,1),move))
+			log.info('Detrend motion average signals')
     elif gconf.rsfmri_nuisance_motion:
-        X = move
-        log.info('Detrend motion average signals')
+		X = move
+		log.info('Detrend motion average signals')
+		
     X = sm.add_constant(X)
+    log.info('Shape X GLM')
+    log.info(X.shape)
 
     # loop throughout all GM voxels
     for index,value in np.ndenumerate( gm ):

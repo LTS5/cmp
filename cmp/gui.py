@@ -419,6 +419,7 @@ class CMPGUI( PipelineConfiguration ):
                       show_border = True
                       ),
                VGroup(
+                      Item('rsfmri_nuisance_global', label="Whole brain average signal"),					
                       Item('rsfmri_nuisance_WM', label="WM average signal"),
                       Item('rsfmri_nuisance_CSF', label="CSF average signal"),
                       Item('rsfmri_nuisance_motion', label="Estimated motion (3rot.+3disp.)"),

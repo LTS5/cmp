@@ -88,6 +88,7 @@ class PipelineConfiguration(traits.HasTraits):
     rsfmri_slice_timing = traits.Enum("none", ["none", "bottom-top interleaved", "top-bottom interleaved", "bottom-top", "top-bottom"], desc="time slicing mode")
     rsfmri_smoothing = traits.Str('0')
     rsfmri_discard = traits.Str('5')
+    rsfmri_nuisance_global = traits.Bool(False)    
     rsfmri_nuisance_WM = traits.Bool(True)
     rsfmri_nuisance_CSF = traits.Bool(True)
     rsfmri_nuisance_motion = traits.Bool(True)
