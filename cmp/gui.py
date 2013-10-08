@@ -560,9 +560,9 @@ class CMPGUI( PipelineConfiguration ):
         """ Load CMP Configuration state directly.
         Useful if you do not want to invoke the GUI"""
         try:    
-	        import enthought.sweet_pickle as sp
-	except ImportError:
-		import apptools.sweet_pickle as sp
+            import enthought.sweet_pickle as sp
+        except ImportError:
+            import apptools.sweet_pickle as sp
         output = open(cmpconfigfile, 'rb')
         data = sp.load(output)
         self.__setstate__(data.__getstate__())

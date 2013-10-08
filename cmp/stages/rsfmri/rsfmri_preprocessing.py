@@ -87,6 +87,7 @@ def nuisance_regression():
         brainfile = op.join(gconf.get_cmp_fmri(), 'brain_eroded-TO-fMRI.nii.gz') # load eroded whole brain mask
         brain = nib.load( brainfile ).get_data().astype( np.uint32 )
         global_values = data[brain==1].mean( axis = 0 )
+        global_values = global_values - np.mean(global_values)
         np.save( op.join(gconf.get_cmp_fmri_preproc(), 'averageGlobal.npy'), global_values )
         sio.savemat( op.join(gconf.get_cmp_fmri_preproc(), 'averageGlobal.mat' ), {'avgGlobal':global_values} )    		
 
@@ -95,6 +96,7 @@ def nuisance_regression():
         csffile = op.join(gconf.get_cmp_fmri(), 'csf_eroded-TO-fMRI.nii.gz') # load eroded CSF mask
         csf = nib.load( csffile ).get_data().astype( np.uint32 )
         csf_values = data[csf==1].mean( axis = 0 )
+        csf_values = csf_values - np.mean(csf_values)
         np.save( op.join(gconf.get_cmp_fmri_preproc(), 'averageCSF.npy'), csf_values )
         sio.savemat( op.join(gconf.get_cmp_fmri_preproc(), 'averageCSF.mat' ), {'avgCSF':csf_values} )
 
@@ -103,12 +105,14 @@ def nuisance_regression():
         WMfile = op.join(gconf.get_cmp_fmri(), 'fsmask_1mm_eroded-TO-fMRI.nii.gz') # load eroded WM mask
         WM = nib.load( WMfile ).get_data().astype( np.uint32 )
         wm_values = data[WM==1].mean( axis = 0 )
+        wm_values = wm_values - np.mean(wm_values)
         np.save( op.join(gconf.get_cmp_fmri_preproc(), 'averageWM.npy'), wm_values )
         sio.savemat( op.join(gconf.get_cmp_fmri_preproc(), 'averageWM.mat' ), {'avgWM':wm_values} )
 
     # Import parameters from head motion estimation
     if gconf.rsfmri_nuisance_motion:
         move = np.genfromtxt( op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_mcf.par') )
+        move = move - np.mean(move,0)
 
     # GLM: regress out nuisance covariates
     new_data = data.copy()
@@ -175,7 +179,8 @@ def nuisance_regression():
         Y = data[index[0],index[1],index[2],:].reshape(tp,1)
         gls_model = sm.GLS(Y,X)
         gls_results = gls_model.fit()
-        new_data[index[0],index[1],index[2],:] = gls_results.resid
+        #new_data[index[0],index[1],index[2],:] = gls_results.resid
+        new_data[index[0],index[1],index[2],:] = gls_results.resid + gls_results.params[0]
 
     img = nib.Nifti1Image(new_data, dataimg.get_affine(), dataimg.get_header())
     nib.save(img, op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_nuisance.nii.gz'))
