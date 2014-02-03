@@ -39,7 +39,6 @@ def create_folders():
         gconf.get_subj_dir(),
         gconf.get_raw_diffusion(),
         gconf.get_rawt1(),
-
         gconf.get_nifti(),
         gconf.get_fs(),
         gconf.get_cmp_tracto_mask(),
@@ -51,6 +50,9 @@ def create_folders():
         gconf.get_raw_diffusion(),
         gconf.get_cmp_scalars(),
         gconf.get_cmp_fmri(),
+        gconf.get_cmp_fmri_preproc(),
+        gconf.get_cmp_fmri_matrices(),
+        gconf.get_cmp_fmri_timeseries(),
         gconf.get_cmp_matrices(),
         gconf.get_nifti_trafo(),
         gconf.get_diffusion_metadata(),

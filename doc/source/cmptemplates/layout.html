@@ -7,7 +7,19 @@
 {% block sidebarlogo %}
 {{ super() }}
 <i>Latest Release:</i><br />
-Version: {{ release }}
+Version: {{ release }}<br /><br />
+
+<h4><b>Upcoming relase <br />&nbsp;&nbsp;(<i>beta-testing</i>)</b></h4>
+<div style="width:208px;height:180px;border:1px solid black;bgcolor=#CEE3F6">
+<p class="topless">
+<ul><font color="#045FB4">
+<li>&nbsp;&bull;Probabilistic tractography: <i>Camino</i>, <i>MRtrix</i>, <i>FSL probtrackx</i></li>
+<li>&nbsp;&bull;Global tractography: <i>Gibbs-tracker</i></li>
+<li>&nbsp;&bull;Additional atlases</li>
+<li>&nbsp;&bull;Additional reconstuction schemes</li>
+<li>&nbsp;&bull;Functional connectomes</li>
+</font></ul></p></div>
+
 {% endblock %}
 
 {%- block extrahead %}

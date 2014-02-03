@@ -1,0 +1,10 @@
+tkmedit started: Thu Sep  6 10:14:05 2012
+
+	tkmedit.bin test_pauli aseg.mgz 
+
+$Id: tkmedit.c,v 1.341.2.1 2010/08/04 20:47:28 greve Exp $ $Name: stable5 $
+Set user home dir to /home/agriffa/dev/cmp/cmp
+Set subject home dir to /usr/local/bin/freesurfer/subjects/test_pauli
+Using interface file /usr/local/bin/freesurfer/lib/tcl/tkmedit.tcl
+Tcl: Successfully parsed tkmedit.tcl
+Tcl: Successfully parsed tkm_functional.tcl

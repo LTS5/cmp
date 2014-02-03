@@ -1,0 +1,10 @@
+tkmedit started: Tue Oct  2 17:50:13 2012
+
+	tkmedit.bin FREESURFER norm.mgz -segmentation aseg.mgz /usr/local/bin/freesurfer/FreeSurferColorLUT.txt 
+
+$Id: tkmedit.c,v 1.341.2.1 2010/08/04 20:47:28 greve Exp $ $Name: stable5 $
+Set user home dir to /home/agriffa/dev/cmp/scripts
+Set subject home dir to /home/agriffa/DATA_NAC_pipeline/PROCESSED_DATA_no_groups_1_2/PH0036_L320_NACctrl_Liechti_Gabriel/scan1_04022010/FREESURFER
+Using interface file /usr/local/bin/freesurfer/lib/tcl/tkmedit.tcl
+Tcl: Successfully parsed tkmedit.tcl
+Tcl: Successfully parsed tkm_functional.tcl

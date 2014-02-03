@@ -209,7 +209,7 @@ def compute_hardi_odf():
                              param )
     runCmd (odf_cmd, log )
 
-    compute_scalars(gconf.get_cmp_rawdiff_reconout(), 'hardi')
+    #compute_scalars(gconf.get_cmp_rawdiff_reconout(), 'hardi')
 
 def compute_odfs():    
 

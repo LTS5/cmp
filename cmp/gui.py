@@ -9,16 +9,22 @@
 import os.path
 import traceback
 #import threading
+try:
+	from traits.api import HasTraits, Int, Str, Directory, List,\
+	                 Bool, File, Button, Enum, Instance
+	from traitsui.api import View, Item, HGroup, Handler, \
+	                    message, spring, Group, VGroup, TableEditor, UIInfo
+	from traitsui.table_column \
+	    import ObjectColumn
+except ImportError:
+	from enthought.traits.api import HasTraits, Int, Str, Directory, List,\
+	                 Bool, File, Button, Enum, Instance
+	from enthought.traits.ui.api import View, Item, HGroup, Handler, \
+	                    message, spring, Group, VGroup, TableEditor, UIInfo	    
+	from enthought.traits.ui.table_column \
+	    import ObjectColumn
 
-from traits.api import HasTraits, Int, Str, Directory, List,\
-                 Bool, File, Button, Enum, Instance
-    
-from traits.ui.api import View, Item, HGroup, Handler, \
-                    message, spring, Group, VGroup, TableEditor, UIInfo
 
-    
-from traits.ui.table_column \
-    import ObjectColumn
 
 import cmp    
 from cmp.configuration import PipelineConfiguration
@@ -90,6 +96,7 @@ class CMPGUI( PipelineConfiguration ):
     help = Button
 
     inspect_dicomconverter = Button
+#    inspect_epiunwarp = Button
     inspect_registration = Button
     inspect_segmentation = Button
     inspect_whitemattermask = Button
@@ -111,17 +118,20 @@ class CMPGUI( PipelineConfiguration ):
                         VGroup(
                         Item('active_createfolder', label = 'Create Folder'),
                         Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
+                        Item('active_epiunwarp', label = 'EPI Unwarping', tooltip = "corrects EPI volumes for spatial distortions"),
                         Item('active_segmentation', label = 'Segmentation'),
                         Item('active_registration', label = 'Registration'),
                         Item('active_parcellation', label = 'Parcellation'),
-                        Item('active_applyregistration', label = 'Apply registration'),
+                        Item('active_applyregistration', label = 'Apply Registration'),
     		            Item('active_reconstruction', label = 'Reconstruction'),
                         Item('active_tractography', label = 'Tractography', tooltip = 'performs tractography'),
                         Item('active_fiberfilter', label = 'Fiber Filtering', tooltip = 'applies filtering operation to the fibers'),
                         Item('active_connectome', label = 'Connectome Creation', tooltip= 'creates the connectivity matrices'),
                         # Item('active_statistics', label = 'Statistics'),
-                        Item('active_rsfmri', label = 'Resting-state fMRI', tooltip= 'creates resting state connectivity matrices'),
                         Item('active_cffconverter', label = 'CFF Converter', tooltip='converts processed files to a connectome file'),
+                        Item('active_rsfmri_registration', label = 'rs-fMRI Registration', tooltip= 'register T1 volume to average fMRI volume'),
+                        Item('active_rsfmri_preprocessing', label = 'rs-fMRI Preprocesing', tooltip= 'preprocess fMRI volumes'),
+                        Item('active_rsfmri_connectionmatrix', label = 'rs-fMRI Connectome Creation', tooltip= 'creates functional connectivity matrices'),
                         Item('skip_completed_stages', label = 'Skip Previously Completed Stages:'),
                         label="Stages"     
                         ),
@@ -191,6 +201,20 @@ class CMPGUI( PipelineConfiguration ):
         visible_when = "active_dicomconverter",             
         label = "DICOM Converter"                        
         )
+
+    epiunwarp_group = Group(
+        VGroup(
+            Item('tediff_param', label="TE difference (asym time, ms)", tooltip="Difference in echo times of the B0 field map in ms." ),
+            Item('esp_param', label="EPI echo spacing (dwell time, ms)", tooltip="Time (ms) between the start of the readout of two successive lines in k-space during EPI acquisition (eq. time between rows)" ),
+	    Item('sigma_param', label="Voxel Shift Map Smoothing (stddev, mm)", tooltip="Standard deviation in mm for the 2D smoothing applied to the voxel shift map (vsm)" ),
+            Item('rev_enc_dir_param', label="Reverse Phase Encode Direction"),
+            Item('reg_epi_param', label="Register fieldmap magnitude to EPI volume"),
+            show_border = True
+        ),
+        visible_when = "active_epiunwarp",
+        label = "EPI distortion correction",
+        )
+
 
     registration_group = Group(
         VGroup(
@@ -324,8 +348,8 @@ class CMPGUI( PipelineConfiguration ):
 
     connectioncreation_group = Group(
         VGroup(
-               Item('compute_curvature', label="Compute curvature"),
-               Item('parcellation_scheme', label="Used Parcellation Scheme"),
+                Item('compute_curvature', label="Compute curvature"),
+                Item('parcellation_scheme', label="Used Parcellation Scheme"),
                 VGroup(
                        Item('connection_P0', label="P0"),
                        Item('connection_gfa', label="GFA"),
@@ -349,11 +373,11 @@ class CMPGUI( PipelineConfiguration ):
         label = "Connectome Creation",
         )
 
-    rsfmri_group = Group(
+    rsfmri_registration_group = Group(
         VGroup(
                Item('parcellation_scheme', label="Used Parcellation Scheme"),
                show_border = True,
-               enabled_when = "active_rsfmri"
+               enabled_when = "active_rsfmri_registration"
             ),
         VGroup(
                Item('rsfmri_registration_mode', label="T1-to-fMRI Registration"),
@@ -368,15 +392,84 @@ class CMPGUI( PipelineConfiguration ):
                       label = "BBregister linear Registration"
                       ),
                show_border = True,
-               enabled_when = "active_rsfmri"
-            ),
+               enabled_when = "active_rsfmri_registration"
+               ),
         VGroup(
-            Item('do_save_mat', label="Save .mat format?"),
-            show_border = True
-        ),
-        visible_when = "active_rsfmri",
-        label = "rsfMRI",
+               Item('rsfmri_slice_timing', label="Slice timing interpolation:"),
+               show_border = True
+               ),
+        visible_when = "active_rsfmri_registration",
+        label = "rsfMRI-Registration"
         )
+
+    rsfmri_preprocessing_group = Group(
+               VGroup(
+                      Item('parcellation_scheme', label="Used Parcellation Scheme"),
+                      show_border = True,
+                      enabled_when = "active_rsfmri_preprocessing"
+                     ),
+               VGroup(
+                      Item('rsfmri_smoothing', label="Spatial smoothing, sigma (mm):"),
+                      label = 'Smoothing',
+                      show_border = True
+                      ),
+               VGroup(
+                      Item('rsfmri_discard', label="Discard the first n time points, n:"),
+                      label = 'Discard first n time points',
+                      show_border = True
+                      ),
+               VGroup(
+                      Item('rsfmri_nuisance_global', label="Whole brain average signal"),					
+                      Item('rsfmri_nuisance_WM', label="WM average signal"),
+                      Item('rsfmri_nuisance_CSF', label="CSF average signal"),
+                      Item('rsfmri_nuisance_motion', label="Estimated motion (3rot.+3disp.)"),
+                      label = 'Nuisance signals regression',
+                      show_border = True
+                     ),
+               VGroup(
+                      Item('rsfmri_detrending', label="Linear detrending"),
+                      label = 'Linear detrending',
+                      show_border = True
+                     ),
+               VGroup(
+                      Item('rsfmri_lowpass', label="Temporal lowpass filtering, sigma (volumes):"),
+                      label = 'Lowpass filtering',
+                      show_border = True
+                      ),
+               VGroup(
+                      Item('rsfmri_scrubbing_parameters', label="Compute scrubbing parameters"),
+                      label = 'Scrubbing',
+                      show_border = True
+                      ),
+               visible_when = "active_rsfmri_preprocessing",
+               label = "rsfMRI-Preprocessing"
+               )
+
+    rsfmri_connectionmatrix_group = Group(
+               VGroup(
+                      Item('parcellation_scheme', label="Used Parcellation Scheme"),
+                      show_border = True,
+                      enabled_when = "active_rsfmri_connectionmatrix"
+                     ),
+               VGroup(
+                      Item('rsfmri_scrubbing_apply', label="Apply scrubbing"),
+                      VGroup(
+                          Item('rsfmri_scrubbing_FD', label="FD threshold:"),
+                          Item('rsfmri_scrubbing_DVARS', label="DVARS threshold:"),
+                          enabled_when = "rsfmri_scrubbing_apply",
+                          show_border = False
+                          ),
+                      label = 'Scrubbing',
+                      show_border = True
+                      ),
+               VGroup(
+                      Item('do_save_mat', label="Save .mat format?"),
+                      label = 'Output format',
+                      show_border = True
+                      ),
+               visible_when = "active_rsfmri_connectionmatrix",
+               label = "rsfMRI-Connectome"
+               )
 
     cffconverter_group = Group(
         VGroup(
@@ -420,6 +513,7 @@ class CMPGUI( PipelineConfiguration ):
               metadata_group,
               subject_group,
               dicomconverter_group,
+              epiunwarp_group,
               registration_group,
               segementation_group,
               parcellation_group,
@@ -428,7 +522,9 @@ class CMPGUI( PipelineConfiguration ):
               tractography_group,
               fiberfilter_group,
               connectioncreation_group,
-              rsfmri_group,
+              rsfmri_registration_group,
+              rsfmri_preprocessing_group,
+              rsfmri_connectionmatrix_group,
               cffconverter_group,
               configuration_group,
               orientation= 'horizontal',
@@ -445,8 +541,9 @@ class CMPGUI( PipelineConfiguration ):
                 Item( 'run', label = 'Map Connectome!', show_label = False),
             ),
         ),
+        scrollable = True,
         resizable = True,
-        width=0.3,
+        width = 0.3,
         handler = CMPGUIHandler,
         title     = 'Connectome Mapper',
     )
@@ -462,7 +559,10 @@ class CMPGUI( PipelineConfiguration ):
     def load_state(self, cmpconfigfile):
         """ Load CMP Configuration state directly.
         Useful if you do not want to invoke the GUI"""
-        import enthought.sweet_pickle as sp        
+        try:    
+            import enthought.sweet_pickle as sp
+        except ImportError:
+            import apptools.sweet_pickle as sp
         output = open(cmpconfigfile, 'rb')
         data = sp.load(output)
         self.__setstate__(data.__getstate__())
@@ -487,8 +587,11 @@ class CMPGUI( PipelineConfiguration ):
         # check if path available
         if not os.path.exists(os.path.dirname(cmpconfigfile)):
             os.makedirs(os.path.abspath(os.path.dirname(cmpconfigfile)))
-            
-        import enthought.sweet_pickle as sp
+        try:    
+	        import enthought.sweet_pickle as sp
+	except ImportError:
+		import apptools.sweet_pickle as sp
+
         output = open(cmpconfigfile, 'wb')
         # Pickle the list using the highest protocol available.
         # copy object first
@@ -594,8 +697,14 @@ class CMPGUI( PipelineConfiguration ):
         #cmpthread.start()
 
     def _load_fired(self):
-        import enthought.sweet_pickle as sp
-        from enthought.pyface.api import FileDialog, OK
+        try:    
+	        import enthought.sweet_pickle as sp
+        	from enthought.pyface.api import FileDialog, OK
+	except ImportError:
+		import apptools.sweet_pickle as sp
+        	from pyface.api import FileDialog, OK
+
+
         
         wildcard = "CMP Configuration State (*.pkl)|*.pkl|" \
                         "All files (*.*)|*.*"
@@ -611,9 +720,15 @@ class CMPGUI( PipelineConfiguration ):
 
     def _save_fired(self):
         import pickle
-        import enthought.sweet_pickle as sp
         import os.path
-        from enthought.pyface.api import FileDialog, OK
+        try:    
+	        import enthought.sweet_pickle as sp
+	        from enthought.pyface.api import FileDialog, OK
+	except ImportError:
+		import apptools.sweet_pickle as sp
+	        from pyface.api import FileDialog, OK
+
+
         
         wildcard = "CMP Configuration State (*.pkl)|*.pkl|" \
                         "All files (*.*)|*.*"
