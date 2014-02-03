@@ -17,7 +17,7 @@ def setup_pipeline_status(cobj):
     # that the stages in the pipeline are laid out before
     # processing begins
     stages = [ (cmp.dicomconverter, cobj.active_dicomconverter),
-	       (cmp.epiunwarp, cobj.active_epiunwarp),
+               #(cmp.epiunwarp, cobj.active_epiunwarp),
                (cmp.freesurfer, cobj.active_segmentation),
                (cmp.registration, cobj.active_registration),
                (cmp.maskcreation, cobj.active_parcellation),
@@ -29,7 +29,7 @@ def setup_pipeline_status(cobj):
                (cmp.fmriregistration, cobj.active_rsfmri_registration),
                (cmp.fmripreprocessing, cobj.active_rsfmri_preprocessing),
                (cmp.fmriconnectionmatrix, cobj.active_rsfmri_connectionmatrix),
-              # (cmp.fiberstatistics, cobj.active_statistics),               
+               #(cmp.fiberstatistics, cobj.active_statistics),               
                (cmp.cffconverter, cobj.active_cffconverter) ]
     
     for stage,stageEnabled in stages:
