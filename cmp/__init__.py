@@ -13,7 +13,7 @@ import stages.preprocessing.organize as preprocessing
 import stages.converter.dicomconverter as dicomconverter
 
 # EPI UNWARP
-#import stages.epiunwarp.epiunwarp as epiunwarp
+import stages.epiunwarp.epiunwarp as epiunwarp
 # REGISTRATION
 import stages.registration.registration as registration
 

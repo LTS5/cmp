@@ -118,7 +118,7 @@ class CMPGUI( PipelineConfiguration ):
                         VGroup(
                         Item('active_createfolder', label = 'Create Folder'),
                         Item('active_dicomconverter', label = 'DICOM Converter', tooltip = "converts DICOM to the Nifti format"),
-                        Item('active_epiunwarp', label = 'EPI Unwarping', tooltip = "corrects EPI volumes for spatial distortions"),
+                        # Item('active_epiunwarp', label = 'EPI Unwarping', tooltip = "corrects EPI volumes for spatial distortions"),
                         Item('active_segmentation', label = 'Segmentation'),
                         Item('active_registration', label = 'Registration'),
                         Item('active_parcellation', label = 'Parcellation'),
@@ -202,18 +202,18 @@ class CMPGUI( PipelineConfiguration ):
         label = "DICOM Converter"                        
         )
 
-    epiunwarp_group = Group(
-        VGroup(
-            Item('tediff_param', label="TE difference (asym time, ms)", tooltip="Difference in echo times of the B0 field map in ms." ),
-            Item('esp_param', label="EPI echo spacing (dwell time, ms)", tooltip="Time (ms) between the start of the readout of two successive lines in k-space during EPI acquisition (eq. time between rows)" ),
-	    Item('sigma_param', label="Voxel Shift Map Smoothing (stddev, mm)", tooltip="Standard deviation in mm for the 2D smoothing applied to the voxel shift map (vsm)" ),
-            Item('rev_enc_dir_param', label="Reverse Phase Encode Direction"),
-            Item('reg_epi_param', label="Register fieldmap magnitude to EPI volume"),
-            show_border = True
-        ),
-        visible_when = "active_epiunwarp",
-        label = "EPI distortion correction",
-        )
+#    epiunwarp_group = Group(
+#        VGroup(
+#            Item('tediff_param', label="TE difference (asym time, ms)", tooltip="Difference in echo times of the B0 field map in ms." ),
+#            Item('esp_param', label="EPI echo spacing (dwell time, ms)", tooltip="Time (ms) between the start of the readout of two successive lines in k-space during EPI acquisition (eq. time between rows)" ),
+#	    Item('sigma_param', label="Voxel Shift Map Smoothing (stddev, mm)", tooltip="Standard deviation in mm for the 2D smoothing applied to the voxel shift map (vsm)" ),
+#            Item('rev_enc_dir_param', label="Reverse Phase Encode Direction"),
+#            Item('reg_epi_param', label="Register fieldmap magnitude to EPI volume"),
+#            show_border = True
+#        ),
+#        visible_when = "active_epiunwarp",
+#        label = "EPI distortion correction",
+#        )
 
 
     registration_group = Group(
@@ -513,7 +513,7 @@ class CMPGUI( PipelineConfiguration ):
               metadata_group,
               subject_group,
               dicomconverter_group,
-              epiunwarp_group,
+              #epiunwarp_group,
               registration_group,
               segementation_group,
               parcellation_group,

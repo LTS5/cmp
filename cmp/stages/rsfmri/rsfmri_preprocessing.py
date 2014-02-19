@@ -180,7 +180,7 @@ def nuisance_regression():
         gls_model = sm.GLS(Y,X)
         gls_results = gls_model.fit()
         #new_data[index[0],index[1],index[2],:] = gls_results.resid
-        new_data[index[0],index[1],index[2],:] = gls_results.resid + gls_results.params[0]
+        new_data[index[0],index[1],index[2],:] = gls_results.resid #+ gls_results.params[8]
 
     img = nib.Nifti1Image(new_data, dataimg.get_affine(), dataimg.get_header())
     nib.save(img, op.join(gconf.get_cmp_fmri_preproc(), 'fMRI_nuisance.nii.gz'))

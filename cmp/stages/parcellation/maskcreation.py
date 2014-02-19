@@ -20,7 +20,7 @@ from cmp.util import mymove
 
 def create_annot_label():
 
-    log.info("Create CIAO the cortical labels necessary for our ROIs")
+    log.info("Create the cortical labels necessary for our ROIs")
     log.info("=================================================")
 
     subjects_dir = gconf.get_subj_dir()
