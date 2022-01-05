@@ -2,6 +2,8 @@
 Connectome Mapper
 =================
 
+**DEPRECATED:** *Development of the latest third version of Connectome Mapper have been migrated to https://github.com/connectomicslab/connectomemapper3.*
+
 Connectome Mapper implements a full diffusion MRI processing pipeline,
 from raw Diffusion/T1/T2 data to multi-resolution connection matrices.
 Moreover, the Connectome Mapper implements a full resting-state fMRI
